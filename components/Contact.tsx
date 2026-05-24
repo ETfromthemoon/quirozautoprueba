@@ -35,15 +35,15 @@ export default function Contact() {
         }}
       />
 
-      <div className="relative z-10 h-full overflow-y-auto md:overflow-visible flex items-center justify-center px-4 sm:px-6 py-20 md:py-0">
+      <div className="relative z-10 h-full overflow-y-auto md:overflow-visible flex items-center justify-center px-4 sm:px-6 py-10 md:py-0">
         <div className="max-w-5xl w-full">
           {/* Logo top */}
-          <div className="flex justify-center mb-8 md:mb-10">
-            <Logo variant="mark" className="w-14 h-14 md:w-16 md:h-16 opacity-90" />
+          <div className="flex justify-center mb-5 md:mb-10">
+            <Logo variant="mark" className="w-12 h-12 md:w-16 md:h-16 opacity-90" />
           </div>
 
-          <div className="text-center">
-            <p className="text-overline text-accent-500 mb-4 md:mb-6">
+          <div className="text-center overflow-hidden">
+            <p className="text-overline text-accent-500 mb-3 md:mb-6">
               <span className="inline-flex items-center gap-3">
                 <span className="h-px w-8 bg-accent-600" />
                 Visítanos
@@ -51,21 +51,21 @@ export default function Contact() {
               </span>
             </p>
             <h2 className="font-display leading-[0.92] tracking-tighter">
-              <span className="block font-medium text-ink-200 text-xs sm:text-sm tracking-[0.3em] uppercase mb-3 md:mb-4">
+              <span className="block font-medium text-ink-200 text-[11px] sm:text-sm tracking-[0.2em] uppercase mb-2 md:mb-4">
                 ¿Listo para
               </span>
-              <span className="block text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold text-silver-shimmer">
+              <span className="block text-[1.6rem] xs:text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold text-silver-shimmer break-words">
                 TU PRÓXIMO VEHÍCULO?
               </span>
             </h2>
-            <p className="mt-5 md:mt-6 text-ink-300 text-sm md:text-lg font-light max-w-xl mx-auto leading-relaxed px-4">
+            <p className="mt-3 md:mt-6 text-ink-300 text-sm md:text-lg font-light max-w-xl mx-auto leading-relaxed">
               Agenda una visita personalizada o conversa con nuestros asesores.
-              Más de 20 años de experiencia a tu disposición.
+              Más de 20 años de experiencia.
             </p>
           </div>
 
           {/* Contact grid */}
-          <div className="mt-10 md:mt-14 grid sm:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-4">
+          <div className="mt-6 md:mt-14 grid grid-cols-3 sm:grid-cols-3 gap-2 md:gap-4">
             <ContactCard
               label="WhatsApp"
               value="+56 9 5906 5441"
@@ -90,16 +90,15 @@ export default function Contact() {
           </div>
 
           {/* Primary CTAs */}
-          <div className="mt-8 md:mt-12 flex flex-col sm:flex-row flex-wrap justify-center gap-3">
+          <div className="mt-5 md:mt-12 flex flex-col sm:flex-row flex-wrap justify-center gap-2 md:gap-3">
             <a
               href={whatsappUrl}
               target="_blank"
               rel="noopener noreferrer"
               className="btn-base btn-primary"
-              style={{ padding: "1rem 1.75rem" }}
             >
               <svg
-                className="w-4 h-4"
+                className="w-4 h-4 shrink-0"
                 viewBox="0 0 24 24"
                 fill="currentColor"
                 aria-hidden="true"
@@ -108,7 +107,7 @@ export default function Contact() {
               </svg>
               <span>AGENDAR VISITA</span>
               <svg
-                className="w-4 h-4"
+                className="w-4 h-4 shrink-0"
                 viewBox="0 0 24 24"
                 fill="none"
                 stroke="currentColor"
@@ -121,10 +120,9 @@ export default function Contact() {
             <a
               href="tel:+56993431571"
               className="btn-base btn-silver"
-              style={{ padding: "1rem 1.75rem" }}
             >
               <svg
-                className="w-4 h-4"
+                className="w-4 h-4 shrink-0"
                 viewBox="0 0 24 24"
                 fill="none"
                 stroke="currentColor"
@@ -138,15 +136,15 @@ export default function Contact() {
           </div>
 
           {/* Footer info */}
-          <div className="mt-14 md:mt-20 pt-8 border-t border-white/10">
-            <div className="grid sm:grid-cols-3 gap-6 md:gap-8 text-center sm:text-left">
+          <div className="mt-8 md:mt-20 pt-6 border-t border-white/10">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-5 md:gap-8 text-center sm:text-left">
               <div>
-                <p className="text-overline text-accent-500 mb-3">Sucursales</p>
+                <p className="text-overline text-accent-500 mb-2">Sucursales</p>
                 <p className="text-sm text-white font-medium leading-relaxed">
                   Av. Bosques de Montemar #65
                 </p>
-                <p className="text-xs text-ink-400 mb-3">
-                  Edificio OFC, oficina 203
+                <p className="text-xs text-ink-400 mb-2">
+                  Edificio OFC, oficina 203, Concón
                 </p>
                 <p className="text-sm text-white font-medium leading-relaxed">
                   Hontaneda 2615
@@ -155,8 +153,8 @@ export default function Contact() {
               </div>
 
               <div>
-                <p className="text-overline text-accent-500 mb-3">Síguenos</p>
-                <div className="flex sm:flex-col gap-3 sm:gap-2 justify-center sm:justify-start">
+                <p className="text-overline text-accent-500 mb-2">Síguenos</p>
+                <div className="flex flex-col gap-2 items-center sm:items-start">
                   <SocialLink href="https://instagram.com/quirozautomotrizspa" label="Instagram">
                     @quirozautomotrizspa
                   </SocialLink>
@@ -170,8 +168,8 @@ export default function Contact() {
               </div>
 
               <div>
-                <p className="text-overline text-accent-500 mb-3">Servicios</p>
-                <ul className="space-y-1.5 text-sm text-ink-300">
+                <p className="text-overline text-accent-500 mb-2">Servicios</p>
+                <ul className="space-y-1 text-sm text-ink-300">
                   <li>Compra y venta</li>
                   <li>Consignación</li>
                   <li>Financiamiento</li>
@@ -183,7 +181,7 @@ export default function Contact() {
             </div>
 
             {/* Bottom bar */}
-            <div className="mt-10 pt-6 border-t border-white/5 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-ink-500">
+            <div className="mt-6 pt-4 border-t border-white/5 flex flex-col sm:flex-row items-center justify-between gap-2 text-xs text-ink-500">
               <p className="font-light tracking-widest">
                 QUIROZ REDCAR · DESDE 2004
               </p>
@@ -215,11 +213,12 @@ function ContactCard({
     <a
       href={href}
       {...(external && { target: "_blank", rel: "noopener noreferrer" })}
-      className={`group glass-light rounded-2xl p-4 md:p-5 cursor-pointer hover:bg-white/[0.12] transition-all ${
+      className={`group glass-light rounded-2xl p-3 md:p-5 cursor-pointer hover:bg-white/[0.12] transition-all ${
         highlight ? "ring-1 ring-accent-600/50" : ""
       }`}
     >
-      <div className="flex items-center gap-3">
+      {/* Mobile: centered icon + label */}
+      <div className="flex flex-col items-center gap-1.5 sm:hidden">
         <div
           className={`w-9 h-9 rounded-full flex items-center justify-center shrink-0 ${
             highlight
@@ -227,22 +226,21 @@ function ContactCard({
               : "bg-white/10 text-ink-200"
           }`}
         >
-          {icon === "whatsapp" && (
-            <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor" aria-hidden>
-              <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347" />
-            </svg>
-          )}
-          {icon === "phone" && (
-            <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden>
-              <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z" />
-            </svg>
-          )}
-          {icon === "map" && (
-            <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden>
-              <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z" />
-              <circle cx="12" cy="10" r="3" />
-            </svg>
-          )}
+          <ContactIcon icon={icon} />
+        </div>
+        <p className="text-overline text-ink-400 text-center leading-tight">{label}</p>
+      </div>
+
+      {/* Tablet+: icon + label + value horizontal */}
+      <div className="hidden sm:flex items-center gap-3">
+        <div
+          className={`w-9 h-9 rounded-full flex items-center justify-center shrink-0 ${
+            highlight
+              ? "bg-accent-600/20 text-accent-500"
+              : "bg-white/10 text-ink-200"
+          }`}
+        >
+          <ContactIcon icon={icon} />
         </div>
         <div className="text-left min-w-0">
           <p className="text-overline text-ink-400 mb-1">{label}</p>
@@ -257,6 +255,26 @@ function ContactCard({
       </div>
     </a>
   );
+}
+
+function ContactIcon({ icon }: { icon?: "whatsapp" | "phone" | "map" }) {
+  if (icon === "whatsapp") return (
+    <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor" aria-hidden>
+      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347" />
+    </svg>
+  );
+  if (icon === "phone") return (
+    <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden>
+      <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z" />
+    </svg>
+  );
+  if (icon === "map") return (
+    <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden>
+      <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z" />
+      <circle cx="12" cy="10" r="3" />
+    </svg>
+  );
+  return null;
 }
 
 function SocialLink({

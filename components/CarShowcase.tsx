@@ -241,21 +241,24 @@ export default function CarShowcase({ car, index, total }: Props) {
           pointerEvents: isVisible && !isExpanded ? "auto" : "none",
         }}
       >
-        <button
-          type="button"
-          onClick={() => setIsExpanded(true)}
-          className="glass-panel rounded-full w-full flex items-center justify-between pl-5 pr-1.5 py-1.5 group cursor-pointer"
-          aria-label={`Ver detalles del ${car.brand} ${car.model}`}
-        >
-          <div className="flex-1 min-w-0 text-left pr-3">
+        <div className="glass-panel rounded-full w-full flex items-center pl-5 pr-1.5 py-1.5 gap-2">
+          {/* Left: text info — click to expand modal */}
+          <button
+            type="button"
+            onClick={() => setIsExpanded(true)}
+            className="flex-1 min-w-0 text-left cursor-pointer"
+            aria-label={`Ver detalles del ${car.brand} ${car.model}`}
+          >
             <p className="text-[10px] font-medium text-ink-300 tracking-[0.2em] uppercase leading-none">
               {car.brand}
             </p>
             <p className="font-display text-base font-bold text-white tracking-tight truncate leading-tight mt-0.5">
               {car.model}
             </p>
-          </div>
-          <div className="text-right pr-2">
+          </button>
+
+          {/* Price */}
+          <div className="text-right shrink-0">
             <p className="text-[9px] font-medium text-accent-500 tracking-[0.2em] uppercase leading-none">
               Precio
             </p>
@@ -263,9 +266,22 @@ export default function CarShowcase({ car, index, total }: Props) {
               {priceShort}
             </p>
           </div>
-          <span
-            className="shrink-0 w-11 h-11 rounded-full flex items-center justify-center bg-gradient-to-br from-accent-500 to-accent-700 shadow-lg shadow-accent-900/50 group-hover:scale-105 transition-transform"
-            aria-hidden="true"
+
+          {/* Ver ficha */}
+          <Link
+            href={`/vehiculo/${car.id}`}
+            className="shrink-0 w-9 h-9 rounded-full flex items-center justify-center bg-white/10 hover:bg-white/20 active:scale-95 transition-all"
+            aria-label={`Abrir ficha de ${car.brand} ${car.model}`}
+          >
+            <EyeIcon />
+          </Link>
+
+          {/* Expand modal */}
+          <button
+            type="button"
+            onClick={() => setIsExpanded(true)}
+            className="shrink-0 w-11 h-11 rounded-full flex items-center justify-center bg-gradient-to-br from-accent-500 to-accent-700 shadow-lg shadow-accent-900/50 hover:scale-105 active:scale-95 transition-transform"
+            aria-label="Expandir detalles"
           >
             <svg
               className="w-5 h-5 text-white"
@@ -276,8 +292,8 @@ export default function CarShowcase({ car, index, total }: Props) {
             >
               <path d="M5 15l7-7 7 7" />
             </svg>
-          </span>
-        </button>
+          </button>
+        </div>
       </div>
 
       {/* ═══════════════════════════════════════════════════ */}
