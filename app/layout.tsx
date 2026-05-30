@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Syne, Inter } from "next/font/google";
 import "./globals.css";
 
@@ -31,7 +31,6 @@ export const metadata: Metadata = {
     description: "Una experiencia automotriz curada. Valparaíso, Chile.",
     url: siteUrl,
     siteName: "Quiroz Redcar",
-    images: [{ url: "/brand/og-image.png", width: 1200, height: 630 }],
     locale: "es_CL",
     type: "website",
   },
@@ -39,12 +38,53 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Quiroz Redcar — Colección Premium",
     description: "Catálogo de vehículos premium en Chile.",
-    images: ["/brand/og-image.png"],
   },
   robots: {
     index: true,
     follow: true,
   },
+  alternates: {
+    canonical: "/",
+  },
+};
+
+export const viewport: Viewport = {
+  themeColor: "#09090b",
+  colorScheme: "dark",
+};
+
+// ── Datos estructurados: concesionaria local (SEO + AI) ──
+const dealerJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "AutoDealer",
+  name: "Quiroz Redcar — Quiroz Automotriz Spa",
+  description:
+    "Catálogo de vehículos premium en Valparaíso, Chile. Más de 20 años seleccionando automóviles excepcionales.",
+  url: siteUrl,
+  telephone: "+56993431571",
+  priceRange: "$$$",
+  areaServed: "CL",
+  address: [
+    {
+      "@type": "PostalAddress",
+      streetAddress: "Av. Bosques de Montemar #65, oficina 203",
+      addressLocality: "Concón",
+      addressRegion: "Valparaíso",
+      addressCountry: "CL",
+    },
+    {
+      "@type": "PostalAddress",
+      streetAddress: "Hontaneda 2615",
+      addressLocality: "Valparaíso",
+      addressRegion: "Valparaíso",
+      addressCountry: "CL",
+    },
+  ],
+  sameAs: [
+    "https://instagram.com/quirozautomotrizspa",
+    "https://tiktok.com/@quiroz.automotriz",
+    "https://youtube.com/channel/UC11dE4tkZPT358WO5RLHtcg",
+  ],
 };
 
 export default function RootLayout({
@@ -56,6 +96,12 @@ export default function RootLayout({
       className={`${syne.variable} ${inter.variable}`}
     >
       <body className="bg-ink-950 text-ink-50 antialiased">
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(dealerJsonLd).replace(/</g, "\\u003c"),
+          }}
+        />
         {children}
       </body>
     </html>

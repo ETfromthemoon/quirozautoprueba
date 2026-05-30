@@ -34,6 +34,8 @@ export async function generateMetadata({
   };
 }
 
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://quirozautomotriz.cl";
+
 export default async function VehicleDetailPage({
   params,
 }: {
@@ -42,5 +44,49 @@ export default async function VehicleDetailPage({
   const { id } = await params;
   const car = getCarById(id);
   if (!car) notFound();
-  return <VehicleDetail car={car} />;
+
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Car",
+    name: `${car.brand} ${car.model} ${car.variant ?? ""} ${car.year}`.trim(),
+    brand: { "@type": "Brand", name: car.brand },
+    model: car.model,
+    vehicleModelDate: String(car.year),
+    productionDate: String(car.year),
+    description: car.description,
+    image: car.image,
+    bodyType: car.bodyType,
+    fuelType: car.fuel,
+    vehicleTransmission: car.transmission,
+    mileageFromOdometer: {
+      "@type": "QuantitativeValue",
+      value: Number(car.km.replace(/[^\d]/g, "")) || undefined,
+      unitCode: "KMT",
+    },
+    ...(car.documentation?.color && { color: car.documentation.color }),
+    ...(car.documentation?.doors && {
+      numberOfDoors: car.documentation.doors,
+    }),
+    offers: {
+      "@type": "Offer",
+      priceCurrency: "CLP",
+      price: car.priceNumeric,
+      availability: "https://schema.org/InStock",
+      itemCondition: "https://schema.org/UsedCondition",
+      url: `${siteUrl}/vehiculo/${car.id}`,
+      seller: { "@type": "AutoDealer", name: "Quiroz Redcar" },
+    },
+  };
+
+  return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c"),
+        }}
+      />
+      <VehicleDetail car={car} />
+    </>
+  );
 }

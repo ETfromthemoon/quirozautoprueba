@@ -16,26 +16,29 @@ export default function Navbar({ totalCars }: Props) {
     const container = document.getElementById("showcase-root");
     if (!container) return;
 
-    const handleScroll = () => {
-      const sections = container.querySelectorAll<HTMLElement>(".showcase-section");
-      const viewportMid = window.innerHeight / 2;
-      let current = -1;
+    const sections = Array.from(
+      container.querySelectorAll<HTMLElement>(".showcase-section")
+    );
+    if (sections.length === 0) return;
 
-      sections.forEach((section, i) => {
-        const rect = section.getBoundingClientRect();
-        if (rect.top <= viewportMid && rect.bottom > viewportMid) {
-          current = i - 1;
-        }
-      });
+    // IntersectionObserver evita leer el layout en cada evento de scroll.
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.intersectionRatio >= 0.5) {
+            const sectionIndex = sections.indexOf(entry.target as HTMLElement);
+            // El índice 0 es el Hero; los autos arrancan en 0 tras restar 1.
+            const current = sectionIndex - 1;
+            setActiveIndex(current);
+            setScrolled(current >= 0);
+          }
+        });
+      },
+      { root: container, threshold: [0.5] }
+    );
 
-      setActiveIndex(current);
-      setScrolled(current >= 0);
-    };
-
-    container.addEventListener("scroll", handleScroll, { passive: true });
-    handleScroll();
-
-    return () => container.removeEventListener("scroll", handleScroll);
+    sections.forEach((section) => observer.observe(section));
+    return () => observer.disconnect();
   }, []);
 
   return (

@@ -8,7 +8,7 @@ export default function Hero() {
       <div className="absolute inset-0">
         <div className="absolute inset-0 animate-ken-burns">
           <Image
-            src="https://images.unsplash.com/photo-1774979300787-bd3563a085b8?w=2400&q=90"
+            src="https://images.unsplash.com/photo-1774979300787-bd3563a085b8?w=1920&q=80"
             alt="Quiroz Redcar - Colección Premium"
             fill
             priority

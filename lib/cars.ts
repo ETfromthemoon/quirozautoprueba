@@ -57,7 +57,7 @@ export const cars: Car[] = [
     drivetrain: "RWD",
     power: "184 HP",
     bodyType: "Coupé",
-    image: "https://images.unsplash.com/photo-1570356528233-b442cf2de345?w=2400&q=90",
+    image: "https://images.unsplash.com/photo-1570356528233-b442cf2de345?w=1920&q=80",
     videoUrl: "https://www.youtube.com/embed/N7vlsZbQ-jU",
     tagline: "Elegancia en movimiento",
     badge: "Destacado",
@@ -105,7 +105,7 @@ export const cars: Car[] = [
     drivetrain: "AWD",
     power: "190 HP",
     bodyType: "SUV Coupé",
-    image: "https://images.unsplash.com/photo-1739519308619-69fe64960696?w=2400&q=90",
+    image: "https://images.unsplash.com/photo-1739519308619-69fe64960696?w=1920&q=80",
     videoUrl: "https://www.youtube.com/embed/lJDcOmIvE_M",
     tagline: "Presencia atlética",
     description:
@@ -151,7 +151,7 @@ export const cars: Car[] = [
     drivetrain: "AWD",
     power: "335 HP",
     bodyType: "SUV Performance",
-    image: "https://images.unsplash.com/photo-1672690536198-cf2ec44b73b6?w=2400&q=90",
+    image: "https://images.unsplash.com/photo-1672690536198-cf2ec44b73b6?w=1920&q=80",
     videoUrl: "https://www.youtube.com/embed/_eOdpIRsHzs",
     tagline: "Adrenalina americana",
     badge: "Edición Especial",
@@ -198,7 +198,7 @@ export const cars: Car[] = [
     drivetrain: "4WD",
     power: "200 HP",
     bodyType: "Pickup",
-    image: "https://images.unsplash.com/photo-1726762764087-b9e9b28008c3?w=2400&q=90",
+    image: "https://images.unsplash.com/photo-1726762764087-b9e9b28008c3?w=1920&q=80",
     tagline: "Sin límites",
     description:
       "La pickup premium que combina trabajo y lujo. Acabados High Country, tecnología completa y capacidad 4WD.",
@@ -243,7 +243,7 @@ export const cars: Car[] = [
     drivetrain: "FWD",
     power: "186 HP",
     bodyType: "SUV Premium",
-    image: "https://images.unsplash.com/photo-1765446826359-4d563ec8d10a?w=2400&q=90",
+    image: "https://images.unsplash.com/photo-1765446826359-4d563ec8d10a?w=1920&q=80",
     tagline: "Nueva era SUV",
     badge: "Nuevo",
     description:
@@ -289,7 +289,7 @@ export const cars: Car[] = [
     drivetrain: "FWD",
     power: "136 HP",
     bodyType: "SUV",
-    image: "https://images.unsplash.com/photo-1773096222232-d88bed5c1c1c?w=2400&q=90",
+    image: "https://images.unsplash.com/photo-1773096222232-d88bed5c1c1c?w=1920&q=80",
     tagline: "Equilibrio coreano",
     description:
       "Diseño contemporáneo y refinamiento europeo. Eficiencia diésel y tecnología de seguridad activa de serie.",
@@ -334,7 +334,7 @@ export const cars: Car[] = [
     drivetrain: "4x2",
     power: "166 HP",
     bodyType: "Pickup",
-    image: "https://images.unsplash.com/photo-1700943937372-12c2611b5af8?w=2400&q=90",
+    image: "https://images.unsplash.com/photo-1700943937372-12c2611b5af8?w=1920&q=80",
     tagline: "Resistencia legendaria",
     description:
       "La pickup más confiable de su clase. Robustez probada, capacidad de carga superior y eficiencia probada.",
@@ -379,7 +379,7 @@ export const cars: Car[] = [
     drivetrain: "FWD",
     power: "130 HP",
     bodyType: "SUV Crossover",
-    image: "https://images.unsplash.com/photo-1566421740474-8456c6840c71?w=2400&q=90",
+    image: "https://images.unsplash.com/photo-1566421740474-8456c6840c71?w=1920&q=80",
     tagline: "Audacia francesa",
     description:
       "i-Cockpit revolucionario, líneas afiladas y eficiencia diésel europea. Un crossover con personalidad inconfundible.",
@@ -414,4 +414,24 @@ export const cars: Car[] = [
 
 export function getCarById(id: string): Car | undefined {
   return cars.find((c) => c.id === id);
+}
+
+/**
+ * Devuelve las imágenes de la galería de un vehículo.
+ * Si el auto ya tiene `gallery` real, se usa tal cual.
+ * Si no, se generan encuadres alternativos de la foto principal como
+ * placeholder (se reemplazan automáticamente al cargar fotos reales).
+ */
+export function getGalleryImages(car: Car): string[] {
+  if (car.gallery && car.gallery.length > 0) {
+    return car.gallery;
+  }
+  const base = car.image.split("?")[0];
+  return [
+    car.image,
+    `${base}?w=1280&h=960&fit=crop&crop=entropy&q=80`,
+    `${base}?w=1280&h=960&fit=crop&crop=edges&q=80`,
+    `${base}?w=1280&h=960&fit=crop&crop=left&q=80`,
+    `${base}?w=1280&h=960&fit=crop&crop=right&q=80`,
+  ];
 }

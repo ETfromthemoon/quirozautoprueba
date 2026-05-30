@@ -73,7 +73,8 @@ body {
 
 .showcase-section {
   scroll-snap-align: start;
-  scroll-snap-stop: always;
+  /* Sin "scroll-snap-stop: always": permite recorrer varios autos con un
+     swipe rápido, manteniendo el encuadre fullscreen por vehículo. */
   height: 100dvh;
   width: 100%;
   position: relative;
