@@ -13,6 +13,13 @@ type Props = {
   total: number;
 };
 
+/** Corta el texto en el último espacio antes de `max` chars. */
+function truncate(text: string, max: number): string {
+  if (text.length <= max) return text;
+  const cut = text.lastIndexOf(" ", max);
+  return (cut > max * 0.5 ? text.slice(0, cut) : text.slice(0, max)).trimEnd() + "…";
+}
+
 export default function CarShowcase({ car, index, total }: Props) {
   const sectionRef = useRef<HTMLElement>(null);
   const [isVisible, setIsVisible] = useState(false);
@@ -133,7 +140,7 @@ export default function CarShowcase({ car, index, total }: Props) {
       <div className="hidden md:flex relative z-20 h-full flex-col justify-center px-10 lg:px-20">
         <div className="max-w-7xl mx-auto w-full grid grid-cols-12 gap-8 items-center">
           {/* Left: Car info */}
-          <div className="col-span-7 lg:col-span-6">
+          <div className="col-span-7 lg:col-span-6 min-w-0">
             <p
               className={`text-overline mb-4 transition-all duration-700 ${
                 isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
@@ -154,7 +161,13 @@ export default function CarShowcase({ car, index, total }: Props) {
                 <span className="block text-3xl lg:text-4xl font-medium text-ink-200 tracking-[0.2em] uppercase">
                   {car.brand}
                 </span>
-                <span className="block text-7xl lg:text-8xl font-extrabold mt-2">
+                {/* clamp() fluid sizing: garantiza que incluso "SPORTBACK" (9 chars)
+                    quepa dentro del col-span-6 en todos los viewports ≥768px.
+                    5.5vw × container_fraction ≈ 46% de la pantalla disponible. */}
+                <span
+                  className="block font-extrabold mt-2 break-words"
+                  style={{ fontSize: "clamp(2.25rem, 5.5vw, 5.5rem)" }}
+                >
                   {car.model}
                 </span>
               </h2>
@@ -170,7 +183,7 @@ export default function CarShowcase({ car, index, total }: Props) {
                 isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
               }`}
             >
-              {car.description}
+              {truncate(car.description, 200)}
             </p>
           </div>
 
@@ -222,7 +235,7 @@ export default function CarShowcase({ car, index, total }: Props) {
                   type="button"
                   onClick={() => {
                     const next = document.getElementById(
-                      index + 1 < total ? "showcase-next" : "contacto"
+                      index + 1 < total ? `showcase-next-${index}` : "contacto"
                     );
                     next?.scrollIntoView({ behavior: "smooth" });
                   }}
@@ -385,7 +398,7 @@ export default function CarShowcase({ car, index, total }: Props) {
 
           {/* Description */}
           <p className="mt-5 text-ink-300 text-sm font-light leading-relaxed">
-            {car.description}
+            {truncate(car.description, 160)}
           </p>
 
           {/* CTAs */}
@@ -411,7 +424,7 @@ export default function CarShowcase({ car, index, total }: Props) {
         </div>
       </div>
 
-      <div id="showcase-next" className="absolute bottom-0 left-0 w-0 h-0" />
+      <div id={`showcase-next-${index}`} className="absolute bottom-0 left-0 w-0 h-0" />
     </section>
   );
 }

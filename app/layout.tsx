@@ -25,10 +25,10 @@ export const metadata: Metadata = {
     template: "%s · Quiroz Redcar",
   },
   description:
-    "Catálogo de vehículos premium en Chile. Más de 20 años seleccionando automóviles excepcionales. BMW, Ford, Chevrolet, Peugeot y más.",
+    "Automotora familiar en San Miguel, Santiago. Más de 10 años seleccionando vehículos con honestidad y precios justos. BMW, Ford, Chevrolet, Peugeot y más.",
   openGraph: {
     title: "Quiroz Redcar — Colección Premium",
-    description: "Una experiencia automotriz curada. Valparaíso, Chile.",
+    description: "Automotora familiar en San Miguel, Santiago. Precios justos, trato directo.",
     url: siteUrl,
     siteName: "Quiroz Redcar",
     locale: "es_CL",
@@ -59,7 +59,7 @@ const dealerJsonLd = {
   "@type": "AutoDealer",
   name: "Quiroz Redcar — Quiroz Automotriz Spa",
   description:
-    "Catálogo de vehículos premium en Valparaíso, Chile. Más de 20 años seleccionando automóviles excepcionales.",
+    "Automotora familiar en San Miguel, Santiago. Más de 10 años seleccionando vehículos con honestidad y precios justos.",
   url: siteUrl,
   telephone: "+56993431571",
   priceRange: "$$$",

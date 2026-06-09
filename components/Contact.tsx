@@ -55,7 +55,7 @@ export default function Contact() {
               <span className="block font-medium text-ink-200 text-[11px] sm:text-sm tracking-[0.2em] uppercase mb-2 md:mb-4">
                 ¿Listo para
               </span>
-              <span className="block text-[1.6rem] xs:text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold text-silver-shimmer break-words">
+              <span className="block text-[1.6rem] xs:text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold text-white break-words">
                 TU PRÓXIMO VEHÍCULO?
               </span>
             </h2>
@@ -99,7 +99,7 @@ export default function Contact() {
               className="btn-base btn-primary"
             >
               <WhatsAppIcon className="w-4 h-4 shrink-0" />
-              <span>AGENDAR VISITA</span>
+              <span>Agendar visita</span>
               <ArrowRightIcon className="w-4 h-4 shrink-0" />
             </a>
             <a
@@ -107,7 +107,7 @@ export default function Contact() {
               className="btn-base btn-silver"
             >
               <PhoneIcon className="w-4 h-4 shrink-0" />
-              <span>LLAMAR AHORA</span>
+              <span>Llamar ahora</span>
             </a>
           </div>
 

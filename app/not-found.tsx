@@ -26,7 +26,7 @@ export default function NotFound() {
           </span>
         </p>
 
-        <h1 className="font-display text-5xl md:text-7xl font-extrabold tracking-tighter text-silver-shimmer leading-[0.95]">
+        <h1 className="font-display text-5xl md:text-7xl font-extrabold tracking-tighter text-white leading-[0.95]">
           Ruta sin salida
         </h1>
 

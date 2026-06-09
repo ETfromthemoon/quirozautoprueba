@@ -1,12 +1,16 @@
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
-import { cars, getCarById } from "@/lib/cars";
+import { fetchCarBySlug, fetchCarSlugs } from "@/lib/wordpress";
 import VehicleDetail from "@/components/VehicleDetail";
+
+// ISR: regenerar la ficha de cada vehículo hasta cada 60 s
+export const revalidate = 60;
 
 type RouteParams = { id: string };
 
-export function generateStaticParams(): RouteParams[] {
-  return cars.map((car) => ({ id: car.id }));
+export async function generateStaticParams(): Promise<RouteParams[]> {
+  const slugs = await fetchCarSlugs();
+  return slugs.map((id) => ({ id }));
 }
 
 export async function generateMetadata({
@@ -15,7 +19,7 @@ export async function generateMetadata({
   params: Promise<RouteParams>;
 }): Promise<Metadata> {
   const { id } = await params;
-  const car = getCarById(id);
+  const car = await fetchCarBySlug(id);
   if (!car) return { title: "Vehículo no encontrado · Quiroz Redcar" };
 
   const title = `${car.brand} ${car.model} ${car.year} · ${car.price} · Quiroz Redcar`;
@@ -42,7 +46,7 @@ export default async function VehicleDetailPage({
   params: Promise<RouteParams>;
 }) {
   const { id } = await params;
-  const car = getCarById(id);
+  const car = await fetchCarBySlug(id);
   if (!car) notFound();
 
   const jsonLd = {

@@ -3,9 +3,14 @@ import Hero from "@/components/Hero";
 import CarShowcase from "@/components/CarShowcase";
 import Contact from "@/components/Contact";
 import FloatingWhatsApp from "@/components/FloatingWhatsApp";
-import { cars } from "@/lib/cars";
+import { fetchCars } from "@/lib/wordpress";
 
-export default function Home() {
+// ISR: regenerar la página hasta cada 60 segundos para mostrar autos nuevos en ~1 min
+export const revalidate = 60;
+
+export default async function Home() {
+  const cars = await fetchCars();
+
   return (
     <>
       <Navbar totalCars={cars.length} />
@@ -13,7 +18,7 @@ export default function Home() {
         id="showcase-root"
         className="showcase-container"
       >
-        <Hero />
+        <Hero totalCars={cars.length} />
         {cars.map((car, i) => (
           <CarShowcase
             key={car.id}

@@ -1,7 +1,11 @@
 import Image from "next/image";
 import Logo from "./Logo";
 
-export default function Hero() {
+type Props = {
+  totalCars: number;
+};
+
+export default function Hero({ totalCars }: Props) {
   return (
     <section className="showcase-section relative bg-ink-950 overflow-hidden">
       {/* Layer 1: Background image with Ken Burns zoom */}
@@ -68,7 +72,7 @@ export default function Hero() {
             <p className="text-overline text-ink-300 mb-6 animate-fade-up delay-100">
               <span className="inline-flex items-center gap-3">
                 <span className="h-px w-8 bg-accent-600" />
-                Quiroz Redcar · Valparaíso · Chile
+                Quiroz Redcar · Concón · Valparaíso
                 <span className="h-px w-8 bg-accent-600" />
               </span>
             </p>
@@ -76,17 +80,17 @@ export default function Hero() {
               <span className="block font-medium text-ink-200 text-[0.4em] tracking-[0.3em] uppercase mb-4 md:mb-6">
                 Una colección
               </span>
-              <span className="block text-silver-shimmer">EXCEPCIONAL</span>
+              <span className="block text-white">EXCEPCIONAL</span>
             </h1>
             <p className="mt-6 md:mt-8 text-sm md:text-lg text-ink-200 max-w-xl mx-auto font-light leading-relaxed animate-fade-up delay-400 px-4">
-              Más de 20 años seleccionando vehículos premium con asesoría
+              Más de 20 años seleccionando vehículos con asesoría
               personalizada, financiamiento y despacho a todo Chile.
             </p>
 
             <div className="mt-10 md:mt-12 flex items-center justify-center gap-3 md:gap-4 animate-fade-up delay-500">
               <span className="h-px w-8 md:w-12 bg-white/30" />
               <span className="text-overline text-white">
-                8 vehículos en catálogo
+                {totalCars} vehículos en catálogo
               </span>
               <span className="h-px w-8 md:w-12 bg-white/30" />
             </div>

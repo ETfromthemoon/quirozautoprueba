@@ -426,6 +426,12 @@ export function getGalleryImages(car: Car): string[] {
   if (car.gallery && car.gallery.length > 0) {
     return car.gallery;
   }
+  // Los recortes por query string solo funcionan con imágenes de Unsplash
+  // (placeholders). Para fotos reales (WordPress u otros) devolvemos la
+  // imagen principal tal cual, sin recortes falsos.
+  if (!car.image.includes("unsplash.com")) {
+    return [car.image];
+  }
   const base = car.image.split("?")[0];
   return [
     car.image,

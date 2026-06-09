@@ -1,13 +1,14 @@
 import { ImageResponse } from "next/og";
-import { cars, getCarById } from "@/lib/cars";
+import { fetchCarBySlug, fetchCarSlugs } from "@/lib/wordpress";
 
 export const alt = "Vehículo · Quiroz Redcar";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
 // Pre-genera la OG de cada vehículo en build (estática, sin coste en runtime).
-export function generateStaticParams() {
-  return cars.map((car) => ({ id: car.id }));
+export async function generateStaticParams() {
+  const slugs = await fetchCarSlugs();
+  return slugs.map((id) => ({ id }));
 }
 
 export default async function Image({
@@ -16,7 +17,7 @@ export default async function Image({
   params: Promise<{ id: string }>;
 }) {
   const { id } = await params;
-  const car = getCarById(id);
+  const car = await fetchCarBySlug(id);
 
   if (!car) {
     return new ImageResponse(

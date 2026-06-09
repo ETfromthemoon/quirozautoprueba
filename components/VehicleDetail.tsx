@@ -47,8 +47,8 @@ export default function VehicleDetail({ car }: Props) {
                 <span className="absolute inset-0 rounded-full bg-white animate-pulse-ring" />
                 <span className="relative rounded-full bg-white w-1.5 h-1.5" />
               </span>
-              <span className="hidden sm:inline">CONSULTAR</span>
-              <span className="sm:hidden">CHAT</span>
+              <span className="hidden sm:inline">Consultar</span>
+              <span className="sm:hidden">Chat</span>
             </a>
           </div>
         </div>
@@ -258,14 +258,14 @@ export default function VehicleDetail({ car }: Props) {
                     className="btn-base btn-primary w-full"
                   >
                     <WhatsAppIcon className="w-4 h-4" />
-                    <span>CONSULTAR AHORA</span>
+                    <span>Consultar ahora</span>
                   </a>
                   <a
                     href="tel:+56993431571"
                     className="btn-base btn-silver w-full"
                   >
                     <PhoneIcon className="w-4 h-4" />
-                    <span>LLAMAR</span>
+                    <span>Llamar</span>
                   </a>
                 </div>
               </div>
