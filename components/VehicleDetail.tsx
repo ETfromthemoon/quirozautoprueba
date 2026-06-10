@@ -116,6 +116,33 @@ export default function VehicleDetail({ car }: Props) {
               </p>
             </div>
 
+            {/* Service banners */}
+            <div>
+              <p className="text-overline text-accent-500 mb-4">Servicios</p>
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                <ServiceBanner
+                  href={`/financiamiento?vehiculo=${encodeURIComponent(`${car.brand} ${car.model} ${car.year}`)}`}
+                  label="Financiamiento"
+                  icon="financing"
+                />
+                <ServiceBanner
+                  href={`/seguros?vehiculo=${encodeURIComponent(`${car.brand} ${car.model} ${car.year}`)}`}
+                  label="Seguros"
+                  icon="insurance"
+                />
+                <ServiceBanner
+                  href={`/reserva?vehiculo=${encodeURIComponent(`${car.brand} ${car.model} ${car.year}`)}`}
+                  label="Reservar"
+                  icon="reserve"
+                />
+                <ServiceBanner
+                  href="/vender-consignar"
+                  label="Vender / Consignar"
+                  icon="sell"
+                />
+              </div>
+            </div>
+
             {/* Galería */}
             <Section title="Galería">
               <VehicleGallery
@@ -330,6 +357,30 @@ function SpecItem({ label, value }: { label: string; value: string }) {
         {value}
       </dd>
     </div>
+  );
+}
+
+function ServiceBanner({ href, label, icon }: { href: string; label: string; icon: "financing" | "insurance" | "reserve" | "sell" }) {
+  const icons: Record<string, string> = {
+    financing: "M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z",
+    insurance: "M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 10.99h7c-.53 4.12-3.28 7.79-7 8.94V12H5V6.3l7-3.11v8.8z",
+    reserve: "M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z",
+    sell: "M17.5 6.5a1 1 0 0 1-1 1h-9a1 1 0 0 1 0-2h9a1 1 0 0 1 1 1zM21 12l-4 4v-3H3v-2h14V8l4 4z",
+  };
+  return (
+    <a
+      href={href}
+      className="glass-light rounded-xl p-3 md:p-4 flex flex-col items-center gap-2 text-center hover:bg-white/[0.12] hover:-translate-y-0.5 transition-all group"
+    >
+      <div className="w-8 h-8 rounded-full bg-accent-600/15 flex items-center justify-center">
+        <svg className="w-4 h-4 text-accent-500" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path d={icons[icon]} />
+        </svg>
+      </div>
+      <span className="text-[10px] md:text-[11px] text-ink-300 font-medium tracking-wide uppercase group-hover:text-white transition-colors">
+        {label}
+      </span>
+    </a>
   );
 }
 

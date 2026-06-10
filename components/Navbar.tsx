@@ -8,6 +8,8 @@ import {
   WhatsAppIcon,
   PhoneIcon,
   InstagramIcon,
+  YouTubeIcon,
+  TikTokIcon,
   MessengerIcon,
   MenuIcon,
   XIcon,
@@ -17,6 +19,8 @@ const NAV_LINKS = [
   { href: "/", label: "Ver disponibles" },
   { href: "/vender-consignar", label: "Vender / Consignar" },
   { href: "/financiamiento", label: "Financiamiento" },
+  { href: "/seguros", label: "Seguros" },
+  { href: "/reserva", label: "Reserva" },
   { href: "/nosotros", label: "Nosotros" },
   { href: "/vendidos", label: "Ver vendidos" },
 ];
@@ -113,6 +117,37 @@ export default function Navbar({ totalCars }: Props) {
 
             {/* Right actions */}
             <div className="flex items-center gap-2">
+              {/* Social icons */}
+              <div className="hidden md:flex items-center gap-1">
+                <a
+                  href="https://www.instagram.com/quirozautomotrizspa/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Instagram"
+                  className="w-7 h-7 rounded-full flex items-center justify-center text-ink-400 hover:text-white hover:bg-white/10 transition-all"
+                >
+                  <InstagramIcon className="w-3.5 h-3.5" />
+                </a>
+                <a
+                  href="https://www.youtube.com/channel/UC11dE4tkZPT358WO5RLHtcg"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="YouTube"
+                  className="w-7 h-7 rounded-full flex items-center justify-center text-ink-400 hover:text-white hover:bg-white/10 transition-all"
+                >
+                  <YouTubeIcon className="w-3.5 h-3.5" />
+                </a>
+                <a
+                  href="https://www.tiktok.com/@quiroz.automotriz"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="TikTok"
+                  className="w-7 h-7 rounded-full flex items-center justify-center text-ink-400 hover:text-white hover:bg-white/10 transition-all"
+                >
+                  <TikTokIcon className="w-3.5 h-3.5" />
+                </a>
+              </div>
+
               <a
                 href={getWhatsAppUrl(
                   "Hola, me interesa conocer el catálogo de Quiroz Redcar."

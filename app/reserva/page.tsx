@@ -4,68 +4,27 @@ import { useState } from "react";
 import Link from "next/link";
 import InnerNavbar from "@/components/InnerNavbar";
 import InnerFooter from "@/components/InnerFooter";
-import { CheckIcon } from "@/components/icons";
-
-const BENEFITS = [
-  {
-    title: "Rápido pre-aprobado",
-    description: "Evaluamos tu perfil crediticio en minutos. Sin papeleos interminables.",
-  },
-  {
-    title: "Cuotas a tu medida",
-    description: "Adaptamos el plan de pago a tu ingreso y presupuesto mensual.",
-  },
-  {
-    title: "Sin pie obligatorio",
-    description: "Opciones con y sin pie inicial. Tú decides cómo quieres financiar.",
-  },
-  {
-    title: "Tasa competitiva",
-    description: "Trabajamos con entidades de crédito que ofrecen las mejores tasas del mercado.",
-  },
-];
-
-const STEPS = [
-  {
-    number: "01",
-    title: "Elige tu auto",
-    description: "Selecciona el vehículo de nuestro catálogo o cuéntanos qué tipo de auto buscas.",
-  },
-  {
-    number: "02",
-    title: "Solicita el financiamiento",
-    description: "Completa el formulario y evaluamos tu perfil al instante.",
-  },
-  {
-    number: "03",
-    title: "Conduce tu auto",
-    description: "Una vez aprobado, coordinamos la entrega. El trámite es rápido y sin sorpresas.",
-  },
-];
+import { CheckIcon, ArrowRightIcon } from "@/components/icons";
 
 type FormData = {
   nombre: string;
   apellido: string;
   rut: string;
-  empleo: string;
-  antiguedad: string;
-  renta: string;
   telefono: string;
   correo: string;
+  vehiculo: string;
 };
 
 const INITIAL_FORM: FormData = {
   nombre: "",
   apellido: "",
   rut: "",
-  empleo: "Dependiente",
-  antiguedad: "",
-  renta: "",
   telefono: "",
   correo: "",
+  vehiculo: "",
 };
 
-export default function FinanciamientoPage() {
+export default function ReservaPage() {
   const [form, setForm] = useState<FormData>(INITIAL_FORM);
   const [sent, setSent] = useState(false);
   const [sending, setSending] = useState(false);
@@ -82,14 +41,12 @@ export default function FinanciamientoPage() {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          tipo: "financiamiento",
+          tipo: "reserva",
           datos: {
+            "Vehículo de interés": form.vehiculo || "No especificado",
             Nombre: form.nombre,
             Apellido: form.apellido,
             Rut: form.rut,
-            Empleo: form.empleo,
-            "Antigüedad Laboral": form.antiguedad,
-            Renta: form.renta,
             Teléfono: form.telefono,
             Correo: form.correo,
           },
@@ -108,7 +65,6 @@ export default function FinanciamientoPage() {
       <InnerNavbar />
 
       <main className="bg-[var(--color-ink-950)] min-h-screen text-white">
-        {/* ── Hero ── */}
         <section className="relative pt-36 pb-20 md:pt-44 md:pb-28 overflow-hidden">
           <div
             className="absolute bottom-0 left-0 w-[600px] h-[400px] rounded-full opacity-[0.05] blur-[100px]"
@@ -118,91 +74,22 @@ export default function FinanciamientoPage() {
           <div className="mx-auto max-w-7xl px-4 md:px-8 relative">
             <div className="max-w-3xl">
               <p className="text-overline text-[var(--color-accent-500)] mb-4">
-                Financia tu auto
+                Reserva tu auto
               </p>
               <h1
                 className="text-white mb-6 font-semibold leading-tight tracking-tight"
                 style={{ fontFamily: "var(--font-syne)", fontSize: "clamp(2rem, 4.5vw, 3rem)" }}
               >
-                Tu próximo auto, al alcance de tu bolsillo
+                Asegura tu compra ahora
               </h1>
               <p className="text-lg md:text-xl text-[var(--color-ink-300)] leading-relaxed max-w-2xl">
-                Ofrecemos opciones de financiamiento flexibles para que nada te
-                detenga. Evaluamos tu perfil y coordinamos el crédito directamente.
+                Reserva tu vehículo con $200.000 y garantizamos que nadie más
+                lo comprará mientras decides.
               </p>
             </div>
           </div>
         </section>
 
-        {/* ── Beneficios ── */}
-        <section className="py-20 md:py-28 bg-[var(--color-ink-900)]/40">
-          <div className="mx-auto max-w-7xl px-4 md:px-8">
-            <div className="text-center mb-14">
-              <h2
-                className="text-white font-semibold tracking-tight"
-                style={{ fontFamily: "var(--font-syne)", fontSize: "clamp(1.5rem, 3vw, 2.25rem)" }}
-              >
-                Ventajas del financiamiento Quiroz
-              </h2>
-            </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-              {BENEFITS.map((benefit) => (
-                <div key={benefit.title} className="glass-light rounded-2xl p-7 flex items-start gap-5 transition-all duration-300 hover:-translate-y-1 hover:border-white/20 hover:shadow-[0_12px_36px_-8px_rgba(0,0,0,0.5)]">
-                  <div className="w-9 h-9 rounded-full bg-[var(--color-accent-700)]/20 flex items-center justify-center shrink-0 mt-0.5">
-                    <CheckIcon className="w-4 h-4 text-[var(--color-accent-500)]" />
-                  </div>
-                  <div>
-                    <h3 className="text-white font-medium mb-1.5" style={{ fontFamily: "var(--font-syne)" }}>
-                      {benefit.title}
-                    </h3>
-                    <p className="text-[var(--color-ink-400)] text-sm leading-relaxed">
-                      {benefit.description}
-                    </p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* ── Proceso ── */}
-        <section className="py-20 md:py-28">
-          <div className="mx-auto max-w-7xl px-4 md:px-8">
-            <div className="text-center mb-14">
-              <h2
-                className="text-white font-semibold tracking-tight"
-                style={{ fontFamily: "var(--font-syne)", fontSize: "clamp(1.5rem, 3vw, 2.25rem)" }}
-              >
-                Solo 3 pasos
-              </h2>
-            </div>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              {STEPS.map((step) => (
-                <div key={step.number} className="glass-panel rounded-2xl p-8 flex flex-col gap-4 transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_16px_48px_-12px_rgba(0,0,0,0.6)]">
-                  <span
-                    className="text-2xl font-light text-[var(--color-ink-400)]"
-                    style={{ fontFamily: "var(--font-syne)" }}
-                  >
-                    {step.number}
-                  </span>
-                  <div>
-                    <h3 className="text-white font-medium mb-2" style={{ fontFamily: "var(--font-syne)" }}>
-                      {step.title}
-                    </h3>
-                    <p className="text-[var(--color-ink-400)] text-sm leading-relaxed">
-                      {step.description}
-                    </p>
-                  </div>
-                </div>
-              ))}
-            </div>
-            <p className="text-center text-[var(--color-ink-600)] text-xs mt-10">
-              Aceptamos pagos con Transbank · Débito · Transferencia bancaria
-            </p>
-          </div>
-        </section>
-
-        {/* ── Formulario ── */}
         <section className="py-20 md:py-28 bg-[var(--color-ink-900)]/40">
           <div className="mx-auto max-w-7xl px-4 md:px-8">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 md:gap-16 items-start">
@@ -211,13 +98,19 @@ export default function FinanciamientoPage() {
                   className="text-white leading-tight font-semibold tracking-tight"
                   style={{ fontFamily: "var(--font-syne)", fontSize: "clamp(1.5rem, 3vw, 2.25rem)" }}
                 >
-                  Solicita tu<br />financiamiento
+                  ¿Cómo funciona la reserva?
                 </h2>
-                <p className="text-[var(--color-ink-400)] leading-relaxed">
-                  Deja tus datos y te ayudamos a encontrar el plan de
-                  financiamiento que mejor se adapte a ti. Respuesta en menos
-                  de 24 horas hábiles.
-                </p>
+                <div className="flex flex-col gap-4 text-[var(--color-ink-400)] text-sm leading-relaxed">
+                  <p>
+                    Al reservar tu vehículo, la publicación se elimina de todas
+                    las plataformas y queda apartado a tu nombre.
+                  </p>
+                  <p>
+                    La reserva de <strong className="text-white">$200.000</strong> se
+                    descuenta del precio final de compra. Si el vehículo no está en
+                    las condiciones informadas, el monto se devuelve en su totalidad.
+                  </p>
+                </div>
               </div>
 
               <div className="glass-panel rounded-3xl p-7 md:p-9">
@@ -227,11 +120,22 @@ export default function FinanciamientoPage() {
                       <CheckIcon className="w-6 h-6 text-[var(--color-accent-500)]" />
                     </div>
                     <p className="text-white text-lg font-medium" style={{ fontFamily: "var(--font-syne)" }}>
-                      Ya recibimos tu información
+                      ¡Reserva solicitada!
                     </p>
-                    <p className="text-[var(--color-ink-400)] text-sm max-w-sm">
-                      Te informaremos la respuesta a la brevedad. Gracias por confiar en Quiroz Redcar.
-                    </p>
+                    <div className="text-[var(--color-ink-400)] text-sm max-w-sm leading-relaxed">
+                      <p className="mb-3">
+                        Muchas felicidades, hemos recibido conforme su reserva y con gusto
+                        esperamos la fecha que usted nos comunique para la entrega del vehículo.
+                      </p>
+                      <p className="mb-3">
+                        La publicación de venta del vehículo será eliminada de todas las
+                        plataformas contratadas y será modificada como reservada a su nombre.
+                      </p>
+                      <p>
+                        Si el vehículo no se encuentra en las condiciones informadas, la reserva
+                        de $200.000 se devuelve en su totalidad.
+                      </p>
+                    </div>
                     <Link href="/" className="btn-base btn-primary !py-2.5 !px-5 mt-2">
                       Volver al catálogo
                     </Link>
@@ -243,9 +147,9 @@ export default function FinanciamientoPage() {
                     </p>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                       <div className="flex flex-col gap-1.5">
-                        <label htmlFor="f-nombre" className="text-xs text-[var(--color-ink-400)]">Nombre *</label>
+                        <label htmlFor="r-nombre" className="text-xs text-[var(--color-ink-400)]">Nombre *</label>
                         <input
-                          id="f-nombre"
+                          id="r-nombre"
                           type="text"
                           required
                           value={form.nombre}
@@ -255,9 +159,9 @@ export default function FinanciamientoPage() {
                         />
                       </div>
                       <div className="flex flex-col gap-1.5">
-                        <label htmlFor="f-apellido" className="text-xs text-[var(--color-ink-400)]">Apellido *</label>
+                        <label htmlFor="r-apellido" className="text-xs text-[var(--color-ink-400)]">Apellido *</label>
                         <input
-                          id="f-apellido"
+                          id="r-apellido"
                           type="text"
                           required
                           value={form.apellido}
@@ -268,9 +172,9 @@ export default function FinanciamientoPage() {
                       </div>
                     </div>
                     <div className="flex flex-col gap-1.5">
-                      <label htmlFor="f-rut" className="text-xs text-[var(--color-ink-400)]">Rut *</label>
+                      <label htmlFor="r-rut" className="text-xs text-[var(--color-ink-400)]">Rut *</label>
                       <input
-                        id="f-rut"
+                        id="r-rut"
                         type="text"
                         required
                         value={form.rut}
@@ -280,46 +184,21 @@ export default function FinanciamientoPage() {
                       />
                     </div>
                     <div className="flex flex-col gap-1.5">
-                      <label htmlFor="f-empleo" className="text-xs text-[var(--color-ink-400)]">Empleo *</label>
-                      <select
-                        id="f-empleo"
-                        required
-                        value={form.empleo}
-                        onChange={(e) => update("empleo", e.target.value)}
-                        className="w-full bg-[var(--color-ink-800)] border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-[var(--color-accent-600)] transition-colors"
-                      >
-                        <option value="Dependiente">Dependiente</option>
-                        <option value="Independiente">Independiente</option>
-                      </select>
-                    </div>
-                    <div className="flex flex-col gap-1.5">
-                      <label htmlFor="f-antiguedad" className="text-xs text-[var(--color-ink-400)]">Antigüedad Laboral</label>
+                      <label htmlFor="r-vehiculo" className="text-xs text-[var(--color-ink-400)]">Vehículo de interés</label>
                       <input
-                        id="f-antiguedad"
+                        id="r-vehiculo"
                         type="text"
-                        value={form.antiguedad}
-                        onChange={(e) => update("antiguedad", e.target.value)}
-                        placeholder="Ej: 3 años"
-                        className="w-full bg-[var(--color-ink-800)] border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white placeholder-[var(--color-ink-600)] focus:outline-none focus:border-[var(--color-accent-600)] transition-colors"
-                      />
-                    </div>
-                    <div className="flex flex-col gap-1.5">
-                      <label htmlFor="f-renta" className="text-xs text-[var(--color-ink-400)]">Renta mensual *</label>
-                      <input
-                        id="f-renta"
-                        type="text"
-                        required
-                        value={form.renta}
-                        onChange={(e) => update("renta", e.target.value)}
-                        placeholder="Ej: $1.200.000"
+                        value={form.vehiculo}
+                        onChange={(e) => update("vehiculo", e.target.value)}
+                        placeholder="Ej: BMW 420 2024"
                         className="w-full bg-[var(--color-ink-800)] border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white placeholder-[var(--color-ink-600)] focus:outline-none focus:border-[var(--color-accent-600)] transition-colors"
                       />
                     </div>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                       <div className="flex flex-col gap-1.5">
-                        <label htmlFor="f-telefono" className="text-xs text-[var(--color-ink-400)]">Teléfono *</label>
+                        <label htmlFor="r-telefono" className="text-xs text-[var(--color-ink-400)]">Teléfono *</label>
                         <input
-                          id="f-telefono"
+                          id="r-telefono"
                           type="tel"
                           required
                           value={form.telefono}
@@ -329,9 +208,9 @@ export default function FinanciamientoPage() {
                         />
                       </div>
                       <div className="flex flex-col gap-1.5">
-                        <label htmlFor="f-correo" className="text-xs text-[var(--color-ink-400)]">Correo *</label>
+                        <label htmlFor="r-correo" className="text-xs text-[var(--color-ink-400)]">Correo *</label>
                         <input
-                          id="f-correo"
+                          id="r-correo"
                           type="email"
                           required
                           value={form.correo}
@@ -347,7 +226,7 @@ export default function FinanciamientoPage() {
                       disabled={sending}
                       className="btn-base btn-primary w-full !py-3 mt-2 disabled:opacity-50"
                     >
-                      {sending ? "Enviando..." : "Enviar solicitud"}
+                      {sending ? "Enviando..." : "Solicitar reserva"}
                     </button>
                   </form>
                 )}
@@ -356,11 +235,10 @@ export default function FinanciamientoPage() {
           </div>
         </section>
 
-        {/* ── CTA ── */}
         <section className="py-16 md:py-20">
           <div className="mx-auto max-w-7xl px-4 md:px-8 text-center">
             <p className="text-[var(--color-ink-500)] text-sm mb-4">
-              ¿Ya sabes qué auto quieres?
+              ¿Quieres ver los vehículos disponibles para reservar?
             </p>
             <Link href="/" className="btn-base btn-secondary !py-3 !px-6">
               Ver catálogo disponible

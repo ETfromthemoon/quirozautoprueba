@@ -7,6 +7,8 @@ const NAV_LINKS = [
   { href: "/", label: "Ver disponibles" },
   { href: "/vender-consignar", label: "Vender / Consignar" },
   { href: "/financiamiento", label: "Financiamiento" },
+  { href: "/seguros", label: "Seguros" },
+  { href: "/reserva", label: "Reserva" },
   { href: "/nosotros", label: "Nosotros" },
   { href: "/vendidos", label: "Ver vendidos" },
 ];

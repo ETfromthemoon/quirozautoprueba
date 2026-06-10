@@ -4,68 +4,52 @@ import { useState } from "react";
 import Link from "next/link";
 import InnerNavbar from "@/components/InnerNavbar";
 import InnerFooter from "@/components/InnerFooter";
-import { CheckIcon } from "@/components/icons";
-
-const BENEFITS = [
-  {
-    title: "Rápido pre-aprobado",
-    description: "Evaluamos tu perfil crediticio en minutos. Sin papeleos interminables.",
-  },
-  {
-    title: "Cuotas a tu medida",
-    description: "Adaptamos el plan de pago a tu ingreso y presupuesto mensual.",
-  },
-  {
-    title: "Sin pie obligatorio",
-    description: "Opciones con y sin pie inicial. Tú decides cómo quieres financiar.",
-  },
-  {
-    title: "Tasa competitiva",
-    description: "Trabajamos con entidades de crédito que ofrecen las mejores tasas del mercado.",
-  },
-];
-
-const STEPS = [
-  {
-    number: "01",
-    title: "Elige tu auto",
-    description: "Selecciona el vehículo de nuestro catálogo o cuéntanos qué tipo de auto buscas.",
-  },
-  {
-    number: "02",
-    title: "Solicita el financiamiento",
-    description: "Completa el formulario y evaluamos tu perfil al instante.",
-  },
-  {
-    number: "03",
-    title: "Conduce tu auto",
-    description: "Una vez aprobado, coordinamos la entrega. El trámite es rápido y sin sorpresas.",
-  },
-];
+import { CheckIcon, ArrowRightIcon } from "@/components/icons";
 
 type FormData = {
+  anio: string;
+  marca: string;
+  modelo: string;
+  tipo: string;
   nombre: string;
   apellido: string;
   rut: string;
-  empleo: string;
-  antiguedad: string;
-  renta: string;
+  fechaNac: string;
   telefono: string;
   correo: string;
 };
 
 const INITIAL_FORM: FormData = {
+  anio: "",
+  marca: "",
+  modelo: "",
+  tipo: "Particular",
   nombre: "",
   apellido: "",
   rut: "",
-  empleo: "Dependiente",
-  antiguedad: "",
-  renta: "",
+  fechaNac: "",
   telefono: "",
   correo: "",
 };
 
-export default function FinanciamientoPage() {
+const ANIOS = Array.from({ length: 20 }, (_, i) => String(2007 + i));
+
+const BENEFITS = [
+  {
+    title: "Cobertura completa",
+    description: "Protege tu vehículo contra todo riesgo, robo, incendio y daños a terceros.",
+  },
+  {
+    title: "Asesoría personalizada",
+    description: "Te ayudamos a elegir el seguro que mejor se adapta a tu vehículo y presupuesto.",
+  },
+  {
+    title: "Gestión de siniestros",
+    description: "Te acompañamos en todo el proceso ante cualquier eventualidad.",
+  },
+];
+
+export default function SegurosPage() {
   const [form, setForm] = useState<FormData>(INITIAL_FORM);
   const [sent, setSent] = useState(false);
   const [sending, setSending] = useState(false);
@@ -82,14 +66,16 @@ export default function FinanciamientoPage() {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          tipo: "financiamiento",
+          tipo: "seguros",
           datos: {
+            "Año vehículo": form.anio,
+            Marca: form.marca,
+            Modelo: form.modelo,
+            "Tipo": form.tipo,
             Nombre: form.nombre,
             Apellido: form.apellido,
             Rut: form.rut,
-            Empleo: form.empleo,
-            "Antigüedad Laboral": form.antiguedad,
-            Renta: form.renta,
+            "Fecha Nacimiento": form.fechaNac,
             Teléfono: form.telefono,
             Correo: form.correo,
           },
@@ -108,7 +94,6 @@ export default function FinanciamientoPage() {
       <InnerNavbar />
 
       <main className="bg-[var(--color-ink-950)] min-h-screen text-white">
-        {/* ── Hero ── */}
         <section className="relative pt-36 pb-20 md:pt-44 md:pb-28 overflow-hidden">
           <div
             className="absolute bottom-0 left-0 w-[600px] h-[400px] rounded-full opacity-[0.05] blur-[100px]"
@@ -118,23 +103,22 @@ export default function FinanciamientoPage() {
           <div className="mx-auto max-w-7xl px-4 md:px-8 relative">
             <div className="max-w-3xl">
               <p className="text-overline text-[var(--color-accent-500)] mb-4">
-                Financia tu auto
+                Seguros automotrices
               </p>
               <h1
                 className="text-white mb-6 font-semibold leading-tight tracking-tight"
                 style={{ fontFamily: "var(--font-syne)", fontSize: "clamp(2rem, 4.5vw, 3rem)" }}
               >
-                Tu próximo auto, al alcance de tu bolsillo
+                Protege tu vehículo con el mejor seguro
               </h1>
               <p className="text-lg md:text-xl text-[var(--color-ink-300)] leading-relaxed max-w-2xl">
-                Ofrecemos opciones de financiamiento flexibles para que nada te
-                detenga. Evaluamos tu perfil y coordinamos el crédito directamente.
+                Cotizamos y contratamos el seguro ideal para tu auto.
+                Cobertura en las mejores aseguradoras del mercado.
               </p>
             </div>
           </div>
         </section>
 
-        {/* ── Beneficios ── */}
         <section className="py-20 md:py-28 bg-[var(--color-ink-900)]/40">
           <div className="mx-auto max-w-7xl px-4 md:px-8">
             <div className="text-center mb-14">
@@ -142,22 +126,20 @@ export default function FinanciamientoPage() {
                 className="text-white font-semibold tracking-tight"
                 style={{ fontFamily: "var(--font-syne)", fontSize: "clamp(1.5rem, 3vw, 2.25rem)" }}
               >
-                Ventajas del financiamiento Quiroz
+                ¿Por qué asegurar con nosotros?
               </h2>
             </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-              {BENEFITS.map((benefit) => (
-                <div key={benefit.title} className="glass-light rounded-2xl p-7 flex items-start gap-5 transition-all duration-300 hover:-translate-y-1 hover:border-white/20 hover:shadow-[0_12px_36px_-8px_rgba(0,0,0,0.5)]">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
+              {BENEFITS.map((b) => (
+                <div key={b.title} className="glass-light rounded-2xl p-7 flex items-start gap-5 transition-all duration-300 hover:-translate-y-1 hover:border-white/20">
                   <div className="w-9 h-9 rounded-full bg-[var(--color-accent-700)]/20 flex items-center justify-center shrink-0 mt-0.5">
                     <CheckIcon className="w-4 h-4 text-[var(--color-accent-500)]" />
                   </div>
                   <div>
                     <h3 className="text-white font-medium mb-1.5" style={{ fontFamily: "var(--font-syne)" }}>
-                      {benefit.title}
+                      {b.title}
                     </h3>
-                    <p className="text-[var(--color-ink-400)] text-sm leading-relaxed">
-                      {benefit.description}
-                    </p>
+                    <p className="text-[var(--color-ink-400)] text-sm leading-relaxed">{b.description}</p>
                   </div>
                 </div>
               ))}
@@ -165,45 +147,7 @@ export default function FinanciamientoPage() {
           </div>
         </section>
 
-        {/* ── Proceso ── */}
         <section className="py-20 md:py-28">
-          <div className="mx-auto max-w-7xl px-4 md:px-8">
-            <div className="text-center mb-14">
-              <h2
-                className="text-white font-semibold tracking-tight"
-                style={{ fontFamily: "var(--font-syne)", fontSize: "clamp(1.5rem, 3vw, 2.25rem)" }}
-              >
-                Solo 3 pasos
-              </h2>
-            </div>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              {STEPS.map((step) => (
-                <div key={step.number} className="glass-panel rounded-2xl p-8 flex flex-col gap-4 transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_16px_48px_-12px_rgba(0,0,0,0.6)]">
-                  <span
-                    className="text-2xl font-light text-[var(--color-ink-400)]"
-                    style={{ fontFamily: "var(--font-syne)" }}
-                  >
-                    {step.number}
-                  </span>
-                  <div>
-                    <h3 className="text-white font-medium mb-2" style={{ fontFamily: "var(--font-syne)" }}>
-                      {step.title}
-                    </h3>
-                    <p className="text-[var(--color-ink-400)] text-sm leading-relaxed">
-                      {step.description}
-                    </p>
-                  </div>
-                </div>
-              ))}
-            </div>
-            <p className="text-center text-[var(--color-ink-600)] text-xs mt-10">
-              Aceptamos pagos con Transbank · Débito · Transferencia bancaria
-            </p>
-          </div>
-        </section>
-
-        {/* ── Formulario ── */}
-        <section className="py-20 md:py-28 bg-[var(--color-ink-900)]/40">
           <div className="mx-auto max-w-7xl px-4 md:px-8">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 md:gap-16 items-start">
               <div className="flex flex-col gap-6 lg:pt-4">
@@ -211,12 +155,11 @@ export default function FinanciamientoPage() {
                   className="text-white leading-tight font-semibold tracking-tight"
                   style={{ fontFamily: "var(--font-syne)", fontSize: "clamp(1.5rem, 3vw, 2.25rem)" }}
                 >
-                  Solicita tu<br />financiamiento
+                  Solicita tu cotización
                 </h2>
                 <p className="text-[var(--color-ink-400)] leading-relaxed">
-                  Deja tus datos y te ayudamos a encontrar el plan de
-                  financiamiento que mejor se adapte a ti. Respuesta en menos
-                  de 24 horas hábiles.
+                  Completa el formulario y te contactaremos con las mejores opciones
+                  de seguro para tu vehículo. Respuesta en menos de 24 horas hábiles.
                 </p>
               </div>
 
@@ -230,7 +173,7 @@ export default function FinanciamientoPage() {
                       Ya recibimos tu información
                     </p>
                     <p className="text-[var(--color-ink-400)] text-sm max-w-sm">
-                      Te informaremos la respuesta a la brevedad. Gracias por confiar en Quiroz Redcar.
+                      A la brevedad nos comunicaremos. Gracias por confiar en Quiroz Redcar.
                     </p>
                     <Link href="/" className="btn-base btn-primary !py-2.5 !px-5 mt-2">
                       Volver al catálogo
@@ -239,13 +182,73 @@ export default function FinanciamientoPage() {
                 ) : (
                   <form onSubmit={handleSubmit} className="flex flex-col gap-5">
                     <p className="text-[10px] font-semibold tracking-[0.15em] uppercase text-[var(--color-ink-500)]">
-                      Tus datos
+                      Datos del vehículo
                     </p>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                       <div className="flex flex-col gap-1.5">
-                        <label htmlFor="f-nombre" className="text-xs text-[var(--color-ink-400)]">Nombre *</label>
+                        <label htmlFor="s-anio" className="text-xs text-[var(--color-ink-400)]">Año *</label>
+                        <select
+                          id="s-anio"
+                          required
+                          value={form.anio}
+                          onChange={(e) => update("anio", e.target.value)}
+                          className="w-full bg-[var(--color-ink-800)] border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-[var(--color-accent-600)] transition-colors"
+                        >
+                          <option value="">Seleccionar</option>
+                          {ANIOS.map((a) => (
+                            <option key={a} value={a}>{a}</option>
+                          ))}
+                        </select>
+                      </div>
+                      <div className="flex flex-col gap-1.5">
+                        <label htmlFor="s-tipo" className="text-xs text-[var(--color-ink-400)]">Tipo *</label>
+                        <select
+                          id="s-tipo"
+                          required
+                          value={form.tipo}
+                          onChange={(e) => update("tipo", e.target.value)}
+                          className="w-full bg-[var(--color-ink-800)] border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-[var(--color-accent-600)] transition-colors"
+                        >
+                          <option value="Particular">Particular</option>
+                          <option value="Comercial">Comercial</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                      <div className="flex flex-col gap-1.5">
+                        <label htmlFor="s-marca" className="text-xs text-[var(--color-ink-400)]">Marca *</label>
                         <input
-                          id="f-nombre"
+                          id="s-marca"
+                          type="text"
+                          required
+                          value={form.marca}
+                          onChange={(e) => update("marca", e.target.value)}
+                          placeholder="Ej: Toyota"
+                          className="w-full bg-[var(--color-ink-800)] border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white placeholder-[var(--color-ink-600)] focus:outline-none focus:border-[var(--color-accent-600)] transition-colors"
+                        />
+                      </div>
+                      <div className="flex flex-col gap-1.5">
+                        <label htmlFor="s-modelo" className="text-xs text-[var(--color-ink-400)]">Modelo *</label>
+                        <input
+                          id="s-modelo"
+                          type="text"
+                          required
+                          value={form.modelo}
+                          onChange={(e) => update("modelo", e.target.value)}
+                          placeholder="Ej: Yaris"
+                          className="w-full bg-[var(--color-ink-800)] border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white placeholder-[var(--color-ink-600)] focus:outline-none focus:border-[var(--color-accent-600)] transition-colors"
+                        />
+                      </div>
+                    </div>
+
+                    <p className="text-[10px] font-semibold tracking-[0.15em] uppercase text-[var(--color-ink-500)] mt-1">
+                      Datos del asegurado
+                    </p>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                      <div className="flex flex-col gap-1.5">
+                        <label htmlFor="s-nombre" className="text-xs text-[var(--color-ink-400)]">Nombre *</label>
+                        <input
+                          id="s-nombre"
                           type="text"
                           required
                           value={form.nombre}
@@ -255,9 +258,9 @@ export default function FinanciamientoPage() {
                         />
                       </div>
                       <div className="flex flex-col gap-1.5">
-                        <label htmlFor="f-apellido" className="text-xs text-[var(--color-ink-400)]">Apellido *</label>
+                        <label htmlFor="s-apellido" className="text-xs text-[var(--color-ink-400)]">Apellido *</label>
                         <input
-                          id="f-apellido"
+                          id="s-apellido"
                           type="text"
                           required
                           value={form.apellido}
@@ -268,9 +271,9 @@ export default function FinanciamientoPage() {
                       </div>
                     </div>
                     <div className="flex flex-col gap-1.5">
-                      <label htmlFor="f-rut" className="text-xs text-[var(--color-ink-400)]">Rut *</label>
+                      <label htmlFor="s-rut" className="text-xs text-[var(--color-ink-400)]">Rut *</label>
                       <input
-                        id="f-rut"
+                        id="s-rut"
                         type="text"
                         required
                         value={form.rut}
@@ -280,46 +283,21 @@ export default function FinanciamientoPage() {
                       />
                     </div>
                     <div className="flex flex-col gap-1.5">
-                      <label htmlFor="f-empleo" className="text-xs text-[var(--color-ink-400)]">Empleo *</label>
-                      <select
-                        id="f-empleo"
+                      <label htmlFor="s-fecha" className="text-xs text-[var(--color-ink-400)]">Fecha de nacimiento *</label>
+                      <input
+                        id="s-fecha"
+                        type="date"
                         required
-                        value={form.empleo}
-                        onChange={(e) => update("empleo", e.target.value)}
+                        value={form.fechaNac}
+                        onChange={(e) => update("fechaNac", e.target.value)}
                         className="w-full bg-[var(--color-ink-800)] border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-[var(--color-accent-600)] transition-colors"
-                      >
-                        <option value="Dependiente">Dependiente</option>
-                        <option value="Independiente">Independiente</option>
-                      </select>
-                    </div>
-                    <div className="flex flex-col gap-1.5">
-                      <label htmlFor="f-antiguedad" className="text-xs text-[var(--color-ink-400)]">Antigüedad Laboral</label>
-                      <input
-                        id="f-antiguedad"
-                        type="text"
-                        value={form.antiguedad}
-                        onChange={(e) => update("antiguedad", e.target.value)}
-                        placeholder="Ej: 3 años"
-                        className="w-full bg-[var(--color-ink-800)] border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white placeholder-[var(--color-ink-600)] focus:outline-none focus:border-[var(--color-accent-600)] transition-colors"
-                      />
-                    </div>
-                    <div className="flex flex-col gap-1.5">
-                      <label htmlFor="f-renta" className="text-xs text-[var(--color-ink-400)]">Renta mensual *</label>
-                      <input
-                        id="f-renta"
-                        type="text"
-                        required
-                        value={form.renta}
-                        onChange={(e) => update("renta", e.target.value)}
-                        placeholder="Ej: $1.200.000"
-                        className="w-full bg-[var(--color-ink-800)] border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white placeholder-[var(--color-ink-600)] focus:outline-none focus:border-[var(--color-accent-600)] transition-colors"
                       />
                     </div>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                       <div className="flex flex-col gap-1.5">
-                        <label htmlFor="f-telefono" className="text-xs text-[var(--color-ink-400)]">Teléfono *</label>
+                        <label htmlFor="s-telefono" className="text-xs text-[var(--color-ink-400)]">Teléfono *</label>
                         <input
-                          id="f-telefono"
+                          id="s-telefono"
                           type="tel"
                           required
                           value={form.telefono}
@@ -329,9 +307,9 @@ export default function FinanciamientoPage() {
                         />
                       </div>
                       <div className="flex flex-col gap-1.5">
-                        <label htmlFor="f-correo" className="text-xs text-[var(--color-ink-400)]">Correo *</label>
+                        <label htmlFor="s-correo" className="text-xs text-[var(--color-ink-400)]">Correo *</label>
                         <input
-                          id="f-correo"
+                          id="s-correo"
                           type="email"
                           required
                           value={form.correo}
@@ -356,11 +334,10 @@ export default function FinanciamientoPage() {
           </div>
         </section>
 
-        {/* ── CTA ── */}
         <section className="py-16 md:py-20">
           <div className="mx-auto max-w-7xl px-4 md:px-8 text-center">
             <p className="text-[var(--color-ink-500)] text-sm mb-4">
-              ¿Ya sabes qué auto quieres?
+              ¿Ya tienes un vehículo en vista?
             </p>
             <Link href="/" className="btn-base btn-secondary !py-3 !px-6">
               Ver catálogo disponible

@@ -4,103 +4,87 @@ import { useState } from "react";
 import Link from "next/link";
 import InnerNavbar from "@/components/InnerNavbar";
 import InnerFooter from "@/components/InnerFooter";
-import { getWhatsAppUrl } from "@/lib/whatsapp";
-import { WhatsAppIcon, CheckIcon, ArrowRightIcon } from "@/components/icons";
-
-const STEPS = [
-  {
-    number: "01",
-    title: "Trae tu vehículo",
-    description:
-      "Agenda una visita o acércate a nuestro local en San Miguel. No necesitas cita previa.",
-  },
-  {
-    number: "02",
-    title: "Evaluamos juntos",
-    description:
-      "Revisamos el estado mecánico y estético de tu auto de forma transparente, frente a ti.",
-  },
-  {
-    number: "03",
-    title: "Acordamos el precio",
-    description:
-      "Te ofrecemos el precio más justo del mercado. Sin regateo sin fin — precio directo y claro.",
-  },
-  {
-    number: "04",
-    title: "Cerramos y pagamos",
-    description:
-      "Gestionamos los papeles y el pago se hace en el momento. Sin demoras ni trámites complicados.",
-  },
-];
-
-const BENEFITS = [
-  "Pago inmediato al cerrar el trato",
-  "Sin costo de publicación ni comisiones ocultas",
-  "Asesoría gratuita de tasación",
-  "Trámites de transferencia incluidos",
-  "Opción de consignación con tu precio",
-];
+import { CheckIcon } from "@/components/icons";
 
 type FormData = {
+  patente: string;
+  kilometraje: string;
+  servicio: string;
   nombre: string;
+  apellido: string;
   telefono: string;
-  email: string;
-  marca: string;
-  modelo: string;
-  anio: string;
-  km: string;
-  mensaje: string;
+  correo: string;
 };
 
 const INITIAL_FORM: FormData = {
+  patente: "",
+  kilometraje: "",
+  servicio: "Particular",
   nombre: "",
+  apellido: "",
   telefono: "",
-  email: "",
-  marca: "",
-  modelo: "",
-  anio: "",
-  km: "",
-  mensaje: "",
+  correo: "",
 };
 
+type Tab = "compra" | "consignacion";
+
 export default function VenderConsignarPage() {
+  const [tab, setTab] = useState<Tab>("compra");
   const [form, setForm] = useState<FormData>(INITIAL_FORM);
+  const [sent, setSent] = useState(false);
+  const [sending, setSending] = useState(false);
 
   function update(field: keyof FormData, value: string) {
     setForm((prev) => ({ ...prev, [field]: value }));
   }
 
-  function buildWhatsAppMessage(): string {
-    const lines = [
-      "Hola, quiero consultar sobre *Vender / Consignar* mi vehículo.",
-      "",
-    ];
-    if (form.marca || form.modelo) {
-      lines.push(`Vehículo: ${[form.marca, form.modelo, form.anio].filter(Boolean).join(" ")}`);
-    }
-    if (form.km) lines.push(`Kilómetros: ${form.km}`);
-    if (form.nombre) lines.push(`Mi nombre: ${form.nombre}`);
-    if (form.telefono) lines.push(`Teléfono: ${form.telefono}`);
-    if (form.mensaje) lines.push(`\nMensaje: ${form.mensaje}`);
-    return lines.join("\n");
-  }
-
-  function handleWhatsApp(e: React.FormEvent) {
+  async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    window.open(getWhatsAppUrl(buildWhatsAppMessage()), "_blank", "noopener,noreferrer");
+    setSending(true);
+    try {
+      await fetch("/api/send-email", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          tipo: tab === "compra" ? "compra" : "consignacion",
+          datos: {
+            Patente: form.patente,
+            Kilometraje: form.kilometraje,
+            "Servicio": form.servicio,
+            Nombre: form.nombre,
+            Apellido: form.apellido,
+            Teléfono: form.telefono,
+            Correo: form.correo,
+          },
+        }),
+      });
+      setSent(true);
+    } catch {
+      alert("Error al enviar. Intenta nuevamente.");
+    } finally {
+      setSending(false);
+    }
   }
 
-  function handleWebForm() {
-    window.open("https://www.quirozautomotriz.cl/vender-consignar/", "_blank", "noopener,noreferrer");
-  }
+  const STEPS_COMPRA = [
+    { number: "01", title: "Cuéntanos de tu auto", description: "Completa el formulario con los datos de tu vehículo y tus datos de contacto." },
+    { number: "02", title: "Te haremos una oferta", description: "Evaluamos tu vehículo y te enviamos una cotización justa y sin compromiso." },
+    { number: "03", title: "Pago al instante", description: "Aceptas la oferta y te pagamos al momento. Sin demoras ni trámites complicados." },
+  ];
+
+  const STEPS_CONSIGNACION = [
+    { number: "01", title: "Registra tu vehículo", description: "Ingresa los datos de tu auto para iniciar la consignación." },
+    { number: "02", title: "Publicamos y gestionamos", description: "Promocionamos tu vehículo en nuestros canales y redes sociales." },
+    { number: "03", title: "Venta y pago", description: "Al concretar la venta, te transferimos el monto acordado." },
+  ];
+
+  const steps = tab === "compra" ? STEPS_COMPRA : STEPS_CONSIGNACION;
 
   return (
     <>
       <InnerNavbar />
 
       <main className="bg-[var(--color-ink-950)] min-h-screen text-white">
-        {/* ── Hero ── */}
         <section className="relative pt-36 pb-20 md:pt-44 md:pb-28 overflow-hidden">
           <div
             className="absolute top-0 right-0 w-[500px] h-[500px] rounded-full opacity-[0.05] blur-[100px]"
@@ -122,55 +106,44 @@ export default function VenderConsignarPage() {
                 Compramos tu vehículo de forma directa o lo consignamos a tu
                 precio. Trámites incluidos, pago inmediato, sin complicaciones.
               </p>
-              <div className="flex flex-wrap gap-3">
-                {BENEFITS.map((b) => (
-                  <div key={b} className="flex items-center gap-2 text-sm text-[var(--color-ink-300)]">
-                    <CheckIcon className="w-4 h-4 text-[var(--color-accent-500)] shrink-0" />
-                    {b}
-                  </div>
-                ))}
-              </div>
             </div>
           </div>
         </section>
 
-        {/* ── Proceso ── */}
-        <section className="py-20 md:py-28 bg-[var(--color-ink-900)]/40">
+        {/* Tabs */}
+        <section className="py-6">
           <div className="mx-auto max-w-7xl px-4 md:px-8">
-            <div className="text-center mb-14">
-              <h2
-                className="text-white font-semibold tracking-tight"
-                style={{ fontFamily: "var(--font-syne)", fontSize: "clamp(1.5rem, 3vw, 2.25rem)" }}
+            <div className="flex gap-3">
+              <button
+                onClick={() => { setTab("compra"); setSent(false); setForm(INITIAL_FORM); }}
+                className={`btn-base ${tab === "compra" ? "btn-primary" : "btn-ghost border border-white/15"}`}
               >
-                El proceso en 4 pasos
-              </h2>
+                Compramos tu auto
+              </button>
+              <button
+                onClick={() => { setTab("consignacion"); setSent(false); setForm(INITIAL_FORM); }}
+                className={`btn-base ${tab === "consignacion" ? "btn-primary" : "btn-ghost border border-white/15"}`}
+              >
+                Consignaciones
+              </button>
             </div>
+          </div>
+        </section>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-              {STEPS.map((step, i) => (
-                <div key={step.number} className="flex flex-col gap-4 relative">
-                  {/* Connector line */}
-                  {i < STEPS.length - 1 && (
-                    <div className="hidden lg:block absolute top-6 left-[calc(100%_-_8px)] w-[calc(100%_-_32px)] h-px bg-white/8 z-0" />
-                  )}
-                  <div className="glass-light rounded-2xl p-7 flex flex-col gap-4 relative z-10 h-full transition-all duration-300 hover:-translate-y-1 hover:border-white/20 hover:shadow-[0_12px_36px_-8px_rgba(0,0,0,0.5)]">
-                    <span
-                      className="text-2xl font-light text-[var(--color-ink-400)]"
-                      style={{ fontFamily: "var(--font-syne)" }}
-                    >
-                      {step.number}
-                    </span>
-                    <div>
-                      <h3
-                        className="text-white font-medium mb-2"
-                        style={{ fontFamily: "var(--font-syne)" }}
-                      >
-                        {step.title}
-                      </h3>
-                      <p className="text-[var(--color-ink-400)] text-sm leading-relaxed">
-                        {step.description}
-                      </p>
-                    </div>
+        {/* Steps */}
+        <section className="py-10 md:py-16 bg-[var(--color-ink-900)]/40">
+          <div className="mx-auto max-w-7xl px-4 md:px-8">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
+              {steps.map((step, i) => (
+                <div key={step.number} className="glass-light rounded-2xl p-7 flex flex-col gap-4 transition-all duration-300 hover:-translate-y-1 hover:border-white/20">
+                  <span className="text-2xl font-light text-[var(--color-ink-400)]" style={{ fontFamily: "var(--font-syne)" }}>
+                    {step.number}
+                  </span>
+                  <div>
+                    <h3 className="text-white font-medium mb-2" style={{ fontFamily: "var(--font-syne)" }}>
+                      {step.title}
+                    </h3>
+                    <p className="text-[var(--color-ink-400)] text-sm leading-relaxed">{step.description}</p>
                   </div>
                 </div>
               ))}
@@ -178,65 +151,80 @@ export default function VenderConsignarPage() {
           </div>
         </section>
 
-        {/* ── Formulario ── */}
-        <section className="py-20 md:py-28">
-          <div className="mx-auto max-w-7xl px-4 md:px-8">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 md:gap-16 items-start">
-              {/* Left: context */}
-              <div className="flex flex-col gap-6 lg:pt-4">
-                <h2
-                  className="text-white leading-tight font-semibold tracking-tight"
-                  style={{ fontFamily: "var(--font-syne)", fontSize: "clamp(1.5rem, 3vw, 2.25rem)" }}
-                >
-                  Cuéntanos sobre<br />tu vehículo
-                </h2>
-                <p className="text-[var(--color-ink-400)] leading-relaxed">
-                  Completa el formulario y elige cómo prefieres continuar —
-                  directamente por WhatsApp o por el formulario web de nuestro
-                  sitio anterior.
-                </p>
-
-                {/* Option boxes */}
-                <div className="flex flex-col gap-3 mt-2">
-                  <div className="glass-light rounded-xl p-5 flex items-start gap-4">
-                    <div className="w-9 h-9 rounded-xl bg-[#25D366]/15 flex items-center justify-center shrink-0">
-                      <WhatsAppIcon className="w-4 h-4 text-[#25D366]" />
-                    </div>
-                    <div>
-                      <h4 className="text-white text-sm font-medium mb-1">WhatsApp</h4>
-                      <p className="text-[var(--color-ink-500)] text-xs leading-relaxed">
-                        Envía tu consulta pre-rellenada al instante. Respuesta
-                        rápida y atención directa.
-                      </p>
-                    </div>
+        {/* Form */}
+        <section className="py-16 md:py-24">
+          <div className="mx-auto max-w-2xl px-4 md:px-8">
+            <div className="glass-panel rounded-3xl p-7 md:p-9">
+              {sent ? (
+                <div className="flex flex-col items-center text-center py-8 gap-4">
+                  <div className="w-16 h-16 rounded-full bg-[var(--color-accent-700)]/20 flex items-center justify-center">
+                    <CheckIcon className="w-6 h-6 text-[var(--color-accent-500)]" />
                   </div>
-                  <div className="glass-light rounded-xl p-5 flex items-start gap-4">
-                    <div className="w-9 h-9 rounded-xl bg-[var(--color-ink-700)] flex items-center justify-center shrink-0">
-                      <ArrowRightIcon className="w-4 h-4 text-[var(--color-ink-300)]" />
-                    </div>
-                    <div>
-                      <h4 className="text-white text-sm font-medium mb-1">Formulario web</h4>
-                      <p className="text-[var(--color-ink-500)] text-xs leading-relaxed">
-                        Abre el formulario de nuestro sitio. El equipo recibe
-                        tu consulta por email.
-                      </p>
-                    </div>
-                  </div>
+                  <p className="text-white text-lg font-medium" style={{ fontFamily: "var(--font-syne)" }}>
+                    {tab === "compra"
+                      ? "Ya recibimos tu información"
+                      : "¡Vehículo registrado!"}
+                  </p>
+                  <p className="text-[var(--color-ink-400)] text-sm max-w-sm">
+                    {tab === "compra"
+                      ? "A la brevedad nos comunicaremos para coordinar la evaluación de tu vehículo."
+                      : "A la brevedad nos comunicaremos. Su vehículo será gestionado a través de nuestros canales de publicación."}
+                  </p>
+                  <Link href="/" className="btn-base btn-primary !py-2.5 !px-5 mt-2">
+                    Volver al catálogo
+                  </Link>
                 </div>
-              </div>
-
-              {/* Right: form */}
-              <div className="glass-panel rounded-3xl p-7 md:p-9">
-                <form onSubmit={handleWhatsApp} className="flex flex-col gap-5">
-                  {/* Tu info */}
+              ) : (
+                <form onSubmit={handleSubmit} className="flex flex-col gap-5">
                   <p className="text-[10px] font-semibold tracking-[0.15em] uppercase text-[var(--color-ink-500)]">
+                    Datos del vehículo
+                  </p>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div className="flex flex-col gap-1.5">
+                      <label htmlFor="vc-patente" className="text-xs text-[var(--color-ink-400)]">Patente *</label>
+                      <input
+                        id="vc-patente"
+                        type="text"
+                        required
+                        value={form.patente}
+                        onChange={(e) => update("patente", e.target.value)}
+                        placeholder="Ej: JWBZ64"
+                        className="w-full bg-[var(--color-ink-800)] border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white placeholder-[var(--color-ink-600)] focus:outline-none focus:border-[var(--color-accent-600)] transition-colors uppercase"
+                      />
+                    </div>
+                    <div className="flex flex-col gap-1.5">
+                      <label htmlFor="vc-km" className="text-xs text-[var(--color-ink-400)]">Kilometraje *</label>
+                      <input
+                        id="vc-km"
+                        type="text"
+                        required
+                        value={form.kilometraje}
+                        onChange={(e) => update("kilometraje", e.target.value)}
+                        placeholder="Ej: 80.000"
+                        className="w-full bg-[var(--color-ink-800)] border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white placeholder-[var(--color-ink-600)] focus:outline-none focus:border-[var(--color-accent-600)] transition-colors"
+                      />
+                    </div>
+                  </div>
+                  <div className="flex flex-col gap-1.5">
+                    <label htmlFor="vc-servicio" className="text-xs text-[var(--color-ink-400)]">Servicio *</label>
+                    <select
+                      id="vc-servicio"
+                      required
+                      value={form.servicio}
+                      onChange={(e) => update("servicio", e.target.value)}
+                      className="w-full bg-[var(--color-ink-800)] border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-[var(--color-accent-600)] transition-colors"
+                    >
+                      <option value="Particular">Particular</option>
+                      <option value="Concesionario">Concesionario</option>
+                    </select>
+                  </div>
+
+                  <p className="text-[10px] font-semibold tracking-[0.15em] uppercase text-[var(--color-ink-500)] mt-1">
                     Tus datos
                   </p>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div className="flex flex-col gap-1.5">
-                      <label htmlFor="vc-nombre" className="text-xs text-[var(--color-ink-400)]">
-                        Nombre *
-                      </label>
+                      <label htmlFor="vc-nombre" className="text-xs text-[var(--color-ink-400)]">Nombre *</label>
                       <input
                         id="vc-nombre"
                         type="text"
@@ -248,9 +236,21 @@ export default function VenderConsignarPage() {
                       />
                     </div>
                     <div className="flex flex-col gap-1.5">
-                      <label htmlFor="vc-telefono" className="text-xs text-[var(--color-ink-400)]">
-                        Teléfono *
-                      </label>
+                      <label htmlFor="vc-apellido" className="text-xs text-[var(--color-ink-400)]">Apellido *</label>
+                      <input
+                        id="vc-apellido"
+                        type="text"
+                        required
+                        value={form.apellido}
+                        onChange={(e) => update("apellido", e.target.value)}
+                        placeholder="Tu apellido"
+                        className="w-full bg-[var(--color-ink-800)] border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white placeholder-[var(--color-ink-600)] focus:outline-none focus:border-[var(--color-accent-600)] transition-colors"
+                      />
+                    </div>
+                  </div>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div className="flex flex-col gap-1.5">
+                      <label htmlFor="vc-telefono" className="text-xs text-[var(--color-ink-400)]">Teléfono *</label>
                       <input
                         id="vc-telefono"
                         type="tel"
@@ -261,103 +261,29 @@ export default function VenderConsignarPage() {
                         className="w-full bg-[var(--color-ink-800)] border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white placeholder-[var(--color-ink-600)] focus:outline-none focus:border-[var(--color-accent-600)] transition-colors"
                       />
                     </div>
+                    <div className="flex flex-col gap-1.5">
+                      <label htmlFor="vc-correo" className="text-xs text-[var(--color-ink-400)]">Correo *</label>
+                      <input
+                        id="vc-correo"
+                        type="email"
+                        required
+                        value={form.correo}
+                        onChange={(e) => update("correo", e.target.value)}
+                        placeholder="correo@ejemplo.cl"
+                        className="w-full bg-[var(--color-ink-800)] border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white placeholder-[var(--color-ink-600)] focus:outline-none focus:border-[var(--color-accent-600)] transition-colors"
+                      />
+                    </div>
                   </div>
 
-                  {/* Tu auto */}
-                  <p className="text-[10px] font-semibold tracking-[0.15em] uppercase text-[var(--color-ink-500)] mt-1">
-                    Tu vehículo
-                  </p>
-                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                    <div className="flex flex-col gap-1.5">
-                      <label htmlFor="vc-marca" className="text-xs text-[var(--color-ink-400)]">
-                        Marca
-                      </label>
-                      <input
-                        id="vc-marca"
-                        type="text"
-                        value={form.marca}
-                        onChange={(e) => update("marca", e.target.value)}
-                        placeholder="Toyota"
-                        className="w-full bg-[var(--color-ink-800)] border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white placeholder-[var(--color-ink-600)] focus:outline-none focus:border-[var(--color-accent-600)] transition-colors"
-                      />
-                    </div>
-                    <div className="flex flex-col gap-1.5">
-                      <label htmlFor="vc-modelo" className="text-xs text-[var(--color-ink-400)]">
-                        Modelo
-                      </label>
-                      <input
-                        id="vc-modelo"
-                        type="text"
-                        value={form.modelo}
-                        onChange={(e) => update("modelo", e.target.value)}
-                        placeholder="Yaris"
-                        className="w-full bg-[var(--color-ink-800)] border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white placeholder-[var(--color-ink-600)] focus:outline-none focus:border-[var(--color-accent-600)] transition-colors"
-                      />
-                    </div>
-                    <div className="flex flex-col gap-1.5">
-                      <label htmlFor="vc-anio" className="text-xs text-[var(--color-ink-400)]">
-                        Año
-                      </label>
-                      <input
-                        id="vc-anio"
-                        type="text"
-                        value={form.anio}
-                        onChange={(e) => update("anio", e.target.value)}
-                        placeholder="2019"
-                        className="w-full bg-[var(--color-ink-800)] border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white placeholder-[var(--color-ink-600)] focus:outline-none focus:border-[var(--color-accent-600)] transition-colors"
-                      />
-                    </div>
-                  </div>
-                  <div className="flex flex-col gap-1.5">
-                    <label htmlFor="vc-km" className="text-xs text-[var(--color-ink-400)]">
-                      Kilómetros aproximados
-                    </label>
-                    <input
-                      id="vc-km"
-                      type="text"
-                      value={form.km}
-                      onChange={(e) => update("km", e.target.value)}
-                      placeholder="ej: 80.000"
-                      className="w-full bg-[var(--color-ink-800)] border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white placeholder-[var(--color-ink-600)] focus:outline-none focus:border-[var(--color-accent-600)] transition-colors"
-                    />
-                  </div>
-                  <div className="flex flex-col gap-1.5">
-                    <label htmlFor="vc-mensaje" className="text-xs text-[var(--color-ink-400)]">
-                      Comentario adicional
-                    </label>
-                    <textarea
-                      id="vc-mensaje"
-                      rows={3}
-                      value={form.mensaje}
-                      onChange={(e) => update("mensaje", e.target.value)}
-                      placeholder="Estado del auto, precio esperado..."
-                      className="w-full bg-[var(--color-ink-800)] border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white placeholder-[var(--color-ink-600)] focus:outline-none focus:border-[var(--color-accent-600)] transition-colors resize-none"
-                    />
-                  </div>
-
-                  {/* Actions */}
-                  <div className="flex flex-col sm:flex-row gap-3 pt-2">
-                    <button
-                      type="submit"
-                      className="btn-base btn-primary flex-1 !py-3 gap-2"
-                    >
-                      <WhatsAppIcon className="w-4 h-4" />
-                      Enviar por WhatsApp
-                    </button>
-                    <button
-                      type="button"
-                      onClick={handleWebForm}
-                      className="btn-base btn-ghost flex-1 !py-3 gap-2"
-                    >
-                      Formulario web
-                      <ArrowRightIcon className="w-3.5 h-3.5" />
-                    </button>
-                  </div>
-                  <p className="text-[10px] text-[var(--color-ink-600)] text-center">
-                    Tu información no se almacena en este sitio. Solo se usa para pre-rellenar el mensaje.
-                  </p>
+                  <button
+                    type="submit"
+                    disabled={sending}
+                    className="btn-base btn-primary w-full !py-3 mt-2 disabled:opacity-50"
+                  >
+                    {sending ? "Enviando..." : tab === "compra" ? "Vender mi auto" : "Consignar vehículo"}
+                  </button>
                 </form>
-              </div>
+              )}
             </div>
           </div>
         </section>
