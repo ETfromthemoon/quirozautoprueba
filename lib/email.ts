@@ -1,6 +1,7 @@
-import { Resend } from "resend";
+import nodemailer from "nodemailer";
 
 export type FormTipo =
+  | "contacto"
   | "financiamiento"
   | "seguros"
   | "reserva"
@@ -10,9 +11,10 @@ export type FormTipo =
 
 export type FormData = Record<string, string>;
 
-const FROM = "Quiroz Redcar <noreply@quirozautomotriz.cl>";
+const FROM = process.env.SMTP_FROM ?? "noreply@quirozautomotriz.cl";
 
-const DESTINOS: Record<FormTipo, string> = {
+const DESTINOS: Record<string, string> = {
+  contacto: "mquiroz@quirozautomotriz.cl",
   financiamiento: "mquiroz@quirozautomotriz.cl",
   seguros: "mquiroz@quirozautomotriz.cl",
   reserva: "reservas@quirozautomotriz.cl",
@@ -21,21 +23,22 @@ const DESTINOS: Record<FormTipo, string> = {
   "formulario-vehiculos": "compras@quirozautomotriz.cl",
 };
 
+const TITULOS: Record<string, string> = {
+  contacto: "Nuevo mensaje de contacto",
+  financiamiento: "Solicitud de Financiamiento",
+  seguros: "Solicitud de Seguro Automotriz",
+  reserva: "Reserva de Vehículo",
+  compra: "Oferta de Venta — Compramos tu Auto",
+  consignacion: "Solicitud de Consignación",
+  "formulario-vehiculos": "Formulario de Vehículo",
+};
+
 function fieldRow(k: string, v: string) {
   return `<tr><td style="font-weight:600;padding:4px 12px 4px 0;white-space:nowrap;color:#52525b">${k}</td><td style="padding:4px 0">${v}</td></tr>`;
 }
 
 function buildHtml(tipo: FormTipo, data: FormData): string {
   const rows = Object.entries(data).map(([k, v]) => fieldRow(k, v)).join("");
-
-  const titulos: Record<string, string> = {
-    financiamiento: "Solicitud de Financiamiento",
-    seguros: "Solicitud de Seguro Automotriz",
-    reserva: "Reserva de Vehículo",
-    compra: "Oferta de Venta — Compramos tu Auto",
-    consignacion: "Solicitud de Consignación",
-    "formulario-vehiculos": "Formulario de Vehículo",
-  };
 
   let extra = "";
 
@@ -66,7 +69,7 @@ Agradeciendo nuevamente su preferencia.
 <div style="max-width:560px;margin:0 auto;background:#fff;border-radius:16px;overflow:hidden;box-shadow:0 4px 24px rgba(0,0,0,.06)">
 <div style="background:#09090b;padding:20px 28px">
 <h1 style="color:#fff;font-size:18px;margin:0;font-weight:600">Quiroz Redcar</h1>
-<p style="color:#a1a1aa;font-size:12px;margin:4px 0 0">${titulos[tipo]}</p>
+<p style="color:#a1a1aa;font-size:12px;margin:4px 0 0">${TITULOS[tipo]}</p>
 </div>
 <div style="padding:24px 28px">
 <table style="width:100%;border-collapse:collapse;font-size:14px">${rows}${extra}</table>
@@ -77,18 +80,33 @@ Quiroz Automotriz Spa · Av Bosques de Montemar 65, Edificio OFC Of 203, Concón
 </div></body></html>`;
 }
 
+function createTransport() {
+  const host = process.env.SMTP_HOST;
+  const port = Number(process.env.SMTP_PORT) || 465;
+  const user = process.env.SMTP_USER;
+  const pass = process.env.SMTP_PASS;
+
+  if (host && user && pass) {
+    return nodemailer.createTransport({
+      host,
+      port,
+      secure: port === 465,
+      auth: { user, pass },
+    });
+  }
+
+  throw new Error(
+    "SMTP no configurado. Define SMTP_HOST, SMTP_USER, SMTP_PASS en .env.local"
+  );
+}
+
 export async function sendEmail(tipo: FormTipo, data: FormData) {
-  const apiKey = process.env.RESEND_API_KEY;
-  if (!apiKey) throw new Error("RESEND_API_KEY no configurada");
+  const transport = createTransport();
 
-  const resend = new Resend(apiKey);
-
-  const { error } = await resend.emails.send({
+  await transport.sendMail({
     from: FROM,
     to: DESTINOS[tipo],
-    subject: `[Quiroz Redcar] Nueva solicitud — ${tipo}`,
+    subject: `[Quiroz Redcar] ${TITULOS[tipo]}`,
     html: buildHtml(tipo, data),
   });
-
-  if (error) throw error;
 }

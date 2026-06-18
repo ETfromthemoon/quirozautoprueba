@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { getWhatsAppUrl } from "@/lib/whatsapp";
 import Logo from "./Logo";
+import ContactForm from "./ContactForm";
 import { WhatsAppIcon, PhoneIcon, MapPinIcon, ArrowRightIcon } from "./icons";
 
 export default function Contact() {
@@ -65,29 +66,37 @@ export default function Contact() {
             </p>
           </div>
 
-          {/* Contact grid */}
-          <div className="mt-6 md:mt-14 grid grid-cols-3 sm:grid-cols-3 gap-2 md:gap-4">
-            <ContactCard
-              label="WhatsApp"
-              value="+56 9 5906 5441"
-              href={whatsappUrl}
-              external
-              highlight
-              icon="whatsapp"
-            />
-            <ContactCard
-              label="Teléfono"
-              value="+56 9 9343 1571"
-              href="tel:+56993431571"
-              icon="phone"
-            />
-            <ContactCard
-              label="Ubicación"
-              value="Valparaíso · Concón"
-              href="https://maps.google.com/?q=Hontaneda+2615+Valparaíso"
-              external
-              icon="map"
-            />
+          {/* Contact grid + Form */}
+          <div className="mt-6 md:mt-14 grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-10">
+            <div>
+              <div className="grid grid-cols-3 gap-2 md:gap-4">
+                <ContactCard
+                  label="WhatsApp"
+                  value="+56 9 5906 5441"
+                  href={whatsappUrl}
+                  external
+                  highlight
+                  icon="whatsapp"
+                />
+                <ContactCard
+                  label="Teléfono"
+                  value="+56 9 9343 1571"
+                  href="tel:+56993431571"
+                  icon="phone"
+                />
+                <ContactCard
+                  label="Ubicación"
+                  value="Valparaíso · Concón"
+                  href="https://maps.google.com/?q=Hontaneda+2615+Valparaíso"
+                  external
+                  icon="map"
+                />
+              </div>
+            </div>
+            <div className="glass-panel rounded-2xl p-5 md:p-6">
+              <p className="text-overline text-accent-500 mb-4">Envíanos un mensaje</p>
+              <ContactForm />
+            </div>
           </div>
 
           {/* Primary CTAs */}

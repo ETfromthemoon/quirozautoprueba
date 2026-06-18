@@ -83,8 +83,8 @@ export default function Hero({ totalCars }: Props) {
               <span className="block text-white">EXCEPCIONAL</span>
             </h1>
             <p className="mt-6 md:mt-8 text-sm md:text-lg text-ink-200 max-w-xl mx-auto font-light leading-relaxed animate-fade-up delay-400 px-4">
-              Autos seleccionados con más de 25 años de experiencia brindando
-              seguridad, transparencia y eficiencia.
+               Autos seleccionados con más de 20 años de experiencia brindando
+               seguridad, transparencia y eficiencia.
             </p>
 
             <div className="mt-10 md:mt-12 flex items-center justify-center gap-3 md:gap-4 animate-fade-up delay-500">

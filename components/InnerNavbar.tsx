@@ -89,7 +89,7 @@ export default function InnerNavbar() {
               {/* Social icons (desktop only) */}
               <div className="hidden lg:flex items-center gap-1 mr-1">
                 <a
-                  href="https://www.instagram.com/quirozautomotriz/"
+                  href="https://www.instagram.com/quirozautomotrizspa/"
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label="Instagram"
@@ -186,7 +186,7 @@ export default function InnerNavbar() {
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
               <a
-                href="https://www.instagram.com/quirozautomotriz/"
+                href="https://www.instagram.com/quirozautomotrizspa/"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Instagram"

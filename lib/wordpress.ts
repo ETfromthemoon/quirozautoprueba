@@ -56,6 +56,7 @@ const WP_API = (
 ).replace(/\/$/, "");
 
 const REVALIDATE_SECONDS = 60; // ISR: refresca el catálogo cada 60 s → autos nuevos aparecen en ~1 min
+const FETCH_TIMEOUT_MS = 15_000; // timeout por request a WP
 const PER_PAGE = 100;
 const MAX_PAGES = 15; // tope de seguridad (1.500 autos)
 
@@ -372,9 +373,15 @@ function mapProductToCar(product: WpProduct): Car {
 
 // ─── Fetch con paginación ───────────────────────────────────────────────────
 
+function fetchWithTimeout(url: string, options: RequestInit = {}): Promise<Response> {
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), FETCH_TIMEOUT_MS);
+  return fetch(url, { ...options, signal: controller.signal }).finally(() => clearTimeout(timer));
+}
+
 async function fetchProductsPage(page: number): Promise<WpProduct[]> {
   const url = `${WP_API}/product?per_page=${PER_PAGE}&page=${page}&_embed&orderby=title&order=asc`;
-  const res = await fetch(url, {
+  const res = await fetchWithTimeout(url, {
     next: { revalidate: REVALIDATE_SECONDS },
     headers: {
       "Accept": "application/json",
@@ -436,7 +443,7 @@ export async function fetchCars(): Promise<Car[]> {
 export async function fetchCarBySlug(slug: string): Promise<Car | undefined> {
   try {
     const url = `${WP_API}/product?slug=${encodeURIComponent(slug)}&_embed`;
-    const res = await fetch(url, { next: { revalidate: REVALIDATE_SECONDS } });
+    const res = await fetchWithTimeout(url, { next: { revalidate: REVALIDATE_SECONDS } });
     if (!res.ok) throw new Error(`WordPress API ${res.status} para slug ${slug}`);
 
     const products = (await res.json()) as WpProduct[];

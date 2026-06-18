@@ -229,7 +229,7 @@ export default function Navbar({ totalCars }: Props) {
             {/* Social icons */}
             <div className="flex items-center gap-4">
               <a
-                href="https://www.instagram.com/quirozautomotriz/"
+                href="https://www.instagram.com/quirozautomotrizspa/"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Instagram"

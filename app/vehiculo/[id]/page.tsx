@@ -9,8 +9,13 @@ export const revalidate = 60;
 type RouteParams = { id: string };
 
 export async function generateStaticParams(): Promise<RouteParams[]> {
-  const slugs = await fetchCarSlugs();
-  return slugs.map((id) => ({ id }));
+  try {
+    const slugs = await fetchCarSlugs();
+    // Pre-generar solo primeros 8 en build; el resto se genera on-demand (ISR)
+    return slugs.slice(0, 8).map((id) => ({ id }));
+  } catch {
+    return [];
+  }
 }
 
 export async function generateMetadata({

@@ -22,6 +22,8 @@
   ],
   "redirects": [
     { "source": "/home", "destination": "/", "permanent": true },
-    { "source": "/catalogo", "destination": "/", "permanent": true }
+    { "source": "/catalogo", "destination": "/", "permanent": true },
+    { "source": "/disponibles", "destination": "/", "permanent": true },
+    { "source": "/disponibles/:page", "destination": "/", "permanent": true }
   ]
 }
