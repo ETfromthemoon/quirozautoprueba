@@ -21,22 +21,22 @@ const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://quirozautomotriz.cl
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: "Quiroz Redcar — Colección Premium",
-    template: "%s · Quiroz Redcar",
+    default: "Quiroz Automotriz — Colección Premium",
+    template: "%s · Quiroz Automotriz",
   },
   description:
-    "Automotora familiar en San Miguel, Santiago. Más de 10 años seleccionando vehículos con honestidad y precios justos. BMW, Ford, Chevrolet, Peugeot y más.",
+    "Automotora familiar. Más de 10 años seleccionando vehículos con honestidad y precios justos. BMW, Ford, Chevrolet, Peugeot y más.",
   openGraph: {
-    title: "Quiroz Redcar — Colección Premium",
-    description: "Automotora familiar en San Miguel, Santiago. Precios justos, trato directo.",
+    title: "Quiroz Automotriz — Colección Premium",
+    description: "Automotora familiar. Precios justos, trato directo.",
     url: siteUrl,
-    siteName: "Quiroz Redcar",
+    siteName: "Quiroz Automotriz",
     locale: "es_CL",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Quiroz Redcar — Colección Premium",
+    title: "Quiroz Automotriz — Colección Premium",
     description: "Catálogo de vehículos premium en Chile.",
   },
   robots: {
@@ -57,9 +57,9 @@ export const viewport: Viewport = {
 const dealerJsonLd = {
   "@context": "https://schema.org",
   "@type": "AutoDealer",
-  name: "Quiroz Redcar — Quiroz Automotriz Spa",
+  name: "Quiroz Automotriz Spa",
   description:
-    "Automotora familiar en San Miguel, Santiago. Más de 10 años seleccionando vehículos con honestidad y precios justos.",
+    "Automotora familiar. Más de 10 años seleccionando vehículos con honestidad y precios justos.",
   url: siteUrl,
   telephone: "+56993431571",
   priceRange: "$$$",

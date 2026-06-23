@@ -6,7 +6,7 @@ import { getWhatsAppUrl } from "@/lib/whatsapp";
 import { WhatsAppIcon, CheckIcon, MapPinIcon, PhoneIcon } from "@/components/icons";
 
 export const metadata: Metadata = {
-  title: "Nosotros — Quiroz Redcar",
+  title: "Nosotros — Quiroz Automotriz",
   description:
     "Conoce la historia de Quiroz Automotriz. Más de 10 años en el rubro automotriz ofreciendo compra, venta y consignación de vehículos con proceso 100% transparente y seguro.",
 };

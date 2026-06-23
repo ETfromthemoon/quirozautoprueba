@@ -11,9 +11,9 @@ import type { Car } from "@/lib/cars";
 export const revalidate = 60;
 
 export const metadata: Metadata = {
-  title: "Vendidos — Quiroz Redcar",
+  title: "Vendidos — Quiroz Automotriz",
   description:
-    "Historial de vehículos vendidos en Quiroz Redcar. Más de 20 años conectando familias con su próximo auto.",
+    "Historial de vehículos vendidos. Más de 20 años conectando familias con su próximo auto.",
 };
 
 function SoldCarCard({ car }: { car: Car }) {

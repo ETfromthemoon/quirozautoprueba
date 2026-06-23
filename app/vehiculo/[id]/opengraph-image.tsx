@@ -1,7 +1,7 @@
 import { ImageResponse } from "next/og";
 import { fetchCarBySlug, fetchCarSlugs } from "@/lib/wordpress";
 
-export const alt = "Vehículo · Quiroz Redcar";
+export const alt = "Vehículo · Quiroz Automotriz";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -36,7 +36,7 @@ export default async function Image({
             fontFamily: "sans-serif",
           }}
         >
-          Quiroz Redcar
+          Quiroz Automotriz
         </div>
       ),
       { ...size }

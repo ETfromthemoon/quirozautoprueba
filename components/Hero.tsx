@@ -13,7 +13,7 @@ export default function Hero({ totalCars }: Props) {
         <div className="absolute inset-0 animate-ken-burns">
           <Image
             src="https://images.unsplash.com/photo-1774979300787-bd3563a085b8?w=1920&q=80"
-            alt="Quiroz Redcar - Colección Premium"
+            alt="Quiroz Automotriz - Colección Premium"
             fill
             priority
             className="object-cover"

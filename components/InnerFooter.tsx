@@ -80,7 +80,7 @@ export default function InnerFooter() {
             </h3>
             <div className="flex flex-col gap-4">
               <a
-                href={getWhatsAppUrl("Hola, me interesa conocer el catálogo de Quiroz Redcar.")}
+                href={getWhatsAppUrl("Hola, me interesa conocer el catálogo de Quiroz Automotriz.")}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-start gap-3 text-[var(--color-ink-400)] hover:text-white transition-colors group"
@@ -98,7 +98,7 @@ export default function InnerFooter() {
                 </div>
               </div>
               <a
-                href={getWhatsAppUrl("Hola, me interesa conocer el catálogo de Quiroz Redcar.")}
+                href={getWhatsAppUrl("Hola, me interesa conocer el catálogo de Quiroz Automotriz.")}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="btn-base btn-primary !py-2.5 !px-4 !text-[11px] gap-2 w-fit mt-2"
@@ -113,7 +113,7 @@ export default function InnerFooter() {
         {/* Bottom bar */}
         <div className="mt-12 pt-8 border-t border-white/8 flex flex-col sm:flex-row items-center justify-between gap-4">
           <p className="text-[var(--color-ink-600)] text-xs">
-            © {new Date().getFullYear()} Quiroz Redcar. Todos los derechos reservados.
+            © {new Date().getFullYear()} Quiroz Automotriz. Todos los derechos reservados.
           </p>
           <p className="text-[var(--color-ink-700)] text-xs">
             Automotora de confianza en Santiago

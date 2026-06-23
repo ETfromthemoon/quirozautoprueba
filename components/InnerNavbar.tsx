@@ -117,7 +117,7 @@ export default function InnerNavbar() {
 
               {/* WhatsApp CTA */}
               <a
-                href={getWhatsAppUrl("Hola, me interesa conocer el catálogo de Quiroz Redcar.")}
+                href={getWhatsAppUrl("Hola, me interesa conocer el catálogo de Quiroz Automotriz.")}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="btn-base btn-primary !py-2 !px-3.5 md:!px-4 !text-[10px] gap-1.5"
@@ -212,7 +212,7 @@ export default function InnerNavbar() {
               </a>
             </div>
             <a
-              href={getWhatsAppUrl("Hola, me interesa conocer el catálogo de Quiroz Redcar.")}
+              href={getWhatsAppUrl("Hola, me interesa conocer el catálogo de Quiroz Automotriz.")}
               target="_blank"
               rel="noopener noreferrer"
               className="btn-base btn-primary !py-2.5 !px-4 !text-[11px] gap-2"

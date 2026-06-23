@@ -2,8 +2,8 @@ import type { MetadataRoute } from "next";
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: "Quiroz Redcar — Colección Premium",
-    short_name: "Quiroz Redcar",
+    name: "Quiroz Automotriz — Colección Premium",
+    short_name: "Quiroz Automotriz",
     description:
       "Catálogo de vehículos premium en Valparaíso, Chile. Más de 20 años seleccionando automóviles excepcionales.",
     start_url: "/",

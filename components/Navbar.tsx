@@ -150,7 +150,7 @@ export default function Navbar({ totalCars }: Props) {
 
               <a
                 href={getWhatsAppUrl(
-                  "Hola, me interesa conocer el catálogo de Quiroz Redcar."
+                  "Hola, me interesa conocer el catálogo de Quiroz Automotriz."
                 )}
                 target="_blank"
                 rel="noopener noreferrer"
@@ -257,7 +257,7 @@ export default function Navbar({ totalCars }: Props) {
 
             {/* WhatsApp CTA */}
             <a
-              href={getWhatsAppUrl("Hola, me interesa conocer el catálogo de Quiroz Redcar.")}
+              href={getWhatsAppUrl("Hola, me interesa conocer el catálogo de Quiroz Automotriz.")}
               target="_blank"
               rel="noopener noreferrer"
               className="btn-base btn-primary !py-2.5 !px-5 !text-[11px] gap-2"

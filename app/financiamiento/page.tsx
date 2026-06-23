@@ -231,7 +231,7 @@ export default function FinanciamientoPage() {
                       Ya recibimos tu información
                     </p>
                     <p className="text-[var(--color-ink-400)] text-sm max-w-sm">
-                      Te informaremos la respuesta a la brevedad. Gracias por confiar en Quiroz Redcar.
+                      Te informaremos la respuesta a la brevedad. Gracias por confiar en Quiroz Automotriz.
                     </p>
                     <Link href="/" className="btn-base btn-primary !py-2.5 !px-5 mt-2">
                       Volver al catálogo

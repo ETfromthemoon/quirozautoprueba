@@ -25,9 +25,9 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { id } = await params;
   const car = await fetchCarBySlug(id);
-  if (!car) return { title: "Vehículo no encontrado · Quiroz Redcar" };
+  if (!car) return { title: "Vehículo no encontrado · Quiroz Automotriz" };
 
-  const title = `${car.brand} ${car.model} ${car.year} · ${car.price} · Quiroz Redcar`;
+  const title = `${car.brand} ${car.model} ${car.year} · ${car.price} · Quiroz Automotriz`;
   const description = `${car.brand} ${car.model} ${car.variant ?? ""} ${car.year}. ${car.km} km · ${car.fuel} · ${car.transmission}. ${car.description}`;
 
   return {
@@ -83,7 +83,7 @@ export default async function VehicleDetailPage({
       availability: "https://schema.org/InStock",
       itemCondition: "https://schema.org/UsedCondition",
       url: `${siteUrl}/vehiculo/${car.id}`,
-      seller: { "@type": "AutoDealer", name: "Quiroz Redcar" },
+      seller: { "@type": "AutoDealer", name: "Quiroz Automotriz" },
     },
   };
 

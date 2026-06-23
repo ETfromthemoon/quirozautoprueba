@@ -173,7 +173,7 @@ export default function SegurosPage() {
                       Ya recibimos tu información
                     </p>
                     <p className="text-[var(--color-ink-400)] text-sm max-w-sm">
-                      A la brevedad nos comunicaremos. Gracias por confiar en Quiroz Redcar.
+                      A la brevedad nos comunicaremos. Gracias por confiar en Quiroz Automotriz.
                     </p>
                     <Link href="/" className="btn-base btn-primary !py-2.5 !px-5 mt-2">
                       Volver al catálogo
