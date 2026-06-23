@@ -56,10 +56,10 @@ const WP_API = (
 ).replace(/\/$/, "");
 
 const REVALIDATE_SECONDS = 60; // ISR: refresca el catálogo cada 60 s → autos nuevos aparecen en ~1 min
-const FETCH_TIMEOUT_MS = 10_000; // timeout por request a WP (build)
-const RUNTIME_FETCH_TIMEOUT_MS = 25_000; // timeout más generoso en runtime
-const SAFETY_TIMEOUT_MS = 14_000; // timeout de seguridad por si AbortController falla (build)
-const RUNTIME_SAFETY_TIMEOUT_MS = 30_000; // safety timeout runtime
+const FETCH_TIMEOUT_MS = 10_000;
+const RUNTIME_FETCH_TIMEOUT_MS = 20_000;
+const SAFETY_TIMEOUT_MS = 14_000;
+const RUNTIME_SAFETY_TIMEOUT_MS = 25_000;
 const PER_PAGE = 100;
 const RUNTIME_MAX_PAGES = 15; // tope en runtime (1.500 autos)
 const BUILD_MAX_PAGES = 1;    // tope durante build (100 autos) para no colgar
@@ -91,6 +91,8 @@ type WpProduct = {
   slug: string;
   title?: { rendered?: string };
   acf?: WpAcf;
+  product_cat?: number[];
+  featured_media?: number;
   _embedded?: {
     "wp:featuredmedia"?: WpMedia[];
     "wp:term"?: WpTerm[][];
@@ -319,12 +321,20 @@ function buildDisplacement(cilindrada: string | undefined): string | undefined {
 
 // ─── Mapeo producto → Car ───────────────────────────────────────────────────
 
-function extractCategoryNames(product: WpProduct): string[] {
+function extractCategoryNames(product: WpProduct, catMap?: Map<number, string>): string[] {
+  // Preferir _embedded.wp:term si existe (cuando se usó _embed=wp:term)
   const groups = product._embedded?.["wp:term"] ?? [];
-  return groups
-    .flat()
-    .filter((t) => t?.taxonomy === "product_cat" && t.name)
-    .map((t) => t.name as string);
+  if (groups.length > 0) {
+    return groups
+      .flat()
+      .filter((t) => t?.taxonomy === "product_cat" && t.name)
+      .map((t) => t.name as string);
+  }
+  // Fallback: usar product_cat IDs + category map
+  if (catMap && product.product_cat?.length) {
+    return product.product_cat.map((id) => catMap.get(id)).filter(Boolean) as string[];
+  }
+  return [];
 }
 
 function extractImage(product: WpProduct): string {
@@ -394,7 +404,9 @@ function fetchWithTimeout(url: string, options: RequestInit = {}): Promise<Respo
 }
 
 async function fetchProductsPage(page: number): Promise<WpProduct[]> {
-  const url = `${WP_API}/product?per_page=${PER_PAGE}&page=${page}&_embed&orderby=title&order=asc`;
+  // Solo embed=wp:featuredmedia (imagenes). Categorias se obtienen por separado.
+  // Sin orderby porque relentiza con _embed.
+  const url = `${WP_API}/product?per_page=${PER_PAGE}&page=${page}&_embed=wp:featuredmedia`;
   const res = await fetchWithTimeout(url, {
     headers: {
       "Accept": "application/json",
@@ -427,10 +439,34 @@ async function fetchAllProducts(): Promise<WpProduct[]> {
   return all;
 }
 
-// ─── Cache global (solo cachea éxitos, nunca fallos) ────────────────────────
+// ─── Cache global ────────────────────────────────────────────────────────────
 
 let _carsCache: Car[] | null = null;
 let _soldCarsCache: Car[] | null = null;
+let _catMap: Map<number, string> | null = null;
+
+/** Obtiene el mapa de ID→nombre de categorías de producto (cacheado). */
+async function getCategoryMap(): Promise<Map<number, string>> {
+  if (_catMap) return _catMap;
+  try {
+    const url = `${WP_API}/product_cat?per_page=100`;
+    const res = await fetchWithTimeout(url, {
+      headers: {
+        "Accept": "application/json",
+        "User-Agent": "Mozilla/5.0 (compatible; QuirozNext/1.0)",
+      },
+    });
+    if (!res.ok) throw new Error(`Categories API ${res.status}`);
+    const cats = (await res.json()) as Array<{ id: number; name: string }>;
+    _catMap = new Map(cats.map((c) => [c.id, c.name]));
+    console.log(`[WordPress] getCategoryMap → ${_catMap.size} categorías`);
+    return _catMap;
+  } catch (err) {
+    console.error("[WordPress] getCategoryMap falló:", err);
+    _catMap = new Map();
+    return _catMap;
+  }
+}
 
 // ─── API pública ────────────────────────────────────────────────────────────
 
@@ -450,9 +486,12 @@ export async function fetchCars(): Promise<Car[]> {
 
   // Runtime: siempre intenta WP
   const getCarsFromWP = async () => {
-    const products = await fetchAllProducts();
+    const [products, catMap] = await Promise.all([
+      fetchAllProducts(),
+      getCategoryMap(),
+    ]);
     const cars = products
-      .map((p) => ({ product: p, cat: classifyCategories(extractCategoryNames(p)) }))
+      .map((p) => ({ product: p, cat: classifyCategories(extractCategoryNames(p, catMap)) }))
       .filter(({ cat, product }) => {
         if (cat.isSold) return false;
         const desc = (product.acf?.descripcion ?? "").trimStart();
@@ -530,9 +569,12 @@ export async function fetchSoldCars(): Promise<Car[]> {
   }
 
   try {
-    const products = await fetchAllProducts();
+    const [products, catMap] = await Promise.all([
+      fetchAllProducts(),
+      getCategoryMap(),
+    ]);
     const sold = products
-      .map((p) => ({ product: p, cat: classifyCategories(extractCategoryNames(p)) }))
+      .map((p) => ({ product: p, cat: classifyCategories(extractCategoryNames(p, catMap)) }))
       .filter(({ cat, product }) => {
         if (cat.isSold) return true;
         const desc = (product.acf?.descripcion ?? "").trimStart();
