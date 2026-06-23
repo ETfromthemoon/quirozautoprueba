@@ -56,9 +56,15 @@ const WP_API = (
 ).replace(/\/$/, "");
 
 const REVALIDATE_SECONDS = 60; // ISR: refresca el catálogo cada 60 s → autos nuevos aparecen en ~1 min
-const FETCH_TIMEOUT_MS = 15_000; // timeout por request a WP
+const FETCH_TIMEOUT_MS = 10_000; // timeout por request a WP
+const SAFETY_TIMEOUT_MS = 14_000; // timeout de seguridad por si AbortController falla
 const PER_PAGE = 100;
 const MAX_PAGES = 15; // tope de seguridad (1.500 autos)
+
+// Saltear WordPress durante el build: usa datos estáticos y evita cuelgues.
+const SKIP_WP =
+  process.env.SKIP_WP === "1" ||
+  process.env.NEXT_PHASE === "phase-production-build";
 
 // Foto de respaldo si un producto no tiene imagen destacada.
 const FALLBACK_IMAGE =
@@ -376,7 +382,13 @@ function mapProductToCar(product: WpProduct): Car {
 function fetchWithTimeout(url: string, options: RequestInit = {}): Promise<Response> {
   const controller = new AbortController();
   const timer = setTimeout(() => controller.abort(), FETCH_TIMEOUT_MS);
-  return fetch(url, { ...options, signal: controller.signal }).finally(() => clearTimeout(timer));
+  const safetyTimer = new Promise<never>((_, reject) =>
+    setTimeout(() => reject(new Error(`Safety timeout after ${SAFETY_TIMEOUT_MS}ms`)), SAFETY_TIMEOUT_MS)
+  );
+  return Promise.race([
+    fetch(url, { ...options, signal: controller.signal }).finally(() => clearTimeout(timer)),
+    safetyTimer,
+  ]);
 }
 
 async function fetchProductsPage(page: number): Promise<WpProduct[]> {
@@ -401,12 +413,22 @@ async function fetchProductsPage(page: number): Promise<WpProduct[]> {
 async function fetchAllProducts(): Promise<WpProduct[]> {
   const all: WpProduct[] = [];
   for (let page = 1; page <= MAX_PAGES; page++) {
-    const batch = await fetchProductsPage(page);
-    all.push(...batch);
-    if (batch.length < PER_PAGE) break;
+    try {
+      const batch = await fetchProductsPage(page);
+      all.push(...batch);
+      if (batch.length < PER_PAGE) break;
+    } catch (err) {
+      console.error(`[WordPress] fetchAllProducts página ${page} falló, deteniendo paginación:`, err);
+      break;
+    }
   }
   return all;
 }
+
+// ─── Cache global (evita múltiples llamadas durante el build) ────────────────
+
+let _carsCache: Car[] | null = null;
+let _soldCarsCache: Car[] | null = null;
 
 // ─── API pública ────────────────────────────────────────────────────────────
 
@@ -415,25 +437,31 @@ async function fetchAllProducts(): Promise<WpProduct[]> {
  * Excluye los marcados como vendidos. Si WordPress falla, usa datos estáticos.
  */
 export async function fetchCars(): Promise<Car[]> {
+  if (_carsCache) return _carsCache;
+  if (SKIP_WP) {
+    console.log("[WordPress] Build mode — usando datos estáticos");
+    _carsCache = staticCars;
+    return _carsCache;
+  }
+
   try {
     const products = await fetchAllProducts();
     const cars = products
       .map((p) => ({ product: p, cat: classifyCategories(extractCategoryNames(p)) }))
       .filter(({ cat, product }) => {
-        // Filtro por categoría (ej. "Vendido", "Inactivo")
         if (cat.isSold) return false;
-        // Filtro por descripción: autos cuya descripción empieza con "VENDIDO"
         const desc = (product.acf?.descripcion ?? "").trimStart();
         if (/^VENDIDO/i.test(desc)) return false;
         return true;
       })
       .map(({ product }) => mapProductToCar(product));
 
-    // Si por alguna razón no llegó nada, caer al respaldo estático.
-    return cars.length > 0 ? cars : staticCars;
+    _carsCache = cars.length > 0 ? cars : staticCars;
+    return _carsCache;
   } catch (err) {
     console.error("[WordPress] fetchCars falló — usando respaldo estático:", err);
-    return staticCars;
+    _carsCache = staticCars;
+    return _carsCache;
   }
 }
 
@@ -474,9 +502,16 @@ export async function fetchCarSlugs(): Promise<string[]> {
  * Devuelve array vacío (nunca usa estáticos) si WordPress falla.
  */
 export async function fetchSoldCars(): Promise<Car[]> {
+  if (_soldCarsCache) return _soldCarsCache;
+  if (SKIP_WP) {
+    console.log("[WordPress] Build mode — sin vendidos estáticos");
+    _soldCarsCache = [];
+    return _soldCarsCache;
+  }
+
   try {
     const products = await fetchAllProducts();
-    return products
+    _soldCarsCache = products
       .map((p) => ({ product: p, cat: classifyCategories(extractCategoryNames(p)) }))
       .filter(({ cat, product }) => {
         if (cat.isSold) return true;
@@ -485,8 +520,10 @@ export async function fetchSoldCars(): Promise<Car[]> {
         return false;
       })
       .map(({ product }) => mapProductToCar(product));
+    return _soldCarsCache;
   } catch (err) {
     console.error("[WordPress] fetchSoldCars falló:", err);
-    return [];
+    _soldCarsCache = [];
+    return _soldCarsCache;
   }
 }
