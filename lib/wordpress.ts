@@ -56,15 +56,18 @@ const WP_API = (
 ).replace(/\/$/, "");
 
 const REVALIDATE_SECONDS = 60; // ISR: refresca el catálogo cada 60 s → autos nuevos aparecen en ~1 min
-const FETCH_TIMEOUT_MS = 10_000; // timeout por request a WP
-const SAFETY_TIMEOUT_MS = 14_000; // timeout de seguridad por si AbortController falla
+const FETCH_TIMEOUT_MS = 10_000; // timeout por request a WP (build)
+const RUNTIME_FETCH_TIMEOUT_MS = 25_000; // timeout más generoso en runtime
+const SAFETY_TIMEOUT_MS = 14_000; // timeout de seguridad por si AbortController falla (build)
+const RUNTIME_SAFETY_TIMEOUT_MS = 30_000; // safety timeout runtime
 const PER_PAGE = 100;
-const MAX_PAGES = 15; // tope de seguridad (1.500 autos)
+const RUNTIME_MAX_PAGES = 15; // tope en runtime (1.500 autos)
+const BUILD_MAX_PAGES = 1;    // tope durante build (100 autos) para no colgar
 
-// Saltear WordPress durante el build: usa datos estáticos y evita cuelgues.
-const SKIP_WP =
-  process.env.SKIP_WP === "1" ||
-  process.env.NEXT_PHASE === "phase-production-build";
+const isBuild = typeof process !== "undefined" && process.env.NEXT_PHASE === "phase-production-build";
+
+// Saltear WP explícitamente (override de emergencia para Vercel)
+const SKIP_WP = process.env.SKIP_WP === "1";
 
 // Foto de respaldo si un producto no tiene imagen destacada.
 const FALLBACK_IMAGE =
@@ -380,10 +383,12 @@ function mapProductToCar(product: WpProduct): Car {
 // ─── Fetch con paginación ───────────────────────────────────────────────────
 
 function fetchWithTimeout(url: string, options: RequestInit = {}): Promise<Response> {
+  const timeoutMs = isBuild ? FETCH_TIMEOUT_MS : RUNTIME_FETCH_TIMEOUT_MS;
+  const safetyMs = isBuild ? SAFETY_TIMEOUT_MS : RUNTIME_SAFETY_TIMEOUT_MS;
   const controller = new AbortController();
-  const timer = setTimeout(() => controller.abort(), FETCH_TIMEOUT_MS);
+  const timer = setTimeout(() => controller.abort(), timeoutMs);
   const safetyTimer = new Promise<never>((_, reject) =>
-    setTimeout(() => reject(new Error(`Safety timeout after ${SAFETY_TIMEOUT_MS}ms`)), SAFETY_TIMEOUT_MS)
+    setTimeout(() => reject(new Error(`Safety timeout after ${safetyMs}ms`)), safetyMs)
   );
   return Promise.race([
     fetch(url, { ...options, signal: controller.signal }).finally(() => clearTimeout(timer)),
@@ -411,8 +416,9 @@ async function fetchProductsPage(page: number): Promise<WpProduct[]> {
 }
 
 async function fetchAllProducts(): Promise<WpProduct[]> {
+  const maxPages = isBuild ? BUILD_MAX_PAGES : RUNTIME_MAX_PAGES;
   const all: WpProduct[] = [];
-  for (let page = 1; page <= MAX_PAGES; page++) {
+  for (let page = 1; page <= maxPages; page++) {
     try {
       const batch = await fetchProductsPage(page);
       all.push(...batch);
@@ -438,13 +444,14 @@ let _soldCarsCache: Car[] | null = null;
  */
 export async function fetchCars(): Promise<Car[]> {
   if (_carsCache) return _carsCache;
+
   if (SKIP_WP) {
-    console.log("[WordPress] Build mode — usando datos estáticos");
+    console.log("[WordPress] SKIP_WP=1 — usando datos estáticos");
     _carsCache = staticCars;
     return _carsCache;
   }
 
-  try {
+  const getCarsFromWP = async () => {
     const products = await fetchAllProducts();
     const cars = products
       .map((p) => ({ product: p, cat: classifyCategories(extractCategoryNames(p)) }))
@@ -455,11 +462,17 @@ export async function fetchCars(): Promise<Car[]> {
         return true;
       })
       .map(({ product }) => mapProductToCar(product));
+    if (cars.length === 0) throw new Error("WP devolvió 0 autos disponibles");
+    return cars;
+  };
 
-    _carsCache = cars.length > 0 ? cars : staticCars;
+  try {
+    _carsCache = await getCarsFromWP();
+    console.log(`[WordPress] fetchCars → ${_carsCache.length} autos disponibles`);
     return _carsCache;
   } catch (err) {
-    console.error("[WordPress] fetchCars falló — usando respaldo estático:", err);
+    const label = isBuild ? "[WordPress] Build " : "[WordPress] ";
+    console.error(`${label}fetchCars falló — usando respaldo estático:`, err);
     _carsCache = staticCars;
     return _carsCache;
   }
@@ -503,8 +516,9 @@ export async function fetchCarSlugs(): Promise<string[]> {
  */
 export async function fetchSoldCars(): Promise<Car[]> {
   if (_soldCarsCache) return _soldCarsCache;
+
   if (SKIP_WP) {
-    console.log("[WordPress] Build mode — sin vendidos estáticos");
+    console.log("[WordPress] SKIP_WP=1 — sin vendidos estáticos");
     _soldCarsCache = [];
     return _soldCarsCache;
   }
@@ -520,6 +534,7 @@ export async function fetchSoldCars(): Promise<Car[]> {
         return false;
       })
       .map(({ product }) => mapProductToCar(product));
+    console.log(`[WordPress] fetchSoldCars → ${_soldCarsCache.length} vendidos`);
     return _soldCarsCache;
   } catch (err) {
     console.error("[WordPress] fetchSoldCars falló:", err);
