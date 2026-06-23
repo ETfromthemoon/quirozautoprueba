@@ -8,37 +8,41 @@ import { WhatsAppIcon, CheckIcon, MapPinIcon, PhoneIcon } from "@/components/ico
 export const metadata: Metadata = {
   title: "Nosotros — Quiroz Redcar",
   description:
-    "Conoce la historia de Quiroz Redcar, automotora en Concón y Valparaíso. Más de 20 años ayudando a familias a encontrar su vehículo ideal.",
+    "Conoce la historia de Quiroz Automotriz. Más de 10 años en el rubro automotriz ofreciendo compra, venta y consignación de vehículos con proceso 100% transparente y seguro.",
 };
 
-const VALUES = [
-  {
-    title: "Transparencia",
-    description:
-      "Cada vehículo se muestra tal como es — sin precio inflado, sin letra chica. Preguntas incómodas son bienvenidas.",
-  },
-  {
-    title: "Cercanía",
-    description:
-      "No somos un megashow. Somos una familia que atiende como familia. El trato es directo, sin intermediarios.",
-  },
-  {
-    title: "Confianza",
-    description:
-      "Más de veinte años de clientes que vuelven y recomiendan. Ese historial no se compra — se construye día a día.",
-  },
-  {
-    title: "Calidad",
-    description:
-      "Cada auto que recibimos pasa por una revisión completa. Si no cumpliría con nuestros estándares, no está en catálogo.",
-  },
+const STATS = [
+  { value: "+10", label: "años en el mercado" },
+  { value: "+500", label: "vehículos vendidos" },
+  { value: "100%", label: "transparencia" },
+  { value: "0", label: "preocupaciones para ti" },
 ];
 
-const STATS = [
-  { value: "+20", label: "años en el mercado" },
-  { value: "+500", label: "vehículos vendidos" },
-  { value: "100%", label: "recomendados" },
-  { value: "1", label: "sucursal familiar" },
+const SERVICIOS = [
+  {
+    title: "Compramos y vendemos autos",
+    description: "Seleccionamos los mejores vehículos para ofrecerte solo opciones de calidad.",
+  },
+  {
+    title: "Consignación",
+    description: "Te ayudamos a vender tu auto al mejor precio, gestionando todo el proceso.",
+  },
+  {
+    title: "Acceso a financiamiento",
+    description: "Coordinamos el crédito directamente para que nada te detenga.",
+  },
+  {
+    title: "Aseguramos tu auto",
+    description: "Te conectamos con las mejores opciones de seguro para tu vehículo.",
+  },
+  {
+    title: "Entregamos en todo Chile",
+    description: "No importa dónde estés, coordinamos la entrega de tu vehículo a cualquier región.",
+  },
+  {
+    title: "TAG",
+    description: "Gestionamos tu TAG para que circules sin preocupaciones desde el primer día.",
+  },
 ];
 
 export default function NosotrosPage() {
@@ -49,7 +53,6 @@ export default function NosotrosPage() {
       <main className="bg-[var(--color-ink-950)] min-h-screen text-white">
         {/* ── Hero ── */}
         <section className="relative pt-36 pb-20 md:pt-44 md:pb-28 overflow-hidden">
-          {/* Background accent */}
           <div
             className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[500px] rounded-full opacity-[0.06] blur-[120px]"
             style={{ background: "var(--color-accent-600)" }}
@@ -65,12 +68,11 @@ export default function NosotrosPage() {
                 className="text-white mb-6 font-semibold leading-tight tracking-tight"
                 style={{ fontFamily: "var(--font-syne)", fontSize: "clamp(2rem, 4.5vw, 3rem)" }}
               >
-                Quiroz Redcar
+                Quiroz Automotriz
               </h1>
               <p className="text-lg md:text-xl text-[var(--color-ink-300)] leading-relaxed max-w-2xl">
-                Automotora con presencia en Concón y Valparaíso. Desde 2004
-                conectamos a personas y familias con su próximo vehículo —
-                siempre con honestidad, atención directa y precios justos.
+                Donde el cliente es la pieza más importante. Si el cliente está
+                bien con nuestro servicio, nosotros estamos bien también.
               </p>
             </div>
           </div>
@@ -102,40 +104,33 @@ export default function NosotrosPage() {
           </div>
         </section>
 
-        {/* ── Historia ── */}
+        {/* ── Historia y fundador ── */}
         <section className="py-20 md:py-28">
           <div className="mx-auto max-w-7xl px-4 md:px-8">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-20 items-center">
-              {/* Text */}
               <div className="flex flex-col gap-6">
                 <h2
                   className="text-white leading-tight font-semibold tracking-tight"
                   style={{ fontFamily: "var(--font-syne)", fontSize: "clamp(1.5rem, 3vw, 2.25rem)" }}
                 >
-                  Una pasión que se volvió negocio
+                  De gerente a emprendedor
                 </h2>
                 <div className="flex flex-col gap-4 text-[var(--color-ink-300)] leading-relaxed">
                   <p>
-                    Marco Quiroz lleva más de dos décadas en el mundo automotriz.
-                    Lo que empezó como una genuina pasión por los vehículos se
-                    transformó en una automotora que hoy es referente de
-                    confianza en el sur de Santiago.
+                    Soy Marco Quiroz y trabajé muchos años en el rubro automotriz,
+                    llegando a ser gerente. Ahí me di cuenta de todos los errores
+                    que se cometen, y también de las innovaciones que se podían
+                    realizar en este rubro.
                   </p>
                   <p>
-                    Desde el primer día, la apuesta fue la misma: mostrar los
-                    autos tal como son, atender con la honestidad que uno
-                    esperaría de un amigo que sabe de autos y dar el mejor
-                    precio posible.
-                  </p>
-                  <p>
-                    El nombre Redcar no es solo una marca — es la promesa de
-                    que cada auto en nuestro catálogo está listo para ti y para
-                    tu familia.
+                    Por eso decidí crear mi propia empresa, Quiroz Automotriz.
+                    Acá, el cliente es la pieza más importante de la empresa. Si
+                    el cliente está bien con nuestro servicio, nosotros estamos
+                    bien también.
                   </p>
                 </div>
               </div>
 
-              {/* Visual card */}
               <div className="glass-panel rounded-3xl p-8 md:p-10 flex flex-col gap-6">
                 <div className="w-16 h-16 rounded-2xl bg-[var(--color-accent-700)]/20 flex items-center justify-center">
                   <span className="text-2xl">🚗</span>
@@ -148,60 +143,99 @@ export default function NosotrosPage() {
                     Marco Quiroz
                   </h3>
                   <p className="text-[var(--color-ink-400)] text-sm mb-4">
-                    Fundador — Quiroz Redcar
+                    Fundador — Quiroz Automotriz
                   </p>
                   <p className="text-[var(--color-ink-300)] text-sm leading-relaxed">
-                    "Más que vender autos, lo que hacemos es ayudar a las
-                    familias a tomar una decisión grande con toda la información
-                    y confianza que necesitan."
+                    &ldquo;Más que vender autos, lo que hacemos es quitarle las
+                    preocupaciones al cliente. Nosotros hacemos todos los trámites
+                    para que comprar o vender un vehículo sea rápido, seguro y sin
+                    moverte de tu casa.&rdquo;
                   </p>
-                </div>
-                <div className="flex flex-col gap-2 mt-2">
-                  <div className="flex items-start gap-2.5 text-[var(--color-ink-400)] text-sm">
-                    <MapPinIcon className="w-4 h-4 text-[var(--color-ink-500)] shrink-0 mt-0.5" />
-                    <span>Av. Bosques de Montemar #65, Concón<br />Hontaneda 2615, Valparaíso</span>
-                  </div>
-                  <div className="flex items-center gap-2.5 text-[var(--color-ink-400)] text-sm">
-                    <PhoneIcon className="w-4 h-4 text-[var(--color-ink-500)] shrink-0" />
-                    +56 9 5906 5441
-                  </div>
                 </div>
               </div>
             </div>
           </div>
         </section>
 
-        {/* ── Valores ── */}
+        {/* ── Modelo de negocios innovador ── */}
         <section className="py-20 md:py-28 bg-[var(--color-ink-900)]/40">
+          <div className="mx-auto max-w-7xl px-4 md:px-8">
+            <div className="max-w-3xl mx-auto text-center mb-14">
+              <h2
+                className="text-white font-semibold tracking-tight mb-6"
+                style={{ fontFamily: "var(--font-syne)", fontSize: "clamp(1.5rem, 3vw, 2.25rem)" }}
+              >
+                Un modelo de negocios innovador
+              </h2>
+              <p className="text-[var(--color-ink-300)] leading-relaxed text-lg">
+                La experiencia abrió mis ojos para darme cuenta de que, en toda
+                empresa, su núcleo es el cliente. Sin los clientes, las empresas
+                no existen.
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-5xl mx-auto">
+              <div className="glass-light rounded-2xl p-7 md:p-8 flex flex-col gap-4 transition-all duration-300 hover:-translate-y-1 hover:border-white/20">
+                <div className="flex items-center gap-3">
+                  <div className="w-8 h-8 rounded-full bg-[var(--color-accent-700)]/20 flex items-center justify-center">
+                    <CheckIcon className="w-4 h-4 text-[var(--color-accent-500)]" />
+                  </div>
+                  <h3 className="text-white font-semibold" style={{ fontFamily: "var(--font-syne)" }}>
+                    Proceso 100% transparente y seguro
+                  </h3>
+                </div>
+                <p className="text-[var(--color-ink-400)] text-sm leading-relaxed">
+                  Hacemos todo por el cliente. Lo eximimos de responsabilidades a la
+                  hora de comprar o vender vehículos, ya que nosotros hacemos todos
+                  los trámites que esto conlleva.
+                </p>
+              </div>
+
+              <div className="glass-light rounded-2xl p-7 md:p-8 flex flex-col gap-4 transition-all duration-300 hover:-translate-y-1 hover:border-white/20">
+                <div className="flex items-center gap-3">
+                  <div className="w-8 h-8 rounded-full bg-[var(--color-accent-700)]/20 flex items-center justify-center">
+                    <CheckIcon className="w-4 h-4 text-[var(--color-accent-500)]" />
+                  </div>
+                  <h3 className="text-white font-semibold" style={{ fontFamily: "var(--font-syne)" }}>
+                    Sin moverte de tu hogar
+                  </h3>
+                </div>
+                <p className="text-[var(--color-ink-400)] text-sm leading-relaxed">
+                  Nuestros clientes reciben la mejor atención sin la necesidad de
+                  moverse de su casa. Tenemos convenio con la notaría Gervasio en
+                  Viña del Mar para realizar todos los trámites sin preocupaciones.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* ── Servicios ── */}
+        <section className="py-20 md:py-28">
           <div className="mx-auto max-w-7xl px-4 md:px-8">
             <div className="text-center mb-14">
               <h2
                 className="text-white font-semibold tracking-tight"
                 style={{ fontFamily: "var(--font-syne)", fontSize: "clamp(1.5rem, 3vw, 2.25rem)" }}
               >
-                Nuestros valores
+                Nuestros servicios
               </h2>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-6">
-              {VALUES.map((value) => (
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
+              {SERVICIOS.map((servicio) => (
                 <div
-                  key={value.title}
-                  className="glass-light rounded-2xl p-7 md:p-8 flex flex-col gap-4 transition-all duration-300 hover:-translate-y-1 hover:border-white/20 hover:shadow-[0_12px_36px_-8px_rgba(0,0,0,0.5)]"
+                  key={servicio.title}
+                  className="glass-panel rounded-2xl p-7 flex flex-col gap-3 transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_16px_48px_-12px_rgba(0,0,0,0.6)]"
                 >
-                  <div className="flex items-center gap-3">
-                    <div className="w-8 h-8 rounded-full bg-[var(--color-accent-700)]/20 flex items-center justify-center">
-                      <CheckIcon className="w-4 h-4 text-[var(--color-accent-500)]" />
-                    </div>
-                    <h3
-                      className="text-white font-semibold"
-                      style={{ fontFamily: "var(--font-syne)" }}
-                    >
-                      {value.title}
-                    </h3>
+                  <div className="w-8 h-8 rounded-full bg-[var(--color-accent-700)]/20 flex items-center justify-center mb-1">
+                    <CheckIcon className="w-4 h-4 text-[var(--color-accent-500)]" />
                   </div>
+                  <h3 className="text-white font-semibold" style={{ fontFamily: "var(--font-syne)" }}>
+                    {servicio.title}
+                  </h3>
                   <p className="text-[var(--color-ink-400)] text-sm leading-relaxed">
-                    {value.description}
+                    {servicio.description}
                   </p>
                 </div>
               ))}
@@ -210,31 +244,116 @@ export default function NosotrosPage() {
         </section>
 
         {/* ── Misión / Visión ── */}
-        <section className="py-20 md:py-28">
+        <section className="py-20 md:py-28 bg-[var(--color-ink-900)]/40">
           <div className="mx-auto max-w-7xl px-4 md:px-8">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div className="glass-panel rounded-3xl p-8 md:p-10">
-                <p className="text-overline text-[var(--color-accent-500)] mb-4">Misión</p>
+              <div className="glass-panel rounded-3xl p-8 md:p-10 flex flex-col gap-4">
+                <p className="text-overline text-[var(--color-accent-500)]">Visión</p>
                 <p className="text-[var(--color-ink-200)] leading-relaxed">
-                  Simplificar la compra y venta de vehículos usados para las
-                  familias de Chile, con atención personalizada, precios justos
-                  y total transparencia en cada operación.
+                  Pretendemos ser reconocidos como una empresa destacada del rubro
+                  automotriz, a nivel local y nacional, por nuestro compromiso con
+                  hacerle fácil, rápido y seguro el proceso de compra o venta de
+                  vehículos a sus clientes.
                 </p>
               </div>
-              <div className="glass-panel rounded-3xl p-8 md:p-10">
-                <p className="text-overline text-[var(--color-ink-500)] mb-4">Visión</p>
+              <div className="glass-panel rounded-3xl p-8 md:p-10 flex flex-col gap-4">
+                <p className="text-overline text-[var(--color-ink-500)]">Misión</p>
                 <p className="text-[var(--color-ink-200)] leading-relaxed">
-                  Ser la automotora familiar de referencia en Santiago, reconocida
-                  por la confianza que genera y el acompañamiento que ofrece a
-                  cada cliente antes, durante y después de la venta.
+                  Trabajamos día a día en simplificarle la vida al cliente. Ya que
+                  estamos 100% preocupados de realizar todos los trámites y gestiones
+                  que correspondan para que los clientes puedan comprar o vender sus
+                  vehículos sin la necesidad de moverse de su hogar, resolviendo sus
+                  dudas y asesorándolos en los procesos de compra y venta de vehículos,
+                  para que este proceso sea rápido, amigable y eximir de responsabilidades
+                  al cliente, ya que hacemos todos los trámites por ellos.
                 </p>
               </div>
             </div>
           </div>
         </section>
 
+        {/* ── Direcciones ── */}
+        <section className="py-20 md:py-28">
+          <div className="mx-auto max-w-7xl px-4 md:px-8">
+            <div className="text-center mb-14">
+              <h2
+                className="text-white font-semibold tracking-tight mb-4"
+                style={{ fontFamily: "var(--font-syne)", fontSize: "clamp(1.5rem, 3vw, 2.25rem)" }}
+              >
+                Ven a conocernos
+              </h2>
+              <p className="text-[var(--color-ink-400)] max-w-xl mx-auto">
+                Visítanos en cualquiera de nuestras direcciones. Estaremos encantados de atenderte.
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-3xl mx-auto">
+              <a
+                href="https://goo.gl/maps/oKDZa635eksq8RgM6"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="glass-light rounded-2xl p-7 flex items-start gap-4 transition-all duration-300 hover:-translate-y-1 hover:border-white/20 group"
+              >
+                <MapPinIcon className="w-5 h-5 text-[var(--color-accent-500)] shrink-0 mt-0.5" />
+                <div>
+                  <h3 className="text-white font-semibold mb-1" style={{ fontFamily: "var(--font-syne)" }}>
+                    Concón
+                  </h3>
+                  <p className="text-[var(--color-ink-400)] text-sm leading-relaxed">
+                    Av. Bosques de Montemar #65, edificio OFC, oficina 203
+                  </p>
+                </div>
+              </a>
+
+              <a
+                href="https://maps.app.goo.gl/r2SLAKdARYcKYRSN9"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="glass-light rounded-2xl p-7 flex items-start gap-4 transition-all duration-300 hover:-translate-y-1 hover:border-white/20 group"
+              >
+                <MapPinIcon className="w-5 h-5 text-[var(--color-accent-500)] shrink-0 mt-0.5" />
+                <div>
+                  <h3 className="text-white font-semibold mb-1" style={{ fontFamily: "var(--font-syne)" }}>
+                    Valparaíso
+                  </h3>
+                  <p className="text-[var(--color-ink-400)] text-sm leading-relaxed">
+                    Hontaneda 2615, Valparaíso
+                  </p>
+                </div>
+              </a>
+            </div>
+
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mt-10">
+              <div className="flex items-center gap-2 text-[var(--color-ink-400)] text-sm">
+                <PhoneIcon className="w-4 h-4 text-[var(--color-ink-500)]" />
+                +56 9 9343 1571
+              </div>
+              <div className="flex items-center gap-2 text-[var(--color-ink-400)] text-sm">
+                <PhoneIcon className="w-4 h-4 text-[var(--color-ink-500)]" />
+                +56 9 5906 5441
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* ── Transbank ── */}
+        <section className="pb-16 md:pb-20">
+          <div className="mx-auto max-w-7xl px-4 md:px-8 text-center">
+            <p className="text-[var(--color-ink-500)] text-xs mb-4">
+              Aceptamos todos los medios de pago
+            </p>
+            <div className="flex items-center justify-center gap-4">
+              <span className="text-[var(--color-ink-600)] text-xs font-medium tracking-wider uppercase">Transbank</span>
+              <span className="text-[var(--color-ink-600)] text-xs">·</span>
+              <span className="text-[var(--color-ink-600)] text-xs font-medium tracking-wider uppercase">Débito</span>
+              <span className="text-[var(--color-ink-600)] text-xs">·</span>
+              <span className="text-[var(--color-ink-600)] text-xs font-medium tracking-wider uppercase">Transferencia bancaria</span>
+            </div>
+          </div>
+        </section>
+
         {/* ── CTA ── */}
-        <section className="py-20 md:py-28 bg-[var(--color-ink-900)]/40">
+        <section className="py-16 md:py-24 bg-[var(--color-ink-900)]/40">
           <div className="mx-auto max-w-7xl px-4 md:px-8 text-center">
             <h2
               className="text-white mb-4 font-semibold tracking-tight"
@@ -243,12 +362,12 @@ export default function NosotrosPage() {
               ¿Listo para encontrar tu auto?
             </h2>
             <p className="text-[var(--color-ink-400)] mb-8 max-w-xl mx-auto">
-              Visítanos en San Miguel o contáctanos por WhatsApp. Respondemos
-              rápido y con gusto.
+              Visítanos en Concón o Valparaíso, o contáctanos por WhatsApp.
+              Respondemos rápido y con gusto.
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
               <a
-                href={getWhatsAppUrl("Hola, quiero visitar Quiroz Redcar.")}
+                href={getWhatsAppUrl("Hola, me interesa conocer el catálogo de Quiroz Automotriz.")}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="btn-base btn-primary !py-3 !px-6 gap-2"
