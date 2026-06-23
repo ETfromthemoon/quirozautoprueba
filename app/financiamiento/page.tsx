@@ -124,11 +124,12 @@ export default function FinanciamientoPage() {
                 className="text-white mb-6 font-semibold leading-tight tracking-tight"
                 style={{ fontFamily: "var(--font-syne)", fontSize: "clamp(2rem, 4.5vw, 3rem)" }}
               >
-                Tu próximo auto, al alcance de tu bolsillo
+                Conseguimos financiamiento para ti
               </h1>
               <p className="text-lg md:text-xl text-[var(--color-ink-300)] leading-relaxed max-w-2xl">
-                Ofrecemos opciones de financiamiento flexibles para que nada te
-                detenga. Evaluamos tu perfil y coordinamos el crédito directamente.
+                Consigue el mejor financiamiento para el auto que quieres comprar
+                con solo un par de clics. Déjanos tus datos o escríbenos por
+                WhatsApp para comenzar a cotizar tu crédito.
               </p>
             </div>
           </div>

@@ -72,19 +72,19 @@ export default function Hero({ totalCars }: Props) {
             <p className="text-overline text-ink-300 mb-6 animate-fade-up delay-100">
               <span className="inline-flex items-center gap-3">
                 <span className="h-px w-8 bg-accent-600" />
-                Quiroz Redcar · Concón · Valparaíso
+                Quiroz Automotriz Spa · Concón · Valparaíso
                 <span className="h-px w-8 bg-accent-600" />
               </span>
             </p>
             <h1 className="text-luxury-xl text-white animate-fade-up delay-200">
               <span className="block font-medium text-ink-200 text-[0.4em] tracking-[0.3em] uppercase mb-4 md:mb-6">
-                Una colección
+                Llevamos más de 20 años en el rubro automotriz
               </span>
-              <span className="block text-white">EXCEPCIONAL</span>
+              <span className="block text-white">SEGURIDAD Y EFICACIA</span>
             </h1>
             <p className="mt-6 md:mt-8 text-sm md:text-lg text-ink-200 max-w-xl mx-auto font-light leading-relaxed animate-fade-up delay-400 px-4">
-               Autos seleccionados con más de 20 años de experiencia brindando
-               seguridad, transparencia y eficiencia.
+              Brindando seguridad y eficacia a cada uno de nuestros clientes.
+              El cliente es la pieza más importante de la empresa.
             </p>
 
             <div className="mt-10 md:mt-12 flex items-center justify-center gap-3 md:gap-4 animate-fade-up delay-500">

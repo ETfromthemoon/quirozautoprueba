@@ -67,15 +67,16 @@ export default function VenderConsignarPage() {
   }
 
   const STEPS_COMPRA = [
-    { number: "01", title: "Cuéntanos de tu auto", description: "Completa el formulario con los datos de tu vehículo y tus datos de contacto." },
-    { number: "02", title: "Te haremos una oferta", description: "Evaluamos tu vehículo y te enviamos una cotización justa y sin compromiso." },
+    { number: "01", title: "Nos visitas o te visitamos", description: "Coordinamos una visita para evaluar tu vehículo donde tú prefieras." },
+    { number: "02", title: "Evaluamos tu auto", description: "Revisamos el estado de tu vehículo y te hacemos una oferta justa y sin compromiso." },
     { number: "03", title: "Pago al instante", description: "Aceptas la oferta y te pagamos al momento. Sin demoras ni trámites complicados." },
   ];
 
   const STEPS_CONSIGNACION = [
-    { number: "01", title: "Registra tu vehículo", description: "Ingresa los datos de tu auto para iniciar la consignación." },
-    { number: "02", title: "Publicamos y gestionamos", description: "Promocionamos tu vehículo en nuestros canales y redes sociales." },
-    { number: "03", title: "Venta y pago", description: "Al concretar la venta, te transferimos el monto acordado." },
+    { number: "01", title: "Nos visitas o te visitamos", description: "Coordinamos una visita para ver tu vehículo y tomar fotos profesionales." },
+    { number: "02", title: "Sacamos fotos y video editado", description: "Creamos contenido profesional de tu vehículo para maximizar su exposición." },
+    { number: "03", title: "Publicamos en todas las RRSS", description: "Tu auto se publica en todas nuestras redes sociales y plataformas de venta." },
+    { number: "04", title: "Venta y pago antes de entregar", description: "Al existir un interesado, te pagamos el auto antes de entregarlo al nuevo comprador." },
   ];
 
   const steps = tab === "compra" ? STEPS_COMPRA : STEPS_CONSIGNACION;
@@ -100,11 +101,11 @@ export default function VenderConsignarPage() {
                 className="text-white mb-6 font-semibold leading-tight tracking-tight"
                 style={{ fontFamily: "var(--font-syne)", fontSize: "clamp(2rem, 4.5vw, 3rem)" }}
               >
-                Transforma tu auto en dinero hoy
+                ¿Quieres vender o consignar tu auto?
               </h1>
               <p className="text-lg md:text-xl text-[var(--color-ink-300)] leading-relaxed max-w-2xl mb-8">
-                Compramos tu vehículo de forma directa o lo consignamos a tu
-                precio. Trámites incluidos, pago inmediato, sin complicaciones.
+                Fácil, rápido y seguro. No dejes tu auto en vitrina. Recibe tu
+                dinero al instante. ¡Hacemos todo por ti!
               </p>
             </div>
           </div>
