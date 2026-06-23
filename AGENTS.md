@@ -78,25 +78,20 @@ Next.js 16 has breaking changes — APIs, conventions, and file structure may al
 | `/formulario-vehiculos` | Done (new) | No old equivalent — generic content, OK for launch |
 
 ### Build fix (critical)
-- **Problem**: WordPress API unreachable during Vercel build → 17+ min hang
-- **Solution**: `lib/wordpress.ts` now has:
-  - `SKIP_WP=1` env var to skip WP during build (Vercel)
-  - Dual timeouts: 10s build / 25s runtime per request
-  - Dual safety timeout: 14s build / 30s runtime
-  - 1 page max during build, 15 pages at runtime
-  - Global cache — prevents duplicate fetches across pages
-  - Per-page error handling — one failed page doesn't abort entire loop
-- **Build time**: ~6.5s with `SKIP_WP=1`, ~18s without (WP times out, falls back gracefully)
-- **How it works**: Build uses static data. ISR at runtime fetches real WP data every 60s.
+- **Problem**: WordPress API unreachable during Vercel build → hang. Y `SKIP_WP=1` aplicaba a runtime también, dejando estáticos para siempre.
+- **Solution**: `lib/wordpress.ts` detecta build automáticamente con `NEXT_PHASE`:
+  - **Build**: siempre usa datos estáticos (rápido, sin colgar). No requiere env vars.
+  - **Runtime**: SIEMPRE intenta WP con 25s timeout. ISR trae datos reales cada 60s.
+  - `SKIP_WP` ya NO tiene efecto. `FORCE_STATIC=1` es el nuevo override de emergencia.
+- **Build time**: ~2s (sin llamar a WP)
 
 ### Launch checklist
 1. **Vercel env vars required**:
-   - `SKIP_WP=1` (build uses static data, ISR fetches real data at runtime)
-   - `SMTP_HOST`, `SMTP_USER`, `SMTP_PASS` (otherwise forms fail at runtime)
-   - `NEXT_PUBLIC_SITE_URL` (recommended)
+   - `SMTP_HOST`, `SMTP_USER`, `SMTP_PASS` (formularios)
+   - `NEXT_PUBLIC_SITE_URL` (recomendada)
+   - NO poner `SKIP_WP` ni `FORCE_STATIC`
    - Do NOT set `TURNSTILE_SECRET_KEY` — forms don't have Turnstile widget
 2. **Not launch blockers**:
-   - Cars use static demo data during build; ISR fetches real WP data at runtime (60s revalidation)
+   - Cars use static demo data during build; ISR fetches real WP data at runtime (60s)
    - First visitor after deploy sees static cars for up to 60s, then ISR kicks in
    - `/vendidos` empty in build; populates when WP responds at runtime
-   - No anti-spam on forms (no Turnstile)
