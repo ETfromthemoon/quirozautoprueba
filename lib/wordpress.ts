@@ -66,8 +66,9 @@ const BUILD_MAX_PAGES = 1;    // tope durante build (100 autos) para no colgar
 
 const isBuild = typeof process !== "undefined" && process.env.NEXT_PHASE === "phase-production-build";
 
-// Saltear WP explícitamente (override de emergencia para Vercel)
-const SKIP_WP = process.env.SKIP_WP === "1";
+// FORCE_STATIC=1: override de emergencia para saltar WP en runtime también.
+// No usar SKIP_WP (legacy, ya no tiene efecto en runtime).
+const FORCE_STATIC = process.env.FORCE_STATIC === "1";
 
 // Foto de respaldo si un producto no tiene imagen destacada.
 const FALLBACK_IMAGE =
@@ -445,8 +446,10 @@ let _soldCarsCache: Car[] | null = null;
 export async function fetchCars(): Promise<Car[]> {
   if (_carsCache) return _carsCache;
 
-  if (SKIP_WP) {
-    console.log("[WordPress] SKIP_WP=1 — usando datos estáticos");
+  // Build: siempre estáticos (fast build, sin colgar)
+  // Runtime: siempre intenta WP (ISR trae datos reales)
+  if (isBuild || FORCE_STATIC) {
+    console.log("[WordPress] Build/ForceStatic — usando datos estáticos");
     _carsCache = staticCars;
     return _carsCache;
   }
@@ -471,8 +474,7 @@ export async function fetchCars(): Promise<Car[]> {
     console.log(`[WordPress] fetchCars → ${_carsCache.length} autos disponibles`);
     return _carsCache;
   } catch (err) {
-    const label = isBuild ? "[WordPress] Build " : "[WordPress] ";
-    console.error(`${label}fetchCars falló — usando respaldo estático:`, err);
+    console.error("[WordPress] fetchCars falló — usando respaldo estático:", err);
     _carsCache = staticCars;
     return _carsCache;
   }
@@ -482,6 +484,10 @@ export async function fetchCars(): Promise<Car[]> {
  * Un auto por su slug. Si WordPress falla, usa datos estáticos.
  */
 export async function fetchCarBySlug(slug: string): Promise<Car | undefined> {
+  if (isBuild || FORCE_STATIC) {
+    return staticCars.find((c) => c.id === slug);
+  }
+
   try {
     const url = `${WP_API}/product?slug=${encodeURIComponent(slug)}&_embed`;
     const res = await fetchWithTimeout(url, { next: { revalidate: REVALIDATE_SECONDS } });
@@ -517,8 +523,8 @@ export async function fetchCarSlugs(): Promise<string[]> {
 export async function fetchSoldCars(): Promise<Car[]> {
   if (_soldCarsCache) return _soldCarsCache;
 
-  if (SKIP_WP) {
-    console.log("[WordPress] SKIP_WP=1 — sin vendidos estáticos");
+  if (isBuild || FORCE_STATIC) {
+    console.log("[WordPress] Build/ForceStatic — sin vendidos estáticos");
     _soldCarsCache = [];
     return _soldCarsCache;
   }
