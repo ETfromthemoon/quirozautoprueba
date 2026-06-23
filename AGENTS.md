@@ -63,35 +63,33 @@ Next.js 16 has breaking changes — APIs, conventions, and file structure may al
 
 ---
 
-## Progress & Launch Status (2026-06-23)
+## Progress & Launch Status (2026-06-23) — FINAL: LIVE & WORKING
 
 ### Content population (from old site quirozautomotriz.cl)
 | Page | Status | Source |
 |---|---|---|
-| `/nosotros` | Done | Real: historia Marco Quiroz, modelo innovador, misión/visión exacta, servicios, direcciones |
+| `/nosotros` | Done | Historia Marco Quiroz, modelo innovador, misión/visión exacta, servicios, direcciones |
 | `/financiamiento` | Done | Hero text real: "Conseguimos financiamiento para ti" |
 | `/vender-consignar` | Done | Hero + proceso real 4 pasos (visita, fotos/video, publicar RRSS, pago antes de entregar) |
-| `Hero.tsx` (home) | Done | Tagline real del sitio antiguo |
-| `/seguros` | Done (new) | No old equivalent — generic content, OK for launch |
-| `/reserva` | Done (new) | No old equivalent — generic content, OK for launch |
-| `/vendidos` | Done | Dynamic from WP. Empty in build, populates at runtime via ISR |
-| `/formulario-vehiculos` | Done (new) | No old equivalent — generic content, OK for launch |
+| `Hero.tsx` (home) | Done | Tagline real: "Quiroz Automotriz Spa · Llevamos más de 20 años..." |
+| `/seguros` | Done | New page, no old equivalent |
+| `/reserva` | Done | New page, no old equivalent |
+| `/vendidos` | Done | Dynamic from WP via ISR |
+| `/formulario-vehiculos` | Done | New page, no old equivalent |
 
-### Build fix (critical)
-- **Problem**: WordPress API unreachable during Vercel build → hang. Y `SKIP_WP=1` aplicaba a runtime también, dejando estáticos para siempre.
-- **Solution**: `lib/wordpress.ts` detecta build automáticamente con `NEXT_PHASE`:
-  - **Build**: siempre usa datos estáticos (rápido, sin colgar). No requiere env vars.
-  - **Runtime**: SIEMPRE intenta WP con 25s timeout. ISR trae datos reales cada 60s.
-  - `SKIP_WP` ya NO tiene efecto. `FORCE_STATIC=1` es el nuevo override de emergencia.
-- **Build time**: ~2s (sin llamar a WP)
+### WordPress fetch fix (critical — 3 bugs resolved)
+1. **`_embed` con 100 productos tomaba >30s** → Fix: usar `_embed=wp:featuredmedia` solo (5.3s) + categorías por `/wp-json/wp/v2/product_cat` separado (1.4s). Total: 6.7s.
+2. **`_carsCache` cacheaba el fallback estático** → Warm serverless nunca reintentaba WP. Fix: cache solo guarda éxitos, fallos no se cachean.
+3. **`next: { revalidate }` en fetch cacheaba fallos** → Fix: removido del fetch, ISR solo a nivel página.
+4. User-Agent custom `QuirozNext/1.0` → cambiado a `Mozilla/5.0 (compatible; QuirozNext/1.0)`.
 
-### Launch checklist
-1. **Vercel env vars required**:
-   - `SMTP_HOST`, `SMTP_USER`, `SMTP_PASS` (formularios)
-   - `NEXT_PUBLIC_SITE_URL` (recomendada)
-   - NO poner `SKIP_WP` ni `FORCE_STATIC`
-   - Do NOT set `TURNSTILE_SECRET_KEY` — forms don't have Turnstile widget
-2. **Not launch blockers**:
-   - Cars use static demo data during build; ISR fetches real WP data at runtime (60s)
-   - First visitor after deploy sees static cars for up to 60s, then ISR kicks in
-   - `/vendidos` empty in build; populates when WP responds at runtime
+### Architecture (final)
+- Build: detecta `NEXT_PHASE=phase-production-build` → datos estáticos (1.8s build)
+- Runtime/ISR: fetch WP con `_embed=wp:featuredmedia` + `getCategoryMap()` en paralelo (~7s)
+- Fallback: si WP no responde → staticCars, reintenta en el próximo request (no cachea fallos)
+- Diagnóstico: `/api/wp-debug` muestra conectividad WP en vivo
+
+### Vercel env vars (no cambiar lo que funciona)
+- `SMTP_HOST`, `SMTP_USER`, `SMTP_PASS` — formularios
+- `NEXT_PUBLIC_SITE_URL` — recomendada
+- **NO** `SKIP_WP`, `FORCE_STATIC`, `TURNSTILE_SECRET_KEY`
