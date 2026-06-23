@@ -66,10 +66,6 @@ const BUILD_MAX_PAGES = 1;    // tope durante build (100 autos) para no colgar
 
 const isBuild = typeof process !== "undefined" && process.env.NEXT_PHASE === "phase-production-build";
 
-// FORCE_STATIC=1: override de emergencia para saltar WP en runtime también.
-// No usar SKIP_WP (legacy, ya no tiene efecto en runtime).
-const FORCE_STATIC = process.env.FORCE_STATIC === "1";
-
 // Foto de respaldo si un producto no tiene imagen destacada.
 const FALLBACK_IMAGE =
   "https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=1920&q=80";
@@ -400,10 +396,9 @@ function fetchWithTimeout(url: string, options: RequestInit = {}): Promise<Respo
 async function fetchProductsPage(page: number): Promise<WpProduct[]> {
   const url = `${WP_API}/product?per_page=${PER_PAGE}&page=${page}&_embed&orderby=title&order=asc`;
   const res = await fetchWithTimeout(url, {
-    next: { revalidate: REVALIDATE_SECONDS },
     headers: {
       "Accept": "application/json",
-      "User-Agent": "QuirozNext/1.0 (+https://www.quirozautomotriz.cl)",
+      "User-Agent": "Mozilla/5.0 (compatible; QuirozNext/1.0)",
     },
   });
 
@@ -432,7 +427,7 @@ async function fetchAllProducts(): Promise<WpProduct[]> {
   return all;
 }
 
-// ─── Cache global (evita múltiples llamadas durante el build) ────────────────
+// ─── Cache global (solo cachea éxitos, nunca fallos) ────────────────────────
 
 let _carsCache: Car[] | null = null;
 let _soldCarsCache: Car[] | null = null;
@@ -444,16 +439,16 @@ let _soldCarsCache: Car[] | null = null;
  * Excluye los marcados como vendidos. Si WordPress falla, usa datos estáticos.
  */
 export async function fetchCars(): Promise<Car[]> {
+  // Solo devuelve cache si tiene datos reales (no fallback)
   if (_carsCache) return _carsCache;
 
   // Build: siempre estáticos (fast build, sin colgar)
-  // Runtime: siempre intenta WP (ISR trae datos reales)
-  if (isBuild || FORCE_STATIC) {
-    console.log("[WordPress] Build/ForceStatic — usando datos estáticos");
-    _carsCache = staticCars;
-    return _carsCache;
+  if (isBuild) {
+    console.log("[WordPress] Build — datos estáticos");
+    return staticCars;
   }
 
+  // Runtime: siempre intenta WP
   const getCarsFromWP = async () => {
     const products = await fetchAllProducts();
     const cars = products
@@ -470,13 +465,15 @@ export async function fetchCars(): Promise<Car[]> {
   };
 
   try {
-    _carsCache = await getCarsFromWP();
-    console.log(`[WordPress] fetchCars → ${_carsCache.length} autos disponibles`);
-    return _carsCache;
+    const cars = await getCarsFromWP();
+    // Solo cachear éxitos
+    _carsCache = cars;
+    console.log(`[WordPress] fetchCars → ${cars.length} autos disponibles`);
+    return cars;
   } catch (err) {
-    console.error("[WordPress] fetchCars falló — usando respaldo estático:", err);
-    _carsCache = staticCars;
-    return _carsCache;
+    console.error("[WordPress] fetchCars falló — usando respaldo estático (sin cachear):", err);
+    // NO cachear el fallback — el próximo request reintentará WP
+    return staticCars;
   }
 }
 
@@ -484,13 +481,18 @@ export async function fetchCars(): Promise<Car[]> {
  * Un auto por su slug. Si WordPress falla, usa datos estáticos.
  */
 export async function fetchCarBySlug(slug: string): Promise<Car | undefined> {
-  if (isBuild || FORCE_STATIC) {
+  if (isBuild) {
     return staticCars.find((c) => c.id === slug);
   }
 
   try {
     const url = `${WP_API}/product?slug=${encodeURIComponent(slug)}&_embed`;
-    const res = await fetchWithTimeout(url, { next: { revalidate: REVALIDATE_SECONDS } });
+    const res = await fetchWithTimeout(url, {
+      headers: {
+        "Accept": "application/json",
+        "User-Agent": "Mozilla/5.0 (compatible; QuirozNext/1.0)",
+      },
+    });
     if (!res.ok) throw new Error(`WordPress API ${res.status} para slug ${slug}`);
 
     const products = (await res.json()) as WpProduct[];
@@ -523,15 +525,13 @@ export async function fetchCarSlugs(): Promise<string[]> {
 export async function fetchSoldCars(): Promise<Car[]> {
   if (_soldCarsCache) return _soldCarsCache;
 
-  if (isBuild || FORCE_STATIC) {
-    console.log("[WordPress] Build/ForceStatic — sin vendidos estáticos");
-    _soldCarsCache = [];
-    return _soldCarsCache;
+  if (isBuild) {
+    return [];
   }
 
   try {
     const products = await fetchAllProducts();
-    _soldCarsCache = products
+    const sold = products
       .map((p) => ({ product: p, cat: classifyCategories(extractCategoryNames(p)) }))
       .filter(({ cat, product }) => {
         if (cat.isSold) return true;
@@ -540,11 +540,11 @@ export async function fetchSoldCars(): Promise<Car[]> {
         return false;
       })
       .map(({ product }) => mapProductToCar(product));
-    console.log(`[WordPress] fetchSoldCars → ${_soldCarsCache.length} vendidos`);
-    return _soldCarsCache;
+    _soldCarsCache = sold;
+    console.log(`[WordPress] fetchSoldCars → ${sold.length} vendidos`);
+    return sold;
   } catch (err) {
     console.error("[WordPress] fetchSoldCars falló:", err);
-    _soldCarsCache = [];
-    return _soldCarsCache;
+    return [];
   }
 }
