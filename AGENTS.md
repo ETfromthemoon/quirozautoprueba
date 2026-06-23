@@ -60,3 +60,39 @@ Next.js 16 has breaking changes — APIs, conventions, and file structure may al
 ## Image sources
 - `next.config.ts` allows remote images from: unsplash.com, pexels.com, i.ytimg.com, quirozautomotriz.cl.
 - Product images come from WordPress (WooCommerce featured media).
+
+---
+
+## Progress & Launch Status (2026-06-23)
+
+### Content population (from old site quirozautomotriz.cl)
+| Page | Status | Source |
+|---|---|---|
+| `/nosotros` | Done | Real: historia Marco Quiroz, modelo innovador, misión/visión exacta, servicios, direcciones |
+| `/financiamiento` | Done | Hero text real: "Conseguimos financiamiento para ti" |
+| `/vender-consignar` | Done | Hero + proceso real 4 pasos (visita, fotos/video, publicar RRSS, pago antes de entregar) |
+| `Hero.tsx` (home) | Done | Tagline real del sitio antiguo |
+| `/seguros` | Done (new) | No old equivalent — generic content, OK for launch |
+| `/reserva` | Done (new) | No old equivalent — generic content, OK for launch |
+| `/vendidos` | Done | Dynamic from WP. Empty in build, populates at runtime via ISR |
+| `/formulario-vehiculos` | Done (new) | No old equivalent — generic content, OK for launch |
+
+### Build fix (critical)
+- **Problem**: WordPress API unreachable during Vercel build → 17+ min hang
+- **Solution**: `lib/wordpress.ts` now has:
+  - `SKIP_WP` env var — bypasses WP during build, uses static data
+  - Global cache — prevents duplicate fetches across pages
+  - Safety timeout — `Promise.race` beyond `AbortController`
+  - Per-page error handling — one failed page doesn't abort entire loop
+- **Build time**: ~7s with `SKIP_WP=1`
+
+### Launch checklist
+1. **Vercel env vars required**:
+   - `SKIP_WP=1` (otherwise build hangs)
+   - `SMTP_HOST`, `SMTP_USER`, `SMTP_PASS` (otherwise forms fail at runtime)
+   - `NEXT_PUBLIC_SITE_URL` (recommended)
+   - Do NOT set `TURNSTILE_SECRET_KEY` — forms don't have Turnstile widget
+2. **Not launch blockers**:
+   - Cars use static demo data during build; ISR fetches real WP data at runtime (60s)
+   - `/vendidos` empty in build; populates when WP responds at runtime
+   - No anti-spam on forms (no Turnstile)
