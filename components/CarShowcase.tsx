@@ -129,7 +129,7 @@ export default function CarShowcase({ car, index, total }: Props) {
           isVisible ? "opacity-[0.07] translate-x-0" : "opacity-0 translate-x-10"
         }`}
       >
-        <p className="font-display text-[15vw] md:text-[13vw] leading-none text-white whitespace-nowrap font-bold tracking-tighter">
+        <p className="font-display text-[15vw] md:text-[13vw] leading-none text-white whitespace-nowrap font-bold tracking-tighter overflow-hidden">
           {car.brand}
         </p>
       </div>
@@ -165,21 +165,25 @@ export default function CarShowcase({ car, index, total }: Props) {
                     quepa dentro del col-span-6 en todos los viewports ≥768px.
                     5.5vw × container_fraction ≈ 46% de la pantalla disponible. */}
                 <span
-                  className="block font-extrabold mt-2 break-words"
-                  style={{ fontSize: "clamp(2.25rem, 5.5vw, 5.5rem)" }}
+                  className="block font-extrabold mt-2 overflow-hidden"
+                  style={{
+                    fontSize: "clamp(2rem, 4.5vw, 4.5rem)",
+                    overflowWrap: "anywhere",
+                    hyphens: "auto",
+                  }}
                 >
                   {car.model}
                 </span>
               </h2>
               {car.variant && (
-                <p className="mt-4 text-silver-300 text-sm md:text-base font-medium tracking-[0.15em] uppercase">
+                <p className="mt-4 text-silver-300 text-sm md:text-base font-medium tracking-[0.15em] uppercase break-words">
                   {car.variant}
                 </p>
               )}
             </div>
 
             <p
-              className={`mt-6 text-ink-300 text-base font-light leading-relaxed max-w-md transition-all duration-700 delay-200 ${
+              className={`mt-6 text-ink-300 text-base font-light leading-relaxed max-w-md break-words transition-all duration-700 delay-200 ${
                 isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
               }`}
             >
@@ -397,7 +401,7 @@ export default function CarShowcase({ car, index, total }: Props) {
           </div>
 
           {/* Description */}
-          <p className="mt-5 text-ink-300 text-sm font-light leading-relaxed">
+          <p className="mt-5 text-ink-300 text-sm font-light leading-relaxed break-words">
             {truncate(car.description, 160)}
           </p>
 

@@ -90,12 +90,12 @@ export default function VehicleDetail({ car }: Props) {
               <span className="block text-sm md:text-2xl lg:text-3xl font-medium text-ink-200 tracking-[0.2em] uppercase">
                 {car.brand}
               </span>
-              <span className="block text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-extrabold mt-1 md:mt-2">
+              <span className="block text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-extrabold mt-1 md:mt-2 break-words overflow-hidden">
                 {car.model}
               </span>
             </h1>
             {car.variant && (
-              <p className="mt-3 md:mt-4 text-silver-300 text-xs md:text-base font-medium tracking-[0.15em] uppercase">
+              <p className="mt-3 md:mt-4 text-silver-300 text-xs md:text-base font-medium tracking-[0.15em] uppercase break-words">
                 {car.variant}
               </p>
             )}
@@ -111,7 +111,7 @@ export default function VehicleDetail({ car }: Props) {
             {/* Description */}
             <div>
               <p className="text-overline text-accent-500 mb-3">Sobre este vehículo</p>
-              <p className="text-base md:text-xl text-ink-100 font-light leading-relaxed">
+              <p className="text-base md:text-xl text-ink-100 font-light leading-relaxed break-words">
                 {car.description}
               </p>
             </div>

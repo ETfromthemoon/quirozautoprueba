@@ -177,10 +177,11 @@ body {
 
 /* Precio panel desktop — calculado para caber en panel ~370-400px interno */
 .text-price-panel {
-  font-size: clamp(1.5rem, 2.6vw, 2.25rem);
+  font-size: clamp(1.25rem, 2.2vw, 1.85rem);
   display: block;
   width: 100%;
-  overflow-wrap: normal;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 /* Precio modal mobile expanded — ancho viewport menos padding */
