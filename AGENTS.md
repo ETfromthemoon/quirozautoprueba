@@ -80,19 +80,23 @@ Next.js 16 has breaking changes — APIs, conventions, and file structure may al
 ### Build fix (critical)
 - **Problem**: WordPress API unreachable during Vercel build → 17+ min hang
 - **Solution**: `lib/wordpress.ts` now has:
-  - `SKIP_WP` env var — bypasses WP during build, uses static data
+  - `SKIP_WP=1` env var to skip WP during build (Vercel)
+  - Dual timeouts: 10s build / 25s runtime per request
+  - Dual safety timeout: 14s build / 30s runtime
+  - 1 page max during build, 15 pages at runtime
   - Global cache — prevents duplicate fetches across pages
-  - Safety timeout — `Promise.race` beyond `AbortController`
   - Per-page error handling — one failed page doesn't abort entire loop
-- **Build time**: ~7s with `SKIP_WP=1`
+- **Build time**: ~6.5s with `SKIP_WP=1`, ~18s without (WP times out, falls back gracefully)
+- **How it works**: Build uses static data. ISR at runtime fetches real WP data every 60s.
 
 ### Launch checklist
 1. **Vercel env vars required**:
-   - `SKIP_WP=1` (otherwise build hangs)
+   - `SKIP_WP=1` (build uses static data, ISR fetches real data at runtime)
    - `SMTP_HOST`, `SMTP_USER`, `SMTP_PASS` (otherwise forms fail at runtime)
    - `NEXT_PUBLIC_SITE_URL` (recommended)
    - Do NOT set `TURNSTILE_SECRET_KEY` — forms don't have Turnstile widget
 2. **Not launch blockers**:
-   - Cars use static demo data during build; ISR fetches real WP data at runtime (60s)
+   - Cars use static demo data during build; ISR fetches real WP data at runtime (60s revalidation)
+   - First visitor after deploy sees static cars for up to 60s, then ISR kicks in
    - `/vendidos` empty in build; populates when WP responds at runtime
    - No anti-spam on forms (no Turnstile)
