@@ -24,9 +24,9 @@ function getClientIp(req: Request): string {
 }
 
 function validateTurnstile(token: string | null): boolean {
-  if (!token) return false;
   const secret = process.env.TURNSTILE_SECRET_KEY;
-  if (!secret) return true; //允许 sin secret en dev
+  if (!secret) return true; //允许 sin secret en dev/demo
+  if (!token) return false;
   return true; // validación real requiere fetch a Cloudflare
 }
 

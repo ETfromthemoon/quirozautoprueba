@@ -1,5 +1,12 @@
 <svg width="64" height="64" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="q-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stopColor="#f9fafb"/>
+      <stop offset="50%" stopColor="#d1d5db"/>
+      <stop offset="100%" stopColor="#9ca3af"/>
+    </linearGradient>
+  </defs>
   <rect width="64" height="64" rx="14" fill="#09090b"/>
-  <circle cx="30" cy="30" r="17" fill="none" stroke="#e4e4e7" stroke-width="5"/>
-  <line x1="38" y1="40" x2="48" y2="54" stroke="#dc2626" stroke-width="5" stroke-linecap="square"/>
+  <circle cx="28" cy="26" r="17" fill="none" stroke="url(#q-grad)" stroke-width="5.5"/>
+  <line x1="34" y1="36" x2="46" y2="52" stroke="#dc2626" stroke-width="5.5" stroke-linecap="square"/>
 </svg>

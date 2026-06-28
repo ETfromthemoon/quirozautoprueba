@@ -15,7 +15,8 @@ const INITIAL: FormData = { nombre: "", email: "", telefono: "", mensaje: "" };
 export default function ContactForm() {
   const [form, setForm] = useState<FormData>(INITIAL);
   const [sent, setSent] = useState(false);
-  const [sending, setSending] = useState(false);
+    const [sending, setSending] = useState(false);
+  const [error, setError] = useState("");
 
   function update(field: keyof FormData, value: string) {
     setForm((prev) => ({ ...prev, [field]: value }));
@@ -24,6 +25,7 @@ export default function ContactForm() {
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     setSending(true);
+    setError("");
     try {
       await fetch("/api/send-email", {
         method: "POST",
@@ -40,7 +42,7 @@ export default function ContactForm() {
       });
       setSent(true);
     } catch {
-      alert("Error al enviar. Intenta nuevamente.");
+      setError("Error al enviar. Intenta nuevamente o escríbenos por WhatsApp.");
     } finally {
       setSending(false);
     }
@@ -109,6 +111,9 @@ export default function ContactForm() {
           className="w-full bg-ink-800 border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white placeholder-ink-600 focus:outline-none focus:border-accent-600 transition-colors resize-none"
         />
       </div>
+      {error && (
+        <p className="text-red-400 text-sm text-center bg-red-400/10 rounded-lg py-2.5 px-4">{error}</p>
+      )}
       <button
         type="submit"
         disabled={sending}

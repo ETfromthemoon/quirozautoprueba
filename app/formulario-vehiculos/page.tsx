@@ -31,7 +31,8 @@ const INITIAL_FORM: FormData = {
 export default function FormularioVehiculosPage() {
   const [form, setForm] = useState<FormData>(INITIAL_FORM);
   const [sent, setSent] = useState(false);
-  const [sending, setSending] = useState(false);
+    const [sending, setSending] = useState(false);
+  const [error, setError] = useState("");
   const [tipo, setTipo] = useState<"compra" | "consignacion">("consignacion");
 
   function update(field: keyof FormData, value: string) {
@@ -41,6 +42,7 @@ export default function FormularioVehiculosPage() {
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     setSending(true);
+    setError("");
     try {
       await fetch("/api/send-email", {
         method: "POST",
@@ -62,7 +64,7 @@ export default function FormularioVehiculosPage() {
       });
       setSent(true);
     } catch {
-      alert("Error al enviar. Intenta nuevamente.");
+      setError("Error al enviar. Intenta nuevamente o escríbenos por WhatsApp.");
     } finally {
       setSending(false);
     }
@@ -252,12 +254,15 @@ export default function FormularioVehiculosPage() {
                     </div>
                   </div>
 
+                  {error && (
+                    <p className="text-red-400 text-sm text-center bg-red-400/10 rounded-lg py-2.5 px-4">{error}</p>
+                  )}
                   <button
                     type="submit"
                     disabled={sending}
                     className="btn-base btn-primary w-full !py-3 mt-2 disabled:opacity-50"
                   >
-                    {sending ? "Enviando..." : "Enviar información"}
+                    {sending ? "Enviando..." : "Enviar vehículo"}
                   </button>
 
                   <p className="text-[10px] text-[var(--color-ink-600)] text-center">
