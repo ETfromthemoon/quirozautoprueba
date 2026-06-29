@@ -474,35 +474,43 @@ async function getCategoryMap(): Promise<Map<number, string>> {
  * Todos los autos disponibles, ordenados del más reciente al más antiguo.
  * Excluye los marcados como vendidos. Si WordPress falla, usa datos estáticos.
  */
+/** Obtiene autos desde WordPress (función extraída para reutilizar en build y runtime). */
+async function getCarsFromWP(): Promise<Car[]> {
+  const [products, catMap] = await Promise.all([
+    fetchAllProducts(),
+    getCategoryMap(),
+  ]);
+  const cars = products
+    .map((p) => ({ product: p, cat: classifyCategories(extractCategoryNames(p, catMap)) }))
+    .filter(({ cat, product }) => {
+      if (cat.isSold) return false;
+      const desc = (product.acf?.descripcion ?? "").trimStart();
+      if (/^VENDIDO/i.test(desc)) return false;
+      return true;
+    })
+    .map(({ product }) => mapProductToCar(product));
+  if (cars.length === 0) throw new Error("WP devolvió 0 autos disponibles");
+  return cars;
+}
+
 export async function fetchCars(): Promise<Car[]> {
   // Solo devuelve cache si tiene datos reales (no fallback)
   if (_carsCache) return _carsCache;
 
-  // Build: siempre estáticos (fast build, sin colgar)
+  // Build: intenta WP con timeout corto, fallback si no responde a tiempo
   if (isBuild) {
-    console.log("[WordPress] Build — datos estáticos");
-    return staticCars;
+    console.log("[WordPress] Build — intentando WP...");
+    try {
+      const cars = await getCarsFromWP();
+      console.log(`[WordPress] Build → ${cars.length} autos desde WP`);
+      return cars;
+    } catch (err) {
+      console.log("[WordPress] Build → WP no disponible, usando datos estáticos");
+      return staticCars;
+    }
   }
 
   // Runtime: siempre intenta WP
-  const getCarsFromWP = async () => {
-    const [products, catMap] = await Promise.all([
-      fetchAllProducts(),
-      getCategoryMap(),
-    ]);
-    const cars = products
-      .map((p) => ({ product: p, cat: classifyCategories(extractCategoryNames(p, catMap)) }))
-      .filter(({ cat, product }) => {
-        if (cat.isSold) return false;
-        const desc = (product.acf?.descripcion ?? "").trimStart();
-        if (/^VENDIDO/i.test(desc)) return false;
-        return true;
-      })
-      .map(({ product }) => mapProductToCar(product));
-    if (cars.length === 0) throw new Error("WP devolvió 0 autos disponibles");
-    return cars;
-  };
-
   try {
     const cars = await getCarsFromWP();
     // Solo cachear éxitos
