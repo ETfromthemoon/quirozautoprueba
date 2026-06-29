@@ -207,11 +207,12 @@ export default function InnerNavbar() {
                 )}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="btn-base btn-primary !py-2 !px-3.5 md:!px-4 !text-[10px] gap-1.5"
+                className="relative overflow-hidden flex items-center gap-1.5 bg-gradient-to-r from-accent-600 to-accent-500 text-white !py-2 !px-3.5 md:!px-4 !text-[10px] font-semibold rounded-full transition-all duration-300 hover:shadow-[0_0_24px_-4px_var(--color-accent-500)] hover:-translate-y-px"
               >
-                <WhatsAppIcon className="w-3.5 h-3.5" />
-                <span className="hidden md:inline">Contactar</span>
-                <span className="md:hidden">WA</span>
+                <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full animate-shine-slow pointer-events-none" />
+                <WhatsAppIcon className="w-3.5 h-3.5 relative z-10" />
+                <span className="hidden md:inline relative z-10">Contactar</span>
+                <span className="md:hidden relative z-10">WA</span>
               </a>
 
               <button

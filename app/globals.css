@@ -234,12 +234,18 @@ body {
   100% { transform: scale(1.5); opacity: 0; }
 }
 
+@keyframes shine-slow {
+  0%   { transform: translateX(-100%); }
+  100% { transform: translateX(200%); }
+}
+
 .animate-fade-up    { animation: fade-up 0.8s cubic-bezier(0.16, 1, 0.3, 1) both; }
 .animate-fade-in    { animation: fade-in 1s ease-out both; }
 .animate-scale-in   { animation: scale-in 1.2s cubic-bezier(0.16, 1, 0.3, 1) both; }
 .animate-slide-right{ animation: slide-right 0.7s cubic-bezier(0.16, 1, 0.3, 1) both; }
 .animate-scroll-hint{ animation: scroll-hint 2s ease-in-out infinite; }
 .animate-pulse-ring { animation: pulse-ring 2s cubic-bezier(0.4, 0, 0.6, 1) infinite; }
+.animate-shine-slow { animation: shine-slow 2.5s ease-in-out infinite; }
 
 /* Stagger delays */
 .delay-100 { animation-delay: 0.1s; }

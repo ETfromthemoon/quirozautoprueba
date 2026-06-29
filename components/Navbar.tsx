@@ -243,20 +243,20 @@ export default function Navbar({ totalCars }: Props) {
                   Nosotros
                 </Link>
               </div>
-              {/* Progress dots */}
+              {/* Progress bar fina */}
               {totalCars > 0 && (
                 <div
-                  className={`flex items-center gap-1 transition-all duration-500 ${
-                    scrolled ? "opacity-100 max-h-4" : "opacity-0 max-h-0"
+                  className={`w-full max-w-[200px] transition-all duration-500 ${
+                    scrolled ? "opacity-100 max-h-2" : "opacity-0 max-h-0"
                   } overflow-hidden`}
                   aria-hidden="true"
                 >
-                  {Array.from({ length: totalCars }).map((_, i) => (
-                    <span
-                      key={i}
-                      className={`dot ${i === activeIndex ? "active" : ""}`}
+                  <div className="h-0.5 rounded-full bg-white/10 overflow-hidden">
+                    <div
+                      className="h-full rounded-full bg-white/60 transition-all duration-300"
+                      style={{ width: `${totalCars > 1 ? ((activeIndex + 1) / totalCars) * 100 : 0}%` }}
                     />
-                  ))}
+                  </div>
                 </div>
               )}
             </div>
@@ -269,14 +269,15 @@ export default function Navbar({ totalCars }: Props) {
                 )}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="btn-base btn-primary !py-2 !px-4 md:!px-5 !text-[11px]"
+                className="btn-shine relative overflow-hidden flex items-center gap-1.5 bg-gradient-to-r from-accent-600 to-accent-500 text-white !py-2 !px-4 md:!px-5 !text-[11px] font-semibold rounded-full transition-all duration-300 hover:shadow-[0_0_24px_-4px_var(--color-accent-500)] hover:-translate-y-px"
               >
+                <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full animate-shine-slow pointer-events-none" />
                 <span className="relative flex h-1.5 w-1.5">
                   <span className="absolute inset-0 rounded-full bg-white animate-pulse-ring" />
                   <span className="relative rounded-full bg-white w-1.5 h-1.5" />
                 </span>
-                <span className="hidden sm:inline">Contactar</span>
-                <span className="sm:hidden">Chat</span>
+                <span className="hidden sm:inline relative z-10">Contactar</span>
+                <span className="sm:hidden relative z-10">Chat</span>
               </a>
 
               <button
