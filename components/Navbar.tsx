@@ -190,72 +190,79 @@ export default function Navbar({ totalCars }: Props) {
           scrolled ? "py-2" : "py-4"
         }`}
       >
-        <div className="mx-auto max-w-7xl px-4 md:px-6">
+        <div className="mx-auto max-w-5xl px-4">
           <div
-            className={`flex items-center justify-between rounded-full px-4 md:px-6 py-2 md:py-2.5 transition-all duration-500 ${
-              scrolled ? "glass-dark" : "bg-transparent"
+            className={`flex items-center rounded-full px-5 py-2 md:py-2.5 transition-all duration-500 border ${
+              scrolled
+                ? "glass-dark border-white/10"
+                : "bg-transparent border-transparent"
             }`}
           >
-            {/* Logo */}
-            <a
-              href="#"
-              onClick={(e) => {
-                e.preventDefault();
-                document.getElementById("showcase-root")?.scrollTo({
-                  top: 0,
-                  behavior: "smooth",
-                });
-              }}
-              className="flex items-center gap-2.5 cursor-pointer group shrink-0"
-              aria-label="Quiroz Redcar - Inicio"
-            >
-              <Logo variant="horizontal" className="h-9 md:h-10 w-auto" />
-            </a>
-
-            {/* Desktop nav: dropdowns + Nosotros */}
-            <nav className="hidden md:flex items-center gap-1" aria-label="Navegación principal">
-              {NAV_GROUPS.map((group) => (
-                <NavDropdown
-                  key={group.label}
-                  label={group.label}
-                  links={group.links}
-                  pathname={pathname}
-                  scrolled={scrolled}
-                />
-              ))}
-              <Link
-                href="/nosotros"
-                className={`px-3.5 py-2 rounded-lg text-[11px] font-medium tracking-wide uppercase transition-all duration-200 ${
-                  !scrolled
-                    ? pathname === "/nosotros"
-                      ? "text-white bg-white/15"
-                      : "text-white/70 hover:text-white hover:bg-white/12"
-                    : pathname === "/nosotros"
-                    ? "text-white bg-white/10"
-                    : "text-[var(--color-ink-400)] hover:text-white hover:bg-white/8"
-                }`}
+            {/* Col 1: Logo */}
+            <div className="flex-1 flex justify-start">
+              <a
+                href="#"
+                onClick={(e) => {
+                  e.preventDefault();
+                  document.getElementById("showcase-root")?.scrollTo({
+                    top: 0,
+                    behavior: "smooth",
+                  });
+                }}
+                className="flex items-center gap-2.5 cursor-pointer group shrink-0"
+                aria-label="Quiroz Redcar - Inicio"
               >
-                Nosotros
-              </Link>
-            </nav>
-
-            {/* Progress dots (solo en desktop y scrolled) */}
-            <div
-              className={`hidden md:flex items-center gap-1.5 transition-all duration-500 ${
-                scrolled ? "opacity-100" : "opacity-0"
-              }`}
-              aria-hidden="true"
-            >
-              {Array.from({ length: totalCars }).map((_, i) => (
-                <span
-                  key={i}
-                  className={`dot ${i === activeIndex ? "active" : ""}`}
-                />
-              ))}
+                <Logo variant="horizontal" className="h-9 md:h-10 w-auto" />
+              </a>
             </div>
 
-            {/* Right: WhatsApp CTA + hamburger */}
-            <div className="flex items-center gap-2">
+            {/* Col 2: Nav centrado */}
+            <div className="hidden md:flex flex-col items-center gap-1">
+              <div className="flex items-center gap-1">
+                {NAV_GROUPS.map((group) => (
+                  <NavDropdown
+                    key={group.label}
+                    label={group.label}
+                    links={group.links}
+                    pathname={pathname}
+                    scrolled={scrolled}
+                  />
+                ))}
+                <Link
+                  href="/nosotros"
+                  className={`px-3.5 py-2 rounded-lg text-[11px] font-medium tracking-wide uppercase transition-all duration-200 ${
+                    !scrolled
+                      ? pathname === "/nosotros"
+                        ? "text-white bg-white/15"
+                        : "text-white/70 hover:text-white hover:bg-white/12"
+                      : pathname === "/nosotros"
+                      ? "text-white bg-white/10"
+                      : "text-[var(--color-ink-400)] hover:text-white hover:bg-white/8"
+                  }`}
+                >
+                  Nosotros
+                </Link>
+              </div>
+              {/* Progress dots */}
+              {totalCars > 0 && (
+                <div
+                  className={`flex items-center gap-1 transition-all duration-500 ${
+                    scrolled ? "opacity-100 max-h-4" : "opacity-0 max-h-0"
+                  } overflow-hidden`}
+                  aria-hidden="true"
+                >
+                  {Array.from({ length: totalCars }).map((_, i) => (
+                    <span
+                      key={i}
+                      className={`dot ${i === activeIndex ? "active" : ""}`}
+                    />
+                  ))}
+                </div>
+              )}
+            </div>
+
+            {/* Col 3: CTA + hamburger */}
+            <div className="flex-1 flex justify-end items-center gap-2">
               <a
                 href={getWhatsAppUrl(
                   "Hola, me interesa conocer el catálogo de Quiroz Automotriz."

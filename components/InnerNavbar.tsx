@@ -158,23 +158,27 @@ export default function InnerNavbar() {
           scrolled ? "py-2" : "py-4"
         }`}
       >
-        <div className="mx-auto max-w-7xl px-4 md:px-6">
+        <div className="mx-auto max-w-5xl px-4">
           <div
-            className={`flex items-center justify-between rounded-2xl px-4 md:px-6 py-2.5 transition-all duration-300 ${
-              scrolled ? "glass-dark" : "bg-[var(--color-ink-950)]/80 backdrop-blur-md"
+            className={`flex items-center rounded-2xl px-5 py-2.5 transition-all duration-300 border ${
+              scrolled
+                ? "glass-dark border-white/10"
+                : "bg-[var(--color-ink-950)]/80 backdrop-blur-md border-white/5"
             }`}
           >
-            {/* Logo */}
-            <Link
-              href="/"
-              className="flex items-center gap-2.5 shrink-0"
-              aria-label="Quiroz Redcar - Inicio"
-            >
-              <Logo variant="horizontal" className="h-8 md:h-9 w-auto" />
-            </Link>
+            {/* Col 1: Logo */}
+            <div className="flex-1 flex justify-start">
+              <Link
+                href="/"
+                className="flex items-center gap-2.5 shrink-0"
+                aria-label="Quiroz Redcar - Inicio"
+              >
+                <Logo variant="horizontal" className="h-8 md:h-9 w-auto" />
+              </Link>
+            </div>
 
-            {/* Desktop nav: dropdowns + Nosotros */}
-            <nav className="hidden lg:flex items-center gap-1" aria-label="Navegación principal">
+            {/* Col 2: Nav centrado */}
+            <nav className="hidden lg:flex items-center justify-center gap-1" aria-label="Navegación principal">
               {NAV_GROUPS.map((group) => (
                 <NavDropdown
                   key={group.label}
@@ -195,8 +199,8 @@ export default function InnerNavbar() {
               </Link>
             </nav>
 
-            {/* Right: WhatsApp CTA + hamburger */}
-            <div className="flex items-center gap-2">
+            {/* Col 3: CTA + hamburger */}
+            <div className="flex-1 flex justify-end items-center gap-2">
               <a
                 href={getWhatsAppUrl(
                   "Hola, me interesa conocer el catálogo de Quiroz Automotriz."
