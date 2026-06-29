@@ -572,8 +572,29 @@ export async function fetchCarSlugs(): Promise<string[]> {
 export async function fetchSoldCars(): Promise<Car[]> {
   if (_soldCarsCache) return _soldCarsCache;
 
+  // Build: intenta WP, fallback a array vacío
   if (isBuild) {
-    return [];
+    console.log("[WordPress] Build — intentando fetchSoldCars...");
+    try {
+      const [products, catMap] = await Promise.all([
+        fetchAllProducts(),
+        getCategoryMap(),
+      ]);
+      const sold = products
+        .map((p) => ({ product: p, cat: classifyCategories(extractCategoryNames(p, catMap)) }))
+        .filter(({ cat, product }) => {
+          if (cat.isSold) return true;
+          const desc = (product.acf?.descripcion ?? "").trimStart();
+          if (/^VENDIDO/i.test(desc)) return true;
+          return false;
+        })
+        .map(({ product }) => mapProductToCar(product));
+      console.log(`[WordPress] Build → ${sold.length} vendidos desde WP`);
+      return sold;
+    } catch (err) {
+      console.log("[WordPress] Build → WP no disponible para vendidos");
+      return [];
+    }
   }
 
   try {
