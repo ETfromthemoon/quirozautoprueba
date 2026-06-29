@@ -2,34 +2,149 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { getWhatsAppUrl } from "@/lib/whatsapp";
 import Logo from "./Logo";
-import {
-  WhatsAppIcon,
-  PhoneIcon,
-  InstagramIcon,
-  YouTubeIcon,
-  TikTokIcon,
-  MessengerIcon,
-  MenuIcon,
-  XIcon,
-} from "./icons";
+import { WhatsAppIcon, MenuIcon, XIcon, ArrowDownIcon } from "./icons";
 
-const NAV_LINKS = [
-  { href: "/", label: "Ver disponibles" },
-  { href: "/vender-consignar", label: "Vender / Consignar" },
-  { href: "/financiamiento", label: "Financiamiento" },
-  { href: "/seguros", label: "Seguros" },
-  { href: "/reserva", label: "Reserva" },
-  { href: "/nosotros", label: "Nosotros" },
-  { href: "/vendidos", label: "Ver vendidos" },
+// ── Grupos de navegación ──────────────────────────────
+const NAV_GROUPS = [
+  {
+    label: "Vehículos",
+    links: [
+      { href: "/", label: "Ver disponibles" },
+      { href: "/vendidos", label: "Ver vendidos" },
+    ],
+  },
+  {
+    label: "Servicios",
+    links: [
+      { href: "/financiamiento", label: "Financiamiento" },
+      { href: "/seguros", label: "Seguros" },
+      { href: "/reserva", label: "Reserva" },
+      { href: "/vender-consignar", label: "Vender / Consignar" },
+    ],
+  },
 ];
 
+// ── Dropdown component ─────────────────────────────────
+function NavDropdown({
+  label,
+  links,
+  pathname,
+  scrolled,
+}: {
+  label: string;
+  links: { href: string; label: string }[];
+  pathname: string;
+  scrolled: boolean;
+}) {
+  const [open, setOpen] = useState(false);
+  const isActive = links.some((l) => pathname === l.href);
+
+  return (
+    <div
+      className="relative"
+      onMouseEnter={() => setOpen(true)}
+      onMouseLeave={() => setOpen(false)}
+    >
+      <button
+        onClick={() => setOpen(!open)}
+        className={`flex items-center gap-1 px-3.5 py-2 rounded-lg text-[11px] font-medium tracking-wide uppercase transition-all duration-200 ${
+          !scrolled
+            ? isActive
+              ? "text-white bg-white/15"
+              : "text-white/70 hover:text-white hover:bg-white/12"
+            : isActive
+            ? "text-white bg-white/10"
+            : "text-[var(--color-ink-400)] hover:text-white hover:bg-white/8"
+        }`}
+      >
+        {label}
+        <ArrowDownIcon
+          className={`w-3 h-3 transition-transform duration-200 ${open ? "rotate-180" : ""}`}
+        />
+      </button>
+
+      {open && (
+        <div className="absolute top-full left-0 mt-1 w-52 py-2 rounded-xl border border-white/10 bg-[var(--color-ink-900)]/95 backdrop-blur-xl shadow-2xl">
+          {links.map((link) => (
+            <Link
+              key={link.href}
+              href={link.href}
+              onClick={() => setOpen(false)}
+              className={`block px-4 py-2.5 text-sm transition-colors ${
+                pathname === link.href
+                  ? "text-white bg-white/8"
+                  : "text-[var(--color-ink-300)] hover:text-white hover:bg-white/6"
+              }`}
+            >
+              {link.label}
+            </Link>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
+
+// ── Mobile nav ─────────────────────────────────────────
+function MobileNavLinks({
+  pathname,
+  onClose,
+}: {
+  pathname: string;
+  onClose: () => void;
+}) {
+  return (
+    <nav className="flex flex-col gap-1 px-6 md:px-10 pt-8">
+      {NAV_GROUPS.map((group) => (
+        <div key={group.label} className="mb-2">
+          <p className="text-[10px] font-semibold tracking-[0.15em] uppercase text-[var(--color-ink-500)] mb-2 px-1">
+            {group.label}
+          </p>
+          {group.links.map((link) => {
+            const isActive = pathname === link.href;
+            return (
+              <Link
+                key={link.href}
+                href={link.href}
+                onClick={onClose}
+                className={`py-3 px-1 text-lg font-medium tracking-tight transition-colors duration-200 block ${
+                  isActive ? "text-white" : "text-[var(--color-ink-300)] hover:text-white"
+                }`}
+                style={{ fontFamily: "var(--font-syne)" }}
+              >
+                {link.label}
+              </Link>
+            );
+          })}
+        </div>
+      ))}
+
+      <div className="mb-2 mt-2">
+        <Link
+          href="/nosotros"
+          onClick={onClose}
+          className={`py-3 px-1 text-lg font-medium tracking-tight transition-colors duration-200 block border-t border-white/8 ${
+            pathname === "/nosotros" ? "text-white" : "text-[var(--color-ink-300)] hover:text-white"
+          }`}
+          style={{ fontFamily: "var(--font-syne)" }}
+        >
+          Nosotros
+        </Link>
+      </div>
+    </nav>
+  );
+}
+
+// ── Main component ─────────────────────────────────────
 type Props = {
   totalCars: number;
 };
 
 export default function Navbar({ totalCars }: Props) {
+  const pathname = usePathname();
   const [activeIndex, setActiveIndex] = useState(-1);
   const [scrolled, setScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -43,13 +158,11 @@ export default function Navbar({ totalCars }: Props) {
     );
     if (sections.length === 0) return;
 
-    // IntersectionObserver evita leer el layout en cada evento de scroll.
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (entry.intersectionRatio >= 0.5) {
             const sectionIndex = sections.indexOf(entry.target as HTMLElement);
-            // El índice 0 es el Hero; los autos arrancan en 0 tras restar 1.
             const current = sectionIndex - 1;
             setActiveIndex(current);
             setScrolled(current >= 0);
@@ -63,7 +176,6 @@ export default function Navbar({ totalCars }: Props) {
     return () => observer.disconnect();
   }, []);
 
-  // Bloquear scroll del body cuando el menú está abierto.
   useEffect(() => {
     document.body.style.overflow = isMenuOpen ? "hidden" : "";
     return () => {
@@ -94,13 +206,40 @@ export default function Navbar({ totalCars }: Props) {
                   behavior: "smooth",
                 });
               }}
-              className="flex items-center gap-2.5 cursor-pointer group"
+              className="flex items-center gap-2.5 cursor-pointer group shrink-0"
               aria-label="Quiroz Redcar - Inicio"
             >
               <Logo variant="horizontal" className="h-9 md:h-10 w-auto" />
             </a>
 
-            {/* Progress dots */}
+            {/* Desktop nav: dropdowns + Nosotros */}
+            <nav className="hidden md:flex items-center gap-1" aria-label="Navegación principal">
+              {NAV_GROUPS.map((group) => (
+                <NavDropdown
+                  key={group.label}
+                  label={group.label}
+                  links={group.links}
+                  pathname={pathname}
+                  scrolled={scrolled}
+                />
+              ))}
+              <Link
+                href="/nosotros"
+                className={`px-3.5 py-2 rounded-lg text-[11px] font-medium tracking-wide uppercase transition-all duration-200 ${
+                  !scrolled
+                    ? pathname === "/nosotros"
+                      ? "text-white bg-white/15"
+                      : "text-white/70 hover:text-white hover:bg-white/12"
+                    : pathname === "/nosotros"
+                    ? "text-white bg-white/10"
+                    : "text-[var(--color-ink-400)] hover:text-white hover:bg-white/8"
+                }`}
+              >
+                Nosotros
+              </Link>
+            </nav>
+
+            {/* Progress dots (solo en desktop y scrolled) */}
             <div
               className={`hidden md:flex items-center gap-1.5 transition-all duration-500 ${
                 scrolled ? "opacity-100" : "opacity-0"
@@ -115,39 +254,8 @@ export default function Navbar({ totalCars }: Props) {
               ))}
             </div>
 
-            {/* Right actions */}
+            {/* Right: WhatsApp CTA + hamburger */}
             <div className="flex items-center gap-2">
-              {/* Social icons */}
-              <div className="hidden md:flex items-center gap-1">
-                <a
-                  href="https://www.instagram.com/quirozautomotrizspa/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label="Instagram"
-                  className="w-7 h-7 rounded-full flex items-center justify-center text-ink-400 hover:text-white hover:bg-white/10 transition-all"
-                >
-                  <InstagramIcon className="w-3.5 h-3.5" />
-                </a>
-                <a
-                  href="https://www.youtube.com/channel/UC11dE4tkZPT358WO5RLHtcg"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label="YouTube"
-                  className="w-7 h-7 rounded-full flex items-center justify-center text-ink-400 hover:text-white hover:bg-white/10 transition-all"
-                >
-                  <YouTubeIcon className="w-3.5 h-3.5" />
-                </a>
-                <a
-                  href="https://www.tiktok.com/@quiroz.automotriz"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label="TikTok"
-                  className="w-7 h-7 rounded-full flex items-center justify-center text-ink-400 hover:text-white hover:bg-white/10 transition-all"
-                >
-                  <TikTokIcon className="w-3.5 h-3.5" />
-                </a>
-              </div>
-
               <a
                 href={getWhatsAppUrl(
                   "Hola, me interesa conocer el catálogo de Quiroz Automotriz."
@@ -180,7 +288,7 @@ export default function Navbar({ totalCars }: Props) {
         </div>
       </header>
 
-      {/* Full-screen navigation overlay */}
+      {/* Mobile menu overlay */}
       <div
         className={`fixed inset-0 z-[60] transition-all duration-500 ${
           isMenuOpen
@@ -189,7 +297,6 @@ export default function Navbar({ totalCars }: Props) {
         }`}
         style={{ background: "var(--color-ink-950)" }}
       >
-        {/* Header row */}
         <div className="flex items-center justify-between px-6 md:px-10 pt-6 pb-4">
           <Logo variant="horizontal" className="h-9 w-auto opacity-80" />
           <button
@@ -201,71 +308,20 @@ export default function Navbar({ totalCars }: Props) {
           </button>
         </div>
 
-        {/* Nav links */}
-        <nav className="flex flex-col gap-1 px-6 md:px-10 pt-8">
-          {NAV_LINKS.map((link, i) => (
-            <Link
-              key={link.href}
-              href={link.href}
-              onClick={() => setIsMenuOpen(false)}
-              className="group flex items-center justify-between py-4 border-b border-white/8 text-[var(--color-ink-200)] hover:text-white transition-colors duration-200"
-              style={{ animationDelay: `${i * 60}ms` }}
-            >
-              <span className="text-2xl md:text-3xl font-medium tracking-tight" style={{ fontFamily: "var(--font-syne)" }}>
-                {link.label}
-              </span>
-              <span className="w-6 h-6 rounded-full border border-white/20 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
-                <svg className="w-3 h-3" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="2">
-                  <path d="M2.5 9.5l7-7M9.5 2.5H3.5M9.5 2.5v6" />
-                </svg>
-              </span>
-            </Link>
-          ))}
-        </nav>
+        <MobileNavLinks pathname={pathname} onClose={() => setIsMenuOpen(false)} />
 
-        {/* Bottom: social + contact */}
         <div className="absolute bottom-0 left-0 right-0 px-6 md:px-10 pb-8 pt-6 border-t border-white/8">
-          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
-            {/* Social icons */}
-            <div className="flex items-center gap-4">
-              <a
-                href="https://www.instagram.com/quirozautomotrizspa/"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="Instagram"
-                className="w-10 h-10 rounded-full border border-white/15 flex items-center justify-center text-[var(--color-ink-400)] hover:text-white hover:border-white/40 transition-all"
-              >
-                <InstagramIcon className="w-4 h-4" />
-              </a>
-              <a
-                href="https://m.me/quirozautomotriz"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="Messenger"
-                className="w-10 h-10 rounded-full border border-white/15 flex items-center justify-center text-[var(--color-ink-400)] hover:text-white hover:border-white/40 transition-all"
-              >
-                <MessengerIcon className="w-4 h-4" />
-              </a>
-              <a
-                href="tel:+56959065441"
-                aria-label="Teléfono"
-                className="w-10 h-10 rounded-full border border-white/15 flex items-center justify-center text-[var(--color-ink-400)] hover:text-white hover:border-white/40 transition-all"
-              >
-                <PhoneIcon className="w-4 h-4" />
-              </a>
-            </div>
-
-            {/* WhatsApp CTA */}
-            <a
-              href={getWhatsAppUrl("Hola, me interesa conocer el catálogo de Quiroz Automotriz.")}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn-base btn-primary !py-2.5 !px-5 !text-[11px] gap-2"
-            >
-              <WhatsAppIcon className="w-4 h-4" />
-              Contactar por WhatsApp
-            </a>
-          </div>
+          <a
+            href={getWhatsAppUrl(
+              "Hola, me interesa conocer el catálogo de Quiroz Automotriz."
+            )}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn-base btn-primary w-full !py-3 !text-sm gap-2 justify-center"
+          >
+            <WhatsAppIcon className="w-4 h-4" />
+            Contactar por WhatsApp
+          </a>
         </div>
       </div>
     </>
