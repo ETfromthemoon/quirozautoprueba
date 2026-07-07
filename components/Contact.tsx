@@ -124,7 +124,7 @@ export default function Contact() {
           <div className="mt-8 md:mt-20 pt-6 border-t border-white/10">
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-5 md:gap-8 text-center sm:text-left">
               <div>
-                <p className="text-overline text-accent-500 mb-2">Sucursales</p>
+                <h3 className="text-overline text-accent-500 mb-2">Sucursales</h3>
                 <p className="text-sm text-white font-medium leading-relaxed">
                   Av. Bosques de Montemar #65
                 </p>
@@ -138,7 +138,7 @@ export default function Contact() {
               </div>
 
               <div>
-                <p className="text-overline text-accent-500 mb-2">Síguenos</p>
+                <h3 className="text-overline text-accent-500 mb-2">Síguenos</h3>
                 <div className="flex flex-col gap-2 items-center sm:items-start">
                   <SocialLink href="https://instagram.com/quirozautomotrizspa" label="Instagram">
                     @quirozautomotrizspa
@@ -153,7 +153,7 @@ export default function Contact() {
               </div>
 
               <div>
-                <p className="text-overline text-accent-500 mb-2">Servicios</p>
+                <h3 className="text-overline text-accent-500 mb-2">Servicios</h3>
                 <ul className="space-y-1 text-sm text-ink-300">
                   <li>Compra y venta</li>
                   <li>Consignación</li>
