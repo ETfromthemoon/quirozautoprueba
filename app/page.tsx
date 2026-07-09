@@ -19,6 +19,7 @@ export default async function Home() {
         className="showcase-container"
       >
         <Hero totalCars={cars.length} />
+        <h2 className="sr-only">Catálogo de {cars.length} vehículos disponibles</h2>
         {cars.map((car, i) => (
           <CarShowcase
             key={car.id}

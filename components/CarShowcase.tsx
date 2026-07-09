@@ -157,7 +157,7 @@ export default function CarShowcase({ car, index, total }: Props) {
                 isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
               }`}
             >
-              <h2 className="font-display text-white leading-[0.92] tracking-tighter">
+              <h3 className="font-display text-white leading-[0.92] tracking-tighter">
                 <span className="block text-3xl lg:text-4xl font-medium text-ink-200 tracking-[0.2em] uppercase">
                   {car.brand}
                 </span>
@@ -174,7 +174,7 @@ export default function CarShowcase({ car, index, total }: Props) {
                 >
                   {car.model}
                 </span>
-              </h2>
+              </h3>
               {car.variant && (
                 <p className="mt-4 text-silver-300 text-sm md:text-base font-medium tracking-[0.15em] uppercase break-words">
                   {car.variant}
@@ -266,6 +266,7 @@ export default function CarShowcase({ car, index, total }: Props) {
           transform: isVisible && !isExpanded ? "translateY(0)" : "translateY(24px)",
           pointerEvents: isVisible && !isExpanded ? "auto" : "none",
         }}
+        inert={isExpanded}
       >
         <div className="glass-panel rounded-full w-full flex items-center pl-5 pr-1.5 py-1.5 gap-2">
           {/* Left: text info — click to expand modal */}
@@ -346,6 +347,7 @@ export default function CarShowcase({ car, index, total }: Props) {
         role="dialog"
         aria-modal="true"
         aria-label={`Detalles del ${car.brand} ${car.model}`}
+        inert={!isExpanded}
       >
         <div className="glass-panel rounded-t-3xl px-5 pt-2 pb-6 max-h-[88vh] overflow-y-auto">
           {/* Drag handle (close) */}

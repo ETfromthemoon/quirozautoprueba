@@ -76,12 +76,12 @@ export default function Hero({ totalCars }: Props) {
                 <span className="h-px w-8 bg-accent-600" />
               </span>
             </p>
-            <h1 className="text-luxury-xl text-white animate-fade-up delay-200">
-              <span className="block font-medium text-ink-200 text-[0.4em] tracking-[0.3em] uppercase mb-4 md:mb-6">
+            <div className="text-luxury-xl text-white animate-fade-up delay-200">
+              <p className="block font-medium text-ink-200 text-[0.4em] tracking-[0.3em] uppercase mb-4 md:mb-6">
                 Llevamos más de 20 años en el rubro automotriz
-              </span>
-              <span className="block text-white">SEGURIDAD Y EFICACIA</span>
-            </h1>
+              </p>
+              <h1 className="block text-white">SEGURIDAD Y EFICACIA</h1>
+            </div>
             <p className="mt-6 md:mt-8 text-sm md:text-lg text-ink-200 max-w-xl mx-auto font-light leading-relaxed animate-fade-up delay-400 px-4">
               Brindando seguridad y eficacia a cada uno de nuestros clientes.
               El cliente es la pieza más importante de la empresa.
