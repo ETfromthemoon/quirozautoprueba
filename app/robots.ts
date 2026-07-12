@@ -8,6 +8,8 @@ export default function robots(): MetadataRoute.Robots {
     rules: {
       userAgent: "*",
       allow: "/",
+      // Informes privados de peritaje: nunca indexar.
+      disallow: ["/informe/", "/informe-admin"],
     },
     sitemap: `${siteUrl}/sitemap.xml`,
     host: siteUrl,

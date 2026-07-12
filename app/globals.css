@@ -255,6 +255,20 @@ body {
 .delay-500 { animation-delay: 0.5s; }
 .delay-700 { animation-delay: 0.7s; }
 
+/* ── Scroll reveal (brochure) ── */
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition:
+    opacity 700ms cubic-bezier(0.16, 1, 0.3, 1),
+    transform 700ms cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
 /* ── Silver shimmer text effect (del logo) ── */
 .text-gold-shimmer,
 .text-silver-shimmer {
@@ -619,6 +633,12 @@ button, a {
   .light-streak,
   .speed-lines {
     animation: none !important;
+  }
+
+  .reveal {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
   }
 
   * {
