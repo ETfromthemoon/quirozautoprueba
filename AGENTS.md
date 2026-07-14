@@ -50,6 +50,7 @@ Next.js 16 has breaking changes — APIs, conventions, and file structure may al
 - `NEXT_PUBLIC_SITE_URL` — default: `http://localhost:3000`
 - `SMTP_HOST`, `SMTP_PORT`, `SMTP_USER`, `SMTP_PASS` — SMTP credentials for form email sending (nodemailer)
 - `TURNSTILE_SECRET_KEY` — optional, Cloudflare Turnstile for form spam protection
+- `INFORME_ADMIN_KEY` — required for `/informe-admin?k=<key>` (seller panel for private inspection reports). Without it the panel is closed (fail-closed). Generate with `openssl rand -hex 16` and set it in Vercel.
 - `.env*` files are gitignored. Configure in Vercel dashboard.
 
 ## Deployment
