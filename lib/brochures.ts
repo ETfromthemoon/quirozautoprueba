@@ -26,6 +26,10 @@
  * WordPress, subida de PDF, o panel propio) manteniendo el mismo tipo.
  */
 
+// Este módulo contiene tokens y datos confidenciales: si un componente
+// cliente lo importa, el build falla en vez de filtrar todo al bundle JS.
+import "server-only";
+
 // ─── Estados y semáforo ───────────────────────────────────────────────────────
 
 /** Estado de un sistema/ítem individual: verde / ámbar / rojo. */
@@ -450,9 +454,15 @@ export function getReportById(carId: string): VehicleReport | undefined {
   return reports[carId];
 }
 
-/** ¿Existe un informe para este auto? */
-export function hasReport(carId: string): boolean {
-  return carId in reports;
+/**
+ * Valida la clave del panel interno /informe-admin contra la variable de
+ * entorno INFORME_ADMIN_KEY. Sin la variable configurada, el panel queda
+ * cerrado (fail-closed): nunca se abre por accidente en producción.
+ */
+export function isValidAdminKey(key: string | undefined): boolean {
+  const adminKey = process.env.INFORME_ADMIN_KEY;
+  if (!adminKey || !key) return false;
+  return safeEqual(adminKey, key);
 }
 
 /**

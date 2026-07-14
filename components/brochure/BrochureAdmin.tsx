@@ -1,51 +1,23 @@
-"use client";
-
-import { useEffect, useState } from "react";
 import Link from "next/link";
-import { reports } from "@/lib/brochures";
-import { cars } from "@/lib/cars";
 import Logo from "../Logo";
-import { CopyIcon, CheckIcon, EyeIcon, LockIcon, ArrowLeftIcon } from "../icons";
+import CopyLinkButton from "./CopyLinkButton";
+import { EyeIcon, LockIcon, ArrowLeftIcon } from "../icons";
 
-type Row = {
+export type AdminRow = {
   carId: string;
   name: string;
-  token: string;
   estado: string;
+  /** URL privada completa (con token), armada en el servidor. */
+  url: string;
 };
 
-export default function BrochureAdmin() {
-  const [origin, setOrigin] = useState("");
-  const [copied, setCopied] = useState<string | null>(null);
+type Props = { rows: AdminRow[] };
 
-  useEffect(() => {
-    setOrigin(window.location.origin);
-  }, []);
-
-  const rows: Row[] = Object.values(reports).map((r) => {
-    const car = cars.find((c) => c.id === r.carId);
-    return {
-      carId: r.carId,
-      name: car ? `${car.brand} ${car.model} ${car.year}` : r.carId,
-      token: r.accessToken,
-      estado: r.verdict.estado,
-    };
-  });
-
-  const linkFor = (row: Row) =>
-    `${origin || ""}/informe/${row.carId}?k=${row.token}`;
-
-  async function copy(row: Row) {
-    try {
-      await navigator.clipboard.writeText(linkFor(row));
-      setCopied(row.carId);
-      setTimeout(() => setCopied((c) => (c === row.carId ? null : c)), 2000);
-    } catch {
-      // Fallback silencioso: seleccionar no disponible → no romper la UI.
-      setCopied(null);
-    }
-  }
-
+/**
+ * Vista del panel interno de informes. Solo se renderiza tras validar
+ * la clave de admin en el servidor (app/informe-admin/page.tsx).
+ */
+export default function BrochureAdmin({ rows }: Props) {
   return (
     <main className="min-h-dvh bg-ink-950 text-ink-50 px-4 py-10 md:py-16">
       <div className="mx-auto max-w-3xl">
@@ -89,31 +61,16 @@ export default function BrochureAdmin() {
               </div>
 
               <div className="flex items-center gap-2 shrink-0">
-                <Link
-                  href={`/informe/${row.carId}?k=${row.token}`}
+                <a
+                  href={row.url}
                   target="_blank"
+                  rel="noopener noreferrer"
                   className="btn-base btn-silver !py-2 !px-4 !text-[12px]"
                 >
                   <EyeIcon className="w-4 h-4" />
                   <span>Ver</span>
-                </Link>
-                <button
-                  type="button"
-                  onClick={() => copy(row)}
-                  className="btn-base btn-primary !py-2 !px-4 !text-[12px]"
-                >
-                  {copied === row.carId ? (
-                    <>
-                      <CheckIcon className="w-4 h-4" />
-                      <span>Copiado</span>
-                    </>
-                  ) : (
-                    <>
-                      <CopyIcon className="w-4 h-4" />
-                      <span>Copiar link</span>
-                    </>
-                  )}
-                </button>
+                </a>
+                <CopyLinkButton url={row.url} />
               </div>
             </div>
           ))}

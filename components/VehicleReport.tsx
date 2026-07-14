@@ -37,6 +37,11 @@ const CHAPTERS = [
   { id: "fotos", label: "Fotos" },
 ];
 
+/** Escala máxima de las barras de espesor de pintura (µm). */
+const PAINT_BAR_MAX_MICRAS = 300;
+/** Banda de rodadura de un neumático nuevo (mm), tope de la barra. */
+const TIRE_NEW_TREAD_MM = 8;
+
 export default function VehicleReport({ car, report }: Props) {
   const carName = `${car.brand} ${car.model} ${car.year}`;
   const visitaUrl = `/reserva?vehiculo=${encodeURIComponent(carName)}`;
@@ -343,7 +348,7 @@ export default function VehicleReport({ car, report }: Props) {
             <div className="space-y-4">
               {report.carroceria.paneles.map((p) => {
                 const st: ItemStatus = p.estado === "original" ? "ok" : "atencion";
-                const pct = Math.min(100, Math.round((p.micras / 300) * 100));
+                const pct = Math.min(100, Math.round((p.micras / PAINT_BAR_MAX_MICRAS) * 100));
                 return (
                   <div key={p.panel}>
                     <div className="flex items-center justify-between mb-1.5">
@@ -387,7 +392,7 @@ export default function VehicleReport({ car, report }: Props) {
               </h3>
               <div className="space-y-4">
                 {report.running.neumaticos.map((t) => {
-                  const pct = Math.min(100, Math.round((t.bandaMm / 8) * 100));
+                  const pct = Math.min(100, Math.round((t.bandaMm / TIRE_NEW_TREAD_MM) * 100));
                   return (
                     <div key={t.posicion}>
                       <div className="flex items-center justify-between mb-1.5">
