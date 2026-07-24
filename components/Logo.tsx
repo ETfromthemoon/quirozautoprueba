@@ -88,12 +88,13 @@ export default function Logo({ variant = "full", className = "" }: LogoProps) {
         >
           QUIROZ
         </text>
-        {/* REDCAR tagline */}
+        {/* REDCAR tagline — 30% más grande, alineada a la derecha bajo QUIROZ */}
         <text
-          x="70"
-          y="48"
+          x="180"
+          y="50"
+          textAnchor="end"
           fontFamily="var(--font-syne), system-ui, sans-serif"
-          fontSize="14"
+          fontSize="18"
           fontWeight="600"
           letterSpacing="0.08em"
         >
