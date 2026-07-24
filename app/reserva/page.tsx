@@ -112,6 +112,10 @@ export default function ReservaPage() {
                     descuenta del precio final de compra. Si el vehículo no está en
                     las condiciones informadas, el monto se devuelve en su totalidad.
                   </p>
+                  <p>
+                    Al completar tu reserva, recibirás un correo confirmando el
+                    apartado del vehículo.
+                  </p>
                 </div>
               </div>
 
@@ -233,6 +237,20 @@ export default function ReservaPage() {
                     >
                       {sending ? "Enviando..." : "Solicitar reserva"}
                     </button>
+
+                    {/* Pago en línea Transbank/Webpay — pendiente de conexión */}
+                    <button
+                      type="button"
+                      disabled
+                      aria-disabled="true"
+                      title="Disponible próximamente"
+                      className="btn-base btn-silver w-full !py-3 opacity-60 cursor-not-allowed"
+                    >
+                      <span>Pagar reserva $200.000 con Webpay</span>
+                    </button>
+                    <p className="text-[11px] text-center text-[var(--color-ink-500)] -mt-2">
+                      Pago en línea con Webpay disponible próximamente.
+                    </p>
                   </form>
                 )}
               </div>

@@ -579,6 +579,22 @@ export default function VehicleReport({ car, report }: Props) {
                 <span>Consultar por WhatsApp</span>
               </a>
             </div>
+
+            {/* Pago de reserva Transbank/Webpay — pendiente de conexión */}
+            <div className="mt-4 flex flex-col items-center gap-2">
+              <button
+                type="button"
+                disabled
+                aria-disabled="true"
+                title="Disponible próximamente"
+                className="btn-base btn-ghost border border-white/15 opacity-60 cursor-not-allowed"
+              >
+                <span>Pagar reserva con Webpay</span>
+              </button>
+              <p className="text-[11px] text-ink-500 font-light">
+                Pago en línea con Webpay disponible próximamente.
+              </p>
+            </div>
           </div>
         </Reveal>
 
