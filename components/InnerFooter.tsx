@@ -116,7 +116,7 @@ export default function InnerFooter() {
             © {new Date().getFullYear()} Quiroz Automotriz. Todos los derechos reservados.
           </p>
           <p className="text-[var(--color-ink-700)] text-xs">
-            Automotora de confianza en Santiago
+            Automotora de confianza en Concón y Valparaíso
           </p>
         </div>
       </div>
