@@ -36,16 +36,16 @@ const ANIOS = Array.from({ length: 20 }, (_, i) => String(2007 + i));
 
 const BENEFITS = [
   {
-    title: "Cobertura completa",
-    description: "Protege tu vehículo contra todo riesgo, robo, incendio y daños a terceros.",
+    title: "Máxima cobertura",
+    description: "Sales asegurado del local, 100% protegido ante robo, incendio, pérdida total y daños a terceros.",
   },
   {
-    title: "Asesoría personalizada",
-    description: "Te ayudamos a elegir el seguro que mejor se adapta a tu vehículo y presupuesto.",
+    title: "Respaldo SURA",
+    description: "Trabajamos con una de las aseguradoras más grandes de Chile, con toda su solvencia y respaldo.",
   },
   {
-    title: "Gestión de siniestros",
-    description: "Te acompañamos en todo el proceso ante cualquier eventualidad.",
+    title: "Rápido y sin trámites",
+    description: "Gestionamos tu seguro en minutos y tu auto sale del local con máxima cobertura al instante.",
   },
 ];
 
@@ -130,6 +130,9 @@ export default function SegurosPage() {
               >
                 ¿Por qué asegurar con nosotros?
               </h2>
+              <p className="mt-4 text-[var(--color-ink-300)] max-w-2xl mx-auto">
+                Asegura tu auto con máxima cobertura y sal del local 100% protegido.
+              </p>
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
               {BENEFITS.map((b) => (

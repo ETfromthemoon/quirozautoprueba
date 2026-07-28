@@ -52,7 +52,7 @@ export default function VenderConsignarPage() {
           datos: {
             Patente: form.patente,
             Kilometraje: form.kilometraje,
-            "Servicio": form.servicio,
+            "Mantenciones": form.servicio,
             Nombre: form.nombre,
             Apellido: form.apellido,
             Teléfono: form.telefono,
@@ -113,10 +113,11 @@ export default function VenderConsignarPage() {
           </div>
         </section>
 
-        {/* Tabs */}
-        <section className="py-6">
-          <div className="mx-auto max-w-7xl px-4 md:px-8">
-            <div className="flex gap-3">
+        {/* Form con botones de switch pegados encima */}
+        <section className="py-16 md:py-24">
+          <div className="mx-auto max-w-2xl px-4 md:px-8">
+            {/* Switch compra / consignación */}
+            <div className="flex gap-3 mb-6">
               <button
                 onClick={() => { setTab("compra"); setSent(false); setForm(INITIAL_FORM); }}
                 className={`btn-base ${tab === "compra" ? "btn-primary" : "btn-ghost border border-white/15"}`}
@@ -130,33 +131,7 @@ export default function VenderConsignarPage() {
                 Consignaciones
               </button>
             </div>
-          </div>
-        </section>
 
-        {/* Steps */}
-        <section className="py-10 md:py-16 bg-[var(--color-ink-900)]/40">
-          <div className="mx-auto max-w-7xl px-4 md:px-8">
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
-              {steps.map((step, i) => (
-                <div key={step.number} className="glass-light rounded-2xl p-7 flex flex-col gap-4 transition-all duration-300 hover:-translate-y-1 hover:border-white/20">
-                  <span className="text-2xl font-light text-[var(--color-ink-400)]" style={{ fontFamily: "var(--font-syne)" }}>
-                    {step.number}
-                  </span>
-                  <div>
-                    <h3 className="text-white font-medium mb-2" style={{ fontFamily: "var(--font-syne)" }}>
-                      {step.title}
-                    </h3>
-                    <p className="text-[var(--color-ink-400)] text-sm leading-relaxed">{step.description}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* Form */}
-        <section className="py-16 md:py-24">
-          <div className="mx-auto max-w-2xl px-4 md:px-8">
             <div className="glass-panel rounded-3xl p-7 md:p-9">
               {sent ? (
                 <div className="flex flex-col items-center text-center py-8 gap-4">
@@ -209,17 +184,24 @@ export default function VenderConsignarPage() {
                     </div>
                   </div>
                   <div className="flex flex-col gap-1.5">
-                    <label htmlFor="vc-servicio" className="text-xs text-[var(--color-ink-400)]">Servicio *</label>
-                    <select
-                      id="vc-servicio"
-                      required
-                      value={form.servicio}
-                      onChange={(e) => update("servicio", e.target.value)}
-                      className="w-full bg-[var(--color-ink-800)] border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-[var(--color-accent-600)] transition-colors"
-                    >
-                      <option value="Particular">Particular</option>
-                      <option value="Concesionario">Concesionario</option>
-                    </select>
+                    <label className="text-xs text-[var(--color-ink-400)]">Mantenciones *</label>
+                    <div className="grid grid-cols-2 gap-2">
+                      {(["Concesionario", "Particular"] as const).map((opt) => (
+                        <button
+                          key={opt}
+                          type="button"
+                          onClick={() => update("servicio", opt)}
+                          aria-pressed={form.servicio === opt}
+                          className={`rounded-xl px-4 py-2.5 text-sm border transition-colors ${
+                            form.servicio === opt
+                              ? "bg-[var(--color-accent-700)]/20 border-[var(--color-accent-600)] text-white"
+                              : "bg-[var(--color-ink-800)] border-white/10 text-[var(--color-ink-300)] hover:border-white/25"
+                          }`}
+                        >
+                          {opt}
+                        </button>
+                      ))}
+                    </div>
                   </div>
 
                   <p className="text-[10px] font-semibold tracking-[0.15em] uppercase text-[var(--color-ink-500)] mt-1">
@@ -290,6 +272,27 @@ export default function VenderConsignarPage() {
                   </button>
                 </form>
               )}
+            </div>
+          </div>
+        </section>
+
+        {/* Pasos del proceso */}
+        <section className="py-10 md:py-16 bg-[var(--color-ink-900)]/40">
+          <div className="mx-auto max-w-7xl px-4 md:px-8">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
+              {steps.map((step) => (
+                <div key={step.number} className="glass-light rounded-2xl p-7 flex flex-col gap-4 transition-all duration-300 hover:-translate-y-1 hover:border-white/20">
+                  <span className="text-2xl font-light text-[var(--color-ink-400)]" style={{ fontFamily: "var(--font-syne)" }}>
+                    {step.number}
+                  </span>
+                  <div>
+                    <h3 className="text-white font-medium mb-2" style={{ fontFamily: "var(--font-syne)" }}>
+                      {step.title}
+                    </h3>
+                    <p className="text-[var(--color-ink-400)] text-sm leading-relaxed">{step.description}</p>
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
         </section>

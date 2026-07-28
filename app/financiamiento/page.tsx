@@ -16,10 +16,6 @@ const BENEFITS = [
     description: "Adaptamos el plan de pago a tu ingreso y presupuesto mensual.",
   },
   {
-    title: "Sin pie obligatorio",
-    description: "Opciones con y sin pie inicial. Tú decides cómo quieres financiar.",
-  },
-  {
     title: "Tasa competitiva",
     description: "Trabajamos con entidades de crédito que ofrecen las mejores tasas del mercado.",
   },
@@ -148,7 +144,7 @@ export default function FinanciamientoPage() {
                 Ventajas del financiamiento Quiroz
               </h2>
             </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
               {BENEFITS.map((benefit) => (
                 <div key={benefit.title} className="glass-light rounded-2xl p-7 flex items-start gap-5 transition-all duration-300 hover:-translate-y-1 hover:border-white/20 hover:shadow-[0_12px_36px_-8px_rgba(0,0,0,0.5)]">
                   <div className="w-9 h-9 rounded-full bg-[var(--color-accent-700)]/20 flex items-center justify-center shrink-0 mt-0.5">
