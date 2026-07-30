@@ -67,8 +67,8 @@ export default function Hero({ totalCars }: Props) {
         </div>
 
         {/* Center title */}
-        <div className="flex-1 flex items-center justify-center px-6">
-          <div className="text-center max-w-5xl">
+        <div className="flex-1 flex items-center justify-center px-4 sm:px-6">
+          <div className="w-full max-w-5xl text-center">
             <p className="text-overline text-ink-300 mb-6 animate-fade-up delay-100">
               <span className="inline-flex items-center gap-3">
                 <span className="h-px w-8 bg-accent-600" />
@@ -76,8 +76,8 @@ export default function Hero({ totalCars }: Props) {
                 <span className="h-px w-8 bg-accent-600" />
               </span>
             </p>
-            <div className="overflow-visible px-4 text-white animate-fade-up delay-200 sm:px-6">
-              <h1 className="mx-auto block max-w-full whitespace-nowrap py-[0.12em] text-center text-[clamp(1rem,6vw,1.7rem)] sm:text-4xl md:text-6xl lg:text-7xl xl:text-8xl font-extrabold leading-[1.12] tracking-tight uppercase text-transparent bg-clip-text bg-gradient-to-br from-white via-[var(--color-silver-200)] to-[var(--color-silver-500)] drop-shadow-[0_18px_42px_rgba(0,0,0,0.65)]">
+            <div className="w-full overflow-visible px-1 text-white animate-fade-up delay-200 sm:px-4">
+              <h1 className="inline-block whitespace-nowrap py-[0.14em] text-center text-[clamp(1rem,6vw,1.7rem)] sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl 2xl:text-8xl font-extrabold leading-[1.12] tracking-tight uppercase text-transparent bg-clip-text bg-[linear-gradient(110deg,#ffffff_0%,#d4d4d8_24%,#ffffff_48%,#a1a1aa_72%,#f4f4f5_100%)] drop-shadow-[0_18px_42px_rgba(0,0,0,0.65)]">
                 20 años de experiencia
               </h1>
             </div>
