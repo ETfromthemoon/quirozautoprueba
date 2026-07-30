@@ -76,8 +76,8 @@ export default function Hero({ totalCars }: Props) {
                 <span className="h-px w-8 bg-accent-600" />
               </span>
             </p>
-            <div className="text-white animate-fade-up delay-200">
-              <h1 className="mx-auto block whitespace-nowrap text-center text-[1.45rem] min-[390px]:text-[1.7rem] sm:text-5xl md:text-7xl lg:text-8xl font-extrabold leading-none tracking-normal uppercase text-transparent bg-clip-text bg-gradient-to-br from-white via-[var(--color-silver-200)] to-[var(--color-silver-500)] drop-shadow-[0_18px_42px_rgba(0,0,0,0.65)]">
+            <div className="overflow-visible px-3 text-white animate-fade-up delay-200 sm:px-6">
+              <h1 className="mx-auto block max-w-full whitespace-nowrap py-[0.12em] text-center text-[clamp(1.25rem,6.15vw,1.7rem)] sm:text-5xl md:text-7xl lg:text-8xl font-extrabold leading-[1.12] tracking-tight uppercase text-transparent bg-clip-text bg-gradient-to-br from-white via-[var(--color-silver-200)] to-[var(--color-silver-500)] drop-shadow-[0_18px_42px_rgba(0,0,0,0.65)]">
                 20 años de experiencia
               </h1>
             </div>
