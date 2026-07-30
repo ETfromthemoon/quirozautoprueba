@@ -85,8 +85,7 @@ export default function ReservaPage() {
                 Asegura tu compra ahora
               </h1>
               <p className="text-lg md:text-xl text-[var(--color-ink-300)] leading-relaxed max-w-2xl">
-                Reserva tu vehículo con $200.000 y garantizamos que nadie más
-                lo comprará mientras decides.
+                Reserva tu vehículo con 200,000 pesos
               </p>
             </div>
           </div>
@@ -108,7 +107,7 @@ export default function ReservaPage() {
                     las plataformas y queda apartado a tu nombre.
                   </p>
                   <p>
-                    La reserva de <strong className="text-white">$200.000</strong> se
+                    La reserva de <strong className="text-white">$200.000.-</strong> se
                     descuenta del precio final de compra. Si el vehículo no está en
                     las condiciones informadas, el monto se devuelve en su totalidad.
                   </p>

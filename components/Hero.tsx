@@ -78,7 +78,7 @@ export default function Hero({ totalCars }: Props) {
             </p>
             <div className="text-luxury-xl text-white animate-fade-up delay-200">
               <h1 className="block font-medium text-ink-200 text-[0.4em] tracking-[0.3em] uppercase">
-                Llevamos más de 20 años en el rubro automotriz
+                20 años de experiencia
               </h1>
             </div>
             <p className="mt-6 md:mt-8 text-sm md:text-lg text-ink-200 max-w-xl mx-auto font-light leading-relaxed animate-fade-up delay-400 px-4">

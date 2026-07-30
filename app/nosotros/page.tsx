@@ -104,52 +104,48 @@ export default function NosotrosPage() {
           </div>
         </section>
 
-        {/* ── Historia y fundador ── */}
+        {/* ── Confianza ── */}
         <section className="py-20 md:py-28">
           <div className="mx-auto max-w-7xl px-4 md:px-8">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-20 items-center">
+              <div className="relative min-h-[360px] md:min-h-[480px] rounded-3xl overflow-hidden border border-white/10 bg-[var(--color-ink-900)]">
+                <div className="absolute inset-0 bg-gradient-to-br from-[var(--color-ink-800)] via-[var(--color-ink-900)] to-[var(--color-ink-950)]" />
+                <div className="absolute inset-0 grid place-items-center px-8 text-center">
+                  <div>
+                    <p className="text-overline text-[var(--color-ink-500)] mb-3">
+                      Foto próximamente
+                    </p>
+                    <p
+                      className="text-white/70 text-xl font-semibold tracking-tight"
+                      style={{ fontFamily: "var(--font-syne)" }}
+                    >
+                      Placeholder
+                    </p>
+                  </div>
+                </div>
+              </div>
+
               <div className="flex flex-col gap-6">
                 <h2
                   className="text-white leading-tight font-semibold tracking-tight"
                   style={{ fontFamily: "var(--font-syne)", fontSize: "clamp(1.5rem, 3vw, 2.25rem)" }}
                 >
-                  De gerente a emprendedor
+                  Adiós a los riesgos. Hola a la confianza.
                 </h2>
                 <div className="flex flex-col gap-4 text-[var(--color-ink-300)] leading-relaxed">
                   <p>
-                    Soy Marco Quiroz y trabajé muchos años en el rubro automotriz,
-                    llegando a ser gerente. Ahí me di cuenta de todos los errores
-                    que se cometen, y también de las innovaciones que se podían
-                    realizar en este rubro.
+                    En Quiroz Automotriz transformamos la compra, venta y
+                    consignación de autos usados en una experiencia simple y
+                    segura.
                   </p>
                   <p>
-                    Por eso decidí crear mi propia empresa, Quiroz Automotriz.
-                    Acá, el cliente es la pieza más importante de la empresa. Si
-                    el cliente está bien con nuestro servicio, nosotros estamos
-                    bien también.
+                    Nuestra experiencia nos respalda. Seleccionamos solo
+                    productos de calidad, te acompañamos en cada paso y cuidamos
+                    cada detalle para que tengas total transparencia.
                   </p>
-                </div>
-              </div>
-
-              <div className="glass-panel rounded-3xl p-8 md:p-10 flex flex-col gap-6">
-                <div className="w-16 h-16 rounded-2xl bg-[var(--color-accent-700)]/20 flex items-center justify-center">
-                  <span className="text-2xl">🚗</span>
-                </div>
-                <div>
-                  <h3
-                    className="text-xl font-semibold text-white mb-2"
-                    style={{ fontFamily: "var(--font-syne)" }}
-                  >
-                    Marco Quiroz
-                  </h3>
-                  <p className="text-[var(--color-ink-400)] text-sm mb-4">
-                    Fundador — Quiroz Automotriz
-                  </p>
-                  <p className="text-[var(--color-ink-300)] text-sm leading-relaxed">
-                    &ldquo;Más que vender autos, lo que hacemos es quitarle las
-                    preocupaciones al cliente. Nosotros hacemos todos los trámites
-                    para que comprar o vender un vehículo sea rápido, seguro y sin
-                    moverte de tu casa.&rdquo;
+                  <p>
+                    Más que vender autos, construimos relaciones de confianza
+                    con un servicio honesto y directo.
                   </p>
                 </div>
               </div>

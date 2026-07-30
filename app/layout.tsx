@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Syne, Inter } from "next/font/google";
+import FloatingWhatsApp from "@/components/FloatingWhatsApp";
 import "./globals.css";
 
 const syne = Syne({
@@ -103,6 +104,7 @@ export default function RootLayout({
           }}
         />
         {children}
+        <FloatingWhatsApp />
       </body>
     </html>
   );

@@ -122,44 +122,11 @@ export default function FinanciamientoPage() {
                 className="text-white mb-6 font-semibold leading-tight tracking-tight"
                 style={{ fontFamily: "var(--font-syne)", fontSize: "clamp(2rem, 4.5vw, 3rem)" }}
               >
-                Conseguimos financiamiento para ti
+                Financiamiento para ti
               </h1>
               <p className="text-lg md:text-xl text-[var(--color-ink-300)] leading-relaxed max-w-2xl">
-                Consigue el mejor financiamiento para el auto que quieres comprar
-                con solo un par de clics. Déjanos tus datos o escríbenos por
-                WhatsApp para comenzar a cotizar tu crédito.
+                Con solo un par de clicks un financiamiento para ti
               </p>
-            </div>
-          </div>
-        </section>
-
-        {/* ── Beneficios ── */}
-        <section className="py-20 md:py-28 bg-[var(--color-ink-900)]/40">
-          <div className="mx-auto max-w-7xl px-4 md:px-8">
-            <div className="text-center mb-14">
-              <h2
-                className="text-white font-semibold tracking-tight"
-                style={{ fontFamily: "var(--font-syne)", fontSize: "clamp(1.5rem, 3vw, 2.25rem)" }}
-              >
-                Ventajas del financiamiento Quiroz
-              </h2>
-            </div>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
-              {BENEFITS.map((benefit) => (
-                <div key={benefit.title} className="glass-light rounded-2xl p-7 flex items-start gap-5 transition-all duration-300 hover:-translate-y-1 hover:border-white/20 hover:shadow-[0_12px_36px_-8px_rgba(0,0,0,0.5)]">
-                  <div className="w-9 h-9 rounded-full bg-[var(--color-accent-700)]/20 flex items-center justify-center shrink-0 mt-0.5">
-                    <CheckIcon className="w-4 h-4 text-[var(--color-accent-500)]" />
-                  </div>
-                  <div>
-                    <h3 className="text-white font-medium mb-1.5" style={{ fontFamily: "var(--font-syne)" }}>
-                      {benefit.title}
-                    </h3>
-                    <p className="text-[var(--color-ink-400)] text-sm leading-relaxed">
-                      {benefit.description}
-                    </p>
-                  </div>
-                </div>
-              ))}
             </div>
           </div>
         </section>
@@ -201,6 +168,37 @@ export default function FinanciamientoPage() {
           </div>
         </section>
 
+        {/* ── Beneficios ── */}
+        <section className="py-20 md:py-28 bg-[var(--color-ink-900)]/40">
+          <div className="mx-auto max-w-7xl px-4 md:px-8">
+            <div className="text-center mb-14">
+              <h2
+                className="text-white font-semibold tracking-tight"
+                style={{ fontFamily: "var(--font-syne)", fontSize: "clamp(1.5rem, 3vw, 2.25rem)" }}
+              >
+                Ventajas del financiamiento Quiroz
+              </h2>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+              {BENEFITS.map((benefit) => (
+                <div key={benefit.title} className="glass-light rounded-2xl p-7 flex items-start gap-5 transition-all duration-300 hover:-translate-y-1 hover:border-white/20 hover:shadow-[0_12px_36px_-8px_rgba(0,0,0,0.5)]">
+                  <div className="w-9 h-9 rounded-full bg-[var(--color-accent-700)]/20 flex items-center justify-center shrink-0 mt-0.5">
+                    <CheckIcon className="w-4 h-4 text-[var(--color-accent-500)]" />
+                  </div>
+                  <div>
+                    <h3 className="text-white font-medium mb-1.5" style={{ fontFamily: "var(--font-syne)" }}>
+                      {benefit.title}
+                    </h3>
+                    <p className="text-[var(--color-ink-400)] text-sm leading-relaxed">
+                      {benefit.description}
+                    </p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
         {/* ── Formulario ── */}
         <section className="py-20 md:py-28 bg-[var(--color-ink-900)]/40">
           <div className="mx-auto max-w-7xl px-4 md:px-8">
@@ -210,12 +208,10 @@ export default function FinanciamientoPage() {
                   className="text-white leading-tight font-semibold tracking-tight"
                   style={{ fontFamily: "var(--font-syne)", fontSize: "clamp(1.5rem, 3vw, 2.25rem)" }}
                 >
-                  Solicita tu<br />financiamiento
+                  Solicítalo aquí
                 </h2>
                 <p className="text-[var(--color-ink-400)] leading-relaxed">
-                  Deja tus datos y te ayudamos a encontrar el plan de
-                  financiamiento que mejor se adapte a ti. Respuesta en menos
-                  de 24 horas hábiles.
+                  Deja tus datos aquí y nos comunicaremos a la brevedad
                 </p>
               </div>
 

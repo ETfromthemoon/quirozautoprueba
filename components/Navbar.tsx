@@ -50,7 +50,7 @@ function NavDropdown({
     >
       <button
         onClick={() => setOpen(!open)}
-        className={`flex items-center gap-1 px-3.5 py-2 rounded-lg text-[11px] font-medium tracking-wide uppercase transition-all duration-200 ${
+        className={`flex items-center gap-1 px-4 py-2.5 rounded-lg text-sm font-medium tracking-wide uppercase transition-all duration-200 ${
           !scrolled
             ? isActive
               ? "text-white bg-white/15"
@@ -62,7 +62,7 @@ function NavDropdown({
       >
         {label}
         <ArrowDownIcon
-          className={`w-3 h-3 transition-transform duration-200 ${open ? "rotate-180" : ""}`}
+          className={`w-4 h-4 transition-transform duration-200 ${open ? "rotate-180" : ""}`}
         />
       </button>
 
@@ -190,7 +190,7 @@ export default function Navbar({ totalCars }: Props) {
           scrolled ? "py-2" : "py-4"
         }`}
       >
-        <div className="mx-auto max-w-5xl px-4">
+        <div className="mx-auto max-w-6xl px-4">
           <div
             className={`flex items-center rounded-full px-5 py-2 md:py-2.5 transition-all duration-500 border ${
               scrolled
@@ -212,7 +212,7 @@ export default function Navbar({ totalCars }: Props) {
                 className="flex items-center gap-2.5 cursor-pointer group shrink-0"
                 aria-label="Quiroz Redcar - Inicio"
               >
-                <Logo variant="horizontal" className="h-9 md:h-10 w-auto" />
+                <Logo variant="horizontal" className="h-12 md:h-[52px] w-auto" />
               </a>
             </div>
 
@@ -230,7 +230,7 @@ export default function Navbar({ totalCars }: Props) {
                 ))}
                 <Link
                   href="/nosotros"
-                  className={`px-3.5 py-2 rounded-lg text-[11px] font-medium tracking-wide uppercase transition-all duration-200 ${
+                  className={`px-4 py-2.5 rounded-lg text-sm font-medium tracking-wide uppercase transition-all duration-200 ${
                     !scrolled
                       ? pathname === "/nosotros"
                         ? "text-white bg-white/15"
@@ -269,7 +269,7 @@ export default function Navbar({ totalCars }: Props) {
                 )}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="btn-shine relative overflow-hidden flex items-center gap-1.5 bg-gradient-to-r from-accent-600 to-accent-500 text-white !py-2 !px-4 md:!px-5 !text-[11px] font-semibold rounded-full transition-all duration-300 hover:shadow-[0_0_24px_-4px_var(--color-accent-500)] hover:-translate-y-px"
+                className="btn-shine relative overflow-hidden flex items-center gap-2 bg-gradient-to-r from-accent-600 to-accent-500 text-white !py-2.5 !px-5 md:!px-6 !text-sm font-semibold rounded-full transition-all duration-300 hover:shadow-[0_0_24px_-4px_var(--color-accent-500)] hover:-translate-y-px"
               >
                 <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full animate-shine-slow pointer-events-none" />
                 <span className="relative flex h-1.5 w-1.5">
@@ -306,7 +306,7 @@ export default function Navbar({ totalCars }: Props) {
         style={{ background: "var(--color-ink-950)" }}
       >
         <div className="flex items-center justify-between px-6 md:px-10 pt-6 pb-4">
-          <Logo variant="horizontal" className="h-9 w-auto opacity-80" />
+          <Logo variant="horizontal" className="h-12 w-auto opacity-80" />
           <button
             onClick={() => setIsMenuOpen(false)}
             aria-label="Cerrar menú"

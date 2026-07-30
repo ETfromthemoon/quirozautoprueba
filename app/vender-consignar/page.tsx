@@ -68,20 +68,12 @@ export default function VenderConsignarPage() {
     }
   }
 
-  const STEPS_COMPRA = [
-    { number: "01", title: "Nos visitas o te visitamos", description: "Coordinamos una visita para evaluar tu vehículo donde tú prefieras." },
-    { number: "02", title: "Evaluamos tu auto", description: "Revisamos el estado de tu vehículo y te hacemos una oferta justa y sin compromiso." },
-    { number: "03", title: "Pago al instante", description: "Aceptas la oferta y te pagamos al momento. Sin demoras ni trámites complicados." },
+  const STEPS = [
+    { number: "01", title: "Agenda una visita" },
+    { number: "02", title: "Evaluamos tu vehículo y fotografiamos" },
+    { number: "03", title: "Estudiamos el mejor valor de acuerdo al mercado" },
+    { number: "04", title: "Publicamos tu auto donde todos buscan" },
   ];
-
-  const STEPS_CONSIGNACION = [
-    { number: "01", title: "Nos visitas o te visitamos", description: "Coordinamos una visita para ver tu vehículo y tomar fotos profesionales." },
-    { number: "02", title: "Sacamos fotos y video editado", description: "Creamos contenido profesional de tu vehículo para maximizar su exposición." },
-    { number: "03", title: "Publicamos en todas las RRSS", description: "Tu auto se publica en todas nuestras redes sociales y plataformas de venta." },
-    { number: "04", title: "Venta y pago antes de entregar", description: "Al existir un interesado, te pagamos el auto antes de entregarlo al nuevo comprador." },
-  ];
-
-  const steps = tab === "compra" ? STEPS_COMPRA : STEPS_CONSIGNACION;
 
   return (
     <>
@@ -106,8 +98,8 @@ export default function VenderConsignarPage() {
                 ¿Quieres vender o consignar tu auto?
               </h1>
               <p className="text-lg md:text-xl text-[var(--color-ink-300)] leading-relaxed max-w-2xl mb-8">
-                Fácil, rápido y seguro. No dejes tu auto en vitrina. Recibe tu
-                dinero al instante. ¡Hacemos todo por ti!
+                Fácil, rápido y seguro. Recibe tu dinero al instante. ¡Hacemos
+                todo por ti!
               </p>
             </div>
           </div>
@@ -279,8 +271,8 @@ export default function VenderConsignarPage() {
         {/* Pasos del proceso */}
         <section className="py-10 md:py-16 bg-[var(--color-ink-900)]/40">
           <div className="mx-auto max-w-7xl px-4 md:px-8">
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
-              {steps.map((step) => (
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+              {STEPS.map((step) => (
                 <div key={step.number} className="glass-light rounded-2xl p-7 flex flex-col gap-4 transition-all duration-300 hover:-translate-y-1 hover:border-white/20">
                   <span className="text-2xl font-light text-[var(--color-ink-400)]" style={{ fontFamily: "var(--font-syne)" }}>
                     {step.number}
@@ -289,7 +281,6 @@ export default function VenderConsignarPage() {
                     <h3 className="text-white font-medium mb-2" style={{ fontFamily: "var(--font-syne)" }}>
                       {step.title}
                     </h3>
-                    <p className="text-[var(--color-ink-400)] text-sm leading-relaxed">{step.description}</p>
                   </div>
                 </div>
               ))}
