@@ -283,12 +283,13 @@ export default function Navbar({ totalCars }: Props) {
               <button
                 onClick={() => setIsMenuOpen(true)}
                 aria-label="Abrir menú"
-                className={`flex items-center justify-center w-9 h-9 rounded-full transition-all duration-300 ${
+                className={`flex items-center justify-center gap-2 h-11 px-3.5 rounded-full border text-xs font-semibold uppercase tracking-wide transition-all duration-300 ${
                   scrolled
-                    ? "text-[var(--color-ink-200)] hover:text-white hover:bg-white/10"
-                    : "text-white hover:bg-white/10"
+                    ? "border-white/10 text-[var(--color-ink-200)] hover:text-white hover:bg-white/10"
+                    : "border-white/20 text-white bg-white/8 hover:bg-white/14"
                 }`}
               >
+                <span>Menú</span>
                 <MenuIcon className="w-5 h-5" />
               </button>
             </div>

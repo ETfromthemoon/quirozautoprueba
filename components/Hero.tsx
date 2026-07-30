@@ -76,8 +76,8 @@ export default function Hero({ totalCars }: Props) {
                 <span className="h-px w-8 bg-accent-600" />
               </span>
             </p>
-            <div className="text-luxury-xl text-white animate-fade-up delay-200">
-              <h1 className="block font-medium text-ink-200 text-[0.4em] tracking-[0.3em] uppercase">
+            <div className="text-white animate-fade-up delay-200">
+              <h1 className="block whitespace-nowrap text-[1.45rem] min-[390px]:text-[1.7rem] sm:text-5xl md:text-7xl lg:text-8xl font-extrabold leading-none tracking-normal uppercase text-white drop-shadow-[0_18px_42px_rgba(0,0,0,0.65)]">
                 20 años de experiencia
               </h1>
             </div>
@@ -98,7 +98,6 @@ export default function Hero({ totalCars }: Props) {
 
         {/* Bottom scroll hint */}
         <div className="pb-10 md:pb-16 flex flex-col items-center gap-3 animate-fade-up delay-700">
-          <span className="text-overline text-ink-300">Desliza para explorar</span>
           <div className="animate-scroll-hint">
             <svg
               width="20"
