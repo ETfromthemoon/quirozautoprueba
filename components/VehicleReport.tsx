@@ -598,9 +598,12 @@ export default function VehicleReport({ car, report }: Props) {
             <div className="light-streak" />
             <p className="text-overline text-accent-500 mb-3">Siguiente paso</p>
             <h2 className="font-display text-2xl md:text-4xl font-extrabold text-white tracking-tight max-w-2xl mx-auto">
+              Ya conoces su estado real, ahora ven por él
+            </h2>
+            <h2 className="hidden">
               Ya conoces su estado real. Ahora ven por él.
             </h2>
-            <p className="mt-4 text-sm md:text-base text-ink-300 font-light max-w-xl mx-auto">
+            <p className="hidden">
               Agenda una visita sin compromiso para revisar el {carName} y este
               informe con tu asesor Quiroz.
             </p>
@@ -613,7 +616,7 @@ export default function VehicleReport({ car, report }: Props) {
                 href={waUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="btn-base btn-silver"
+                className="hidden"
               >
                 <WhatsAppIcon className="w-4 h-4" />
                 <span>Consultar por WhatsApp</span>
@@ -621,7 +624,7 @@ export default function VehicleReport({ car, report }: Props) {
             </div>
 
             {/* Pago de reserva Transbank/Webpay — pendiente de conexión */}
-            <div className="mt-4 flex flex-col items-center gap-2">
+            <div className="hidden">
               <p className="text-overline text-accent-500">Asegura tu compra</p>
               <p className="text-base text-white font-semibold">Reserva con $200.000 y el auto es tuyo.</p>
               <button
