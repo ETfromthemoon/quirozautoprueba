@@ -37,6 +37,14 @@ const CHAPTERS = [
   { id: "fotos", label: "Fotos" },
 ];
 
+const BODY_ELEMENTS = [
+  "Capó", "Maletero", "Parabrisas", "Luneta trasera", "Espejos exteriores", "Llantas",
+  "Focos delanteros", "Focos traseros", "Tapabarro delantero derecho", "Tapabarro delantero izquierdo",
+  "Tapabarro trasero derecho", "Tapabarro trasero izquierdo", "Puerta delantera derecha",
+  "Puerta delantera izquierda", "Puerta trasera derecha", "Puerta trasera izquierda",
+  "Parachoques delantero", "Parachoques trasero",
+];
+
 /** Escala máxima de las barras de espesor de pintura (µm). */
 const PAINT_BAR_MAX_MICRAS = 300;
 /** Banda de rodadura de un neumático nuevo (mm), tope de la barra. */
@@ -65,6 +73,12 @@ export default function VehicleReport({ car, report }: Props) {
               <ArrowLeftIcon className="w-4 h-4 transition-transform group-hover:-translate-x-1" />
               <span className="text-overline hidden sm:inline">Ficha</span>
             </Link>
+
+            <div className="hidden md:flex items-center gap-3 absolute left-1/2 -translate-x-1/2">
+              <Logo variant="horizontal" className="h-7 w-auto" />
+              <span className="h-5 w-px bg-white/20" />
+              <span className="text-overline text-[10px] text-ink-300">KAIROS RED CAR</span>
+            </div>
 
             <div className="flex items-center gap-2 text-ink-300">
               <LockIcon className="w-3.5 h-3.5 text-accent-500" />
@@ -130,6 +144,9 @@ export default function VehicleReport({ car, report }: Props) {
               </p>
             )}
             <p className="mt-5 max-w-2xl text-sm md:text-base text-ink-200 font-light leading-relaxed">
+              Radiografía completa del vehículo - escanner - mediciones y observaciones.
+            </p>
+            <p className="hidden">
               Radiografía completa del estado real de este vehículo — con
               escáner electrónico, mediciones y observaciones honestas — para
               que decidas con datos.
@@ -137,6 +154,18 @@ export default function VehicleReport({ car, report }: Props) {
           </div>
         </div>
       </section>
+
+      {car.videoUrl && (
+        <section className="relative bg-ink-950 px-4 md:px-8 pt-10 md:pt-16">
+          <div className="mx-auto max-w-6xl">
+            <p className="text-overline text-accent-500 mb-2">Presentación del vehículo</p>
+            <h2 className="font-display text-2xl md:text-4xl font-extrabold text-white tracking-tight mb-5">Conócelo en movimiento</h2>
+            <div className="relative aspect-video overflow-hidden rounded-3xl border border-white/10 bg-black shadow-2xl">
+              <iframe src={car.videoUrl} title={`Video de presentación del ${carName}`} className="absolute inset-0 h-full w-full" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen />
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* Cuerpo */}
       <div className="mx-auto max-w-6xl px-4 md:px-8 pb-24 md:pb-32 space-y-20 md:space-y-28 pt-16 md:pt-24">
@@ -204,6 +233,7 @@ export default function VehicleReport({ car, report }: Props) {
               </div>
             </div>
           </div>
+          <ObservationBlock text="La inspección mecánica no presenta hallazgos críticos fuera de los estados indicados en cada ítem." />
         </Reveal>
 
         {/* ── Ficha verificada ── */}
@@ -243,6 +273,11 @@ export default function VehicleReport({ car, report }: Props) {
                 <Spec label="N° de motor" value={report.identifiers.numeroMotor} mono />
               </dl>
             </div>
+            <div className="mt-8 border-t border-white/10 pt-6">
+              <p className="text-overline text-accent-500 mb-2">Elementos revisados</p>
+              <div className="flex flex-wrap gap-2">{(report.carroceria.elementos ?? BODY_ELEMENTS).map((elemento) => <span key={elemento} className="rounded-full border border-white/10 bg-white/[0.04] px-3 py-1.5 text-xs text-ink-200">{elemento}</span>)}</div>
+            </div>
+            <ObservationBlock text={report.carroceria.observaciones ?? "Sin observaciones adicionales."} />
           </div>
         </Reveal>
 
@@ -298,6 +333,7 @@ export default function VehicleReport({ car, report }: Props) {
               </ul>
             </div>
           )}
+          <ObservationBlock text={report.running.observaciones ?? report.running.nota ?? "Sin observaciones adicionales."} />
         </Reveal>
 
         {/* ── Inspección mecánica ── */}
@@ -315,7 +351,7 @@ export default function VehicleReport({ car, report }: Props) {
                   {sec.area}
                 </h3>
                 <ul className="space-y-3">
-                  {sec.items.map((item) => (
+                  {sec.items.filter((item) => !/corrosi.n estructural/i.test(item.label)).map((item) => (
                     <li key={item.label} className="flex items-start justify-between gap-3 border-b border-white/8 pb-3 last:border-0 last:pb-0">
                       <div>
                         <p className="text-sm text-ink-100 font-light">{item.label}</p>
@@ -375,6 +411,10 @@ export default function VehicleReport({ car, report }: Props) {
                 );
               })}
             </div>
+          </div>
+          <div className="mt-5 grid md:grid-cols-2 gap-4">
+            <LegalRow label="Aseguradora" value={report.historial.aseguradora === "no" ? "No" : "Sí"} />
+            <div className="glass-light rounded-2xl p-5"><p className="text-overline text-accent-500 mb-2">Observaciones</p><p className="text-sm text-ink-200 font-light">{report.historial.observaciones ?? "Sin observaciones adicionales."}</p></div>
           </div>
         </Reveal>
 
@@ -477,7 +517,7 @@ export default function VehicleReport({ car, report }: Props) {
 
             <div className="lg:col-span-7">
               <div className="glass-panel rounded-2xl p-6 md:p-7">
-                <p className="text-overline text-accent-500 mb-5">Bitácora de mantención</p>
+                <p className="text-overline text-accent-500 mb-5">Historial de propietarios</p>
                 <ol className="relative border-l border-white/12 ml-1.5 space-y-6">
                   {report.historial.mantenciones.map((m) => (
                     <li key={`${m.fecha}-${m.km}`} className="pl-6 relative">
@@ -494,6 +534,7 @@ export default function VehicleReport({ car, report }: Props) {
               </div>
             </div>
           </div>
+          {car.videoUrl && <div className="mt-8"><p className="text-overline text-accent-500 mb-3">Inspección visual completa</p><div className="relative aspect-video overflow-hidden rounded-3xl border border-white/10 bg-black"><iframe src={car.videoUrl} title={`Inspección visual completa del ${carName}`} className="absolute inset-0 h-full w-full" allowFullScreen /></div></div>}
         </Reveal>
 
         {/* ── Fotos honestas ── */}
@@ -536,7 +577,7 @@ export default function VehicleReport({ car, report }: Props) {
         </Reveal>
 
         {/* ── Firma ── */}
-        <Reveal as="section" id="firma">
+        <Reveal as="section" id="firma" className="hidden">
           <div className="glass-light rounded-3xl p-6 md:p-8 flex flex-col md:flex-row md:items-center justify-between gap-6">
             <div>
               <p className="text-overline text-accent-500 mb-3">Responsable del informe</p>
@@ -558,7 +599,7 @@ export default function VehicleReport({ car, report }: Props) {
             <div className="light-streak" />
             <p className="text-overline text-accent-500 mb-3">Siguiente paso</p>
             <h2 className="font-display text-2xl md:text-4xl font-extrabold text-white tracking-tight max-w-2xl mx-auto">
-              Ya conoces su estado real. Ahora conócelo en persona.
+              Ya conoces su estado real. Ahora ven por él.
             </h2>
             <p className="mt-4 text-sm md:text-base text-ink-300 font-light max-w-xl mx-auto">
               Agenda una visita sin compromiso para revisar el {carName} y este
@@ -566,7 +607,7 @@ export default function VehicleReport({ car, report }: Props) {
             </p>
             <div className="mt-8 flex flex-col sm:flex-row gap-3 justify-center">
               <Link href={visitaUrl} className="btn-base btn-primary">
-                <span>Agendar visita</span>
+                <span>Haz tu reserva aquí</span>
                 <ArrowRightIcon className="w-4 h-4" />
               </Link>
               <a
@@ -582,14 +623,16 @@ export default function VehicleReport({ car, report }: Props) {
 
             {/* Pago de reserva Transbank/Webpay — pendiente de conexión */}
             <div className="mt-4 flex flex-col items-center gap-2">
+              <p className="text-overline text-accent-500">Asegura tu compra</p>
+              <p className="text-base text-white font-semibold">Reserva con $200.000 y el auto es tuyo.</p>
               <button
                 type="button"
-                disabled
+                
                 aria-disabled="true"
                 title="Disponible próximamente"
-                className="btn-base btn-ghost border border-white/15 opacity-60 cursor-not-allowed"
+                className="btn-base btn-primary"
               >
-                <span>Pagar reserva con Webpay</span>
+                <span>Reserva con $200.000</span>
               </button>
               <p className="text-[11px] text-ink-500 font-light">
                 Pago en línea con Webpay disponible próximamente.
@@ -647,6 +690,15 @@ const STATE_META: Record<OverallState, { pill: string }> = {
 };
 
 /* ── Subcomponentes ── */
+
+function ObservationBlock({ text }: { text: string }) {
+  return (
+    <div className="mt-5 rounded-2xl border border-accent-500/20 bg-accent-500/[0.05] p-5">
+      <p className="text-overline text-accent-500 mb-2">Observaciones</p>
+      <p className="text-sm text-ink-200 font-light leading-relaxed">{text}</p>
+    </div>
+  );
+}
 
 function SectionHead({
   index,

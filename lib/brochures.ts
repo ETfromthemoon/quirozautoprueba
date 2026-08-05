@@ -103,6 +103,8 @@ export type ReportBodywork = {
   resumen: string;
   rangoOriginal: string;       // "90–130 µm" — referencia de fábrica
   paneles: BodyPanel[];
+  elementos?: string[];
+  observaciones?: string;
 };
 
 export type TireReading = {
@@ -123,6 +125,7 @@ export type ReportRunning = {
   neumaticos: TireReading[];
   frenos: BrakeReading[];
   nota?: string;
+  observaciones?: string;
 };
 
 export type MaintenanceEntry = {
@@ -136,6 +139,8 @@ export type ReportHistory = {
   kmComentario: string;        // "Coherente con desgaste y registros"
   dueños: number;
   mantenciones: MaintenanceEntry[];
+  aseguradora?: "si" | "no";
+  observaciones?: string;
   legal: {
     multas: string;            // "Sin multas pendientes"
     prendas: string;           // "Sin prenda ni gravamen"
