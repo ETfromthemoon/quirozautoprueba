@@ -64,7 +64,7 @@ export default function VehicleReport({ car, report }: Props) {
       {/* Barra superior */}
       <header className="fixed top-0 left-0 right-0 z-50 py-3 md:py-4">
         <div className="mx-auto max-w-6xl px-4 md:px-6">
-          <div className="glass-dark rounded-full flex items-center justify-between px-4 md:px-6 py-2 md:py-2.5">
+          <div className="glass-dark rounded-full flex items-center justify-between gap-3 px-4 md:px-6 py-2 md:py-2.5">
             <Link
               href={`/vehiculo/${car.id}`}
               className="flex items-center gap-2 text-ink-200 hover:text-white transition-colors group"
@@ -74,10 +74,9 @@ export default function VehicleReport({ car, report }: Props) {
               <span className="text-overline hidden sm:inline">Ficha</span>
             </Link>
 
-            <div className="hidden md:flex items-center gap-3 absolute left-1/2 -translate-x-1/2">
-              <Logo variant="horizontal" className="h-7 w-auto" />
-              <span className="h-5 w-px bg-white/20" />
-              <span className="text-overline text-[10px] text-ink-300">KAIROS RED CAR</span>
+            <div className="hidden sm:flex items-center gap-2 min-w-0">
+              <Logo variant="horizontal" className="h-6 md:h-7 w-auto max-w-[130px]" />
+              <span className="hidden lg:inline text-overline text-[9px] text-ink-400 whitespace-nowrap">KAIROS RED CAR</span>
             </div>
 
             <div className="flex items-center gap-2 text-ink-300">
@@ -233,7 +232,6 @@ export default function VehicleReport({ car, report }: Props) {
               </div>
             </div>
           </div>
-          <ObservationBlock text="La inspección mecánica no presenta hallazgos críticos fuera de los estados indicados en cada ítem." />
         </Reveal>
 
         {/* ── Ficha verificada ── */}
@@ -273,11 +271,6 @@ export default function VehicleReport({ car, report }: Props) {
                 <Spec label="N° de motor" value={report.identifiers.numeroMotor} mono />
               </dl>
             </div>
-            <div className="mt-8 border-t border-white/10 pt-6">
-              <p className="text-overline text-accent-500 mb-2">Elementos revisados</p>
-              <div className="flex flex-wrap gap-2">{(report.carroceria.elementos ?? BODY_ELEMENTS).map((elemento) => <span key={elemento} className="rounded-full border border-white/10 bg-white/[0.04] px-3 py-1.5 text-xs text-ink-200">{elemento}</span>)}</div>
-            </div>
-            <ObservationBlock text={report.carroceria.observaciones ?? "Sin observaciones adicionales."} />
           </div>
         </Reveal>
 
@@ -333,7 +326,6 @@ export default function VehicleReport({ car, report }: Props) {
               </ul>
             </div>
           )}
-          <ObservationBlock text={report.running.observaciones ?? report.running.nota ?? "Sin observaciones adicionales."} />
         </Reveal>
 
         {/* ── Inspección mecánica ── */}
@@ -366,6 +358,7 @@ export default function VehicleReport({ car, report }: Props) {
               </div>
             ))}
           </div>
+          <ObservationBlock text="La inspección mecánica no presenta hallazgos críticos fuera de los estados indicados en cada ítem." />
         </Reveal>
 
         {/* ── Carrocería y pintura ── */}
@@ -411,10 +404,11 @@ export default function VehicleReport({ car, report }: Props) {
                 );
               })}
             </div>
-          </div>
-          <div className="mt-5 grid md:grid-cols-2 gap-4">
-            <LegalRow label="Aseguradora" value={report.historial.aseguradora === "no" ? "No" : "Sí"} />
-            <div className="glass-light rounded-2xl p-5"><p className="text-overline text-accent-500 mb-2">Observaciones</p><p className="text-sm text-ink-200 font-light">{report.historial.observaciones ?? "Sin observaciones adicionales."}</p></div>
+            <div className="mt-8 border-t border-white/10 pt-6">
+              <p className="text-overline text-accent-500 mb-2">Elementos revisados</p>
+              <div className="flex flex-wrap gap-2">{(report.carroceria.elementos ?? BODY_ELEMENTS).map((elemento) => <span key={elemento} className="rounded-full border border-white/10 bg-white/[0.04] px-3 py-1.5 text-xs text-ink-200">{elemento}</span>)}</div>
+            </div>
+            <ObservationBlock text={report.carroceria.observaciones ?? "Sin observaciones adicionales."} />
           </div>
         </Reveal>
 
@@ -487,6 +481,7 @@ export default function VehicleReport({ car, report }: Props) {
               {report.running.nota}
             </p>
           )}
+          <ObservationBlock text={report.running.observaciones ?? report.running.nota ?? "Sin observaciones adicionales."} />
         </Reveal>
 
         {/* ── Historial ── */}
@@ -534,7 +529,10 @@ export default function VehicleReport({ car, report }: Props) {
               </div>
             </div>
           </div>
-          {car.videoUrl && <div className="mt-8"><p className="text-overline text-accent-500 mb-3">Inspección visual completa</p><div className="relative aspect-video overflow-hidden rounded-3xl border border-white/10 bg-black"><iframe src={car.videoUrl} title={`Inspección visual completa del ${carName}`} className="absolute inset-0 h-full w-full" allowFullScreen /></div></div>}
+          <div className="mt-5 grid md:grid-cols-2 gap-4">
+            <div className="glass-light rounded-2xl p-5"><LegalRow label="Aseguradora" value={report.historial.aseguradora === "no" ? "No" : "Sí"} /></div>
+            <div className="glass-light rounded-2xl p-5"><p className="text-overline text-accent-500 mb-2">Observaciones</p><p className="text-sm text-ink-200 font-light leading-relaxed">{report.historial.observaciones ?? "Sin observaciones adicionales."}</p></div>
+          </div>
         </Reveal>
 
         {/* ── Fotos honestas ── */}
@@ -574,6 +572,7 @@ export default function VehicleReport({ car, report }: Props) {
               </figure>
             ))}
           </div>
+          {car.videoUrl && <div className="mt-8"><p className="text-overline text-accent-500 mb-3">Inspección visual completa</p><div className="relative aspect-video overflow-hidden rounded-3xl border border-white/10 bg-black"><iframe src={car.videoUrl} title={`Inspección visual completa del ${carName}`} className="absolute inset-0 h-full w-full" allowFullScreen /></div></div>}
         </Reveal>
 
         {/* ── Firma ── */}
