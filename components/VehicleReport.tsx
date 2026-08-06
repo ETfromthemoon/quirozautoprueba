@@ -76,7 +76,6 @@ export default function VehicleReport({ car, report }: Props) {
 
             <div className="hidden sm:flex items-center gap-2 min-w-0">
               <Logo variant="horizontal" className="h-6 md:h-7 w-auto max-w-[130px]" />
-              <span className="hidden lg:inline text-overline text-[9px] text-ink-400 whitespace-nowrap">KAIROS RED CAR</span>
             </div>
 
             <div className="flex items-center gap-2 text-ink-300">
@@ -475,12 +474,6 @@ export default function VehicleReport({ car, report }: Props) {
               </div>
             </div>
           </div>
-          {report.running.nota && (
-            <p className="mt-4 text-sm text-ink-300 font-light flex items-start gap-2">
-              <AlertTriangleIcon className="w-4 h-4 text-amber-400 shrink-0 mt-0.5" />
-              {report.running.nota}
-            </p>
-          )}
           <ObservationBlock text={report.running.observaciones ?? report.running.nota ?? "Sin observaciones adicionales."} />
         </Reveal>
 
@@ -502,11 +495,18 @@ export default function VehicleReport({ car, report }: Props) {
                   {report.historial.kmComentario}
                 </p>
               </div>
-              <div className="glass-light rounded-2xl p-6 space-y-3">
-                <LegalRow label="Multas" value={report.historial.legal.multas} />
-                <LegalRow label="Prendas / gravámenes" value={report.historial.legal.prendas} />
-                <LegalRow label="Transferencia" value={report.historial.legal.transferencia} />
-                <LegalRow label="N° de dueños" value={String(report.historial.dueños)} />
+              <div className="glass-light rounded-2xl p-6">
+                <p className="text-overline text-accent-500 mb-4">Situación legal</p>
+                <div className="space-y-3">
+                  <LegalRow label="Multas" value={report.historial.legal.multas} />
+                  <LegalRow label="Prendas / gravámenes" value={report.historial.legal.prendas} />
+                  <LegalRow label="Transferencia" value={report.historial.legal.transferencia} />
+                  <LegalRow label="N° de dueños" value={String(report.historial.dueños)} />
+                  <LegalRow
+                    label="Aseguradora"
+                    value={report.historial.aseguradora === "no" ? "No" : "Sí"}
+                  />
+                </div>
               </div>
             </div>
 
@@ -529,10 +529,9 @@ export default function VehicleReport({ car, report }: Props) {
               </div>
             </div>
           </div>
-          <div className="mt-5 grid md:grid-cols-2 gap-4">
-            <div className="glass-light rounded-2xl p-5"><LegalRow label="Aseguradora" value={report.historial.aseguradora === "no" ? "No" : "Sí"} /></div>
-            <div className="glass-light rounded-2xl p-5"><p className="text-overline text-accent-500 mb-2">Observaciones</p><p className="text-sm text-ink-200 font-light leading-relaxed">{report.historial.observaciones ?? "Sin observaciones adicionales."}</p></div>
-          </div>
+          <ObservationBlock
+            text={report.historial.observaciones ?? "Sin observaciones adicionales."}
+          />
         </Reveal>
 
         {/* ── Fotos honestas ── */}
