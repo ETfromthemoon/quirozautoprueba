@@ -4,7 +4,8 @@ import { useState } from "react";
 import Link from "next/link";
 import InnerNavbar from "@/components/InnerNavbar";
 import InnerFooter from "@/components/InnerFooter";
-import { CheckIcon, ArrowRightIcon } from "@/components/icons";
+import { CheckIcon, ArrowRightIcon, WhatsAppIcon, PhoneIcon } from "@/components/icons";
+import { getWhatsAppUrl } from "@/lib/whatsapp";
 
 type FormData = {
   nombre: string;
@@ -85,7 +86,7 @@ export default function ReservaPage() {
                 Asegura tu compra ahora
               </h1>
               <p className="text-lg md:text-xl text-[var(--color-ink-300)] leading-relaxed max-w-2xl">
-                Reserva tu vehículo con 200,000 pesos
+                Reserva con 200 mil y el auto es tuyo
               </p>
             </div>
           </div>
@@ -103,14 +104,26 @@ export default function ReservaPage() {
                 </h2>
                 <div className="flex flex-col gap-4 text-[var(--color-ink-400)] text-sm leading-relaxed">
                   <p>
-                    Al reservar tu vehículo, la publicación se elimina de todas
-                    las plataformas y queda apartado a tu nombre.
+                    Al reservar tu vehículo queda apartado tu nombre en www.quirozautomotriz.cl
                   </p>
                   <p>
                     La reserva de <strong className="text-white">$200.000.-</strong> se
                     descuenta del precio final de compra. Si el vehículo no está en
                     las condiciones informadas, el monto se devuelve en su totalidad.
                   </p>
+                  <div className="pt-2">
+                    <p className="text-white font-medium mb-3">Dudas? Contáctanos:</p>
+                    <div className="flex flex-col sm:flex-row gap-3">
+                      <a href={getWhatsAppUrl("Hola, tengo dudas sobre la reserva de un vehículo.")} target="_blank" rel="noopener noreferrer" className="btn-base btn-silver !py-2.5 !px-4">
+                        <WhatsAppIcon className="w-4 h-4" />
+                        <span>WhatsApp</span>
+                      </a>
+                      <a href="tel:+56993431571" className="btn-base btn-secondary !py-2.5 !px-4">
+                        <PhoneIcon className="w-4 h-4" />
+                        <span>Llamar</span>
+                      </a>
+                    </div>
+                  </div>
                   <p>
                     Al completar tu reserva, recibirás un correo confirmando el
                     apartado del vehículo.
