@@ -19,8 +19,11 @@
  * ─────────────────────────────────────────────────────────────────
  * Para la demo usamos datos mock (JSON local) sobre 2 autos del catálogo
  * estático, con perfiles contrastantes:
- *   - bmw-420-coupe-2024 → "Excelente" (lado premium)
- *   - ford-ranger-2021   → "Bueno" con observaciones (transparencia honesta)
+ *   - bmw-420-grand-coupe-m-designe-2-0-at-2024 → "Excelente" (lado premium)
+ *   - ford-ranger-xlt-2-5-mt-2021 → "Bueno" con observaciones (transparencia honesta)
+ *
+ * Las claves son los slugs reales del catálogo WordPress, para que el informe
+ * quede conectado con la ficha, las fotos y el video del vehículo publicado.
  *
  * En producción, `reports` se reemplaza por una fuente real (ACF de
  * WordPress, subida de PDF, o panel propio) manteniendo el mismo tipo.
@@ -171,8 +174,8 @@ export type VehicleReport = {
 // ─── Datos mock (demo) ────────────────────────────────────────────────────────
 
 export const reports: Record<string, VehicleReport> = {
-  "bmw-420-coupe-2024": {
-    carId: "bmw-420-coupe-2024",
+  "bmw-420-grand-coupe-m-designe-2-0-at-2024": {
+    carId: "bmw-420-grand-coupe-m-designe-2-0-at-2024",
     accessToken: "qz-8f3a1c7d92b4",
     signature: {
       perito: "Marco Quiroz · Perito automotriz",
@@ -192,6 +195,7 @@ export const reports: Record<string, VehicleReport> = {
       highlights: [
         "Carrocería 100% original — sin repintados",
         "Escáner sin códigos de falla activos ni históricos",
+        "Garantía de fábrica vigente y servicios incluidos hasta 60.000 km",
         "Mantenciones oficiales BMW documentadas",
         "Neumáticos sobre 80% de vida útil",
       ],
@@ -280,11 +284,14 @@ export const reports: Record<string, VehicleReport> = {
         prendas: "Sin prenda ni gravamen vigente",
         transferencia: "Documentación lista para transferir",
       },
+      aseguradora: "no",
+      observaciones:
+        "Vehículo de única dueña, sin partes, no proviene de remate ni de aseguradora.",
     },
     fotos: [
       {
         url: "https://images.unsplash.com/photo-1555215695-3004980ad54e?w=1280&q=80",
-        caption: "Interior M Sport — sin desgaste de uso",
+        caption: "Interior en cuero café personalizado — sin desgaste de uso",
         tipo: "highlight",
       },
       {
@@ -300,8 +307,8 @@ export const reports: Record<string, VehicleReport> = {
     ],
   },
 
-  "ford-ranger-2021": {
-    carId: "ford-ranger-2021",
+  "ford-ranger-xlt-2-5-mt-2021": {
+    carId: "ford-ranger-xlt-2-5-mt-2021",
     accessToken: "qz-2b9e46f1a0d7",
     signature: {
       perito: "Marco Quiroz · Perito automotriz",
@@ -419,9 +426,9 @@ export const reports: Record<string, VehicleReport> = {
     historial: {
       kmVerificado: "101.300 km",
       kmComentario: "Kilometraje real, coherente con desgaste, uso mixto ciudad/ruta.",
-      dueños: 2,
+      dueños: 1,
       mantenciones: [
-        { fecha: "06/2021", km: "0 km", detalle: "Entrega (segundo dueño desde 2023)" },
+        { fecha: "06/2021", km: "0 km", detalle: "Entrega a su único dueño (primera inscripción)" },
         { fecha: "09/2023", km: "62.000 km", detalle: "Distribución y frenos" },
         { fecha: "11/2024", km: "88.000 km", detalle: "Reemplazo sensor O2 (código P0133 resuelto)" },
         { fecha: "06/2026", km: "101.000 km", detalle: "Revisión pre-venta Quiroz (esta inspección)" },
@@ -431,6 +438,9 @@ export const reports: Record<string, VehicleReport> = {
         prendas: "Sin prenda ni gravamen vigente",
         transferencia: "Documentación lista para transferir",
       },
+      aseguradora: "no",
+      observaciones:
+        "Vehículo de único dueño, sin partes, no proviene de remate ni de aseguradora.",
     },
     fotos: [
       {
