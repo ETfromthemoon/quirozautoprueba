@@ -55,6 +55,13 @@ const WP_API = (
   "https://www.quirozautomotriz.cl/wp-json/wp/v2"
 ).replace(/\/$/, "");
 
+// WordPress puede devolver medios con la URL del dominio antiguo. Durante la
+// migración, el origen de imágenes debe poder apuntar al subdominio del CMS.
+const WP_MEDIA_ORIGIN = (
+  process.env.WORDPRESS_MEDIA_ORIGIN ??
+  "https://www.quirozautomotriz.cl"
+).replace(/\/$/, "");
+
 const REVALIDATE_SECONDS = 60; // ISR: refresca el catálogo cada 60 s → autos nuevos aparecen en ~1 min
 const FETCH_TIMEOUT_MS = 10_000;
 const RUNTIME_FETCH_TIMEOUT_MS = 20_000;
@@ -338,9 +345,21 @@ function extractCategoryNames(product: WpProduct, catMap?: Map<number, string>):
 }
 
 function extractImage(product: WpProduct): string {
-  return (
-    product._embedded?.["wp:featuredmedia"]?.[0]?.source_url ?? FALLBACK_IMAGE
-  );
+  const source = product._embedded?.["wp:featuredmedia"]?.[0]?.source_url;
+  if (!source) return FALLBACK_IMAGE;
+
+  try {
+    const url = new URL(source);
+    if (/^(www\.)?quirozautomotriz\.cl$/i.test(url.hostname)) {
+      const mediaOrigin = new URL(WP_MEDIA_ORIGIN);
+      url.protocol = mediaOrigin.protocol;
+      url.hostname = mediaOrigin.hostname;
+      url.port = mediaOrigin.port;
+    }
+    return url.toString();
+  } catch {
+    return source;
+  }
 }
 
 function mapProductToCar(product: WpProduct): Car {
