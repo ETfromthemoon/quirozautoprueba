@@ -18,7 +18,7 @@ export default function FloatingWhatsApp() {
             title={`WhatsApp ${person.name}: ${person.displayNumber}`}
             className="group flex items-center gap-2"
           >
-            <span className="rounded-full bg-ink-950/90 px-3 py-1.5 text-[10px] font-semibold tracking-wide text-white opacity-0 shadow-lg transition-opacity group-hover:opacity-100 group-focus-visible:opacity-100 md:opacity-100">
+            <span className="rounded-full bg-ink-950/90 px-3 py-1.5 text-[10px] font-semibold tracking-wide text-white shadow-lg">
               {person.name}
             </span>
             <span className="flex h-12 w-12 items-center justify-center rounded-full bg-gradient-to-br from-green-500 to-green-600 shadow-xl shadow-green-900/50 transition-transform group-hover:scale-110 md:h-14 md:w-14">
