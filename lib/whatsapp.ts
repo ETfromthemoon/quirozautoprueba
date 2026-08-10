@@ -1,8 +1,15 @@
-export const WHATSAPP_NUMBER = "56959065441";
+export const WHATSAPP_CONTACTS = {
+  marco: { name: "Marco", number: "56959065441", displayNumber: "+56 9 5906 5441" },
+  daniel: { name: "Daniel", number: "56993431571", displayNumber: "+56 9 9343 1571" },
+} as const;
 
-export function getWhatsAppUrl(message: string): string {
+export type WhatsAppContact = keyof typeof WHATSAPP_CONTACTS;
+
+export const WHATSAPP_NUMBER = WHATSAPP_CONTACTS.marco.number;
+
+export function getWhatsAppUrl(message: string, contact: WhatsAppContact = "marco"): string {
   const encoded = encodeURIComponent(message);
-  return `https://wa.me/${WHATSAPP_NUMBER}?text=${encoded}`;
+  return `https://wa.me/${WHATSAPP_CONTACTS[contact].number}?text=${encoded}`;
 }
 
 /**

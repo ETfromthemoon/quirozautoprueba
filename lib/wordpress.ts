@@ -159,6 +159,18 @@ function classifyCategories(names: string[]): CategoryInfo {
 
 // ─── Parseo del título (marca · modelo · variante · año) ────────────────────
 
+function isSoldProduct(product: WpProduct, cat: CategoryInfo): boolean {
+  if (cat.isSold) return true;
+
+  // En el CMS varios autos vendidos no tienen una categoria especial: el estado
+  // queda escrito al comienzo de la descripcion, a veces dentro de etiquetas HTML.
+  const title = decodeHtml(product.title?.rendered ?? "");
+  const description = decodeHtml(product.acf?.descripcion ?? "").replace(/<[^>]*>/g, " ");
+  const searchable = `${product.slug} ${title} ${description}`.replace(/\s+/g, " ");
+
+  return /\b(vendid[oa]s?|inactiv[oa]s?|no\s+disponible)\b/i.test(searchable);
+}
+
 const TWO_WORD_BRANDS = [
   "ALFA ROMEO",
   "LAND ROVER",
@@ -501,12 +513,7 @@ async function getCarsFromWP(): Promise<Car[]> {
   ]);
   const cars = products
     .map((p) => ({ product: p, cat: classifyCategories(extractCategoryNames(p, catMap)) }))
-    .filter(({ cat, product }) => {
-      if (cat.isSold) return false;
-      const desc = (product.acf?.descripcion ?? "").trimStart();
-      if (/^VENDIDO/i.test(desc)) return false;
-      return true;
-    })
+    .filter(({ cat, product }) => !isSoldProduct(product, cat))
     .map(({ product }) => mapProductToCar(product));
   if (cars.length === 0) throw new Error("WP devolvió 0 autos disponibles");
   return cars;
@@ -601,12 +608,7 @@ export async function fetchSoldCars(): Promise<Car[]> {
       ]);
       const sold = products
         .map((p) => ({ product: p, cat: classifyCategories(extractCategoryNames(p, catMap)) }))
-        .filter(({ cat, product }) => {
-          if (cat.isSold) return true;
-          const desc = (product.acf?.descripcion ?? "").trimStart();
-          if (/^VENDIDO/i.test(desc)) return true;
-          return false;
-        })
+        .filter(({ cat, product }) => isSoldProduct(product, cat))
         .map(({ product }) => mapProductToCar(product));
       console.log(`[WordPress] Build → ${sold.length} vendidos desde WP`);
       return sold;
@@ -623,12 +625,7 @@ export async function fetchSoldCars(): Promise<Car[]> {
     ]);
     const sold = products
       .map((p) => ({ product: p, cat: classifyCategories(extractCategoryNames(p, catMap)) }))
-      .filter(({ cat, product }) => {
-        if (cat.isSold) return true;
-        const desc = (product.acf?.descripcion ?? "").trimStart();
-        if (/^VENDIDO/i.test(desc)) return true;
-        return false;
-      })
+      .filter(({ cat, product }) => isSoldProduct(product, cat))
       .map(({ product }) => mapProductToCar(product));
     _soldCarsCache = sold;
     console.log(`[WordPress] fetchSoldCars → ${sold.length} vendidos`);

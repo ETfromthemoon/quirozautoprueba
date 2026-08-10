@@ -11,7 +11,8 @@ type Props = { car: Car };
 
 export default function VehicleDetail({ car }: Props) {
   const whatsappMsg = `Hola, me interesa el ${car.brand} ${car.model} ${car.variant ?? ""} ${car.year} (${car.price}). ¿Está disponible para ver?`;
-  const whatsappUrl = getWhatsAppUrl(whatsappMsg);
+  const marcoWhatsAppUrl = getWhatsAppUrl(whatsappMsg, "marco");
+  const danielWhatsAppUrl = getWhatsAppUrl(whatsappMsg, "daniel");
   const galleryImages = getGalleryImages(car);
 
   return (
@@ -38,7 +39,7 @@ export default function VehicleDetail({ car }: Props) {
             </Link>
 
             <a
-              href={whatsappUrl}
+              href={marcoWhatsAppUrl}
               target="_blank"
               rel="noopener noreferrer"
               className="btn-base btn-primary !py-2 !px-4 md:!px-5 !text-[11px]"
@@ -47,8 +48,8 @@ export default function VehicleDetail({ car }: Props) {
                 <span className="absolute inset-0 rounded-full bg-white animate-pulse-ring" />
                 <span className="relative rounded-full bg-white w-1.5 h-1.5" />
               </span>
-              <span className="hidden sm:inline">Consultar</span>
-              <span className="sm:hidden">Chat</span>
+              <span className="hidden sm:inline">Marco</span>
+              <span className="sm:hidden">M</span>
             </a>
           </div>
         </div>
@@ -279,13 +280,22 @@ export default function VehicleDetail({ car }: Props) {
                 {/* CTAs */}
                 <div className="flex flex-col gap-3">
                   <a
-                    href={whatsappUrl}
+                    href={marcoWhatsAppUrl}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="btn-base btn-primary w-full"
                   >
                     <WhatsAppIcon className="w-4 h-4" />
-                    <span>Consultar ahora</span>
+                    <span>WhatsApp Marco</span>
+                  </a>
+                  <a
+                    href={danielWhatsAppUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="btn-base btn-silver w-full"
+                  >
+                    <WhatsAppIcon className="w-4 h-4" />
+                    <span>WhatsApp Daniel</span>
                   </a>
                   <a
                     href="tel:+56993431571"

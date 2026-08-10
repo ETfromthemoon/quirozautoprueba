@@ -1,13 +1,14 @@
 import Image from "next/image";
-import { getWhatsAppUrl } from "@/lib/whatsapp";
+import { getWhatsAppUrl, WHATSAPP_CONTACTS } from "@/lib/whatsapp";
 import Logo from "./Logo";
 import ContactForm from "./ContactForm";
 import { WhatsAppIcon, PhoneIcon, MapPinIcon, ArrowRightIcon } from "./icons";
 
 export default function Contact() {
-  const whatsappUrl = getWhatsAppUrl(
-    "Hola, me gustaría agendar una visita o recibir más información del catálogo."
-  );
+  const whatsappMessage =
+    "Hola, me gustaría agendar una visita o recibir más información del catálogo.";
+  const whatsappUrl = getWhatsAppUrl(whatsappMessage, "marco");
+  const danielWhatsAppUrl = getWhatsAppUrl(whatsappMessage, "daniel");
 
   return (
     <section
@@ -71,18 +72,19 @@ export default function Contact() {
             <div>
               <div className="grid grid-cols-3 gap-2 md:gap-4">
                 <ContactCard
-                  label="WhatsApp"
-                  value="+56 9 5906 5441"
+                  label="WhatsApp Marco"
+                  value={WHATSAPP_CONTACTS.marco.displayNumber}
                   href={whatsappUrl}
                   external
                   highlight
                   icon="whatsapp"
                 />
                 <ContactCard
-                  label="Teléfono"
-                  value="+56 9 9343 1571"
-                  href="tel:+56993431571"
-                  icon="phone"
+                  label="WhatsApp Daniel"
+                  value={WHATSAPP_CONTACTS.daniel.displayNumber}
+                  href={danielWhatsAppUrl}
+                  external
+                  icon="whatsapp"
                 />
                 <ContactCard
                   label="Ubicación"
@@ -108,7 +110,17 @@ export default function Contact() {
               className="btn-base btn-primary"
             >
               <WhatsAppIcon className="w-4 h-4 shrink-0" />
-              <span>Agendar visita</span>
+              <span>WhatsApp Marco</span>
+              <ArrowRightIcon className="w-4 h-4 shrink-0" />
+            </a>
+            <a
+              href={danielWhatsAppUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn-base btn-primary"
+            >
+              <WhatsAppIcon className="w-4 h-4 shrink-0" />
+              <span>WhatsApp Daniel</span>
               <ArrowRightIcon className="w-4 h-4 shrink-0" />
             </a>
             <a

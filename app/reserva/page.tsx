@@ -115,9 +115,13 @@ export default function ReservaPage() {
                   <div className="pt-2">
                     <p className="text-white font-medium mb-3">Dudas? Contáctanos:</p>
                     <div className="flex flex-col sm:flex-row gap-3">
-                      <a href={getWhatsAppUrl("Hola, tengo dudas sobre la reserva de un vehículo.")} target="_blank" rel="noopener noreferrer" className="btn-base btn-silver !py-2.5 !px-4">
+                      <a href={getWhatsAppUrl("Hola, tengo dudas sobre la reserva de un vehículo.", "marco")} target="_blank" rel="noopener noreferrer" className="btn-base btn-silver !py-2.5 !px-4">
                         <WhatsAppIcon className="w-4 h-4" />
-                        <span>WhatsApp</span>
+                        <span>WhatsApp Marco</span>
+                      </a>
+                      <a href={getWhatsAppUrl("Hola, tengo dudas sobre la reserva de un vehículo.", "daniel")} target="_blank" rel="noopener noreferrer" className="btn-base btn-silver !py-2.5 !px-4">
+                        <WhatsAppIcon className="w-4 h-4" />
+                        <span>WhatsApp Daniel</span>
                       </a>
                       <a href="tel:+56993431571" className="btn-base btn-secondary !py-2.5 !px-4">
                         <PhoneIcon className="w-4 h-4" />

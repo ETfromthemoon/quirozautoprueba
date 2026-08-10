@@ -61,7 +61,8 @@ export default function CarShowcase({ car, index, total }: Props) {
   }, [isExpanded]);
 
   const whatsappMsg = `Hola, me interesa el ${car.brand} ${car.model} ${car.variant ?? ""} ${car.year} (${car.price}). ¿Está disponible?`;
-  const whatsappUrl = getWhatsAppUrl(whatsappMsg);
+  const marcoWhatsAppUrl = getWhatsAppUrl(whatsappMsg, "marco");
+  const danielWhatsAppUrl = getWhatsAppUrl(whatsappMsg, "daniel");
   const priceShort = formatPriceShort(car.price);
 
   return (
@@ -227,13 +228,22 @@ export default function CarShowcase({ car, index, total }: Props) {
                   <ArrowRightIcon />
                 </Link>
                 <a
-                  href={whatsappUrl}
+                  href={marcoWhatsAppUrl}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="btn-base btn-silver w-full"
                 >
                   <WhatsAppIcon />
-                  <span>Consultar disponibilidad</span>
+                  <span>WhatsApp Marco</span>
+                </a>
+                <a
+                  href={danielWhatsAppUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn-base btn-silver w-full"
+                >
+                  <WhatsAppIcon />
+                  <span>WhatsApp Daniel</span>
                 </a>
                 <button
                   type="button"
@@ -418,13 +428,22 @@ export default function CarShowcase({ car, index, total }: Props) {
               <ArrowRightIcon />
             </Link>
             <a
-              href={whatsappUrl}
+              href={marcoWhatsAppUrl}
               target="_blank"
               rel="noopener noreferrer"
               className="btn-base btn-silver w-full"
             >
               <WhatsAppIcon />
-              <span>Consultar disponibilidad</span>
+              <span>WhatsApp Marco</span>
+            </a>
+            <a
+              href={danielWhatsAppUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn-base btn-silver w-full"
+            >
+              <WhatsAppIcon />
+              <span>WhatsApp Daniel</span>
             </a>
           </div>
         </div>
