@@ -8,6 +8,7 @@ const nextConfig: NextConfig = {
       { protocol: "https", hostname: "i.ytimg.com" },
       { protocol: "https", hostname: "quirozautomotriz.cl" },
       { protocol: "https", hostname: "www.quirozautomotriz.cl" },
+      { protocol: "https", hostname: "admin.quirozautomotriz.cl" },
     ],
     formats: ["image/avif", "image/webp"],
   },
