@@ -4,6 +4,15 @@ import { sendEmail, type FormTipo, type FormData } from "@/lib/email";
 const RATE_LIMIT_WINDOW = 60_000; // 1 minuto
 const MAX_PER_WINDOW = 5;
 const ipMap = new Map<string, { count: number; resetAt: number }>();
+const FORM_TYPES: FormTipo[] = [
+  "contacto",
+  "financiamiento",
+  "seguros",
+  "reserva",
+  "compra",
+  "consignacion",
+  "formulario-vehiculos",
+];
 
 function rateLimit(ip: string): boolean {
   const now = Date.now();
@@ -47,8 +56,12 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: "Verificación de seguridad fallida." }, { status: 403 });
     }
 
-    if (!tipo || !datos) {
+    if (!FORM_TYPES.includes(tipo) || !datos || typeof datos !== "object") {
       return NextResponse.json({ error: "Faltan tipo o datos" }, { status: 400 });
+    }
+
+    if (!datos.Correo || !/^\S+@\S+\.\S+$/.test(datos.Correo)) {
+      return NextResponse.json({ error: "Correo de contacto inválido" }, { status: 400 });
     }
 
     await sendEmail(tipo, datos);

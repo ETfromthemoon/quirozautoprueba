@@ -27,7 +27,7 @@ export default function ContactForm() {
     setSending(true);
     setError("");
     try {
-      await fetch("/api/send-email", {
+      const response = await fetch("/api/send-email", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -40,6 +40,7 @@ export default function ContactForm() {
           },
         }),
       });
+      if (!response.ok) throw new Error("No se pudo enviar el mensaje");
       setSent(true);
     } catch {
       setError("Error al enviar. Intenta nuevamente o escríbenos por WhatsApp.");

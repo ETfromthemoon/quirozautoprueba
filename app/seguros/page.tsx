@@ -64,7 +64,7 @@ export default function SegurosPage() {
     setSending(true);
     setError("");
     try {
-      await fetch("/api/send-email", {
+      const response = await fetch("/api/send-email", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -83,6 +83,7 @@ export default function SegurosPage() {
           },
         }),
       });
+      if (!response.ok) throw new Error("No se pudo enviar la solicitud");
       setSent(true);
     } catch {
       setError("Error al enviar. Intenta nuevamente o escríbenos por WhatsApp.");

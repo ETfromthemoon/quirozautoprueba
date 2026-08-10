@@ -40,7 +40,7 @@ export default function ReservaPage() {
     setSending(true);
     setError("");
     try {
-      await fetch("/api/send-email", {
+      const response = await fetch("/api/send-email", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -55,6 +55,7 @@ export default function ReservaPage() {
           },
         }),
       });
+      if (!response.ok) throw new Error("No se pudo enviar la reserva");
       setSent(true);
     } catch {
       setError("Error al enviar. Intenta nuevamente o escríbenos por WhatsApp.");
