@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { sendEmail, type FormTipo, type FormData } from "@/lib/email";
+import { saveLead } from "@/lib/airtable";
 
 const RATE_LIMIT_WINDOW = 60_000; // 1 minuto
 const MAX_PER_WINDOW = 5;
@@ -62,6 +63,14 @@ export async function POST(req: Request) {
 
     if (!datos.Correo || !/^\S+@\S+\.\S+$/.test(datos.Correo)) {
       return NextResponse.json({ error: "Correo de contacto inválido" }, { status: 400 });
+    }
+
+    // Preserve the lead in Airtable when it is configured, without making a
+    // temporary CRM problem block the customer confirmation and team alert.
+    try {
+      await saveLead(tipo, datos);
+    } catch (error) {
+      console.error("[airtable] No se pudo guardar el lead", error);
     }
 
     await sendEmail(tipo, datos);
