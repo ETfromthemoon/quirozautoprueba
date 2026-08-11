@@ -162,6 +162,10 @@ function classifyCategories(names: string[]): CategoryInfo {
 function isSoldProduct(product: WpProduct, cat: CategoryInfo): boolean {
   if (cat.isSold) return true;
 
+  // En el CMS, un auto sin precio o con precio $0 deja de estar disponible.
+  const priceDigits = (product.acf?.precio ?? "").replace(/\D/g, "");
+  if (!priceDigits || Number(priceDigits) === 0) return true;
+
   // En el CMS varios autos vendidos no tienen una categoria especial: el estado
   // queda escrito al comienzo de la descripcion, a veces dentro de etiquetas HTML.
   const title = decodeHtml(product.title?.rendered ?? "");
