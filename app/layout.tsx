@@ -1,12 +1,21 @@
 import type { Metadata, Viewport } from "next";
-import type { CSSProperties } from "react";
+import localFont from "next/font/local";
 import FloatingWhatsApp from "@/components/FloatingWhatsApp";
 import "./globals.css";
 
-const systemFonts = {
-  "--font-syne": "Arial Narrow, Arial, sans-serif",
-  "--font-inter": "Arial, Helvetica, sans-serif",
-} as CSSProperties;
+const syne = localFont({
+  src: "./fonts/syne-latin.woff2",
+  variable: "--font-syne",
+  weight: "400 800",
+  display: "swap",
+});
+
+const inter = localFont({
+  src: "./fonts/inter-latin.woff2",
+  variable: "--font-inter",
+  weight: "400 700",
+  display: "swap",
+});
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://quirozautomotriz.cl";
 
@@ -83,10 +92,7 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html
-      lang="es"
-      style={systemFonts}
-    >
+    <html lang="es" className={`${syne.variable} ${inter.variable}`}>
       <body className="bg-ink-950 text-ink-50 antialiased">
         <script
           type="application/ld+json"
