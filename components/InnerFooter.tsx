@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { WhatsAppIcon, PhoneIcon, MapPinIcon, InstagramIcon, MessengerIcon } from "./icons";
-import { getWhatsAppUrl } from "@/lib/whatsapp";
+import { getWhatsAppUrl, WHATSAPP_CONTACTS } from "@/lib/whatsapp";
 import Logo from "./Logo";
 
 const NAV_LINKS = [
@@ -79,15 +79,18 @@ export default function InnerFooter() {
               Contacto
             </h3>
             <div className="flex flex-col gap-4">
-              <a
-                href={getWhatsAppUrl("Hola, me interesa conocer el catálogo de Quiroz Automotriz.")}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-start gap-3 text-[var(--color-ink-400)] hover:text-white transition-colors group"
-              >
-                <WhatsAppIcon className="w-4 h-4 mt-0.5 shrink-0 text-[var(--color-ink-500)] group-hover:text-[#25D366] transition-colors" />
-                <span className="text-sm">+56 9 5906 5441</span>
-              </a>
+              {Object.entries(WHATSAPP_CONTACTS).map(([key, contact]) => (
+                <a
+                  key={key}
+                  href={getWhatsAppUrl("Hola, me interesa conocer el catálogo de Quiroz Automotriz.", key as keyof typeof WHATSAPP_CONTACTS)}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-start gap-3 text-[var(--color-ink-400)] hover:text-white transition-colors group"
+                >
+                  <WhatsAppIcon className="w-4 h-4 mt-0.5 shrink-0 text-[var(--color-ink-500)] group-hover:text-[#25D366] transition-colors" />
+                  <span className="text-sm">WhatsApp {contact.name}: {contact.displayNumber}</span>
+                </a>
+              ))}
               <div className="flex items-start gap-3 text-[var(--color-ink-400)]">
                 <MapPinIcon className="w-4 h-4 mt-0.5 shrink-0 text-[var(--color-ink-500)]" />
                 <div className="flex flex-col gap-1">
