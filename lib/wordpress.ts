@@ -55,6 +55,18 @@ const WP_API = (
   "https://www.quirozautomotriz.cl/wp-json/wp/v2"
 ).replace(/\/$/, "");
 
+// Dominios alternativos para resistir bloqueos temporales del WAF/CDN.
+const WP_API_CANDIDATES = Array.from(
+  new Set([
+    WP_API,
+    ...(process.env.WORDPRESS_API_FALLBACKS ?? "")
+      .split(",")
+      .map((url) => url.trim().replace(/\/$/, ""))
+      .filter(Boolean),
+    "https://admin.quirozautomotriz.cl/wp-json/wp/v2",
+  ]),
+);
+
 // WordPress puede devolver medios con la URL del dominio antiguo. Durante la
 // migración, el origen de imágenes debe poder apuntar al subdominio del CMS.
 const WP_MEDIA_ORIGIN = (
@@ -88,6 +100,8 @@ type WpAcf = {
   transmision?: string;
   color?: string;
   video?: string;
+  /** Campo opcional recomendado para una foto optimizada para celular. */
+  imagen_mobile?: string;
 };
 
 type WpTerm = { taxonomy?: string; name?: string; slug?: string };
@@ -104,7 +118,12 @@ type WpProduct = {
     "wp:featuredmedia"?: WpMedia[];
     "wp:term"?: WpTerm[][];
   };
+  _links?: {
+    "wp:attachment"?: Array<{ href?: string }>;
+  };
 };
+
+type StoreProduct = { images?: Array<{ src?: string }> };
 
 // ─── Clasificación de categorías ────────────────────────────────────────────
 
@@ -157,8 +176,6 @@ function classifyCategories(names: string[]): CategoryInfo {
   return { bodyType, drivetrain, ownerType, isSold };
 }
 
-// ─── Parseo del título (marca · modelo · variante · año) ────────────────────
-
 function isSoldProduct(product: WpProduct, cat: CategoryInfo): boolean {
   if (cat.isSold) return true;
 
@@ -174,6 +191,8 @@ function isSoldProduct(product: WpProduct, cat: CategoryInfo): boolean {
 
   return /\b(vendid[oa]s?|inactiv[oa]s?|no\s+disponible)\b/i.test(searchable);
 }
+
+// ─── Parseo del título (marca · modelo · variante · año) ────────────────────
 
 const TWO_WORD_BRANDS = [
   "ALFA ROMEO",
@@ -320,6 +339,12 @@ function normalizeVideoUrl(raw: string | undefined): string | undefined {
   const embed = url.match(/youtube\.com\/embed\/([\w-]{11})/);
   if (embed) return url;
 
+  const shorts = url.match(/youtube(?:-nocookie)?\.com\/shorts\/([\w-]{11})/);
+  if (shorts) return `https://www.youtube.com/embed/${shorts[1]}`;
+
+  const nocookie = url.match(/youtube-nocookie\.com\/embed\/([\w-]{11})/);
+  if (nocookie) return `https://www.youtube.com/embed/${nocookie[1]}`;
+
   return undefined;
 }
 
@@ -364,6 +389,12 @@ function extractImage(product: WpProduct): string {
   const source = product._embedded?.["wp:featuredmedia"]?.[0]?.source_url;
   if (!source) return FALLBACK_IMAGE;
 
+  return normalizeMediaOrigin(source);
+}
+
+/** Normaliza imágenes alojadas en el dominio antiguo del CMS. */
+function normalizeMediaOrigin(source: string): string {
+
   try {
     const url = new URL(source);
     if (/^(www\.)?quirozautomotriz\.cl$/i.test(url.hostname)) {
@@ -375,6 +406,22 @@ function extractImage(product: WpProduct): string {
     return url.toString();
   } catch {
     return source;
+  }
+}
+
+/** Recupera todas las imágenes que WooCommerce tiene asociadas al producto. */
+async function fetchStoreGallery(slug: string): Promise<string[]> {
+  try {
+    const res = await fetchWordPressPath((base) => `${base.replace(/\/wp\/v2\/?$/, "")}/wc/store/v1/products?slug=${encodeURIComponent(slug)}&per_page=1`);
+    if (!res.ok) return [];
+    const products = (await res.json()) as StoreProduct[];
+    return (products[0]?.images ?? [])
+      .map((image) => image.src?.trim())
+      .filter((src): src is string => Boolean(src))
+      .map(normalizeMediaOrigin);
+  } catch (err) {
+    console.warn(`[WordPress] galería no disponible para ${slug}:`, err);
+    return [];
   }
 }
 
@@ -414,6 +461,9 @@ function mapProductToCar(product: WpProduct): Car {
       cat.drivetrain ?? detectDrivetrain(`${model} ${variant ?? ""}`),
     bodyType: cat.bodyType ?? "Vehículo",
     image: extractImage(product),
+    mobileImage: acf.imagen_mobile?.trim()
+      ? normalizeMediaOrigin(acf.imagen_mobile.trim())
+      : undefined,
     videoUrl: normalizeVideoUrl(acf.video),
     tagline: cat.bodyType ?? "Disponible ahora",
     description: decodeHtml(acf.descripcion ?? ""),
@@ -438,16 +488,43 @@ function fetchWithTimeout(url: string, options: RequestInit = {}): Promise<Respo
   ]);
 }
 
+async function fetchWordPressPath(
+  pathForBase: (base: string) => string,
+  options: RequestInit = {},
+): Promise<Response> {
+  let lastResponse: Response | undefined;
+  let lastError: unknown;
+
+  for (const base of WP_API_CANDIDATES) {
+    for (let attempt = 0; attempt < 2; attempt += 1) {
+      try {
+        const response = await fetchWithTimeout(pathForBase(base), {
+          ...options,
+          headers: {
+            Accept: "application/json",
+            "Cache-Control": "no-cache",
+            "User-Agent": "Mozilla/5.0 (compatible; QuirozNext/1.0)",
+            ...(options.headers ?? {}),
+          },
+        });
+        lastResponse = response;
+        if (response.ok || response.status === 400) return response;
+        if (![403, 408, 425, 429, 500, 502, 503, 504].includes(response.status)) return response;
+      } catch (error) {
+        lastError = error;
+      }
+      if (attempt === 0) await new Promise((resolve) => setTimeout(resolve, 250));
+    }
+  }
+
+  if (lastResponse) return lastResponse;
+  throw lastError instanceof Error ? lastError : new Error("WordPress no respondió");
+}
+
 async function fetchProductsPage(page: number): Promise<WpProduct[]> {
   // Solo embed=wp:featuredmedia (imagenes). Categorias se obtienen por separado.
   // Sin orderby porque relentiza con _embed.
-  const url = `${WP_API}/product?per_page=${PER_PAGE}&page=${page}&_embed=wp:featuredmedia`;
-  const res = await fetchWithTimeout(url, {
-    headers: {
-      "Accept": "application/json",
-      "User-Agent": "Mozilla/5.0 (compatible; QuirozNext/1.0)",
-    },
-  });
+  const res = await fetchWordPressPath((base) => `${base}/product?per_page=${PER_PAGE}&page=${page}&_embed=wp:featuredmedia`);
 
   // WordPress devuelve 400 cuando se pide una página fuera de rango: fin.
   if (res.status === 400) return [];
@@ -484,13 +561,7 @@ let _catMap: Map<number, string> | null = null;
 async function getCategoryMap(): Promise<Map<number, string>> {
   if (_catMap) return _catMap;
   try {
-    const url = `${WP_API}/product_cat?per_page=100`;
-    const res = await fetchWithTimeout(url, {
-      headers: {
-        "Accept": "application/json",
-        "User-Agent": "Mozilla/5.0 (compatible; QuirozNext/1.0)",
-      },
-    });
+    const res = await fetchWordPressPath((base) => `${base}/product_cat?per_page=100`);
     if (!res.ok) throw new Error(`Categories API ${res.status}`);
     const cats = (await res.json()) as Array<{ id: number; name: string }>;
     _catMap = new Map(cats.map((c) => [c.id, c.name]));
@@ -510,6 +581,18 @@ async function getCategoryMap(): Promise<Map<number, string>> {
  * Excluye los marcados como vendidos. Si WordPress falla, usa datos estáticos.
  */
 /** Obtiene autos desde WordPress (función extraída para reutilizar en build y runtime). */
+/** Ordena el catálogo por marca, modelo y año. */
+function sortCarsByName(list: Car[]): Car[] {
+  return [...list].sort((a, b) => {
+    const byName = `${a.brand} ${a.model}`.localeCompare(
+      `${b.brand} ${b.model}`,
+      "es",
+      { sensitivity: "base" },
+    );
+    return byName !== 0 ? byName : a.year - b.year;
+  });
+}
+
 async function getCarsFromWP(): Promise<Car[]> {
   const [products, catMap] = await Promise.all([
     fetchAllProducts(),
@@ -520,7 +603,7 @@ async function getCarsFromWP(): Promise<Car[]> {
     .filter(({ cat, product }) => !isSoldProduct(product, cat))
     .map(({ product }) => mapProductToCar(product));
   if (cars.length === 0) throw new Error("WP devolvió 0 autos disponibles");
-  return cars;
+  return sortCarsByName(cars);
 }
 
 export async function fetchCars(): Promise<Car[]> {
@@ -536,7 +619,7 @@ export async function fetchCars(): Promise<Car[]> {
       return cars;
     } catch (err) {
       console.log("[WordPress] Build → WP no disponible, usando datos estáticos");
-      return staticCars;
+      return sortCarsByName(staticCars);
     }
   }
 
@@ -550,7 +633,7 @@ export async function fetchCars(): Promise<Car[]> {
   } catch (err) {
     console.error("[WordPress] fetchCars falló — usando respaldo estático (sin cachear):", err);
     // NO cachear el fallback — el próximo request reintentará WP
-    return staticCars;
+    return sortCarsByName(staticCars);
   }
 }
 
@@ -563,20 +646,16 @@ export async function fetchCarBySlug(slug: string): Promise<Car | undefined> {
   }
 
   try {
-    const url = `${WP_API}/product?slug=${encodeURIComponent(slug)}&_embed`;
-    const res = await fetchWithTimeout(url, {
-      headers: {
-        "Accept": "application/json",
-        "User-Agent": "Mozilla/5.0 (compatible; QuirozNext/1.0)",
-      },
-    });
+    const res = await fetchWordPressPath((base) => `${base}/product?slug=${encodeURIComponent(slug)}&_embed`);
     if (!res.ok) throw new Error(`WordPress API ${res.status} para slug ${slug}`);
 
     const products = (await res.json()) as WpProduct[];
     if (!products.length) {
       return staticCars.find((c) => c.id === slug);
     }
-    return mapProductToCar(products[0]);
+    const car = mapProductToCar(products[0]);
+    const gallery = await fetchStoreGallery(slug);
+    return { ...car, gallery: Array.from(new Set([car.image, ...gallery])) };
   } catch (err) {
     console.error(
       `[WordPress] fetchCarBySlug("${slug}") falló — usando respaldo estático:`,

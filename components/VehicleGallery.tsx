@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 type Props = {
   images: string[];
@@ -10,20 +10,32 @@ type Props = {
 
 export default function VehicleGallery({ images, alt }: Props) {
   const [active, setActive] = useState(0);
+  const [availableImages, setAvailableImages] = useState(images);
 
-  if (!images || images.length === 0) return null;
+  useEffect(() => {
+    setAvailableImages(images);
+    setActive(0);
+  }, [images]);
+
+  if (!availableImages || availableImages.length === 0) return null;
+
+  const removeBrokenImage = (src: string) => {
+    setAvailableImages((current) => current.filter((image) => image !== src));
+    setActive((current) => Math.max(0, Math.min(current, availableImages.length - 2)));
+  };
 
   return (
     <div>
       {/* Imagen principal */}
       <div className="relative aspect-[4/3] sm:aspect-[16/10] w-full overflow-hidden rounded-2xl bg-ink-900 ring-1 ring-white/10">
         <Image
-          key={images[active]}
-          src={images[active]}
+          key={availableImages[active]}
+          src={availableImages[active]}
           alt={`${alt} — imagen ${active + 1}`}
           fill
           className="object-cover animate-fade-in"
           sizes="(max-width: 1024px) 100vw, 66vw"
+          onError={() => removeBrokenImage(availableImages[active])}
         />
         {/* Contador */}
         <div className="absolute bottom-3 right-3">
@@ -40,13 +52,13 @@ export default function VehicleGallery({ images, alt }: Props) {
       </div>
 
       {/* Miniaturas */}
-      {images.length > 1 && (
+      {availableImages.length > 1 && (
         <div
           className="mt-3 flex gap-2.5 overflow-x-auto pb-1"
           role="tablist"
           aria-label="Miniaturas del vehículo"
         >
-          {images.map((src, i) => (
+          {availableImages.map((src, i) => (
             <button
               key={src}
               type="button"
@@ -66,6 +78,7 @@ export default function VehicleGallery({ images, alt }: Props) {
                 fill
                 className="object-cover"
                 sizes="96px"
+                onError={() => removeBrokenImage(src)}
               />
             </button>
           ))}

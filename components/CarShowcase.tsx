@@ -92,6 +92,21 @@ export default function CarShowcase({ car, index, total }: Props) {
         <div className="hidden md:block absolute inset-0 bg-gradient-to-b from-ink-950/20 via-transparent to-ink-950/40" />
       </div>
 
+      {/* Mobile: composición de foto completa. La foto opcional mobileImage
+          reemplaza la principal cuando el cliente la cargue en WordPress. */}
+      <div className="mobile-image-stage" aria-hidden="true">
+        <div className="mobile-image-frame">
+          <Image
+            src={car.mobileImage ?? car.image}
+            alt=""
+            fill
+            sizes="calc(100vw - 2rem)"
+            className="object-contain p-2.5"
+          />
+          <div className="mobile-image-sheen" />
+        </div>
+      </div>
+
       {/* Counter (top-right) */}
       <div
         className={`absolute top-20 right-4 md:top-24 md:right-10 z-30 transition-all duration-700 ${
