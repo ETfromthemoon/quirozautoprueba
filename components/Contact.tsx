@@ -180,7 +180,7 @@ export default function Contact() {
             {/* Bottom bar */}
             <div className="mt-6 pt-4 border-t border-white/5 flex flex-col sm:flex-row items-center justify-between gap-2 text-xs text-ink-500">
               <p className="font-light tracking-widest">
-                QUIROZ REDCAR · DESDE 2004
+                QUIROZ REDCAR · DESDE 2017
               </p>
               <p className="font-light">© 2026 · Todos los derechos reservados</p>
             </div>

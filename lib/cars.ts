@@ -31,6 +31,8 @@ export type Car = {
   power?: string;
   bodyType: string;
   image: string;
+  /** Foto opcional compuesta para móvil (idealmente vertical 4:5 o 3:4). */
+  mobileImage?: string;
   gallery?: string[];        // imágenes adicionales
   videoUrl?: string;         // YouTube watch/embed URL
   tagline: string;
@@ -406,6 +408,59 @@ export const cars: Car[] = [
       permit: "Vigente",
       technicalReview: "Al día",
       color: "Rojo Ultimate",
+      doors: 5,
+      seats: 5,
+    },
+  },
+  {
+    id: "suzuki-baleno-gls-1-4-aut-2020",
+    brand: "Suzuki",
+    model: "Baleno",
+    variant: "GLS 1.4 AUT",
+    year: 2020,
+    price: "$8.980.000",
+    priceNumeric: 8980000,
+    km: "57.500",
+    fuel: "Bencina",
+    transmission: "Automático",
+    power: "103 HP",
+    bodyType: "Hatchback",
+    image: "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/08/18.jpeg",
+    gallery: [
+      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/08/18.jpeg",
+      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/08/17.jpeg",
+      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/08/16.jpeg",
+      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/08/15.jpeg",
+      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/08/14.jpeg",
+      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/08/13.jpeg",
+      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/08/12.jpeg",
+      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/08/11.jpeg",
+    ],
+    videoUrl: "https://www.youtube.com/watch?v=SardKv-P4sw",
+    tagline: "Eficiencia para todos los días",
+    badge: "Destacado",
+    description:
+      "Espectacular hatchback automático, único dueño y con 57.500 kilómetros reales certificados. Motor 1.4 bencinero de 103 HP, muy económico y pensado para la ciudad.",
+    engine: {
+      displacement: "1.4L",
+      cylinders: 4,
+      consumptionCity: "17.6 km/l mixto",
+    },
+    equipment: [
+      "Aire acondicionado",
+      "Volante multifunción forrado en cuero",
+      "Computador a bordo",
+      "Espejos y alzavidrios eléctricos",
+      "Radio con Bluetooth",
+      "Frenos ABS",
+      "2 airbags e Isofix",
+      "Mantenciones al día",
+    ],
+    documentation: {
+      ownerType: "Único dueño",
+      permit: "Vigente",
+      technicalReview: "Al día",
+      color: "Blanco",
       doors: 5,
       seats: 5,
     },

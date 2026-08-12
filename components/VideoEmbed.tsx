@@ -10,20 +10,19 @@ type Props = {
   priority?: boolean;
 };
 
+const FALLBACK_POSTER =
+  "https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=1920&q=80";
+
 /**
  * Convierte cualquier URL de YouTube a su versión embed.
  * Soporta: youtube.com/watch?v=ID, youtu.be/ID, youtube.com/embed/ID, youtube.com/shorts/ID
  */
-function toYouTubeEmbed(url: string): string | null {
+function extractYouTubeId(url: string): string | null {
   try {
-    const patterns = [
-      /(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/|youtube\.com\/shorts\/)([a-zA-Z0-9_-]{11})/,
-    ];
+    const patterns = [/(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube(?:-nocookie)?\.com\/(?:embed|shorts)\/)([a-zA-Z0-9_-]{11})/];
     for (const re of patterns) {
       const match = url.match(re);
-      if (match) {
-        return `https://www.youtube.com/embed/${match[1]}?autoplay=1&mute=1&loop=1&playlist=${match[1]}&controls=1&rel=0&modestbranding=1`;
-      }
+      if (match) return match[1];
     }
     return null;
   } catch {
@@ -31,9 +30,28 @@ function toYouTubeEmbed(url: string): string | null {
   }
 }
 
+function toYouTubeEmbed(url: string): string | null {
+  const id = extractYouTubeId(url);
+  return id
+    ? `https://www.youtube-nocookie.com/embed/${id}?autoplay=1&mute=1&loop=1&playlist=${id}&controls=1&rel=0&modestbranding=1&playsinline=1`
+    : null;
+}
+
 export default function VideoEmbed({ videoUrl, posterImage, alt, priority }: Props) {
   const [isPlaying, setIsPlaying] = useState(false);
+  const [posterSrc, setPosterSrc] = useState(posterImage);
+  const [useCarPoster, setUseCarPoster] = useState(false);
   const embedUrl = videoUrl ? toYouTubeEmbed(videoUrl) : null;
+  const videoId = videoUrl ? extractYouTubeId(videoUrl) : null;
+  const videoPoster = videoId ? `https://i.ytimg.com/vi/${videoId}/maxresdefault.jpg` : posterSrc;
+  const effectivePoster = videoId && !useCarPoster ? videoPoster : posterSrc;
+  const handlePosterError = () => {
+    if (videoId && !useCarPoster) {
+      setUseCarPoster(true);
+      return;
+    }
+    setPosterSrc(FALLBACK_POSTER);
+  };
 
   // Sin video: imagen con efecto Ken Burns
   if (!embedUrl) {
@@ -41,12 +59,13 @@ export default function VideoEmbed({ videoUrl, posterImage, alt, priority }: Pro
       <div className="relative w-full h-full overflow-hidden bg-ink-950">
         <div className="absolute inset-0 animate-ken-burns">
           <Image
-            src={posterImage}
+            src={effectivePoster}
             alt={alt}
             fill
             priority={priority}
             className="object-cover"
             sizes="100vw"
+            onError={handlePosterError}
           />
         </div>
       </div>
@@ -59,12 +78,13 @@ export default function VideoEmbed({ videoUrl, posterImage, alt, priority }: Pro
       <div className="relative w-full h-full overflow-hidden bg-ink-950 group">
         <div className="absolute inset-0 animate-ken-burns">
           <Image
-            src={posterImage}
+            src={effectivePoster}
             alt={alt}
             fill
             priority={priority}
             className="object-cover"
             sizes="100vw"
+            onError={handlePosterError}
           />
         </div>
         <div className="absolute inset-0 bg-ink-950/30" />
@@ -108,6 +128,7 @@ export default function VideoEmbed({ videoUrl, posterImage, alt, priority }: Pro
         title={alt}
         className="absolute inset-0 w-full h-full"
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        referrerPolicy="strict-origin-when-cross-origin"
         allowFullScreen
       />
     </div>
