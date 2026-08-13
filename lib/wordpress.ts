@@ -45,6 +45,8 @@
  *   foto principal; se puede enriquecer sin tocar el resto.
  */
 
+import "server-only";
+import { getCache } from "@vercel/functions";
 import type { Car, EngineSpecs, Documentation } from "./cars";
 import { cars as staticCars } from "./cars";
 
@@ -82,6 +84,7 @@ const RUNTIME_SAFETY_TIMEOUT_MS = 25_000;
 const PER_PAGE = 100;
 const RUNTIME_MAX_PAGES = 15; // tope en runtime (1.500 autos)
 const BUILD_MAX_PAGES = 1;    // tope durante build (100 autos) para no colgar
+const VEHICLE_CACHE_TTL_SECONDS = 60 * 60 * 24 * 30;
 
 const isBuild = typeof process !== "undefined" && process.env.NEXT_PHASE === "phase-production-build";
 
@@ -412,7 +415,11 @@ function normalizeMediaOrigin(source: string): string {
 /** Recupera todas las imágenes que WooCommerce tiene asociadas al producto. */
 async function fetchStoreGallery(slug: string): Promise<string[]> {
   try {
-    const res = await fetchWordPressPath((base) => `${base.replace(/\/wp\/v2\/?$/, "")}/wc/store/v1/products?slug=${encodeURIComponent(slug)}&per_page=1`);
+    const res = await fetchWordPressPath(
+      (base) => `${base.replace(/\/wp\/v2\/?$/, "")}/wc/store/v1/products?slug=${encodeURIComponent(slug)}&per_page=1`,
+      {},
+      { attemptsPerBase: 1, timeoutMs: 6_000, safetyMs: 8_000 },
+    );
     if (!res.ok) return [];
     const products = (await res.json()) as StoreProduct[];
     return (products[0]?.images ?? [])
@@ -474,29 +481,42 @@ function mapProductToCar(product: WpProduct): Car {
 
 // ─── Fetch con paginación ───────────────────────────────────────────────────
 
-function fetchWithTimeout(url: string, options: RequestInit = {}): Promise<Response> {
-  const timeoutMs = isBuild ? FETCH_TIMEOUT_MS : RUNTIME_FETCH_TIMEOUT_MS;
-  const safetyMs = isBuild ? SAFETY_TIMEOUT_MS : RUNTIME_SAFETY_TIMEOUT_MS;
+type FetchPolicy = {
+  attemptsPerBase?: number;
+  timeoutMs?: number;
+  safetyMs?: number;
+};
+
+function fetchWithTimeout(
+  url: string,
+  options: RequestInit = {},
+  policy: FetchPolicy = {},
+): Promise<Response> {
+  const timeoutMs = policy.timeoutMs ?? (isBuild ? FETCH_TIMEOUT_MS : RUNTIME_FETCH_TIMEOUT_MS);
+  const safetyMs = policy.safetyMs ?? (isBuild ? SAFETY_TIMEOUT_MS : RUNTIME_SAFETY_TIMEOUT_MS);
   const controller = new AbortController();
   const timer = setTimeout(() => controller.abort(), timeoutMs);
+  let safetyTimerId: ReturnType<typeof setTimeout>;
   const safetyTimer = new Promise<never>((_, reject) =>
-    setTimeout(() => reject(new Error(`Safety timeout after ${safetyMs}ms`)), safetyMs)
+    { safetyTimerId = setTimeout(() => reject(new Error(`Safety timeout after ${safetyMs}ms`)), safetyMs); }
   );
-  return Promise.race([
-    fetch(url, { ...options, signal: controller.signal }).finally(() => clearTimeout(timer)),
-    safetyTimer,
-  ]);
+  return Promise.race([fetch(url, { ...options, signal: controller.signal }), safetyTimer]).finally(() => {
+    clearTimeout(timer);
+    clearTimeout(safetyTimerId);
+  });
 }
 
 async function fetchWordPressPath(
   pathForBase: (base: string) => string,
   options: RequestInit = {},
+  policy: FetchPolicy = {},
 ): Promise<Response> {
   let lastResponse: Response | undefined;
   let lastError: unknown;
+  const attemptsPerBase = policy.attemptsPerBase ?? 2;
 
   for (const base of WP_API_CANDIDATES) {
-    for (let attempt = 0; attempt < 2; attempt += 1) {
+    for (let attempt = 0; attempt < attemptsPerBase; attempt += 1) {
       try {
         const response = await fetchWithTimeout(pathForBase(base), {
           ...options,
@@ -506,14 +526,14 @@ async function fetchWordPressPath(
             "User-Agent": "Mozilla/5.0 (compatible; QuirozNext/1.0)",
             ...(options.headers ?? {}),
           },
-        });
+        }, policy);
         lastResponse = response;
         if (response.ok || response.status === 400) return response;
         if (![403, 408, 425, 429, 500, 502, 503, 504].includes(response.status)) return response;
       } catch (error) {
         lastError = error;
       }
-      if (attempt === 0) await new Promise((resolve) => setTimeout(resolve, 250));
+      if (attempt + 1 < attemptsPerBase) await new Promise((resolve) => setTimeout(resolve, 250));
     }
   }
 
@@ -556,6 +576,96 @@ async function fetchAllProducts(): Promise<WpProduct[]> {
 let _carsCache: Car[] | null = null;
 let _soldCarsCache: Car[] | null = null;
 let _catMap: Map<number, string> | null = null;
+const _carDetailsCache = new Map<string, Car>();
+
+const vehicleRuntimeCache = getCache({ namespace: "quiroz-vehicles-v1" });
+
+function isCar(value: unknown): value is Car {
+  if (!value || typeof value !== "object") return false;
+  const candidate = value as Partial<Car>;
+  return (
+    typeof candidate.id === "string" &&
+    typeof candidate.brand === "string" &&
+    typeof candidate.model === "string" &&
+    typeof candidate.image === "string"
+  );
+}
+
+function isCarList(value: unknown): value is Car[] {
+  return Array.isArray(value) && value.every(isCar);
+}
+
+async function rememberVehicle(car: Car): Promise<void> {
+  _carDetailsCache.set(car.id, car);
+  try {
+    await vehicleRuntimeCache.set(`vehicle:${car.id}`, car, {
+      ttl: VEHICLE_CACHE_TTL_SECONDS,
+      tags: ["vehicles", `vehicle:${car.id}`],
+      name: `vehicle-${car.id}`,
+    });
+  } catch (error) {
+    console.warn(`[Vehicle cache] no se pudo guardar ${car.id}:`, error);
+  }
+}
+
+async function rememberCatalog(cars: Car[]): Promise<void> {
+  try {
+    await vehicleRuntimeCache.set("catalog", cars, {
+      ttl: VEHICLE_CACHE_TTL_SECONDS,
+      tags: ["vehicles", "vehicle-catalog"],
+      name: "vehicle-catalog",
+    });
+  } catch (error) {
+    console.warn("[Vehicle cache] no se pudo guardar el catálogo:", error);
+  }
+}
+
+async function getRememberedVehicle(slug: string): Promise<Car | undefined> {
+  const memoryHit = _carDetailsCache.get(slug) ?? _carsCache?.find((car) => car.id === slug);
+  if (memoryHit) {
+    console.warn(`[Vehicle cache] respaldo en memoria para ${slug}`);
+    return memoryHit;
+  }
+
+  try {
+    const detail = await vehicleRuntimeCache.get(`vehicle:${slug}`);
+    if (isCar(detail)) {
+      _carDetailsCache.set(slug, detail);
+      console.warn(`[Vehicle cache] respaldo persistente de ficha para ${slug}`);
+      return detail;
+    }
+
+    const catalog = await vehicleRuntimeCache.get("catalog");
+    if (isCarList(catalog)) {
+      const car = catalog.find((candidate) => candidate.id === slug);
+      if (car) {
+        _carDetailsCache.set(slug, car);
+        console.warn(`[Vehicle cache] respaldo persistente de catálogo para ${slug}`);
+        return car;
+      }
+    }
+  } catch (error) {
+    console.warn(`[Vehicle cache] no se pudo leer ${slug}:`, error);
+  }
+
+  const staticCar = staticCars.find((car) => car.id === slug);
+  if (staticCar) console.warn(`[Vehicle cache] respaldo estático para ${slug}`);
+  return staticCar;
+}
+
+async function getRememberedCatalog(): Promise<Car[] | undefined> {
+  if (_carsCache?.length) return _carsCache;
+  try {
+    const catalog = await vehicleRuntimeCache.get("catalog");
+    if (isCarList(catalog) && catalog.length > 0) {
+      _carsCache = sortCarsByName(catalog);
+      return _carsCache;
+    }
+  } catch (error) {
+    console.warn("[Vehicle cache] no se pudo leer el catálogo:", error);
+  }
+  return undefined;
+}
 
 /** Obtiene el mapa de ID→nombre de categorías de producto (cacheado). */
 async function getCategoryMap(): Promise<Map<number, string>> {
@@ -615,11 +725,16 @@ export async function fetchCars(): Promise<Car[]> {
     console.log("[WordPress] Build — intentando WP...");
     try {
       const cars = await getCarsFromWP();
+      _carsCache = cars;
+      await rememberCatalog(cars);
       console.log(`[WordPress] Build → ${cars.length} autos desde WP`);
       return cars;
     } catch (err) {
-      console.log("[WordPress] Build → WP no disponible, usando datos estáticos");
-      return sortCarsByName(staticCars);
+      const remembered = await getRememberedCatalog();
+      console.log(
+        `[WordPress] Build → WP no disponible, usando ${remembered ? "último catálogo válido" : "datos estáticos"}`,
+      );
+      return remembered ?? sortCarsByName(staticCars);
     }
   }
 
@@ -628,12 +743,14 @@ export async function fetchCars(): Promise<Car[]> {
     const cars = await getCarsFromWP();
     // Solo cachear éxitos
     _carsCache = cars;
+    await rememberCatalog(cars);
     console.log(`[WordPress] fetchCars → ${cars.length} autos disponibles`);
     return cars;
   } catch (err) {
-    console.error("[WordPress] fetchCars falló — usando respaldo estático (sin cachear):", err);
-    // NO cachear el fallback — el próximo request reintentará WP
-    return sortCarsByName(staticCars);
+    console.error("[WordPress] fetchCars falló — buscando último catálogo válido:", err);
+    const remembered = await getRememberedCatalog();
+    // NO cachear el fallback estático — el próximo request reintentará WP.
+    return remembered ?? sortCarsByName(staticCars);
   }
 }
 
@@ -641,27 +758,35 @@ export async function fetchCars(): Promise<Car[]> {
  * Un auto por su slug. Si WordPress falla, usa datos estáticos.
  */
 export async function fetchCarBySlug(slug: string): Promise<Car | undefined> {
-  if (isBuild) {
-    return staticCars.find((c) => c.id === slug);
-  }
-
   try {
-    const res = await fetchWordPressPath((base) => `${base}/product?slug=${encodeURIComponent(slug)}&_embed`);
+    const res = await fetchWordPressPath(
+      (base) => `${base}/product?slug=${encodeURIComponent(slug)}&_embed`,
+      {},
+      { attemptsPerBase: 1, timeoutMs: 8_000, safetyMs: 10_000 },
+    );
     if (!res.ok) throw new Error(`WordPress API ${res.status} para slug ${slug}`);
 
     const products = (await res.json()) as WpProduct[];
     if (!products.length) {
-      return staticCars.find((c) => c.id === slug);
+      return getRememberedVehicle(slug);
     }
     const car = mapProductToCar(products[0]);
     const gallery = await fetchStoreGallery(slug);
-    return { ...car, gallery: Array.from(new Set([car.image, ...gallery])) };
+    const completeCar = { ...car, gallery: Array.from(new Set([car.image, ...gallery])) };
+    await rememberVehicle(completeCar);
+    return completeCar;
   } catch (err) {
     console.error(
-      `[WordPress] fetchCarBySlug("${slug}") falló — usando respaldo estático:`,
+      `[WordPress] fetchCarBySlug("${slug}") falló — usando último dato válido:`,
       err
     );
-    return staticCars.find((c) => c.id === slug);
+    const remembered = await getRememberedVehicle(slug);
+    if (remembered) return remembered;
+
+    // Un error de red/WAF no demuestra que el vehículo no exista. Lanzar el
+    // error permite que la ruta muestre su estado recuperable en vez de
+    // convertir una caída temporal de WordPress en un 404 incorrecto.
+    throw new Error(`Vehículo temporalmente no disponible: ${slug}`, { cause: err });
   }
 }
 
