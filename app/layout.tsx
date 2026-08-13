@@ -1,6 +1,5 @@
 import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
-import FloatingWhatsApp from "@/components/FloatingWhatsApp";
 import "./globals.css";
 
 const syne = localFont({
@@ -101,7 +100,6 @@ export default function RootLayout({
           }}
         />
         {children}
-        <FloatingWhatsApp />
       </body>
     </html>
   );
