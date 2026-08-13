@@ -1,12 +1,18 @@
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
+import { cache } from "react";
 import { fetchCarBySlug, fetchCarSlugs } from "@/lib/wordpress";
 import VehicleDetail from "@/components/VehicleDetail";
+import VehicleLoadSuccess from "@/components/VehicleLoadSuccess";
 
 // ISR: regenerar la ficha de cada vehículo hasta cada 60 s
 export const revalidate = 60;
 
 type RouteParams = { id: string };
+
+// Metadata y página se resuelven en el mismo render. React.cache evita dos
+// consultas paralelas al CMS para el mismo slug, una causa frecuente de 403.
+const getVehicle = cache(fetchCarBySlug);
 
 export async function generateStaticParams(): Promise<RouteParams[]> {
   try {
@@ -24,7 +30,7 @@ export async function generateMetadata({
   params: Promise<RouteParams>;
 }): Promise<Metadata> {
   const { id } = await params;
-  const car = await fetchCarBySlug(id);
+  const car = await getVehicle(id).catch(() => undefined);
   if (!car) return { title: "Vehículo no encontrado · Quiroz Automotriz" };
 
   const title = `${car.brand} ${car.model} ${car.year} · ${car.price} · Quiroz Automotriz`;
@@ -51,7 +57,7 @@ export default async function VehicleDetailPage({
   params: Promise<RouteParams>;
 }) {
   const { id } = await params;
-  const car = await fetchCarBySlug(id);
+  const car = await getVehicle(id);
   if (!car) notFound();
 
   const jsonLd = {
@@ -95,6 +101,7 @@ export default async function VehicleDetailPage({
           __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c"),
         }}
       />
+      <VehicleLoadSuccess />
       <VehicleDetail car={car} />
     </>
   );
