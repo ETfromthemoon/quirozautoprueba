@@ -87,7 +87,7 @@ const SAFETY_TIMEOUT_MS = 14_000;
 const RUNTIME_SAFETY_TIMEOUT_MS = 25_000;
 const PER_PAGE = 100;
 const RUNTIME_MAX_PAGES = 15; // tope en runtime (1.500 autos)
-const BUILD_MAX_PAGES = 1;    // tope durante build (100 autos) para no colgar
+const BUILD_MAX_PAGES = 2;    // cubre los 117 productos actuales sin paginación incompleta
 const VEHICLE_CACHE_TTL_SECONDS = 60 * 60 * 24 * 30;
 
 const isBuild = typeof process !== "undefined" && process.env.NEXT_PHASE === "phase-production-build";
@@ -130,7 +130,10 @@ type WpProduct = {
   };
 };
 
-type StoreProduct = { images?: Array<{ src?: string }> };
+type StoreProduct = {
+  slug?: string;
+  images?: Array<{ src?: string }>;
+};
 
 // ─── Clasificación de categorías ────────────────────────────────────────────
 
@@ -151,9 +154,14 @@ const BODY_TYPES = [
   "City Car",
   "Deportivo",
   "4x4",
+  "Cabrio",
+  "Doble Cabina",
+  "SUV Compacto",
+  "Suv Compacto",
+  "Moto",
 ];
 
-const DRIVETRAINS = ["AWD", "4WD", "FWD", "RWD", "4x2"];
+const DRIVETRAINS = ["AWD", "4WD", "FWD", "RWD", "4x2", "4 Matic"];
 
 /** Detecta la tracción dentro de un texto libre (nombre/variante). */
 function detectDrivetrain(text: string): string | undefined {
@@ -320,6 +328,27 @@ function decodeHtml(input: string): string {
     .trim();
 }
 
+/** Conserva saltos y listas del texto editorial sin renderizar HTML del CMS. */
+function decodeDescription(input: string): string {
+  return input
+    .replace(/<br\s*\/?\s*>/gi, "\n")
+    .replace(/<li[^>]*>/gi, "• ")
+    .replace(/<\/(?:p|div|li|h[1-6])>/gi, "\n")
+    .replace(/<[^>]*>/g, "")
+    .replace(/&amp;/g, "&")
+    .replace(/&#0?38;/g, "&")
+    .replace(/&#8211;/g, "–")
+    .replace(/&#8212;/g, "—")
+    .replace(/&#8216;|&#8217;|&#039;|&#39;/g, "'")
+    .replace(/&#8220;|&#8221;|&quot;/g, '"')
+    .replace(/&nbsp;/g, " ")
+    .split(/\r?\n/)
+    .map((line) => line.replace(/[ \t]+/g, " ").trim())
+    .join("\n")
+    .replace(/\n{3,}/g, "\n\n")
+    .trim();
+}
+
 function formatPrice(raw: string | undefined): {
   text: string;
   numeric: number;
@@ -436,25 +465,65 @@ async function fetchStoreGallery(slug: string): Promise<string[]> {
   }
 }
 
-function mapProductToCar(product: WpProduct): Car {
+/** Carga las galerías en bloque para que catálogo, snapshot y ficha compartan datos. */
+async function fetchStoreGalleryMap(): Promise<Map<string, string[]>> {
+  const galleries = new Map<string, string[]>();
+
+  try {
+    const maxPages = isBuild ? BUILD_MAX_PAGES : RUNTIME_MAX_PAGES;
+    for (let page = 1; page <= maxPages; page += 1) {
+      const res = await fetchWordPressPath(
+        (base) => `${base.replace(/\/wp\/v2\/?$/, "")}/wc/store/v1/products?per_page=${PER_PAGE}&page=${page}`,
+        {},
+        { attemptsPerBase: 1, timeoutMs: 8_000, safetyMs: 10_000 },
+      );
+      if (res.status === 400) break;
+      if (!res.ok) throw new Error(`Store API ${res.status} en page ${page}`);
+
+      const products = (await res.json()) as StoreProduct[];
+      for (const product of products) {
+        if (!product.slug) continue;
+        galleries.set(
+          product.slug,
+          (product.images ?? [])
+            .map((image) => image.src?.trim())
+            .filter((src): src is string => Boolean(src))
+            .map(normalizeMediaOrigin),
+        );
+      }
+      if (products.length < PER_PAGE) break;
+    }
+  } catch (error) {
+    // La galería no debe derribar precio, ficha técnica ni disponibilidad.
+    console.warn("[WordPress] galerías masivas no disponibles:", error);
+  }
+
+  return galleries;
+}
+
+function mapProductToCar(product: WpProduct, categoryNames?: string[]): Car {
   const acf = product.acf ?? {};
   // Algunos productos en el CMS tienen prefijo "Z " para ordenarlos al fondo del admin.
   // Se lo quitamos antes de parsear el título.
   const rawTitle = (product.title?.rendered ?? product.slug).replace(/^Z\s+/i, "");
   const { brand, model, variant, year } = parseTitle(rawTitle, product.slug);
 
-  const categories = extractCategoryNames(product);
+  const categories = categoryNames ?? extractCategoryNames(product);
   const cat = classifyCategories(categories);
   const price = formatPrice(acf.precio);
+  const cmsCategories = categories.filter(
+    (name) => !/^(activo|vendid[oa]s?|inactiv[oa]s?|no disponible)$/i.test(name.trim()),
+  );
 
   const displacement = buildDisplacement(acf.cilindrada);
+  const color = acf.color?.trim() || undefined;
   const engine: EngineSpecs | undefined = displacement
     ? { displacement }
     : undefined;
 
   const documentation: Documentation | undefined =
-    acf.color || cat.ownerType
-      ? { color: acf.color || undefined, ownerType: cat.ownerType }
+    color || cat.ownerType
+      ? { color, ownerType: cat.ownerType }
       : undefined;
 
   return {
@@ -477,7 +546,9 @@ function mapProductToCar(product: WpProduct): Car {
       : undefined,
     videoUrl: normalizeVideoUrl(acf.video),
     tagline: cat.bodyType ?? "Disponible ahora",
-    description: decodeHtml(acf.descripcion ?? ""),
+    badge: cmsCategories.some((name) => /^nuevo$/i.test(name)) ? "Nuevo" : undefined,
+    description: decodeDescription(acf.descripcion ?? ""),
+    cmsCategories: cmsCategories.length > 0 ? cmsCategories : undefined,
     engine,
     documentation,
   };
@@ -582,7 +653,8 @@ let _soldCarsCache: Car[] | null = null;
 let _catMap: Map<number, string> | null = null;
 const _carDetailsCache = new Map<string, Car>();
 
-const vehicleRuntimeCache = getCache({ namespace: "quiroz-vehicles-v1" });
+// v2 invalida fichas v1 que no incluían galerías ni categorías completas.
+const vehicleRuntimeCache = getCache({ namespace: "quiroz-vehicles-v2" });
 
 function isCar(value: unknown): value is Car {
   if (!value || typeof value !== "object") return false;
@@ -683,8 +755,8 @@ async function getCategoryMap(): Promise<Map<number, string>> {
     return _catMap;
   } catch (err) {
     console.error("[WordPress] getCategoryMap falló:", err);
-    _catMap = new Map();
-    return _catMap;
+    // No memorizar el fallo: la siguiente carga debe volver a consultar el CMS.
+    return new Map();
   }
 }
 
@@ -708,14 +780,38 @@ function sortCarsByName(list: Car[]): Car[] {
 }
 
 async function getCarsFromWP(): Promise<Car[]> {
-  const [products, catMap] = await Promise.all([
+  const [products, catMap, galleryMap] = await Promise.all([
     fetchAllProducts(),
     getCategoryMap(),
+    fetchStoreGalleryMap(),
   ]);
+  if (catMap.size === 0) {
+    throw new Error("WP no devolvió categorías; se conserva el último catálogo completo");
+  }
   const cars = products
-    .map((p) => ({ product: p, cat: classifyCategories(extractCategoryNames(p, catMap)) }))
+    .map((product) => {
+      const liveCategories = extractCategoryNames(product, catMap);
+      const fallback = fallbackCars.find((car) => car.id === product.slug);
+      const categories = liveCategories.length > 0
+        ? liveCategories
+        : (fallback?.cmsCategories ?? []);
+      return { product, categories, cat: classifyCategories(categories) };
+    })
     .filter(({ cat, product }) => !isSoldProduct(product, cat))
-    .map(({ product }) => mapProductToCar(product));
+    .map(({ product, categories }) => {
+      const car = mapProductToCar(product, categories);
+      const fallback = fallbackCars.find((candidate) => candidate.id === product.slug);
+      const liveGallery = galleryMap.get(product.slug) ?? [];
+      const gallery = liveGallery.length > 0
+        ? liveGallery
+        : (fallback?.gallery ?? []);
+      return {
+        ...car,
+        gallery: Array.from(
+          new Set([car.image, ...gallery]),
+        ),
+      };
+    });
   if (cars.length === 0) throw new Error("WP devolvió 0 autos disponibles");
   return sortCarsByName(cars);
 }
@@ -779,9 +875,20 @@ export async function fetchCarBySlug(slug: string): Promise<Car | undefined> {
     if (!products.length) {
       return getRememberedVehicle(slug);
     }
-    const car = mapProductToCar(products[0]);
+    const product = products[0];
+    const categories = extractCategoryNames(product);
+    const fallback = fallbackCars.find((candidate) => candidate.id === slug);
+    const car = mapProductToCar(
+      product,
+      categories.length > 0 ? categories : fallback?.cmsCategories,
+    );
     const gallery = await fetchStoreGallery(slug);
-    const completeCar = { ...car, gallery: Array.from(new Set([car.image, ...gallery])) };
+    const completeCar = {
+      ...car,
+      gallery: Array.from(
+        new Set([car.image, ...(gallery.length > 0 ? gallery : (fallback?.gallery ?? []))]),
+      ),
+    };
     await rememberVehicle(completeCar);
     return completeCar;
   } catch (err) {
@@ -824,9 +931,12 @@ export async function fetchSoldCars(): Promise<Car[]> {
         getCategoryMap(),
       ]);
       const sold = products
-        .map((p) => ({ product: p, cat: classifyCategories(extractCategoryNames(p, catMap)) }))
+        .map((product) => {
+          const categories = extractCategoryNames(product, catMap);
+          return { product, categories, cat: classifyCategories(categories) };
+        })
         .filter(({ cat, product }) => isSoldProduct(product, cat))
-        .map(({ product }) => mapProductToCar(product));
+        .map(({ product, categories }) => mapProductToCar(product, categories));
       console.log(`[WordPress] Build → ${sold.length} vendidos desde WP`);
       return sold;
     } catch (err) {
@@ -841,9 +951,12 @@ export async function fetchSoldCars(): Promise<Car[]> {
       getCategoryMap(),
     ]);
     const sold = products
-      .map((p) => ({ product: p, cat: classifyCategories(extractCategoryNames(p, catMap)) }))
+      .map((product) => {
+        const categories = extractCategoryNames(product, catMap);
+        return { product, categories, cat: classifyCategories(categories) };
+      })
       .filter(({ cat, product }) => isSoldProduct(product, cat))
-      .map(({ product }) => mapProductToCar(product));
+      .map(({ product, categories }) => mapProductToCar(product, categories));
     _soldCarsCache = sold;
     console.log(`[WordPress] fetchSoldCars → ${sold.length} vendidos`);
     return sold;
