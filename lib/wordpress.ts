@@ -89,6 +89,9 @@ const PER_PAGE = 100;
 const RUNTIME_MAX_PAGES = 15; // tope en runtime (1.500 autos)
 const BUILD_MAX_PAGES = 2;    // cubre los 117 productos actuales sin paginación incompleta
 const VEHICLE_CACHE_TTL_SECONDS = 60 * 60 * 24 * 30;
+// WordPress ya genera esta variante cuando la foto original lo permite. Es
+// suficiente para el hero y la galería, sin entregar los originales de 2K/4K.
+const CMS_IMAGE_TARGET_WIDTH = 1_600;
 
 const isBuild = typeof process !== "undefined" && process.env.NEXT_PHASE === "phase-production-build";
 
@@ -112,7 +115,11 @@ type WpAcf = {
 };
 
 type WpTerm = { taxonomy?: string; name?: string; slug?: string };
-type WpMedia = { source_url?: string };
+type WpMediaSize = { source_url?: string; width?: number };
+type WpMedia = {
+  source_url?: string;
+  media_details?: { sizes?: Record<string, WpMediaSize> };
+};
 
 type WpProduct = {
   id: number;
@@ -130,9 +137,14 @@ type WpProduct = {
   };
 };
 
+type StoreImage = {
+  src?: string;
+  srcset?: string;
+};
+
 type StoreProduct = {
   slug?: string;
-  images?: Array<{ src?: string }>;
+  images?: StoreImage[];
 };
 
 // ─── Clasificación de categorías ────────────────────────────────────────────
@@ -422,10 +434,55 @@ function extractCategoryNames(product: WpProduct, catMap?: Map<number, string>):
 }
 
 function extractImage(product: WpProduct): string {
-  const source = product._embedded?.["wp:featuredmedia"]?.[0]?.source_url;
+  const media = product._embedded?.["wp:featuredmedia"]?.[0];
+  const source = selectWordPressMediaSize(media);
   if (!source) return FALLBACK_IMAGE;
 
   return normalizeMediaOrigin(source);
+}
+
+/**
+ * El REST de WordPress incluye las sub-tallas creadas al subir el archivo.
+ * Elegimos la más pequeña que cubra el uso del sitio (normalmente 1536 px),
+ * antes que el original o su versión "-scaled". Así el CMS, y no Vercel,
+ * asume la reducción de cada fotografía.
+ */
+function selectWordPressMediaSize(media?: WpMedia): string | undefined {
+  const sizes = media?.media_details?.sizes;
+  const candidates = Object.values(sizes ?? [])
+    .map((size) => ({ src: size.source_url?.trim(), width: size.width ?? 0 }))
+    .filter((size): size is { src: string; width: number } => Boolean(size.src));
+
+  return selectBestImageCandidate(candidates) ?? media?.source_url?.trim();
+}
+
+/** Convierte el srcset de WooCommerce en alternativas de tamaño conocidas. */
+function parseWordPressSrcSet(srcset?: string): Array<{ src: string; width: number }> {
+  if (!srcset) return [];
+
+  return srcset
+    .split(",")
+    .map((entry) => {
+      const [src, descriptor] = entry.trim().split(/\s+/);
+      const width = Number.parseInt(descriptor?.replace(/w$/, "") ?? "", 10);
+      return { src, width };
+    })
+    .filter((candidate) => Boolean(candidate.src) && Number.isFinite(candidate.width) && candidate.width > 0);
+}
+
+/** Devuelve la menor imagen que alcanza el ancho objetivo; si no existe, la mayor disponible. */
+function selectBestImageCandidate(
+  candidates: Array<{ src: string; width: number }>,
+): string | undefined {
+  const ordered = [...candidates].sort((a, b) => a.width - b.width);
+  return (
+    ordered.find((candidate) => candidate.width >= CMS_IMAGE_TARGET_WIDTH)?.src ??
+    ordered.at(-1)?.src
+  );
+}
+
+function selectStoreImage(image: StoreImage): string | undefined {
+  return selectBestImageCandidate(parseWordPressSrcSet(image.srcset)) ?? image.src?.trim();
 }
 
 /** Normaliza imágenes alojadas en el dominio antiguo del CMS. */
@@ -456,7 +513,7 @@ async function fetchStoreGallery(slug: string): Promise<string[]> {
     if (!res.ok) return [];
     const products = (await res.json()) as StoreProduct[];
     return (products[0]?.images ?? [])
-      .map((image) => image.src?.trim())
+      .map(selectStoreImage)
       .filter((src): src is string => Boolean(src))
       .map(normalizeMediaOrigin);
   } catch (err) {
@@ -486,7 +543,7 @@ async function fetchStoreGalleryMap(): Promise<Map<string, string[]>> {
         galleries.set(
           product.slug,
           (product.images ?? [])
-            .map((image) => image.src?.trim())
+            .map(selectStoreImage)
             .filter((src): src is string => Boolean(src))
             .map(normalizeMediaOrigin),
         );
