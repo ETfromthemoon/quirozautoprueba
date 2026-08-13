@@ -24,7 +24,7 @@ import {
   CalendarIcon,
 } from "./icons";
 
-type Props = { car: Car; report: Report };
+type Props = { car: Car; report: Report; demo?: boolean };
 
 const CHAPTERS = [
   { id: "veredicto", label: "Veredicto" },
@@ -50,10 +50,10 @@ const PAINT_BAR_MAX_MICRAS = 300;
 /** Banda de rodadura de un neumático nuevo (mm), tope de la barra. */
 const TIRE_NEW_TREAD_MM = 8;
 
-export default function VehicleReport({ car, report }: Props) {
+export default function VehicleReport({ car, report, demo = false }: Props) {
   const carName = `${car.brand} ${car.model} ${car.year}`;
   const visitaUrl = `/reserva?vehiculo=${encodeURIComponent(carName)}`;
-  const waMsg = `Hola, revisé el informe privado del ${carName} (folio ${report.signature.folio}) y quiero agendar una visita.`;
+  const waMsg = `Hola, revisé el ${demo ? "brochure de demostración" : "informe privado"} del ${carName} (folio ${report.signature.folio}) y quiero agendar una visita.`;
   const waUrl = getWhatsAppUrl(waMsg);
   const state = STATE_META[report.verdict.estado];
 
@@ -79,9 +79,13 @@ export default function VehicleReport({ car, report }: Props) {
             </div>
 
             <div className="flex items-center gap-2 text-ink-300">
-              <LockIcon className="w-3.5 h-3.5 text-accent-500" />
+              {demo ? (
+                <ScanIcon className="w-3.5 h-3.5 text-accent-500" />
+              ) : (
+                <LockIcon className="w-3.5 h-3.5 text-accent-500" />
+              )}
               <span className="text-overline text-[10px] md:text-[11px]">
-                Informe privado
+                {demo ? "Demo · datos de prueba" : "Informe privado"}
               </span>
             </div>
 
@@ -109,12 +113,18 @@ export default function VehicleReport({ car, report }: Props) {
         <div className="grain-overlay" />
         <div className="light-streak" />
 
-        {/* Sello confidencial */}
+        {/* Sello de estado */}
         <div className="absolute top-24 left-4 md:top-28 md:left-10 z-20">
           <div className="glass-dark rounded-full px-3 md:px-4 py-1.5 flex items-center gap-2">
-            <LockIcon className="w-3 h-3 text-accent-500" />
+            {demo ? (
+              <ScanIcon className="w-3 h-3 text-accent-500" />
+            ) : (
+              <LockIcon className="w-3 h-3 text-accent-500" />
+            )}
             <span className="text-overline text-white text-[9px] md:text-[10px]">
-              Confidencial · Folio {report.signature.folio}
+              {demo
+                ? "Demostración pública · datos de prueba"
+                : `Confidencial · Folio ${report.signature.folio}`}
             </span>
           </div>
         </div>
@@ -649,7 +659,9 @@ export default function VehicleReport({ car, report }: Props) {
             <span>Volver a la ficha pública</span>
           </Link>
           <p className="text-xs text-ink-500 font-light tracking-widest text-center">
-            DOCUMENTO CONFIDENCIAL · QUIROZ REDCAR
+            {demo
+              ? "DEMOSTRACIÓN PÚBLICA · DATOS DE PRUEBA · QUIROZ REDCAR"
+              : "DOCUMENTO CONFIDENCIAL · QUIROZ REDCAR"}
           </p>
         </div>
       </div>
