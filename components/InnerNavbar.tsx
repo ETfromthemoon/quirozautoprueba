@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation";
 import { getWhatsAppUrl } from "@/lib/whatsapp";
 import Logo from "./Logo";
 import { WhatsAppIcon, MenuIcon, XIcon, ArrowDownIcon } from "./icons";
+import ContactWhatsAppButton from "./ContactWhatsAppButton";
 
 // ── Grupos de navegación ──────────────────────────────
 const NAV_GROUPS = [
@@ -201,19 +202,11 @@ export default function InnerNavbar() {
 
             {/* Col 3: CTA + hamburger */}
             <div className="flex-1 flex justify-end items-center gap-2">
-              <a
-                href={getWhatsAppUrl(
-                  "Hola, me interesa conocer el catálogo de Quiroz Automotriz."
-                )}
-                target="_blank"
-                rel="noopener noreferrer"
+              <ContactWhatsAppButton
                 className="relative overflow-hidden flex items-center gap-2 bg-gradient-to-r from-accent-600 to-accent-500 text-white !py-2.5 !px-4 md:!px-5 !text-sm font-semibold rounded-full transition-all duration-300 hover:shadow-[0_0_24px_-4px_var(--color-accent-500)] hover:-translate-y-px"
-              >
-                <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full animate-shine-slow pointer-events-none" />
-                <WhatsAppIcon className="w-4 h-4 relative z-10" />
-                <span className="hidden md:inline relative z-10">Contactar</span>
-                <span className="md:hidden relative z-10">WA</span>
-              </a>
+                showIcon
+                mobileLabel="WA"
+              />
 
               <button
                 onClick={() => setIsMenuOpen(true)}
