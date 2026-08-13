@@ -49,6 +49,10 @@ import "server-only";
 import { getCache } from "@vercel/functions";
 import type { Car, EngineSpecs, Documentation } from "./cars";
 import { cars as staticCars } from "./cars";
+import cmsSnapshotData from "./cars.snapshot.json";
+
+const cmsSnapshot = cmsSnapshotData as Car[];
+const fallbackCars = cmsSnapshot.length > 0 ? cmsSnapshot : staticCars;
 
 // ─── Configuración ──────────────────────────────────────────────────────────
 
@@ -648,7 +652,7 @@ async function getRememberedVehicle(slug: string): Promise<Car | undefined> {
     console.warn(`[Vehicle cache] no se pudo leer ${slug}:`, error);
   }
 
-  const staticCar = staticCars.find((car) => car.id === slug);
+  const staticCar = fallbackCars.find((car) => car.id === slug);
   if (staticCar) console.warn(`[Vehicle cache] respaldo estático para ${slug}`);
   return staticCar;
 }
@@ -716,6 +720,11 @@ async function getCarsFromWP(): Promise<Car[]> {
   return sortCarsByName(cars);
 }
 
+/** Uso de mantenimiento: exige datos vivos del CMS y nunca acepta fallback. */
+export async function fetchCarsForSnapshot(): Promise<Car[]> {
+  return getCarsFromWP();
+}
+
 export async function fetchCars(): Promise<Car[]> {
   // Solo devuelve cache si tiene datos reales (no fallback)
   if (_carsCache) return _carsCache;
@@ -734,7 +743,7 @@ export async function fetchCars(): Promise<Car[]> {
       console.log(
         `[WordPress] Build → WP no disponible, usando ${remembered ? "último catálogo válido" : "datos estáticos"}`,
       );
-      return remembered ?? sortCarsByName(staticCars);
+      return remembered ?? sortCarsByName(fallbackCars);
     }
   }
 
@@ -750,7 +759,7 @@ export async function fetchCars(): Promise<Car[]> {
     console.error("[WordPress] fetchCars falló — buscando último catálogo válido:", err);
     const remembered = await getRememberedCatalog();
     // NO cachear el fallback estático — el próximo request reintentará WP.
-    return remembered ?? sortCarsByName(staticCars);
+    return remembered ?? sortCarsByName(fallbackCars);
   }
 }
 
