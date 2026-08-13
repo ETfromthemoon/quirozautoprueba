@@ -112,7 +112,7 @@ export default function VehicleDetail({ car }: Props) {
             {/* Description */}
             <div>
               <p className="text-overline text-accent-500 mb-3">Sobre este vehículo</p>
-              <p className="text-base md:text-xl text-ink-100 font-light leading-relaxed break-words">
+              <p className="whitespace-pre-line text-base md:text-xl text-ink-100 font-light leading-relaxed break-words">
                 {car.description}
               </p>
             </div>
@@ -166,6 +166,22 @@ export default function VehicleDetail({ car }: Props) {
                 )}
               </SpecGrid>
             </Section>
+
+            {/* Categorías editoriales del CMS, visibles sin perder información. */}
+            {car.cmsCategories && car.cmsCategories.length > 0 && (
+              <Section title="Características informadas">
+                <ul className="flex flex-wrap gap-2.5" aria-label="Características publicadas en el CMS">
+                  {car.cmsCategories.map((category) => (
+                    <li
+                      key={category}
+                      className="rounded-full border border-white/15 bg-white/[0.06] px-3.5 py-2 text-xs md:text-sm text-ink-100"
+                    >
+                      {category}
+                    </li>
+                  ))}
+                </ul>
+              </Section>
+            )}
 
             {/* Engine */}
             {car.engine && (

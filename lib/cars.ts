@@ -38,6 +38,8 @@ export type Car = {
   tagline: string;
   badge?: "Nuevo" | "Destacado" | "Bajo Pedido" | "Edición Especial";
   description: string;
+  /** Categorías editoriales publicadas en WordPress, sin estados internos. */
+  cmsCategories?: string[];
   // Extended technical sheet
   engine?: EngineSpecs;
   equipment?: string[];      // ["Aire acondicionado", "Cámara retroceso", ...]
