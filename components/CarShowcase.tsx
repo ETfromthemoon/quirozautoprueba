@@ -289,7 +289,10 @@ export default function CarShowcase({ car, index, total }: Props) {
         style={{
           opacity: isVisible && !isExpanded ? 1 : 0,
           transform: isVisible && !isExpanded ? "translateY(0)" : "translateY(24px)",
-          pointerEvents: isVisible && !isExpanded ? "auto" : "none",
+          // IntersectionObserver puede actualizarse un frame después del scroll-snap.
+          // No bloquear la ficha por un estado visual transitorio: las tarjetas no se
+          // solapan y, fuera de pantalla, el botón no puede recibir un toque.
+          pointerEvents: isExpanded ? "none" : "auto",
         }}
         inert={isExpanded}
       >
