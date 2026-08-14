@@ -397,6 +397,19 @@ body {
   100% { transform: translateX(200%) skewX(-20deg); opacity: 0; }
 }
 
+/* Movimiento muy contenido para la tarjeta de auto en el home móvil.
+   No se aplica al fondo difuminado: solo a la foto protagonista. */
+@keyframes mobile-vehicle-motion {
+  0%   { transform: scale(1.01) translate3d(0, 0, 0); }
+  50%  { transform: scale(1.045) translate3d(-0.8%, -0.5%, 0); }
+  100% { transform: scale(1.02) translate3d(0.5%, 0.35%, 0); }
+}
+
+.mobile-vehicle-motion {
+  animation: mobile-vehicle-motion 16s ease-in-out infinite alternate;
+  will-change: transform;
+}
+
 @keyframes float-particle {
   0%, 100% { transform: translate(0, 0); opacity: 0.3; }
   25%  { transform: translate(40px, -30px); opacity: 0.8; }
@@ -694,6 +707,11 @@ button, a {
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
     opacity: 1 !important;
+    transform: none !important;
+  }
+
+  .mobile-vehicle-motion {
+    animation: none !important;
     transform: none !important;
   }
 

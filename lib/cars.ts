@@ -35,6 +35,10 @@ export type Car = {
   mobileImage?: string;
   gallery?: string[];        // imágenes adicionales
   videoUrl?: string;         // YouTube watch/embed URL
+  /** Videos opcionales para la ficha. Conserva videoUrl por compatibilidad. */
+  videoUrls?: string[];
+  /** Portada opcional definida en el CMS para los videos. */
+  videoPoster?: string;
   tagline: string;
   badge?: "Nuevo" | "Destacado" | "Bajo Pedido" | "Edición Especial";
   description: string;

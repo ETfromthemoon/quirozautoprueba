@@ -101,7 +101,7 @@ export default function CarShowcase({ car, index, total }: Props) {
             alt=""
             fill
             sizes="calc(100vw - 2rem)"
-            className="object-contain p-2.5"
+            className={`object-contain p-2.5 ${isVisible ? "mobile-vehicle-motion" : ""}`}
           />
           <div className="mobile-image-sheen" />
         </div>

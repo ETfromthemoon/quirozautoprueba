@@ -58,8 +58,8 @@ export default function VehicleDetail({ car }: Props) {
       {/* Hero: Video o imagen del vehículo */}
       <section className="relative h-[70dvh] md:h-[85dvh] w-full overflow-hidden">
         <VideoEmbed
-          videoUrl={car.videoUrl}
-          posterImage={car.image}
+          videoUrls={car.videoUrls ?? (car.videoUrl ? [car.videoUrl] : [])}
+          posterImage={car.videoPoster ?? car.image}
           alt={`${car.brand} ${car.model} ${car.year}`}
           priority
         />
