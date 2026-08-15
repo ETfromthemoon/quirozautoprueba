@@ -110,6 +110,9 @@ type WpAcf = {
   transmision?: string;
   color?: string;
   video?: string;
+  video_2?: string;
+  /** Foto editorial opcional para usar como portada de los videos. */
+  imagen_video?: string;
   /** Campo opcional recomendado para una foto optimizada para celular. */
   imagen_mobile?: string;
 };
@@ -582,6 +585,9 @@ function mapProductToCar(product: WpProduct, categoryNames?: string[]): Car {
     color || cat.ownerType
       ? { color, ownerType: cat.ownerType }
       : undefined;
+  const videoUrls = [acf.video, acf.video_2]
+    .map(normalizeVideoUrl)
+    .filter((url): url is string => Boolean(url));
 
   return {
     id: product.slug,
@@ -601,7 +607,11 @@ function mapProductToCar(product: WpProduct, categoryNames?: string[]): Car {
     mobileImage: acf.imagen_mobile?.trim()
       ? normalizeMediaOrigin(acf.imagen_mobile.trim())
       : undefined,
-    videoUrl: normalizeVideoUrl(acf.video),
+    videoUrl: videoUrls[0],
+    videoUrls: videoUrls.length > 0 ? videoUrls : undefined,
+    videoPoster: acf.imagen_video?.trim()
+      ? normalizeMediaOrigin(acf.imagen_video.trim())
+      : undefined,
     tagline: cat.bodyType ?? "Disponible ahora",
     badge: cmsCategories.some((name) => /^nuevo$/i.test(name)) ? "Nuevo" : undefined,
     description: decodeDescription(acf.descripcion ?? ""),

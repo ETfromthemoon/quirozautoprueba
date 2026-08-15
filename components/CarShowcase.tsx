@@ -101,7 +101,7 @@ export default function CarShowcase({ car, index, total }: Props) {
             alt=""
             fill
             sizes="calc(100vw - 2rem)"
-            className="object-contain p-2.5"
+            className={`object-contain p-2.5 ${isVisible ? "mobile-vehicle-motion" : ""}`}
           />
           <div className="mobile-image-sheen" />
         </div>
@@ -289,7 +289,10 @@ export default function CarShowcase({ car, index, total }: Props) {
         style={{
           opacity: isVisible && !isExpanded ? 1 : 0,
           transform: isVisible && !isExpanded ? "translateY(0)" : "translateY(24px)",
-          pointerEvents: isVisible && !isExpanded ? "auto" : "none",
+          // IntersectionObserver puede actualizarse un frame después del scroll-snap.
+          // No bloquear la ficha por un estado visual transitorio: las tarjetas no se
+          // solapan y, fuera de pantalla, el botón no puede recibir un toque.
+          pointerEvents: isExpanded ? "none" : "auto",
         }}
         inert={isExpanded}
       >
