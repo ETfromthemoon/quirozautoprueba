@@ -11,9 +11,16 @@ type ContactWhatsAppButtonProps = {
   showIcon?: boolean;
   mobileLabel?: string;
   shine?: boolean;
+  message?: string;
 };
 
-export default function ContactWhatsAppButton({ className, showIcon = false, mobileLabel = "Contactar", shine = false }: ContactWhatsAppButtonProps) {
+export default function ContactWhatsAppButton({
+  className,
+  showIcon = false,
+  mobileLabel = "Contactar",
+  shine = false,
+  message = defaultMessage,
+}: ContactWhatsAppButtonProps) {
   const [isOpen, setIsOpen] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
 
@@ -33,7 +40,7 @@ export default function ContactWhatsAppButton({ className, showIcon = false, mob
   }, []);
 
   const contact = (person: WhatsAppContact) => {
-    window.open(getWhatsAppUrl(defaultMessage, person), "_blank", "noopener,noreferrer");
+    window.open(getWhatsAppUrl(message, person), "_blank", "noopener,noreferrer");
     setIsOpen(false);
   };
 
@@ -46,7 +53,7 @@ export default function ContactWhatsAppButton({ className, showIcon = false, mob
         <span className="sm:hidden relative z-10">{mobileLabel}</span>
       </button>
 
-      <div role="dialog" aria-label="Opciones de WhatsApp" className={`absolute right-0 top-full z-[90] mt-3 w-64 origin-top-right border border-white/15 bg-ink-950 p-3 shadow-2xl shadow-black/40 transition-all duration-200 ${isOpen ? "scale-100 opacity-100" : "pointer-events-none scale-95 opacity-0"}`}>
+      <div role="dialog" aria-label="Opciones de WhatsApp" className={`absolute right-0 top-full z-[90] mt-3 w-[min(16rem,calc(100vw-2rem))] origin-top-right border border-white/15 bg-ink-950 p-3 shadow-2xl shadow-black/40 transition-all duration-200 ${isOpen ? "scale-100 opacity-100" : "pointer-events-none scale-95 opacity-0"}`}>
         <div className="mb-3 flex items-center justify-between gap-3">
           <p className="text-sm font-semibold text-white">Habla con nuestro equipo</p>
           <button type="button" onClick={() => setIsOpen(false)} className="grid h-7 w-7 place-items-center text-ink-300 transition-colors hover:text-white" aria-label="Cerrar opciones de WhatsApp"><XIcon className="h-4 w-4" /></button>

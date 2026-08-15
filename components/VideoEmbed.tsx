@@ -71,12 +71,12 @@ export default function VideoEmbed({ videoUrls = [], posterImage, alt, priority 
   if (!isPlaying) {
     return (
       <div className="relative w-full h-full overflow-hidden bg-ink-950 group">
-        <div className="absolute inset-0 animate-ken-burns">{poster}</div>
-        <div className="absolute inset-0 bg-ink-950/35" />
+        <div className="pointer-events-none absolute inset-0 animate-ken-burns">{poster}</div>
+        <div className="pointer-events-none absolute inset-0 bg-ink-950/35" />
         <button
           type="button"
           onClick={() => setIsPlaying(true)}
-          className="absolute inset-0 flex items-center justify-center cursor-pointer focus:outline-none"
+          className="absolute inset-0 z-10 flex touch-manipulation items-center justify-center cursor-pointer focus:outline-none"
           aria-label={`Reproducir video ${activeVideo + 1} del vehículo`}
         >
           <span className="relative flex items-center justify-center">
@@ -88,14 +88,14 @@ export default function VideoEmbed({ videoUrls = [], posterImage, alt, priority 
             </span>
           </span>
         </button>
-        <div className="absolute top-6 left-6 md:top-8 md:left-8">
+        <div className="pointer-events-none absolute top-6 left-6 z-20 md:top-8 md:left-8">
           <div className="glass-light rounded-full px-3 py-1.5 flex items-center gap-2">
             <span className="w-1.5 h-1.5 rounded-full bg-accent-500 animate-pulse" />
             <span className="text-overline text-white text-[10px]">Video disponible</span>
           </div>
         </div>
         {playableUrls.length > 1 && (
-          <div className="absolute bottom-5 left-1/2 -translate-x-1/2 z-10 flex gap-2">
+          <div className="absolute bottom-5 left-1/2 z-20 flex -translate-x-1/2 gap-2">
             {playableUrls.map((_, index) => (
               <button
                 key={index}
@@ -122,13 +122,13 @@ export default function VideoEmbed({ videoUrls = [], posterImage, alt, priority 
       <iframe
         src={embedUrl}
         title={`${alt} — video ${activeVideo + 1}`}
-        className="absolute inset-0 w-full h-full"
+        className="absolute inset-0 z-0 h-full w-full"
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
         referrerPolicy="strict-origin-when-cross-origin"
         allowFullScreen
       />
       {playableUrls.length > 1 && (
-        <div className="absolute bottom-4 left-1/2 z-10 flex -translate-x-1/2 gap-2">
+        <div className="absolute bottom-4 left-1/2 z-20 flex -translate-x-1/2 gap-2">
           {playableUrls.map((_, index) => (
             <button
               key={index}
