@@ -5,6 +5,7 @@ import { getWhatsAppUrl } from "@/lib/whatsapp";
 import VideoEmbed from "./VideoEmbed";
 import VehicleGallery from "./VehicleGallery";
 import Logo from "./Logo";
+import ContactWhatsAppButton from "./ContactWhatsAppButton";
 import { WhatsAppIcon, PhoneIcon, ArrowLeftIcon, CheckIcon } from "./icons";
 
 type Props = { car: Car };
@@ -20,37 +21,29 @@ export default function VehicleDetail({ car }: Props) {
       {/* Top bar with back navigation */}
       <header className="fixed top-0 left-0 right-0 z-50 py-3 md:py-4">
         <div className="mx-auto max-w-7xl px-4 md:px-6">
-          <div className="glass-dark rounded-full flex items-center justify-between px-4 md:px-6 py-2 md:py-2.5">
+          <div className="glass-dark flex min-w-0 items-center justify-between gap-1.5 rounded-full px-2 py-2 sm:gap-2 sm:px-3 md:px-6 md:py-2.5">
             <Link
               href="/"
-              className="flex items-center gap-2 text-ink-200 hover:text-white transition-colors group"
+              className="flex min-w-0 max-w-[5.5rem] shrink-0 items-center gap-1.5 text-ink-200 transition-colors group hover:text-white sm:max-w-none sm:gap-2"
               aria-label="Volver al catálogo"
             >
               <ArrowLeftIcon className="w-4 h-4 transition-transform group-hover:-translate-x-1" />
-              <span className="text-overline">Catálogo</span>
+              <span className="text-overline hidden sm:inline">Catálogo</span>
             </Link>
 
             <Link
               href="/"
-              className="flex items-center gap-2"
+              className="flex min-w-0 max-w-[5.5rem] items-center justify-center sm:max-w-[8rem] md:max-w-none"
               aria-label="Quiroz Redcar - Inicio"
             >
-              <Logo variant="horizontal" className="h-7 md:h-8 w-auto" />
+              <Logo variant="horizontal" className="h-6 w-auto max-w-full md:h-8 md:max-w-none" />
             </Link>
 
-            <a
-              href={marcoWhatsAppUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn-base btn-primary !py-2 !px-4 md:!px-5 !text-[11px]"
-            >
-              <span className="relative flex h-1.5 w-1.5">
-                <span className="absolute inset-0 rounded-full bg-white animate-pulse-ring" />
-                <span className="relative rounded-full bg-white w-1.5 h-1.5" />
-              </span>
-              <span className="hidden sm:inline">Marco</span>
-              <span className="sm:hidden">M</span>
-            </a>
+            <ContactWhatsAppButton
+              className="relative flex h-10 max-w-[5.25rem] shrink-0 items-center gap-2 overflow-hidden rounded-full bg-gradient-to-r from-accent-600 to-accent-500 px-3 text-[11px] font-semibold text-white transition-all hover:-translate-y-px hover:shadow-[0_0_24px_-4px_var(--color-accent-500)] sm:max-w-none md:h-auto md:px-5 md:py-2"
+              mobileLabel="Chat"
+              message={whatsappMsg}
+            />
           </div>
         </div>
       </header>

@@ -3,9 +3,8 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { getWhatsAppUrl } from "@/lib/whatsapp";
 import Logo from "./Logo";
-import { WhatsAppIcon, MenuIcon, XIcon, ArrowDownIcon } from "./icons";
+import { MenuIcon, XIcon, ArrowDownIcon } from "./icons";
 import ContactWhatsAppButton from "./ContactWhatsAppButton";
 
 // ── Grupos de navegación ──────────────────────────────
@@ -193,14 +192,14 @@ export default function Navbar({ totalCars }: Props) {
       >
         <div className="mx-auto max-w-6xl px-4">
           <div
-            className={`flex items-center rounded-full px-5 py-2 md:py-2.5 transition-all duration-500 border ${
+            className={`grid min-w-0 grid-cols-[minmax(0,1fr)_auto] items-center gap-1.5 rounded-full px-2 py-2 sm:gap-2 sm:px-3 md:flex md:px-5 md:py-2.5 transition-all duration-500 border ${
               scrolled
                 ? "glass-dark border-white/10"
                 : "bg-transparent border-transparent"
             }`}
           >
             {/* Col 1: Logo */}
-            <div className="flex-1 flex justify-start">
+            <div className="min-w-0 flex justify-start md:flex-1">
               <a
                 href="#"
                 onClick={(e) => {
@@ -210,10 +209,10 @@ export default function Navbar({ totalCars }: Props) {
                     behavior: "smooth",
                   });
                 }}
-                className="flex items-center gap-2.5 cursor-pointer group shrink-0"
+                className="flex min-w-0 max-w-[7.25rem] items-center gap-2.5 cursor-pointer group shrink-0 min-[360px]:max-w-[8.75rem] sm:max-w-[10rem] md:max-w-none"
                 aria-label="Quiroz Redcar - Inicio"
               >
-                <Logo variant="horizontal" className="h-12 md:h-[52px] w-auto" />
+                <Logo variant="horizontal" className="h-8 w-auto max-w-full md:h-[52px]" />
               </a>
             </div>
 
@@ -263,9 +262,9 @@ export default function Navbar({ totalCars }: Props) {
             </div>
 
             {/* Col 3: CTA + hamburger */}
-            <div className="flex-1 flex justify-end items-center gap-2">
+            <div className="flex shrink-0 items-center justify-end gap-1.5 sm:gap-2 md:flex-1">
               <ContactWhatsAppButton
-                className="btn-shine relative overflow-hidden flex items-center gap-2 bg-gradient-to-r from-accent-600 to-accent-500 text-white !py-2.5 !px-5 md:!px-6 !text-sm font-semibold rounded-full transition-all duration-300 hover:shadow-[0_0_24px_-4px_var(--color-accent-500)] hover:-translate-y-px"
+                className="btn-shine relative flex h-10 max-w-[5.25rem] shrink-0 items-center gap-2 overflow-hidden rounded-full bg-gradient-to-r from-accent-600 to-accent-500 px-3 text-sm font-semibold text-white !py-0 transition-all duration-300 hover:-translate-y-px hover:shadow-[0_0_24px_-4px_var(--color-accent-500)] sm:max-w-none sm:!px-4 md:h-auto md:!px-6 md:!py-2.5"
                 shine
                 mobileLabel="Chat"
               />
@@ -273,13 +272,13 @@ export default function Navbar({ totalCars }: Props) {
               <button
                 onClick={() => setIsMenuOpen(true)}
                 aria-label="Abrir menú"
-                className={`flex items-center justify-center gap-2 h-11 px-3.5 rounded-full border text-xs font-semibold uppercase tracking-wide transition-all duration-300 ${
+                className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-full border text-xs font-semibold uppercase tracking-wide transition-all duration-300 md:h-11 md:w-auto md:gap-2 md:px-3.5 ${
                   scrolled
                     ? "border-white/10 text-[var(--color-ink-200)] hover:text-white hover:bg-white/10"
                     : "border-white/20 text-white bg-white/8 hover:bg-white/14"
                 }`}
               >
-                <span>Menú</span>
+                <span className="hidden md:inline">Menú</span>
                 <MenuIcon className="w-5 h-5" />
               </button>
             </div>
@@ -309,19 +308,6 @@ export default function Navbar({ totalCars }: Props) {
 
         <MobileNavLinks pathname={pathname} onClose={() => setIsMenuOpen(false)} />
 
-        <div className="absolute bottom-0 left-0 right-0 px-6 md:px-10 pb-8 pt-6 border-t border-white/8">
-          <a
-            href={getWhatsAppUrl(
-              "Hola, me interesa conocer el catálogo de Quiroz Automotriz."
-            )}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="btn-base btn-primary w-full !py-3 !text-sm gap-2 justify-center"
-          >
-            <WhatsAppIcon className="w-4 h-4" />
-            Contactar por WhatsApp
-          </a>
-        </div>
       </div>
     </>
   );
