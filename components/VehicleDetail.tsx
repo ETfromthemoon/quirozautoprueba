@@ -21,26 +21,26 @@ export default function VehicleDetail({ car }: Props) {
       {/* Top bar with back navigation */}
       <header className="fixed top-0 left-0 right-0 z-50 py-3 md:py-4">
         <div className="mx-auto max-w-7xl px-4 md:px-6">
-          <div className="glass-dark flex items-center justify-between gap-2 rounded-full px-3 py-2 md:px-6 md:py-2.5">
+          <div className="glass-dark flex min-w-0 items-center justify-between gap-1.5 rounded-full px-2 py-2 sm:gap-2 sm:px-3 md:px-6 md:py-2.5">
             <Link
               href="/"
-              className="flex min-w-0 shrink-0 items-center gap-2 text-ink-200 transition-colors group hover:text-white"
+              className="flex min-w-0 max-w-[5.5rem] shrink-0 items-center gap-1.5 text-ink-200 transition-colors group hover:text-white sm:max-w-none sm:gap-2"
               aria-label="Volver al catálogo"
             >
               <ArrowLeftIcon className="w-4 h-4 transition-transform group-hover:-translate-x-1" />
-              <span className="text-overline">Catálogo</span>
+              <span className="text-overline hidden sm:inline">Catálogo</span>
             </Link>
 
             <Link
               href="/"
-              className="flex min-w-0 items-center justify-center"
+              className="flex min-w-0 max-w-[5.5rem] items-center justify-center sm:max-w-[8rem] md:max-w-none"
               aria-label="Quiroz Redcar - Inicio"
             >
-              <Logo variant="horizontal" className="h-6 w-auto max-w-[104px] md:h-8 md:max-w-none" />
+              <Logo variant="horizontal" className="h-6 w-auto max-w-full md:h-8 md:max-w-none" />
             </Link>
 
             <ContactWhatsAppButton
-              className="relative flex h-10 shrink-0 items-center gap-2 overflow-hidden rounded-full bg-gradient-to-r from-accent-600 to-accent-500 px-3 text-[11px] font-semibold text-white transition-all hover:-translate-y-px hover:shadow-[0_0_24px_-4px_var(--color-accent-500)] md:h-auto md:px-5 md:py-2"
+              className="relative flex h-10 max-w-[5.25rem] shrink-0 items-center gap-2 overflow-hidden rounded-full bg-gradient-to-r from-accent-600 to-accent-500 px-3 text-[11px] font-semibold text-white transition-all hover:-translate-y-px hover:shadow-[0_0_24px_-4px_var(--color-accent-500)] sm:max-w-none md:h-auto md:px-5 md:py-2"
               mobileLabel="Chat"
               message={whatsappMsg}
             />

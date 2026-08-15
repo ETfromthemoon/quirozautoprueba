@@ -192,7 +192,7 @@ export default function Navbar({ totalCars }: Props) {
       >
         <div className="mx-auto max-w-6xl px-4">
           <div
-            className={`grid grid-cols-[minmax(0,1fr)_auto] items-center gap-2 rounded-full px-3 py-2 sm:px-4 md:flex md:px-5 md:py-2.5 transition-all duration-500 border ${
+            className={`grid min-w-0 grid-cols-[minmax(0,1fr)_auto] items-center gap-1.5 rounded-full px-2 py-2 sm:gap-2 sm:px-3 md:flex md:px-5 md:py-2.5 transition-all duration-500 border ${
               scrolled
                 ? "glass-dark border-white/10"
                 : "bg-transparent border-transparent"
@@ -209,10 +209,10 @@ export default function Navbar({ totalCars }: Props) {
                     behavior: "smooth",
                   });
                 }}
-                className="flex items-center gap-2.5 cursor-pointer group shrink-0"
+                className="flex min-w-0 max-w-[7.25rem] items-center gap-2.5 cursor-pointer group shrink-0 min-[360px]:max-w-[8.75rem] sm:max-w-[10rem] md:max-w-none"
                 aria-label="Quiroz Redcar - Inicio"
               >
-                <Logo variant="horizontal" className="h-8 w-auto md:h-[52px]" />
+                <Logo variant="horizontal" className="h-8 w-auto max-w-full md:h-[52px]" />
               </a>
             </div>
 
@@ -262,9 +262,9 @@ export default function Navbar({ totalCars }: Props) {
             </div>
 
             {/* Col 3: CTA + hamburger */}
-            <div className="flex shrink-0 justify-end items-center gap-2 md:flex-1">
+            <div className="flex shrink-0 items-center justify-end gap-1.5 sm:gap-2 md:flex-1">
               <ContactWhatsAppButton
-                className="btn-shine relative flex h-10 shrink-0 items-center gap-2 overflow-hidden rounded-full bg-gradient-to-r from-accent-600 to-accent-500 text-sm font-semibold text-white !py-0 !px-4 transition-all duration-300 hover:-translate-y-px hover:shadow-[0_0_24px_-4px_var(--color-accent-500)] md:h-auto md:!px-6 md:!py-2.5"
+                className="btn-shine relative flex h-10 max-w-[5.25rem] shrink-0 items-center gap-2 overflow-hidden rounded-full bg-gradient-to-r from-accent-600 to-accent-500 px-3 text-sm font-semibold text-white !py-0 transition-all duration-300 hover:-translate-y-px hover:shadow-[0_0_24px_-4px_var(--color-accent-500)] sm:max-w-none sm:!px-4 md:h-auto md:!px-6 md:!py-2.5"
                 shine
                 mobileLabel="Chat"
               />
