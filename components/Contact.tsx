@@ -13,7 +13,7 @@ export default function Contact() {
   return (
     <section
       id="contacto"
-      className="showcase-section relative bg-ink-950"
+      className="showcase-section contact-section relative bg-ink-950"
       aria-label="Contacto"
     >
       {/* Subtle background */}
@@ -38,8 +38,8 @@ export default function Contact() {
         }}
       />
 
-      <div className="relative z-10 h-full overflow-y-auto md:overflow-visible flex items-center justify-center px-4 sm:px-6 py-10 md:py-0">
-        <div className="max-w-5xl w-full">
+      <div className="contact-scroll relative z-10 h-full overflow-y-auto overscroll-contain flex items-start justify-center px-4 sm:px-6 pt-24 pb-10 md:pt-28 md:pb-12">
+        <div className="max-w-5xl w-full min-w-0">
           {/* Logo top */}
           <div className="flex justify-center mb-5 md:mb-10">
             <Logo variant="mark" className="w-12 h-12 md:w-16 md:h-16 opacity-90" />
@@ -68,9 +68,9 @@ export default function Contact() {
           </div>
 
           {/* Contact grid + Form */}
-          <div className="mt-6 md:mt-14 grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-10">
-            <div>
-              <div className="grid grid-cols-3 gap-2 md:gap-4">
+          <div className="mt-6 md:mt-14 grid min-w-0 grid-cols-1 lg:grid-cols-2 gap-6 md:gap-10">
+            <div className="min-w-0">
+              <div className="grid min-w-0 grid-cols-3 gap-2 md:gap-4">
                 <ContactCard
                   label="WhatsApp Marco"
                   value={WHATSAPP_CONTACTS.marco.displayNumber}
@@ -95,7 +95,7 @@ export default function Contact() {
                 />
               </div>
             </div>
-            <div className="glass-panel rounded-2xl p-5 md:p-6">
+            <div className="glass-panel min-w-0 rounded-2xl p-5 md:p-6">
               <p className="text-overline text-accent-500 mb-4">Envíanos un mensaje</p>
               <ContactForm />
             </div>
@@ -134,8 +134,8 @@ export default function Contact() {
 
           {/* Footer info */}
           <div className="mt-8 md:mt-20 pt-6 border-t border-white/10">
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-5 md:gap-8 text-center sm:text-left">
-              <div>
+            <div className="grid min-w-0 grid-cols-1 sm:grid-cols-3 gap-5 md:gap-8 text-center sm:text-left">
+              <div className="min-w-0">
                 <h3 className="text-overline text-accent-500 mb-2">Sucursales</h3>
                 <p className="text-sm text-white font-medium leading-relaxed">
                   Av. Bosques de Montemar #65
@@ -149,7 +149,7 @@ export default function Contact() {
                 <p className="text-xs text-ink-400">Valparaíso</p>
               </div>
 
-              <div>
+              <div className="min-w-0">
                 <h3 className="text-overline text-accent-500 mb-2">Síguenos</h3>
                 <div className="flex flex-col gap-2 items-center sm:items-start">
                   <SocialLink href="https://instagram.com/quirozautomotrizspa" label="Instagram">
@@ -164,7 +164,7 @@ export default function Contact() {
                 </div>
               </div>
 
-              <div>
+              <div className="min-w-0">
                 <h3 className="text-overline text-accent-500 mb-2">Servicios</h3>
                 <ul className="space-y-1 text-sm text-ink-300">
                   <li>Compra y venta</li>
@@ -210,46 +210,27 @@ function ContactCard({
     <a
       href={href}
       {...(external && { target: "_blank", rel: "noopener noreferrer" })}
-      className={`group glass-light rounded-2xl p-3 md:p-5 cursor-pointer hover:bg-white/[0.12] transition-all ${
+      className={`group glass-light flex min-h-[112px] min-w-0 cursor-pointer flex-col items-center justify-center rounded-2xl p-3 text-center transition-all hover:bg-white/[0.12] md:min-h-[128px] md:p-4 ${
         highlight ? "ring-1 ring-accent-600/50" : ""
       }`}
     >
-      {/* Mobile: centered icon + label */}
-      <div className="flex flex-col items-center gap-1.5 sm:hidden">
-        <div
-          className={`w-9 h-9 rounded-full flex items-center justify-center shrink-0 ${
-            highlight
-              ? "bg-accent-600/20 text-accent-500"
-              : "bg-white/10 text-ink-200"
-          }`}
-        >
-          <ContactIcon icon={icon} />
-        </div>
-        <p className="text-overline text-ink-400 text-center leading-tight">{label}</p>
+      <div
+        className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-full ${
+          highlight
+            ? "bg-accent-600/20 text-accent-500"
+            : "bg-white/10 text-ink-200"
+        }`}
+      >
+        <ContactIcon icon={icon} />
       </div>
-
-      {/* Tablet+: icon + label + value horizontal */}
-      <div className="hidden sm:flex items-center gap-3">
-        <div
-          className={`w-9 h-9 rounded-full flex items-center justify-center shrink-0 ${
-            highlight
-              ? "bg-accent-600/20 text-accent-500"
-              : "bg-white/10 text-ink-200"
-          }`}
-        >
-          <ContactIcon icon={icon} />
-        </div>
-        <div className="text-left min-w-0">
-          <p className="text-overline text-ink-400 mb-1">{label}</p>
-          <p
-            className={`font-display text-sm md:text-base font-semibold truncate ${
-              highlight ? "text-accent-400" : "text-white"
-            } group-hover:translate-x-1 transition-transform`}
-          >
-            {value}
-          </p>
-        </div>
-      </div>
+      <p className="mt-2 w-full text-overline leading-tight text-ink-400">{label}</p>
+      <p
+        className={`mt-1 w-full break-words text-[11px] font-semibold leading-tight sm:text-xs md:text-sm ${
+          highlight ? "text-accent-400" : "text-white"
+        }`}
+      >
+        {value}
+      </p>
     </a>
   );
 }
