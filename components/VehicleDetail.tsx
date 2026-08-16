@@ -1,4 +1,3 @@
-import Link from "next/link";
 import type { Car } from "@/lib/cars";
 import { getGalleryImages } from "@/lib/cars";
 import { getWhatsAppUrl } from "@/lib/whatsapp";
@@ -6,6 +5,7 @@ import VideoEmbed from "./VideoEmbed";
 import VehicleGallery from "./VehicleGallery";
 import Logo from "./Logo";
 import ContactWhatsAppButton from "./ContactWhatsAppButton";
+import CatalogBackLink from "./CatalogBackLink";
 import { WhatsAppIcon, PhoneIcon, ArrowLeftIcon, CheckIcon } from "./icons";
 
 type Props = { car: Car };
@@ -22,22 +22,22 @@ export default function VehicleDetail({ car }: Props) {
       <header className="fixed top-0 left-0 right-0 z-50 py-3 md:py-4">
         <div className="mx-auto max-w-7xl px-4 md:px-6">
           <div className="glass-dark flex min-w-0 items-center justify-between gap-1.5 rounded-full px-2 py-2 sm:gap-2 sm:px-3 md:px-6 md:py-2.5">
-            <Link
-              href="/"
+            <CatalogBackLink
+              sectionId={car.id}
               className="flex min-w-0 max-w-[5.5rem] shrink-0 items-center gap-1.5 text-ink-200 transition-colors group hover:text-white sm:max-w-none sm:gap-2"
               aria-label="Volver al catálogo"
             >
               <ArrowLeftIcon className="w-4 h-4 transition-transform group-hover:-translate-x-1" />
               <span className="text-overline hidden sm:inline">Catálogo</span>
-            </Link>
+            </CatalogBackLink>
 
-            <Link
-              href="/"
+            <CatalogBackLink
+              sectionId={car.id}
               className="flex min-w-0 max-w-[5.5rem] items-center justify-center sm:max-w-[8rem] md:max-w-none"
               aria-label="Quiroz Redcar - Inicio"
             >
               <Logo variant="horizontal" className="h-6 w-auto max-w-full md:h-8 md:max-w-none" />
-            </Link>
+            </CatalogBackLink>
 
             <ContactWhatsAppButton
               className="relative flex h-10 max-w-[5.25rem] shrink-0 items-center gap-2 overflow-hidden rounded-full bg-gradient-to-r from-accent-600 to-accent-500 px-3 text-[11px] font-semibold text-white transition-all hover:-translate-y-px hover:shadow-[0_0_24px_-4px_var(--color-accent-500)] sm:max-w-none md:h-auto md:px-5 md:py-2"
@@ -332,13 +332,13 @@ export default function VehicleDetail({ car }: Props) {
 
         {/* Bottom: back to catalog */}
         <div className="mt-16 md:mt-24 pt-10 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <Link
-            href="/"
+          <CatalogBackLink
+            sectionId={car.id}
             className="btn-ghost"
           >
             <ArrowLeftIcon className="w-3 h-3" />
             <span>Volver al catálogo</span>
-          </Link>
+          </CatalogBackLink>
           <p className="text-xs text-ink-500 font-light tracking-widest">
             QUIROZ REDCAR · COLECCIÓN PREMIUM
           </p>

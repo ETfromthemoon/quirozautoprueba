@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import type { Car } from "@/lib/cars";
 import { getWhatsAppUrl, formatPriceShort } from "@/lib/whatsapp";
+import { saveCatalogPosition } from "@/lib/catalog-position";
 import { WhatsAppIcon, ArrowRightIcon, ArrowDownIcon, EyeIcon } from "./icons";
 
 type Props = {
@@ -64,6 +65,7 @@ export default function CarShowcase({ car, index, total }: Props) {
   const marcoWhatsAppUrl = getWhatsAppUrl(whatsappMsg, "marco");
   const danielWhatsAppUrl = getWhatsAppUrl(whatsappMsg, "daniel");
   const priceShort = formatPriceShort(car.price);
+  const rememberCatalogPosition = () => saveCatalogPosition(car.id);
 
   return (
     <section
@@ -236,6 +238,7 @@ export default function CarShowcase({ car, index, total }: Props) {
               <div className="mt-7 pt-6 border-t border-white/10 flex flex-col gap-3">
                 <Link
                   href={`/vehiculo/${car.id}`}
+                  onClick={rememberCatalogPosition}
                   className="btn-base btn-primary w-full"
                 >
                   <EyeIcon />
@@ -325,6 +328,7 @@ export default function CarShowcase({ car, index, total }: Props) {
           {/* Ver ficha */}
           <Link
             href={`/vehiculo/${car.id}`}
+            onClick={rememberCatalogPosition}
             className="shrink-0 w-11 h-11 rounded-full flex items-center justify-center bg-white/10 hover:bg-white/20 active:scale-95 transition-all"
             aria-label={`Abrir ficha de ${car.brand} ${car.model}`}
           >
@@ -439,6 +443,7 @@ export default function CarShowcase({ car, index, total }: Props) {
           <div className="flex flex-col gap-2.5 mt-6">
             <Link
               href={`/vehiculo/${car.id}`}
+              onClick={rememberCatalogPosition}
               className="btn-base btn-primary w-full"
             >
               <EyeIcon />
