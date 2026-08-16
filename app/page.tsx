@@ -2,6 +2,7 @@ import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
 import CarShowcase from "@/components/CarShowcase";
 import Contact from "@/components/Contact";
+import RestoreCatalogPosition from "@/components/RestoreCatalogPosition";
 import { fetchCars } from "@/lib/wordpress";
 
 // ISR: regenerar la página hasta cada 60 segundos para mostrar autos nuevos en ~1 min
@@ -12,6 +13,7 @@ export default async function Home() {
 
   return (
     <>
+      <RestoreCatalogPosition />
       <Navbar totalCars={cars.length} />
       <main
         id="showcase-root"
