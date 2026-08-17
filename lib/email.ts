@@ -7,20 +7,27 @@ export type FormTipo =
   | "reserva"
   | "compra"
   | "consignacion"
+  | "formulario-compra"
+  | "formulario-consignacion"
   | "formulario-vehiculos";
 
 export type FormData = Record<string, string>;
 
 const FROM = process.env.SMTP_FROM ?? "noreply@quirozautomotriz.cl";
+const COMPRAS_TO = process.env.FORM_COMPRAS_TO ?? "compras@quirozautomotriz.cl";
+const CONSIGNACIONES_TO =
+  process.env.FORM_CONSIGNACIONES_TO ?? "consignaciones@quirozautomotriz.cl";
 
 const DESTINOS: Record<FormTipo, string> = {
   contacto: "mquiroz@quirozautomotriz.cl",
   financiamiento: "mquiroz@quirozautomotriz.cl",
   seguros: "mquiroz@quirozautomotriz.cl",
   reserva: "reservas@quirozautomotriz.cl",
-  compra: "compras@quirozautomotriz.cl",
-  consignacion: "compras@quirozautomotriz.cl",
-  "formulario-vehiculos": "compras@quirozautomotriz.cl",
+  compra: COMPRAS_TO,
+  consignacion: CONSIGNACIONES_TO,
+  "formulario-compra": COMPRAS_TO,
+  "formulario-consignacion": CONSIGNACIONES_TO,
+  "formulario-vehiculos": COMPRAS_TO,
 };
 
 const TITULOS: Record<FormTipo, string> = {
@@ -28,9 +35,26 @@ const TITULOS: Record<FormTipo, string> = {
   financiamiento: "Solicitud de financiamiento",
   seguros: "Solicitud de seguro automotriz",
   reserva: "Solicitud de reserva de vehiculo",
-  compra: "Oferta de venta de vehiculo",
-  consignacion: "Solicitud de consignacion",
+  compra: "Nueva Solicitud de Venta de Vehiculo",
+  consignacion: "Nueva Consignacion",
+  "formulario-compra": "Nueva Solicitud de Venta de Vehiculo",
+  "formulario-consignacion": "Nueva Consignacion",
   "formulario-vehiculos": "Ficha de vehiculo recibida",
+};
+
+type VehicleFlow = "compra" | "consignacion";
+
+const VEHICLE_FLOW_COPY: Record<VehicleFlow, { title: string; body: string }> = {
+  consignacion: {
+    title: "Consignacion virtual recibida",
+    body:
+      "Agradecemos su preferencia con Quiroz Automotriz e informamos que su vehiculo ha sido consignado virtualmente para realizar la gestion de venta a traves de nuestros canales de publicacion y redes sociales.",
+  },
+  compra: {
+    title: "Solicitud de compra recibida",
+    body:
+      "Agradecemos su preferencia en Quiroz Automotriz SPA e informamos que estudiaremos el valor comercial de su vehiculo antes de comunicarle nuestra decision de compra. El valor a informar por Quiroz Automotriz Spa queda sujeto a la revision del vehiculo ofrecido.",
+  },
 };
 
 const MENSAJES_CLIENTE: Record<FormTipo, { title: string; body: string }> = {
@@ -51,12 +75,20 @@ const MENSAJES_CLIENTE: Record<FormTipo, { title: string; body: string }> = {
     body: "Un asesor confirmara la disponibilidad del vehiculo y te explicara los siguientes pasos. La reserva queda confirmada solo despues de esa validacion.",
   },
   compra: {
-    title: "Recibimos los datos de tu vehiculo",
-    body: "Revisaremos la informacion enviada y te contactaremos para coordinar la evaluacion de compra.",
+    title: VEHICLE_FLOW_COPY.compra.title,
+    body: VEHICLE_FLOW_COPY.compra.body,
   },
   consignacion: {
-    title: "Recibimos tu solicitud de consignacion",
-    body: "Revisaremos los datos de tu vehiculo y te contactaremos para coordinar la evaluacion, fotografias y publicacion.",
+    title: VEHICLE_FLOW_COPY.consignacion.title,
+    body: VEHICLE_FLOW_COPY.consignacion.body,
+  },
+  "formulario-compra": {
+    title: VEHICLE_FLOW_COPY.compra.title,
+    body: VEHICLE_FLOW_COPY.compra.body,
+  },
+  "formulario-consignacion": {
+    title: VEHICLE_FLOW_COPY.consignacion.title,
+    body: VEHICLE_FLOW_COPY.consignacion.body,
   },
   "formulario-vehiculos": {
     title: "Recibimos la ficha de tu vehiculo",
@@ -105,7 +137,50 @@ function buildInternalHtml(tipo: FormTipo, data: FormData) {
   );
 }
 
+function getVehicleFlow(tipo: FormTipo): VehicleFlow | null {
+  if (tipo === "consignacion" || tipo === "formulario-consignacion") {
+    return "consignacion";
+  }
+  if (tipo === "compra" || tipo === "formulario-compra") {
+    return "compra";
+  }
+  return null;
+}
+
+function buildVehicleCustomerHtml(data: FormData, flow: VehicleFlow) {
+  const message = VEHICLE_FLOW_COPY[flow];
+  const name = escapeHtml(data.Nombre?.trim() || "");
+  const vehicleRows = [
+    ["Marca", data.Marca],
+    ["Modelo", data.Modelo],
+    ["Año", data.Año],
+    ["Patente", data.Patente],
+  ]
+    .filter(([, value]) => value?.trim())
+    .map(([key, value]) => fieldRow(key, value ?? ""))
+    .join("");
+  const vehicleTable = vehicleRows
+    ? `<table style="width:100%;border-collapse:collapse;font-size:14px;margin:20px 0">${vehicleRows}</table>`
+    : "";
+  const closing =
+    flow === "consignacion"
+      ? `<p style="margin:18px 0 0;font-size:14px;line-height:1.6;color:#3f3f46">Al momento de la venta el auto se pagara mediante transferencia electronica segun el valor acordado entre las partes.</p>
+<p style="margin:18px 0 0;font-size:14px;line-height:1.6;color:#3f3f46"><strong>Clausula de exclusividad.</strong><br />El propietario se compromete a vender el vehiculo a traves de Quiroz Automotriz. En caso de incumplimiento, debera pagar un cargo de $25.000 por concepto de gastos generados por la gestion. Los plazos de exclusividad son de 45 dias continuos, renovables automaticamente, salvo aviso de cualquiera de las partes con 7 dias de anticipacion.</p>`
+      : `<p style="margin:18px 0 0;font-size:14px;line-height:1.6;color:#3f3f46">Llegando a un acuerdo entre las partes, el propietario debera contar con su Cedula de Identidad vigente. Si es empresa, debera presentar Constitucion, Vigencia y RUT del representante legal. El vehiculo se pagara de inmediato mediante transferencia electronica del Banco Santander; inmediatamente despues el propietario debera dejar firmados los contratos de compraventa para realizar posteriormente la transferencia del vehiculo en Notaria Gervasio de Vina del Mar.</p>`;
+
+  return wrapEmail(
+    message.title,
+    `<p style="margin:0 0 14px;font-size:15px">Estimado${name ? ` ${name}` : ""},</p>
+<p style="margin:0;font-size:14px;line-height:1.6;color:#3f3f46">${escapeHtml(message.body)}</p>
+${vehicleTable}${closing}
+<p style="margin:22px 0 0;font-size:13px;line-height:1.6;color:#71717a">Puedes responder este correo para continuar la coordinacion con nuestro equipo.</p>`
+  );
+}
+
 function buildCustomerHtml(tipo: FormTipo, data: FormData) {
+  const vehicleFlow = getVehicleFlow(tipo);
+  if (vehicleFlow) return buildVehicleCustomerHtml(data, vehicleFlow);
+
   const message = MENSAJES_CLIENTE[tipo];
   const name = escapeHtml(data.Nombre?.trim() || "");
   const vehicle = data["Vehículo de interés"] || data.Patente || data.Modelo;
