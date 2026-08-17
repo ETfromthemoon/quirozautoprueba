@@ -137,7 +137,10 @@ export default function FormularioVehiculosPage() {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          tipo: "formulario-vehiculos",
+          tipo:
+            form.tipoOperacion === "Consignación"
+              ? "formulario-consignacion"
+              : "formulario-compra",
           datos: {
             "Tipo de Operación": form.tipoOperacion,
             "Segmento Vehículo": form.segmentoVehiculo,

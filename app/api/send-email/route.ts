@@ -12,6 +12,8 @@ const FORM_TYPES: FormTipo[] = [
   "reserva",
   "compra",
   "consignacion",
+  "formulario-compra",
+  "formulario-consignacion",
   "formulario-vehiculos",
 ];
 
