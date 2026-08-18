@@ -23,8 +23,31 @@ function truncate(text: string, max: number): string {
 
 export default function CarShowcase({ car, index, total }: Props) {
   const sectionRef = useRef<HTMLElement>(null);
+  const expandButtonRef = useRef<HTMLButtonElement>(null);
+  const catalogScrollTopRef = useRef<number | null>(null);
   const [isVisible, setIsVisible] = useState(false);
   const [isExpanded, setIsExpanded] = useState(false);
+
+  const openExpanded = () => {
+    const root = document.getElementById("showcase-root");
+    catalogScrollTopRef.current = root?.scrollTop ?? null;
+    setIsExpanded(true);
+  };
+
+  const closeExpanded = () => {
+    const root = document.getElementById("showcase-root");
+    const scrollTop = catalogScrollTopRef.current;
+    setIsExpanded(false);
+
+    // El sheet no debe devolver el catálogo al inicio ni convertir el cierre
+    // en una navegación. Reaplicamos la posición después de liberar el lock.
+    requestAnimationFrame(() => {
+      if (root && scrollTop !== null) {
+        root.scrollTo({ top: scrollTop, behavior: "auto" });
+      }
+      expandButtonRef.current?.focus({ preventScroll: true });
+    });
+  };
 
   useEffect(() => {
     const node = sectionRef.current;
@@ -43,20 +66,28 @@ export default function CarShowcase({ car, index, total }: Props) {
     return () => observer.disconnect();
   }, []);
 
-  // Lock body scroll + cerrar con Escape cuando el modal está abierto (mobile)
+  // Bloquea únicamente el scroll del catálogo mientras el sheet está abierto.
+  // El scroll interno del panel sigue disponible en celulares.
   useEffect(() => {
     if (!isExpanded) return;
 
     const root = document.getElementById("showcase-root");
-    if (root) root.style.overflow = "hidden";
+    const previousOverflow = root?.style.overflow ?? "";
+    if (root) {
+      root.dataset.vehiclePanelOpen = "true";
+      root.style.overflow = "hidden";
+    }
 
     const onKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "Escape") setIsExpanded(false);
+      if (e.key === "Escape") closeExpanded();
     };
     document.addEventListener("keydown", onKeyDown);
 
     return () => {
-      if (root) root.style.overflow = "";
+      if (root) {
+        root.style.overflow = previousOverflow;
+        delete root.dataset.vehiclePanelOpen;
+      }
       document.removeEventListener("keydown", onKeyDown);
     };
   }, [isExpanded]);
@@ -303,7 +334,7 @@ export default function CarShowcase({ car, index, total }: Props) {
           {/* Left: text info — click to expand modal */}
           <button
             type="button"
-            onClick={() => setIsExpanded(true)}
+            onClick={openExpanded}
             className="flex-1 min-w-0 text-left cursor-pointer"
             aria-label={`Ver detalles del ${car.brand} ${car.model}`}
           >
@@ -338,7 +369,8 @@ export default function CarShowcase({ car, index, total }: Props) {
           {/* Expand modal */}
           <button
             type="button"
-            onClick={() => setIsExpanded(true)}
+            ref={expandButtonRef}
+            onClick={openExpanded}
             className="shrink-0 w-11 h-11 rounded-full flex items-center justify-center bg-gradient-to-br from-accent-500 to-accent-700 shadow-lg shadow-accent-900/50 hover:scale-105 active:scale-95 transition-transform"
             aria-label="Expandir detalles"
           >
@@ -365,7 +397,7 @@ export default function CarShowcase({ car, index, total }: Props) {
           opacity: isExpanded ? 1 : 0,
           pointerEvents: isExpanded ? "auto" : "none",
         }}
-        onClick={() => setIsExpanded(false)}
+        onClick={closeExpanded}
         aria-hidden="true"
       />
       {/* Modal sheet */}
@@ -381,16 +413,26 @@ export default function CarShowcase({ car, index, total }: Props) {
         aria-label={`Detalles del ${car.brand} ${car.model}`}
         inert={!isExpanded}
       >
-        <div className="glass-panel rounded-t-3xl px-5 pt-2 pb-6 max-h-[88vh] overflow-y-auto">
-          {/* Drag handle (close) */}
-          <button
-            type="button"
-            onClick={() => setIsExpanded(false)}
-            className="w-full py-2 flex justify-center group cursor-pointer"
-            aria-label="Cerrar detalles"
-          >
-            <span className="block w-12 h-1 rounded-full bg-white/40 group-hover:bg-white/70 group-active:bg-white/90 transition-colors" />
-          </button>
+        <div
+          className="glass-panel rounded-t-3xl px-5 pt-2 pb-6 max-h-[88vh] overflow-y-auto overscroll-contain"
+          style={{ WebkitOverflowScrolling: "touch", overscrollBehavior: "contain" }}
+        >
+          {/* Cierre explícito: el usuario puede volver a la misma slide sin
+              depender de arrastrar el panel ni de descubrir el gesto. */}
+          <div className="sticky top-0 z-10 -mx-5 mb-3 flex justify-center bg-[var(--color-ink-950)]/60 px-5 pb-2 pt-1 backdrop-blur-md">
+            <button
+              type="button"
+              onClick={closeExpanded}
+              className="inline-flex items-center gap-2 rounded-full px-4 py-2 text-xs font-medium text-white/75 transition-colors hover:bg-white/10 hover:text-white"
+              aria-label="Cerrar detalles y volver al catálogo"
+            >
+              <span className="block h-1 w-10 rounded-full bg-white/45" aria-hidden="true" />
+              <span>Cerrar</span>
+              <svg className="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" aria-hidden="true">
+                <path d="m6 9 6 6 6-6" />
+              </svg>
+            </button>
+          </div>
 
           {/* Tagline */}
           <p className="text-overline mb-3 mt-1">

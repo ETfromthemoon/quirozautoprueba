@@ -707,6 +707,7 @@ async function fetchAllProducts(): Promise<WpProduct[]> {
       if (batch.length < PER_PAGE) break;
     } catch (err) {
       console.error(`[WordPress] fetchAllProducts página ${page} falló, deteniendo paginación:`, err);
+      if (all.length === 0) throw err;
       break;
     }
   }
@@ -717,6 +718,7 @@ async function fetchAllProducts(): Promise<WpProduct[]> {
 
 let _carsCache: Car[] | null = null;
 let _soldCarsCache: Car[] | null = null;
+let _soldCarsCacheAt = 0;
 let _catMap: Map<number, string> | null = null;
 const _carDetailsCache = new Map<string, Car>();
 
@@ -987,7 +989,9 @@ export async function fetchCarSlugs(): Promise<string[]> {
  * Devuelve array vacío (nunca usa estáticos) si WordPress falla.
  */
 export async function fetchSoldCars(): Promise<Car[]> {
-  if (_soldCarsCache) return _soldCarsCache;
+  if (_soldCarsCache && Date.now() - _soldCarsCacheAt < REVALIDATE_SECONDS * 1000) {
+    return _soldCarsCache;
+  }
 
   // Build: intenta WP, fallback a array vacío
   if (isBuild) {
@@ -1025,6 +1029,7 @@ export async function fetchSoldCars(): Promise<Car[]> {
       .filter(({ cat, product }) => isSoldProduct(product, cat))
       .map(({ product, categories }) => mapProductToCar(product, categories));
     _soldCarsCache = sold;
+    _soldCarsCacheAt = Date.now();
     console.log(`[WordPress] fetchSoldCars → ${sold.length} vendidos`);
     return sold;
   } catch (err) {

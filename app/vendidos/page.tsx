@@ -9,6 +9,9 @@ import { WhatsAppIcon, ArrowRightIcon, CheckIcon } from "@/components/icons";
 import type { Car } from "@/lib/cars";
 
 export const revalidate = 60;
+// WordPress es la fuente de verdad; evita publicar el estado vacío del build
+// cuando el CMS tarda o está temporalmente bloqueado durante la compilación.
+export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
   title: "Vendidos — Quiroz Automotriz",

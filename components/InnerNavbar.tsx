@@ -50,7 +50,7 @@ function NavDropdown({
         onClick={() => setOpen(!open)}
         className={`flex items-center gap-1 px-4 py-2.5 rounded-lg text-sm font-medium tracking-wide uppercase transition-all duration-200 ${
           isActive
-            ? "text-white bg-white/10"
+            ? "text-white bg-white/10 nav-active"
             : "text-[var(--color-ink-400)] hover:text-white hover:bg-white/8"
         }`}
       >
@@ -69,7 +69,7 @@ function NavDropdown({
               onClick={() => setOpen(false)}
               className={`block px-4 py-2.5 text-sm transition-colors ${
                 pathname === link.href
-                  ? "text-white bg-white/8"
+                  ? "text-white bg-white/8 nav-submenu-active"
                   : "text-[var(--color-ink-300)] hover:text-white hover:bg-white/6"
               }`}
             >
@@ -105,7 +105,7 @@ function MobileNavLinks({
                 href={link.href}
                 onClick={onClose}
                 className={`py-3 px-1 text-lg font-medium tracking-tight transition-colors duration-200 block ${
-                  isActive ? "text-white" : "text-[var(--color-ink-300)] hover:text-white"
+                  isActive ? "text-white nav-mobile-active" : "text-[var(--color-ink-300)] hover:text-white"
                 }`}
                 style={{ fontFamily: "var(--font-syne)" }}
               >
@@ -121,7 +121,7 @@ function MobileNavLinks({
           href="/nosotros"
           onClick={onClose}
           className={`py-3 px-1 text-lg font-medium tracking-tight transition-colors duration-200 block border-t border-white/8 ${
-            pathname === "/nosotros" ? "text-white" : "text-[var(--color-ink-300)] hover:text-white"
+            pathname === "/nosotros" ? "text-white nav-mobile-active" : "text-[var(--color-ink-300)] hover:text-white"
           }`}
           style={{ fontFamily: "var(--font-syne)" }}
         >
@@ -191,7 +191,7 @@ export default function InnerNavbar() {
                 href="/nosotros"
                 className={`px-4 py-2.5 rounded-lg text-sm font-medium tracking-wide uppercase transition-all duration-200 ${
                   pathname === "/nosotros"
-                    ? "text-white bg-white/10"
+                    ? "text-white bg-white/10 nav-active"
                     : "text-[var(--color-ink-400)] hover:text-white hover:bg-white/8"
                 }`}
               >

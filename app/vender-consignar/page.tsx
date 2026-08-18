@@ -110,16 +110,16 @@ export default function VenderConsignarPage() {
         <section className="py-16 md:py-24">
           <div className="mx-auto max-w-2xl px-4 md:px-8">
             {/* Switch compra / consignación */}
-            <div className="flex gap-3 mb-6">
+            <div className="grid grid-cols-2 items-stretch gap-3 mb-6">
               <button
                 onClick={() => { setTab("compra"); setSent(false); setForm(INITIAL_FORM); }}
-                className={`btn-base ${tab === "compra" ? "btn-primary" : "btn-ghost border border-white/15"}`}
+                className={`btn-base w-full min-w-0 !px-2 text-center sm:!px-5 ${tab === "compra" ? "btn-primary" : "btn-ghost border border-white/15"}`}
               >
                 Compramos tu auto
               </button>
               <button
                 onClick={() => { setTab("consignacion"); setSent(false); setForm(INITIAL_FORM); }}
-                className={`btn-base ${tab === "consignacion" ? "btn-primary" : "btn-ghost border border-white/15"}`}
+                className={`btn-base w-full min-w-0 !px-2 text-center sm:!px-5 ${tab === "consignacion" ? "btn-primary" : "btn-ghost border border-white/15"}`}
               >
                 Consignaciones
               </button>
