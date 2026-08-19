@@ -27,8 +27,10 @@ type FormData = {
   fechaIngreso: string;
   nombre: string;
   apellido: string;
+  rut: string;
   direccion: string;
   comuna: string;
+  ciudad: string;
   telefono: string;
   correo: string;
   esPropietario: "" | "Si" | "No";
@@ -46,6 +48,9 @@ type FormData = {
   combustible: string;
   kilometraje: string;
   servicios: string;
+  copiaLlave: "" | "Si" | "No";
+  valorPisoMinimo: string;
+  observacion: string;
 };
 
 const INITIAL: FormData = {
@@ -55,8 +60,10 @@ const INITIAL: FormData = {
   fechaIngreso: "",
   nombre: "",
   apellido: "",
+  rut: "",
   direccion: "",
   comuna: "",
+  ciudad: "",
   telefono: "",
   correo: "",
   esPropietario: "",
@@ -73,6 +80,9 @@ const INITIAL: FormData = {
   combustible: "",
   kilometraje: "",
   servicios: "",
+  copiaLlave: "",
+  valorPisoMinimo: "",
+  observacion: "",
 };
 
 // ── Input classes ──────────────────────────────────────
@@ -100,7 +110,7 @@ export default function FormularioVehiculosPage() {
       if (!f.tipoOperacion || !f.segmentoVehiculo) { setError("Completa todos los campos requeridos."); return false; }
     }
     if (p === 1) {
-      if (!f.nombre || !f.apellido || !f.direccion || !f.comuna || !f.telefono || !f.correo || !f.esPropietario) {
+      if (!f.nombre || !f.apellido || !f.rut || !f.direccion || !f.comuna || !f.ciudad || !f.telefono || !f.correo || !f.esPropietario) {
         setError("Completa todos los campos requeridos.");
         return false;
       }
@@ -112,6 +122,10 @@ export default function FormularioVehiculosPage() {
     if (p === 2) {
       if (!f.patente || !f.marca || !f.modelo || !f.version || !f.anio || !f.cilindrada || !f.transmision || !f.color || !f.combustible || !f.kilometraje) {
         setError("Completa todos los campos requeridos.");
+        return false;
+      }
+      if (f.tipoOperacion === "Consignación" && (!f.copiaLlave || !f.valorPisoMinimo)) {
+        setError("Completa los datos requeridos para la consignación.");
         return false;
       }
     }
@@ -148,8 +162,10 @@ export default function FormularioVehiculosPage() {
             "Fecha Ingreso": form.fechaIngreso,
             Nombre: form.nombre,
             Apellido: form.apellido,
+            RUT: form.rut,
             Dirección: form.direccion,
             Comuna: form.comuna,
+            Ciudad: form.ciudad,
             Teléfono: form.telefono,
             Correo: form.correo,
             "¿Es propietario?": form.esPropietario,
@@ -166,6 +182,9 @@ export default function FormularioVehiculosPage() {
             Combustible: form.combustible,
             Kilometraje: form.kilometraje,
             "Servicios realizados o requeridos": form.servicios,
+            "Copia de llave": form.copiaLlave,
+            "Valor piso mínimo": form.valorPisoMinimo,
+            Observación: form.observacion,
           },
         }),
       });
@@ -359,12 +378,22 @@ export default function FormularioVehiculosPage() {
                         </div>
                       </div>
                       <div className="flex flex-col gap-1.5">
+                        <label htmlFor="fv-rut" className={labelCls}>RUT *</label>
+                        <input id="fv-rut" type="text" required value={form.rut} onChange={(e) => update("rut", e.target.value)} placeholder="Ej: 12.345.678-9" className={inputCls} />
+                      </div>
+                      <div className="flex flex-col gap-1.5">
                         <label htmlFor="fv-direccion" className={labelCls}>Dirección *</label>
                         <input id="fv-direccion" type="text" required value={form.direccion} onChange={(e) => update("direccion", e.target.value)} placeholder="Calle, número, depto" className={inputCls} />
                       </div>
-                      <div className="flex flex-col gap-1.5">
-                        <label htmlFor="fv-comuna" className={labelCls}>Comuna *</label>
-                        <input id="fv-comuna" type="text" required value={form.comuna} onChange={(e) => update("comuna", e.target.value)} placeholder="Ej: Viña del Mar" className={inputCls} />
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div className="flex flex-col gap-1.5">
+                          <label htmlFor="fv-comuna" className={labelCls}>Comuna *</label>
+                          <input id="fv-comuna" type="text" required value={form.comuna} onChange={(e) => update("comuna", e.target.value)} placeholder="Ej: Viña del Mar" className={inputCls} />
+                        </div>
+                        <div className="flex flex-col gap-1.5">
+                          <label htmlFor="fv-ciudad" className={labelCls}>Ciudad *</label>
+                          <input id="fv-ciudad" type="text" required value={form.ciudad} onChange={(e) => update("ciudad", e.target.value)} placeholder="Ej: Viña del Mar" className={inputCls} />
+                        </div>
                       </div>
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <div className="flex flex-col gap-1.5">
@@ -471,6 +500,42 @@ export default function FormularioVehiculosPage() {
                           className={`${inputCls} resize-none`}
                         />
                       </div>
+                      {form.tipoOperacion === "Consignación" && (
+                        <>
+                          <div className="flex flex-col gap-1.5">
+                            <label className={labelCls}>¿Tiene copia de llave? *</label>
+                            <div className="grid grid-cols-2 gap-3">
+                              {(["Si", "No"] as const).map((op) => (
+                                <button
+                                  key={op}
+                                  type="button"
+                                  onClick={() => update("copiaLlave", op)}
+                                  className={`btn-base w-full !py-2.5 ${
+                                    form.copiaLlave === op ? "btn-primary" : "btn-ghost border border-white/15"
+                                  }`}
+                                >
+                                  {op}
+                                </button>
+                              ))}
+                            </div>
+                          </div>
+                          <div className="flex flex-col gap-1.5">
+                            <label htmlFor="fv-piso" className={labelCls}>Valor piso mínimo *</label>
+                            <input id="fv-piso" type="text" required value={form.valorPisoMinimo} onChange={(e) => update("valorPisoMinimo", e.target.value)} placeholder="Ej: $12.500.000" className={inputCls} />
+                          </div>
+                          <div className="flex flex-col gap-1.5">
+                            <label htmlFor="fv-observacion" className={labelCls}>Observación</label>
+                            <textarea
+                              id="fv-observacion"
+                              rows={3}
+                              value={form.observacion}
+                              onChange={(e) => update("observacion", e.target.value)}
+                              placeholder="Información adicional para el contrato de consignación..."
+                              className={`${inputCls} resize-none`}
+                            />
+                          </div>
+                        </>
+                      )}
                     </div>
                   )}
 

@@ -16,6 +16,8 @@ type FormData = {
   vehiculo: string;
 };
 
+const RESERVA_PAGO_URL = "https://www.webpay.cl/form-pay/412455";
+
 const INITIAL_FORM: FormData = {
   nombre: "",
   apellido: "",
@@ -255,18 +257,16 @@ export default function ReservaPage() {
                       {sending ? "Enviando..." : "Solicitar reserva"}
                     </button>
 
-                    {/* Pago en línea Transbank/Webpay — pendiente de conexión */}
-                    <button
-                      type="button"
-                      disabled
-                      aria-disabled="true"
-                      title="Disponible próximamente"
-                      className="btn-base btn-silver w-full !py-3 opacity-60 cursor-not-allowed"
+                    <a
+                      href={RESERVA_PAGO_URL}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="btn-base btn-silver w-full !py-3"
                     >
                       <span>Pagar reserva $200.000 con Webpay</span>
-                    </button>
+                    </a>
                     <p className="text-[11px] text-center text-[var(--color-ink-500)] -mt-2">
-                      Pago en línea con Webpay disponible próximamente.
+                      Serás redirigido a Webpay para completar el pago de tu reserva.
                     </p>
                   </form>
                 )}

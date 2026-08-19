@@ -109,6 +109,66 @@ function fieldRow(key: string, value: string) {
   return `<tr><td style="font-weight:600;padding:4px 12px 4px 0;white-space:nowrap;color:#52525b">${escapeHtml(key)}</td><td style="padding:4px 0">${escapeHtml(value)}</td></tr>`;
 }
 
+function contractValue(value: string | undefined) {
+  return value?.trim() || "____________________________";
+}
+
+function formatContractDate(value: string | undefined) {
+  if (!value?.trim()) return "____________________________";
+  const date = new Date(`${value}T12:00:00`);
+  if (Number.isNaN(date.getTime())) return value;
+  return date.toLocaleDateString("es-CL");
+}
+
+function buildConsignmentContractText(data: FormData) {
+  const fullName = [data.Nombre, data.Apellido].filter(Boolean).join(" ");
+
+  return [
+    "CONTRATO DE CONSIGNACIÓN",
+    "",
+    "En Viña del Mar",
+    `Fecha: ${formatContractDate(data["Fecha Ingreso"])}`,
+    `El(la) Sr(a) ${contractValue(fullName)}.`,
+    `RUT: ${contractValue(data.RUT)}`,
+    `Domiciliado: ${contractValue(data.Dirección)}`,
+    `Ciudad: ${contractValue(data.Ciudad)}`,
+    "Quien en adelante se denominará comitente y la firma Quiroz Automotriz Ltda. Rut 76.776.021-3, que se denominará en adelante Comisionista vienen en contratar lo siguiente:",
+    "",
+    "PRIMERO: el comitente entrega al comisionista lo siguiente en consignación:",
+    `Marca: ${contractValue(data.Marca)}`,
+    `Modelo: ${contractValue(data.Modelo)}`,
+    `Año: ${contractValue(data.Año)}`,
+    `Kilómetros: ${contractValue(data.Kilometraje)}`,
+    `Patente: ${contractValue(data.Patente)}`,
+    `Copia de llave: ${contractValue(data["Copia de llave"])}`,
+    "",
+    "SEGUNDO: El Comisionista acepta recibir la mercadería antes indicada para venderla por cuenta del comitente.",
+    "",
+    "TERCERO: El comitente autoriza al comisionista para ejecutar lo que crea necesario a la mercadería entregada, con el fin de venderla en la mejor forma y también lo autoriza expresamente para que estos gastos sean por cuenta del comitente previa consulta.",
+    "",
+    `CUARTO: El valor piso mínimo de la mercadería entregada será de: ${contractValue(data["Valor piso mínimo"])}`,
+    "",
+    "QUINTO: Al finiquitar la venta de la mercadería entregada en consignación, el comisionista hará la liquidación correspondiente, según el valor dejado en consignación menos los gastos realizados al vehículo autorizados por el Comitente.",
+    "",
+    "SEXTO: El comitente declara que la mercadería ya indicada y entregada en consignación exclusiva al comisionista le pertenece en forma exclusiva por haberla adquirido según consta con documentación completa, por lo cual, asume toda responsabilidad derivada de su procedencia o cualquier otra causa declarando expresamente que no tiene ningún gravamen; ni prohibición de enajenar.",
+    "",
+    "SÉPTIMO: El comisionista recibe en este acto la mercadería ya aludida virtualmente y se responsabiliza de ella hasta el término de su gestión, a excepción de fuerza mayor.",
+    "",
+    "OCTAVO: El plazo mínimo de consignación en la empresa es de 90 días corridos a partir de la fecha establecida en contrato.",
+    "",
+    "NOVENO: Las partes fijan su domicilio en Viña del Mar para los efectos legales del caso.",
+    "",
+    `Observación: ${contractValue(data.Observación)}`,
+  ].join("\n");
+}
+
+function buildConsignmentContractHtml(data: FormData) {
+  return `<div style="margin:0 0 22px;padding:18px 20px;border:1px solid #e4e4e7;border-radius:10px;background:#fafafa">
+<h2 style="margin:0 0 14px;font-size:16px;color:#18181b">Contrato de consignación</h2>
+<div style="white-space:pre-line;font-size:13px;line-height:1.65;color:#3f3f46">${escapeHtml(buildConsignmentContractText(data))}</div>
+</div>`;
+}
+
 function wrapEmail(title: string, content: string) {
   return `<!DOCTYPE html>
 <html><body style="font-family:Arial,sans-serif;background:#f4f4f5;padding:32px 16px;color:#18181b">
@@ -132,7 +192,8 @@ function buildInternalHtml(tipo: FormTipo, data: FormData) {
 
   return wrapEmail(
     TITULOS[tipo],
-    `<p style="margin:0 0 18px;font-size:14px;color:#52525b">Nueva solicitud recibida desde el sitio web.</p>
+    `${tipo === "formulario-consignacion" ? buildConsignmentContractHtml(data) : ""}
+<p style="margin:0 0 18px;font-size:14px;color:#52525b">Nueva solicitud recibida desde el sitio web.</p>
 <table style="width:100%;border-collapse:collapse;font-size:14px">${rows}</table>`
   );
 }
@@ -178,6 +239,15 @@ ${vehicleTable}${closing}
 }
 
 function buildCustomerHtml(tipo: FormTipo, data: FormData) {
+  if (tipo === "formulario-consignacion") {
+    return wrapEmail(
+      "Contrato de consignación recibido",
+      `<p style="margin:0 0 18px;font-size:14px;line-height:1.6;color:#3f3f46">Estimado(a) ${escapeHtml([data.Nombre, data.Apellido].filter(Boolean).join(" "))}, hemos recibido tu ficha de consignación. A continuación encontrarás el contrato generado con la información ingresada:</p>
+${buildConsignmentContractHtml(data)}
+<p style="margin:0;font-size:13px;line-height:1.6;color:#71717a">Este documento corresponde a la información enviada a través del formulario web. Nuestro equipo se comunicará contigo para coordinar los siguientes pasos.</p>`
+    );
+  }
+
   const vehicleFlow = getVehicleFlow(tipo);
   if (vehicleFlow) return buildVehicleCustomerHtml(data, vehicleFlow);
 

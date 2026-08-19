@@ -36,10 +36,6 @@ const SERVICIOS = [
     description: "Te conectamos con las mejores opciones de seguro para tu vehículo.",
   },
   {
-    title: "Entregamos en todo Chile",
-    description: "No importa dónde estés, coordinamos la entrega de tu vehículo a cualquier región.",
-  },
-  {
     title: "TAG",
     description: "Gestionamos tu TAG para que circules sin preocupaciones desde el primer día.",
   },

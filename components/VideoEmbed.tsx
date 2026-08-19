@@ -73,16 +73,25 @@ export default function VideoEmbed({ videoUrls = [], posterImage, alt, priority 
       <div className="relative w-full h-full overflow-hidden bg-ink-950 group">
         <div className="pointer-events-none absolute inset-0 animate-ken-burns">{poster}</div>
         <div className="pointer-events-none absolute inset-0 bg-ink-950/35" />
+        {/* Área completa y botón dedicado: ambos disparan el mismo play. El
+            botón del icono queda por encima del área para que no dependa de
+            dónde cae el puntero dentro del SVG o sus capas decorativas. */}
         <button
           type="button"
           onClick={() => setIsPlaying(true)}
-          className="absolute inset-0 z-10 flex touch-manipulation items-center justify-center cursor-pointer focus:outline-none"
+          className="absolute inset-0 z-10 cursor-pointer touch-manipulation focus:outline-none"
+          aria-label={`Reproducir video ${activeVideo + 1} tocando la imagen`}
+        />
+        <button
+          type="button"
+          onClick={() => setIsPlaying(true)}
+          className="absolute left-1/2 top-1/2 z-20 flex -translate-x-1/2 -translate-y-1/2 touch-manipulation cursor-pointer items-center justify-center rounded-full focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-4 focus-visible:ring-offset-ink-950"
           aria-label={`Reproducir video ${activeVideo + 1} del vehículo`}
         >
-          <span className="relative flex items-center justify-center">
+          <span className="pointer-events-none relative flex items-center justify-center">
             <span className="absolute inset-0 rounded-full bg-accent-600 animate-pulse-ring" />
-            <span className="relative w-20 h-20 md:w-24 md:h-24 rounded-full bg-gradient-to-br from-accent-500 to-accent-700 flex items-center justify-center shadow-2xl shadow-accent-900/50 group-hover:scale-105 transition-transform">
-              <svg className="w-8 h-8 md:w-10 md:h-10 text-white translate-x-0.5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <span className="relative flex h-20 w-20 items-center justify-center rounded-full bg-gradient-to-br from-accent-500 to-accent-700 shadow-2xl shadow-accent-900/50 transition-transform group-hover:scale-105 md:h-24 md:w-24">
+              <svg className="pointer-events-none w-8 h-8 md:w-10 md:h-10 text-white translate-x-0.5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
                 <path d="M8 5v14l11-7z" />
               </svg>
             </span>

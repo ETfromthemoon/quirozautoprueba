@@ -49,6 +49,7 @@ const BODY_ELEMENTS = [
 const PAINT_BAR_MAX_MICRAS = 300;
 /** Banda de rodadura de un neumático nuevo (mm), tope de la barra. */
 const TIRE_NEW_TREAD_MM = 8;
+const RESERVA_PAGO_URL = "https://www.webpay.cl/form-pay/412455";
 
 export default function VehicleReport({ car, report, demo = false }: Props) {
   const carName = `${car.brand} ${car.model} ${car.year}`;
@@ -632,21 +633,20 @@ export default function VehicleReport({ car, report, demo = false }: Props) {
               </a>
             </div>
 
-            {/* Pago de reserva Transbank/Webpay — pendiente de conexión */}
+            {/* Pago de reserva Transbank/Webpay */}
             <div className="hidden">
               <p className="text-overline text-accent-500">Asegura tu compra</p>
               <p className="text-base text-white font-semibold">Reserva con $200.000 y el auto es tuyo.</p>
-              <button
-                type="button"
-                
-                aria-disabled="true"
-                title="Disponible próximamente"
+              <a
+                href={RESERVA_PAGO_URL}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="btn-base btn-primary"
               >
                 <span>Reserva con $200.000</span>
-              </button>
+              </a>
               <p className="text-[11px] text-ink-500 font-light">
-                Pago en línea con Webpay disponible próximamente.
+                Serás redirigido a Webpay para completar el pago de tu reserva.
               </p>
             </div>
           </div>
