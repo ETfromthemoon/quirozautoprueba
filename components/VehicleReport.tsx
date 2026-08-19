@@ -7,6 +7,7 @@ import type {
   OverallState,
 } from "@/lib/brochures";
 import { getWhatsAppUrl } from "@/lib/whatsapp";
+import ReservationPaymentButton from "./ReservationPaymentButton";
 import Logo from "./Logo";
 import Reveal from "./brochure/Reveal";
 import ChapterNav from "./brochure/ChapterNav";
@@ -49,7 +50,6 @@ const BODY_ELEMENTS = [
 const PAINT_BAR_MAX_MICRAS = 300;
 /** Banda de rodadura de un neumático nuevo (mm), tope de la barra. */
 const TIRE_NEW_TREAD_MM = 8;
-const RESERVA_PAGO_URL = "https://www.webpay.cl/form-pay/412455";
 
 export default function VehicleReport({ car, report, demo = false }: Props) {
   const carName = `${car.brand} ${car.model} ${car.year}`;
@@ -637,14 +637,10 @@ export default function VehicleReport({ car, report, demo = false }: Props) {
             <div className="hidden">
               <p className="text-overline text-accent-500">Asegura tu compra</p>
               <p className="text-base text-white font-semibold">Reserva con $200.000 y el auto es tuyo.</p>
-              <a
-                href={RESERVA_PAGO_URL}
-                target="_blank"
-                rel="noopener noreferrer"
+              <ReservationPaymentButton
                 className="btn-base btn-primary"
-              >
-                <span>Reserva con $200.000</span>
-              </a>
+                label="Reserva con $200.000"
+              />
               <p className="text-[11px] text-ink-500 font-light">
                 Serás redirigido a Webpay para completar el pago de tu reserva.
               </p>

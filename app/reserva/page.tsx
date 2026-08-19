@@ -4,6 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import InnerNavbar from "@/components/InnerNavbar";
 import InnerFooter from "@/components/InnerFooter";
+import ReservationPaymentButton from "@/components/ReservationPaymentButton";
 import { CheckIcon, ArrowRightIcon, WhatsAppIcon, PhoneIcon } from "@/components/icons";
 import { getWhatsAppUrl } from "@/lib/whatsapp";
 
@@ -15,8 +16,6 @@ type FormData = {
   correo: string;
   vehiculo: string;
 };
-
-const RESERVA_PAGO_URL = "https://www.webpay.cl/form-pay/412455";
 
 const INITIAL_FORM: FormData = {
   nombre: "",
@@ -257,14 +256,10 @@ export default function ReservaPage() {
                       {sending ? "Enviando..." : "Solicitar reserva"}
                     </button>
 
-                    <a
-                      href={RESERVA_PAGO_URL}
-                      target="_blank"
-                      rel="noopener noreferrer"
+                    <ReservationPaymentButton
                       className="btn-base btn-silver w-full !py-3"
-                    >
-                      <span>Pagar reserva $200.000 con Webpay</span>
-                    </a>
+                      label="Pagar reserva $200.000 con Webpay"
+                    />
                     <p className="text-[11px] text-center text-[var(--color-ink-500)] -mt-2">
                       Serás redirigido a Webpay para completar el pago de tu reserva.
                     </p>
