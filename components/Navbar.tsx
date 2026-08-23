@@ -264,9 +264,8 @@ export default function Navbar({ totalCars }: Props) {
             {/* Col 3: CTA + hamburger */}
             <div className="flex shrink-0 items-center justify-end gap-1.5 sm:gap-2 md:flex-1">
               <ContactWhatsAppButton
-                className="btn-shine relative flex h-10 max-w-[5.25rem] shrink-0 items-center gap-2 overflow-hidden rounded-full bg-gradient-to-r from-accent-600 to-accent-500 px-3 text-sm font-semibold text-white !py-0 transition-all duration-300 hover:-translate-y-px hover:shadow-[0_0_24px_-4px_var(--color-accent-500)] sm:max-w-none sm:!px-4 md:h-auto md:!px-6 md:!py-2.5"
-                shine
-                mobileLabel="Chat"
+                className="grid h-14 w-14 place-items-center rounded-full bg-[#25D366] text-white shadow-[0_8px_24px_rgba(37,211,102,0.35)] transition-all duration-300 hover:-translate-y-1 hover:bg-[#20bd5a] hover:shadow-[0_12px_30px_rgba(37,211,102,0.45)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-ink-950"
+                floating
               />
 
               <button
