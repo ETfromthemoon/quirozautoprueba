@@ -201,11 +201,6 @@ export default function InnerNavbar() {
 
             {/* Col 3: CTA + hamburger */}
             <div className="flex shrink-0 items-center justify-end gap-1.5 sm:gap-2 md:flex-1">
-              <ContactWhatsAppButton
-                className="grid h-14 w-14 place-items-center rounded-full bg-[#25D366] text-white shadow-[0_8px_24px_rgba(37,211,102,0.35)] transition-all duration-300 hover:-translate-y-1 hover:bg-[#20bd5a] hover:shadow-[0_12px_30px_rgba(37,211,102,0.45)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-ink-950"
-                floating
-              />
-
               <button
                 onClick={() => setIsMenuOpen(true)}
                 aria-label="Abrir menú"
@@ -218,6 +213,11 @@ export default function InnerNavbar() {
           </div>
         </div>
       </header>
+
+      <ContactWhatsAppButton
+        className="grid h-14 w-14 place-items-center rounded-full bg-[#25D366] text-white shadow-[0_8px_24px_rgba(37,211,102,0.35)] transition-all duration-300 hover:-translate-y-1 hover:bg-[#20bd5a] hover:shadow-[0_12px_30px_rgba(37,211,102,0.45)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-ink-950"
+        floating
+      />
 
       {/* Mobile menu overlay */}
       <div

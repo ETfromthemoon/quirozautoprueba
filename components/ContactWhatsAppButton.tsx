@@ -47,7 +47,7 @@ export default function ContactWhatsAppButton({
   };
 
   return (
-    <div ref={containerRef} className={floating ? "fixed bottom-5 right-5 z-[80] sm:bottom-6 sm:right-6" : "relative"}>
+    <div ref={containerRef} className={floating ? "fixed bottom-5 right-5 z-40 sm:bottom-6 sm:right-6" : "relative"}>
       <button type="button" onClick={() => setIsOpen((open) => !open)} className={className} aria-haspopup="dialog" aria-expanded={isOpen} aria-label={isOpen ? "Cerrar opciones de WhatsApp" : "Abrir opciones de WhatsApp"}>
         {shine && <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full animate-shine-slow pointer-events-none" />}
         {floating ? <WhatsAppIcon className="relative z-10 h-7 w-7" /> : showIcon ? <WhatsAppIcon className="w-4 h-4 relative z-10" /> : <span className="relative flex h-1.5 w-1.5"><span className="absolute inset-0 rounded-full bg-white animate-pulse-ring" /><span className="relative rounded-full bg-white w-1.5 h-1.5" /></span>}
