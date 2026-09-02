@@ -1,5 +1,4 @@
 import Image from "next/image";
-import Logo from "./Logo";
 
 type Props = {
   totalCars: number;
@@ -61,11 +60,6 @@ export default function Hero({ totalCars }: Props) {
 
       {/* Content */}
       <div className="relative z-10 h-full flex flex-col">
-        {/* Top: Logo */}
-        <div className="flex justify-center pt-20 md:pt-28 px-6">
-          <Logo variant="mark" className="w-16 h-16 md:w-20 md:h-20 animate-fade-up" />
-        </div>
-
         {/* Center title */}
         <div className="flex-1 flex items-center justify-center px-4 sm:px-6">
           <div className="w-full max-w-5xl text-center">
