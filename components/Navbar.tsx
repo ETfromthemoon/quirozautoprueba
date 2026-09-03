@@ -212,7 +212,7 @@ export default function Navbar({ totalCars }: Props) {
                 className="flex min-w-0 max-w-[7.25rem] items-center gap-2.5 cursor-pointer group shrink-0 min-[360px]:max-w-[8.75rem] sm:max-w-[10rem] md:max-w-none"
                 aria-label="Quiroz Redcar - Inicio"
               >
-                <Logo variant="horizontal" className="h-10 w-auto max-w-full md:h-[62px]" />
+                <Logo variant="horizontal" className="h-[52px] w-auto max-w-full md:h-[62px]" />
               </a>
             </div>
 
