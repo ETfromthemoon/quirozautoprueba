@@ -15,7 +15,7 @@ export default function NotFound() {
 
       <div className="relative z-10 text-center max-w-lg">
         <div className="flex justify-center mb-8">
-          <Logo variant="mark" className="w-16 h-16 opacity-90" />
+          <Logo variant="mark" className="w-[83px] h-[83px] opacity-90" />
         </div>
 
         <p className="text-overline text-accent-500 mb-4">

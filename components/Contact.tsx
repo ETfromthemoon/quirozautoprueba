@@ -42,7 +42,7 @@ export default function Contact() {
         <div className="max-w-5xl w-full min-w-0">
           {/* Logo top */}
           <div className="flex justify-center mb-5 md:mb-10">
-            <Logo variant="mark" className="w-12 h-12 md:w-16 md:h-16 opacity-90" />
+            <Logo variant="mark" className="w-[62px] h-[62px] md:w-[83px] md:h-[83px] opacity-90" />
           </div>
 
           <div className="text-center overflow-hidden">
