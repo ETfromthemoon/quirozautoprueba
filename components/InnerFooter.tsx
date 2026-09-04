@@ -21,7 +21,7 @@ export default function InnerFooter() {
 
           {/* Brand column */}
           <div className="flex flex-col items-center gap-6 md:items-start">
-            <Logo variant="horizontal" className="h-9 w-auto" />
+            <Logo variant="horizontal" className="h-[47px] w-auto" />
             <p className="mx-auto max-w-xs text-[var(--color-ink-400)] text-sm leading-relaxed md:mx-0">
               Automotora con más de 20 años conectando personas con su próximo
               vehículo. Concón y Valparaíso.

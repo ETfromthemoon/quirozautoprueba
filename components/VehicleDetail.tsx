@@ -36,7 +36,7 @@ export default function VehicleDetail({ car }: Props) {
               className="flex min-w-0 max-w-[5.5rem] items-center justify-center sm:max-w-[8rem] md:max-w-none"
               aria-label="Quiroz Redcar - Inicio"
             >
-              <Logo variant="horizontal" className="h-6 w-auto max-w-full md:h-8 md:max-w-none" />
+              <Logo variant="horizontal" className="h-[31px] w-auto max-w-full md:h-[42px] md:max-w-none" />
             </CatalogBackLink>
 
           </div>

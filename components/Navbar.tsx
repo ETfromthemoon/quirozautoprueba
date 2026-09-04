@@ -212,7 +212,7 @@ export default function Navbar({ totalCars }: Props) {
                 className="flex min-w-0 max-w-[7.25rem] items-center gap-2.5 cursor-pointer group shrink-0 min-[360px]:max-w-[8.75rem] sm:max-w-[10rem] md:max-w-none"
                 aria-label="Quiroz Redcar - Inicio"
               >
-                <Logo variant="horizontal" className="h-[52px] w-auto max-w-full md:h-[62px]" />
+                <Logo variant="horizontal" className="h-[52px] w-auto max-w-full md:h-[68px]" />
               </a>
             </div>
 
@@ -295,7 +295,7 @@ export default function Navbar({ totalCars }: Props) {
         style={{ background: "var(--color-ink-950)" }}
       >
         <div className="flex items-center justify-between px-6 md:px-10 pt-6 pb-4">
-          <Logo variant="horizontal" className="h-12 w-auto opacity-80" />
+          <Logo variant="horizontal" className="h-[62px] w-auto opacity-80" />
           <button
             onClick={() => setIsMenuOpen(false)}
             aria-label="Cerrar menú"
