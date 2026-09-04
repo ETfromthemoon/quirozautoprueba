@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { reports, buildInformeUrl, isValidAdminKey } from "@/lib/brochures";
+import { reports, buildInformeUrl, countReportModules, isValidAdminKey } from "@/lib/brochures";
 import { cars } from "@/lib/cars";
 import BrochureAdmin, { type AdminRow } from "@/components/brochure/BrochureAdmin";
 import AccessGate from "@/components/brochure/AccessGate";
@@ -34,7 +34,7 @@ export default async function InformeAdminPage({
     return {
       carId: r.carId,
       name: car ? `${car.brand} ${car.model} ${car.year}` : r.carId,
-      estado: r.verdict.estado,
+      modulos: countReportModules(r),
       url: buildInformeUrl(siteUrl, r.carId) ?? "",
     };
   });

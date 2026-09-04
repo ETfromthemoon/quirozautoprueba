@@ -54,6 +54,10 @@ import cmsSnapshotData from "./cars.snapshot.json";
 const cmsSnapshot = cmsSnapshotData as Car[];
 const fallbackCars = cmsSnapshot.length > 0 ? cmsSnapshot : staticCars;
 
+export function getFallbackCarBySlug(slug: string): Car | undefined {
+  return fallbackCars.find((car) => car.id === slug);
+}
+
 // ─── Configuración ──────────────────────────────────────────────────────────
 
 const WP_API = (

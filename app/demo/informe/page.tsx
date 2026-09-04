@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import VehicleReport from "@/components/VehicleReport";
 import { getReportById } from "@/lib/brochures";
-import { fetchCarBySlug } from "@/lib/wordpress";
+import { getFallbackCarBySlug } from "@/lib/wordpress";
 
 // Esta es la única ruta de muestra sin clave. Mantiene los informes reales
 // protegidos en /informe/[id]?k=... y usa un vehículo publicado del CMS.
@@ -19,7 +19,7 @@ export const metadata: Metadata = {
 
 export default async function PublicBrochureDemoPage() {
   const report = getReportById(DEMO_CAR_ID);
-  const car = await fetchCarBySlug(DEMO_CAR_ID).catch(() => undefined);
+  const car = getFallbackCarBySlug(DEMO_CAR_ID);
 
   // Si el auto deja de estar disponible desde el CMS, la demo no revela un
   // informe asociado a una publicación retirada.

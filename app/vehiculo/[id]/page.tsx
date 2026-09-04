@@ -57,7 +57,9 @@ export default async function VehicleDetailPage({
   params: Promise<RouteParams>;
 }) {
   const { id } = await params;
-  const car = await getVehicle(id);
+  // Una caída puntual del CMS no debe abortar el build completo de Vercel.
+  // Si tampoco existe respaldo local, esta ficha queda temporalmente en 404.
+  const car = await getVehicle(id).catch(() => undefined);
   if (!car) notFound();
 
   const jsonLd = {

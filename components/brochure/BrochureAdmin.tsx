@@ -6,7 +6,7 @@ import { EyeIcon, LockIcon, ArrowLeftIcon } from "../icons";
 export type AdminRow = {
   carId: string;
   name: string;
-  estado: string;
+  modulos: number;
   /** URL privada completa (con token), armada en el servidor. */
   url: string;
 };
@@ -53,7 +53,7 @@ export default function BrochureAdmin({ rows }: Props) {
                   {row.name}
                 </p>
                 <p className="text-xs text-ink-400 font-light mt-0.5">
-                  Estado: <span className="text-ink-200">{row.estado}</span>
+                  <span className="text-ink-200">{row.modulos}</span> de 9 módulos informados
                 </p>
                 <p className="text-[11px] text-ink-500 font-mono mt-2 truncate">
                   /informe/{row.carId}
