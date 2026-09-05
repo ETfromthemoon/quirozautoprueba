@@ -8,6 +8,7 @@
     "start": "next start",
     "lint": "tsc --noEmit",
     "typecheck": "tsc --noEmit",
+    "test:availability": "node --import tsx scripts/vehicle-availability.test.ts",
     "snapshot:cms": "node --conditions=react-server --import tsx scripts/snapshot-cms.ts"
   },
   "dependencies": {

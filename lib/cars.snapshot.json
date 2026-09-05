@@ -1,155 +1,5 @@
 [
   {
-    "id": "audi-q3-sportback-35-tfsi-1-4-aut-2022",
-    "brand": "AUDI",
-    "model": "Q3 SPORTBACK 35 TFSI",
-    "variant": "1.4 AUT",
-    "year": 2022,
-    "price": "$27.180.000",
-    "priceNumeric": 27180000,
-    "km": "25.000",
-    "fuel": "Bencina",
-    "transmission": "Automático",
-    "bodyType": "SUV",
-    "image": "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/05/1-7.jpeg",
-    "tagline": "SUV",
-    "description": "Espectacular Audi único dueño que cuenta con un motor de 1.4 litros, con una potencia máxima de 110 kw y una transmisión automática de 6 velocidades. además, tiene un consumo de combustible eficiente; El Audi q3 sportback es un vehículo seguro y confortable, con una capacidad de carga en su maleta de 410 litros. Si estas buscando un vehículo de alta calidad y con un buen desempeño, este Audi q3 Sportback es una excelente opción, no dudes en contactarnos para obtener mas información y programar una prueba de manejo.\nSin partes, sin multas, sin prenda, no es de remate, no es de aseguradora. Financiamiento Instantáneo con 40% Pie:\nCarnet de identidad.\nComprobante de Domicilio,\nBuen comportamiento Financiamiento.\n\nConvencional: Desde 20%\nCarnet de identidad\nComprobante de Domicilio\n3 Últimas Liquidaciones\n12 Últimas cotizaciones AFP (Certificado)\n\nAceptamos tarjeta de crédito y débito",
-    "cmsCategories": [
-      "SUV",
-      "Único dueño"
-    ],
-    "engine": {
-      "displacement": "1.400 cc"
-    },
-    "documentation": {
-      "color": "Gris",
-      "ownerType": "Único dueño"
-    },
-    "gallery": [
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/05/1-7.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/05/2-7.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/05/3-7.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/05/4-7.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/05/5-7.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/05/6-7.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/05/7-7.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/05/8-7.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/05/9-7.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/05/10-7.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/05/11-7.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/05/12-6.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/05/13-7.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/05/14-6.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/05/15-6.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/05/16-4.jpeg"
-    ]
-  },
-  {
-    "id": "bmw-330-i-cabrio-3-0-aut-2008",
-    "brand": "BMW",
-    "model": "330 I CABRIO",
-    "variant": "3.0 AUT",
-    "year": 2008,
-    "price": "$13.980.000",
-    "priceNumeric": 13980000,
-    "km": "169.000",
-    "fuel": "Bencina",
-    "transmission": "Automático",
-    "bodyType": "Cabrio",
-    "image": "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/07/1-1.jpeg",
-    "tagline": "Cabrio",
-    "description": "Sin partes, sin multas, sin prenda, no es de remate, no es de aseguradora.\n\nAceptamos tarjeta de crédito y débito\nRecibimos autos en parte de pago",
-    "cmsCategories": [
-      "Cabrio",
-      "Coupe"
-    ],
-    "engine": {
-      "displacement": "3,000 cc"
-    },
-    "documentation": {
-      "color": "Plata"
-    },
-    "gallery": [
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/07/1-1.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/07/1.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/07/2.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/07/3.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/07/4.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/07/5.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/07/6.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/07/7.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/07/8.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/07/9.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/07/10.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/07/11.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/07/12.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/07/13.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/07/14.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/07/15.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/07/16.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/07/17.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/07/18.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/07/19.jpeg"
-    ]
-  },
-  {
-    "id": "bmw-420-grand-coupe-m-designe-2-0-at-2024",
-    "brand": "BMW",
-    "model": "420 GRAND COUPE M DESIGNE",
-    "variant": "2.0 AT",
-    "year": 2024,
-    "price": "$38.980.000",
-    "priceNumeric": 38980000,
-    "km": "20.600",
-    "fuel": "Bencina",
-    "transmission": "Automático",
-    "bodyType": "Hatchback",
-    "image": "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/04/1-4.jpeg",
-    "videoUrl": "https://www.youtube.com/embed/_xdH9k3ukMI",
-    "tagline": "Hatchback",
-    "description": "Unica dueña, garantía de fábrica, servicios gratis hasta los 60 mil km o 5 años, versión Look M , sunrrof, Hud o proyección velocímetro frontal, tapiz cuero personalizado.\nEste vehículo cuenta con un motor de 2.0 litros, 4 cilindros y una transmisión automática de 8 velocidades, con modos de conducción y padle shift. Su interior es de color café y su exterior es de color negro. Si estás buscando un vehículo con un buen equilibrio entre lujo deportivo, potencia y eficiencia, este podría ser el auto perfecto para ti.\nSin partes, sin multas, sin prenda, no es de remate, no es de aseguradora.\nFinanciamiento Instantáneo con 40% Pie:\nCarnet de identidad.\nComprobante de Domicilio,\nBuen comportamiento Financiamiento.\n\nConvencional: Desde 20%\nCarnet de identidad\nComprobante de Domicilio\n3 Últimas Liquidaciones\n12 Últimas cotizaciones AFP (Certificado)\n\nAceptamos tarjeta de crédito y débito.",
-    "cmsCategories": [
-      "Garantía de Fábrica",
-      "Hatchback",
-      "Look M",
-      "Servicios Marca",
-      "Sunroof",
-      "Única dueña"
-    ],
-    "engine": {
-      "displacement": "2.000 cc"
-    },
-    "documentation": {
-      "color": "Negro",
-      "ownerType": "Única dueña"
-    },
-    "gallery": [
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/04/1-4.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/04/2-4.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/04/3-4.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/04/4-4.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/04/5-4.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/04/6-4.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/04/7-4.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/04/8-4.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/04/9-4.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/04/10-4.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/04/11-4.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/04/12-4.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/04/13-4.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/04/14-4.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/04/15-4.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/04/16-4.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/04/17-4.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/04/18-4.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/04/19-3.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/04/20-2.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/04/21.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/04/22.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/04/23.jpeg"
-    ]
-  },
-  {
     "id": "bmw-x4-d-2-0-aut-2021",
     "brand": "BMW",
     "model": "X4 D",
@@ -163,6 +13,9 @@
     "bodyType": "SUV",
     "image": "https://admin.quirozautomotriz.cl/wp-content/uploads/2025/10/1-24.jpeg",
     "videoUrl": "https://www.youtube.com/embed/ee-nmtG5W-E",
+    "videoUrls": [
+      "https://www.youtube.com/embed/ee-nmtG5W-E"
+    ],
     "tagline": "SUV",
     "description": "Precioso y muy bien cuidado Bmw X4 diesel año 2021\n\nHistorial y estado:\n- Año: 2021\n- Kilometraje: 115.000 km reales\n- Dueños: 2° dueño\n- Motor: Diesel 2.0 Turbo xDrive - 4x4\n- Caja: Automática de 8 velocidades\n\nMantenciones:\nTodos los servicios realizados en concesionario oficial BMW hasta los 90.000 km.\nLos últimos servicios con mecánico de WBM.\n\nExtras:\n- Neumáticos nuevos marca Dunlop\n- Copia de llaves\n- Interior y exterior en excelente estado. Nada que hacerle.\n- Auto de una amiga, por eso su excelente cuidado.\n\nEs un vehículo serio, para quien busca un SUV premium con historial claro y transparente.\n\nFormas de pago:\n1. Contado\n2. Financiamiento\n3. Tarjeta de crédito\n4. Recibo auto en parte de pago",
     "cmsCategories": [
@@ -241,58 +94,53 @@
     ]
   },
   {
-    "id": "chevrolet-groove-premier-1-5-mt-2025",
+    "id": "chevrolet-montana-sport-1-8-mt-2012",
     "brand": "CHEVROLET",
-    "model": "GROOVE PREMIER",
-    "variant": "1.5 MT",
-    "year": 2025,
-    "price": "$10.680.000",
-    "priceNumeric": 10680000,
-    "km": "42.000",
+    "model": "MONTANA",
+    "variant": "SPORT 1.8 MT",
+    "year": 2012,
+    "price": "$5.680.000",
+    "priceNumeric": 5680000,
+    "km": "151.000",
     "fuel": "Bencina",
     "transmission": "Manual",
-    "bodyType": "SUV",
-    "image": "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/08/1-1.jpeg",
-    "videoUrl": "https://www.youtube.com/embed/DlMTqTBiSIQ",
-    "tagline": "SUV",
-    "description": "¡Llegó la SUV más equipada y tecnológica!\n\nDetalles:\n- Año: 2025\n- Dueño: Única dueña\n- Estado: Impecable, impecable, impecable. Muy bien cuidada\n- Documentación: Al día, con copia de llave\n\nEquipamiento Premier:\n1. Techo Panorámico - Para disfrutar cada viaje\n2. Llantas Bicolor aro 18\" diseño exclusivo Premier\n3. Frenos Disco en las 4 ruedas + ABS\n4. Partida por botón / Encendido electrónico\n5. Manos Libres + Velocidad Crucero\n6. Apple CarPlay - Conecta tu celular al tiro\n7. Cámara de Retroceso + Sensores de Estacionamiento\n8. Neblineros\n9. Airbags Frontales y Laterales\n\nSUV familiar, económica y con toda la seguridad y tecnología.\nNo aceptes menos, esta Groove Premier está espectacular.\n\nLo quieres?\nContáctanos a los siguientes número:\nMarco\nDaniel\nCONCÓN - VIÑA DEL MAR - VALPARAISO\nSin partes, sin multas, sin prenda, no es de remate, no es de aseguradora.\n\nFinanciamiento tarjeta de crédito y débito\nRecibimos autos en parte de pago.",
+    "bodyType": "Vehículo",
+    "image": "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/08/1-8.jpeg",
+    "videoUrl": "https://www.youtube.com/embed/APBrGw_mivU",
+    "videoUrls": [
+      "https://www.youtube.com/embed/APBrGw_mivU"
+    ],
+    "tagline": "Disponible ahora",
+    "description": "Pick Up deportiva ideal para uso diario y trabajo.\n\n- Doble Airbag + Frenos ABS\n- Llantas de aleación 15\"\n- Neblineros + faldones deportivos + alerón\n- Alzavidrios eléctricos, cierre centralizado a distancia, espejos eléctricos.\n- Aire acondicionado.\nSin partes, sin multas, sin prenda, no es de remate, no es de aseguradora. Financiamiento Instantáneo con 40% Pie:\nCarnet de identidad.\nComprobante de Domicilio,\nBuen comportamiento Financiamiento.\n\nConvencional: Desde 20%\nCarnet de identidad\nComprobante de Domicilio\n3 Últimas Liquidaciones\n12 Últimas cotizaciones AFP (Certificado)\n\nAceptamos tarjeta de crédito y débito\nRecibimos autos en parte de pago.",
     "cmsCategories": [
-      "SUV",
-      "Única dueña"
+      "Pick up"
     ],
     "engine": {
-      "displacement": "1.500 cc"
+      "displacement": "1.800 cc"
     },
     "documentation": {
-      "color": "Blanco",
-      "ownerType": "Única dueña"
+      "color": "Blanco"
     },
     "gallery": [
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/08/1-1.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/08/2-1.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/08/3-1.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/08/4-1.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/08/5-1.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/08/6-1.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/08/7-1.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/08/8-1.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/08/9-1.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/08/10-1.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/08/11-1.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/08/12-1.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/08/13-1.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/08/14-1.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/08/15-1.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/08/16-1.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/08/17-1.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/08/18-1.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/08/19.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/08/20.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/08/21.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/08/22.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/08/23.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/08/24.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/08/25.jpeg"
+      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/08/1-8.jpeg",
+      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/08/2-8.jpeg",
+      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/08/3-8.jpeg",
+      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/08/4-8.jpeg",
+      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/08/5-8.jpeg",
+      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/08/6-8.jpeg",
+      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/08/7-8.jpeg",
+      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/08/8-8.jpeg",
+      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/08/9-7.jpeg",
+      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/08/10-7.jpeg",
+      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/08/11-7.jpeg",
+      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/08/12-7.jpeg",
+      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/08/13-7.jpeg",
+      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/08/14-7.jpeg",
+      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/08/15-7.jpeg",
+      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/08/16-7.jpeg",
+      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/08/17-7.jpeg",
+      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/08/18-7.jpeg",
+      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/08/19-6.jpeg"
     ]
   },
   {
@@ -348,8 +196,8 @@
     "model": "SILVERADO HIGHT COUNTRY",
     "variant": "3.0 4X4",
     "year": 2026,
-    "price": "$60.980.000",
-    "priceNumeric": 60980000,
+    "price": "$57.980.000",
+    "priceNumeric": 57980000,
     "km": "15.800",
     "fuel": "Diesel",
     "transmission": "Automático",
@@ -357,6 +205,9 @@
     "bodyType": "4x4",
     "image": "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/07/1-13.jpeg",
     "videoUrl": "https://www.youtube.com/embed/LnhyicB8EFY",
+    "videoUrls": [
+      "https://www.youtube.com/embed/LnhyicB8EFY"
+    ],
     "tagline": "4x4",
     "description": "Hermosa , garantía de concesionario oficial.\n- Año: 2026\n- Kilometraje: 15.800 km\n- Único dueño\n- Condición: Como nueva. Impecable por dentro y por fuera\n- Versión: HIGH COUNTRY - Top de línea\n\nEQUIPAMIENTO :\nMotor\n- Motor 3.0L Duramax Turbo Diésel\n- Transmisión automática de 10 velocidades\n- Tracción 4x4\n\nExterior\n- Llantas aro 22\" exclusivas High Country\n- Parrilla cromada High Country\n- Faros LED + Neblineros LED\n- Estribos eléctricos retráctiles\n- Tapa de pickup con apertura eléctrica\n- Sunroof.\n\nInterior Premium\n- Tapicería de cuero perforado\n- Asientos delanteros calefaccionados y ventilados con memoria\n- Asientos traseros calefaccionados\n- Volante calefaccionado forrado en cuero\n- Inserciones de madera de poro abierto y aluminio real\n- Iluminación ambiental\n\nTecnología y Seguridad\n- Pantalla táctil 13.4\"\n- Sistema de audio Bose Premium\n- Cámara 360° HD\n- Control crucero adaptativo\n- Alerta de colisión frontal + Frenado automático\n- Asistente de mantención de carril\n- Cargador inalámbrico para celular\n- Apple CarPlay y Android Auto inalámbrico\n\nCamioneta única dueña, con solo 15.800 km reales. Está como sacada del concesionario.\nVersión más equipada de la Silverado. Potencia diésel + lujo + tecnología.\nFacturable, descuenta iva.\nSin partes, sin multas, sin prenda, no es de remate, no es de aseguradora. Financiamiento Instantáneo con 40% Pie:\nCarnet de identidad.\nComprobante de Domicilio,\nBuen comportamiento Financiamiento.\n\nConvencional: Desde 20%\nCarnet de identidad\nComprobante de Domicilio\n3 Últimas Liquidaciones\n12 Últimas cotizaciones AFP (Certificado)\n\nAceptamos tarjeta de crédito y débito\nRecibimos autos en parte de pago",
     "cmsCategories": [
@@ -403,15 +254,15 @@
     "model": "C3",
     "variant": "1.2 PURETECH FEEL MT",
     "year": 2023,
-    "price": "$7.890.000",
-    "priceNumeric": 7890000,
-    "km": "31.000",
+    "price": "$7.980.000",
+    "priceNumeric": 7980000,
+    "km": "32.000",
     "fuel": "Bencina",
     "transmission": "Manual",
     "bodyType": "Hatchback",
     "image": "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/03/1-5.jpeg",
     "tagline": "Hatchback",
-    "description": "¡Oportunidad única! Citroën C3 2023 en excelente estado, con solo 31.000 km recorridos. Este hatchback compacto combina estilo y eficiencia con su motor 1.2 Puretech de 82 HP. Equipado con transmisión manual de 5 velocidades, ofrece un consumo mixto de 18.7 km/l, ideal para la ciudad y carretera. Su interior negro contrasta elegantemente con el exterior gris. Cuenta con ABS, control de estabilidad y tracción delantera para mayor seguridad. Espacioso para 5 pasajeros, con un maletero de 300 litros. No pierdas esta oportunidad de llevarte un C3 casi nuevo por solo $7.680.000. ¡Contáctanos hoy mismo!\nSin partes, sin multas, sin prenda, no es de remate, no es de aseguradora. Financiamiento Instantáneo con 40% Pie:\nCarnet de identidad.\nComprobante de Domicilio,\nBuen comportamiento Financiamiento.\n\nConvencional: Desde 20%\nCarnet de identidad\nComprobante de Domicilio\n3 Últimas Liquidaciones\n12 Últimas cotizaciones AFP (Certificado)\n\nAceptamos tarjeta de crédito y débito\nRecibimos autos en parte de pago",
+    "description": "¡Oportunidad única! Citroën C3 2023 en excelente estado, con solo 32.000 km recorridos. Este hatchback compacto combina estilo y eficiencia con su motor 1.2 Puretech de 82 HP. Equipado con transmisión manual de 5 velocidades, ofrece un consumo mixto de 18.7 km/l, ideal para la ciudad y carretera. Su interior negro contrasta elegantemente con el exterior gris. Cuenta con ABS, control de estabilidad y tracción delantera para mayor seguridad. Espacioso para 5 pasajeros, con un maletero de 300 litros. ¡Contáctanos hoy mismo!\nSin partes, sin multas, sin prenda, no es de remate, no es de aseguradora. Financiamiento Instantáneo con 40% Pie:\nCarnet de identidad.\nComprobante de Domicilio,\nBuen comportamiento Financiamiento.\n\nConvencional: Desde 20%\nCarnet de identidad\nComprobante de Domicilio\n3 Últimas Liquidaciones\n12 Últimas cotizaciones AFP (Certificado)\n\nAceptamos tarjeta de crédito y débito\nRecibimos autos en parte de pago",
     "cmsCategories": [
       "Hatchback",
       "Único dueño"
@@ -449,12 +300,15 @@
     "year": 2024,
     "price": "$23.590.000",
     "priceNumeric": 23590000,
-    "km": "55.000",
+    "km": "60.000",
     "fuel": "Bencina",
     "transmission": "Automático",
     "bodyType": "Hatchback",
     "image": "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/06/1-6.jpeg",
     "videoUrl": "https://www.youtube.com/embed/0J2tO76liJs",
+    "videoUrls": [
+      "https://www.youtube.com/embed/0J2tO76liJs"
+    ],
     "tagline": "Hatchback",
     "description": "Flamante estado general, versión cuero con butaca eléctrica.\nFácil y Seguro.\nLo quieres?\nContáctanos a los siguientes número:\nMarco +569 5906 5441\nDaniel +569 9343 1571\nCONCÓN - VIÑA DEL MAR - VALPARAISO\nSin partes, sin multas, sin prenda, no es de remate, no es de aseguradora. Financiamiento Instantáneo con 40% Pie:\nCarnet de identidad.\nComprobante de Domicilio,\nBuen comportamiento Financiamiento.\n\nConvencional: Desde 20%\nCarnet de identidad\nComprobante de Domicilio\n3 Últimas Liquidaciones\n12 Últimas cotizaciones AFP (Certificado)\n\nAceptamos tarjeta de crédito y débito\nRecibimos autos en parte de pago.",
     "cmsCategories": [
@@ -505,7 +359,7 @@
     "fuel": "Bencina",
     "transmission": "Automático",
     "bodyType": "SUV",
-    "image": "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/07/logo-negro-fondo-transparente-3-scaled.png",
+    "image": "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/07/logo-negro-fondo-transparente-3-2048x2048.png",
     "tagline": "SUV",
     "description": "Sin partes, sin multas, sin prenda, no es de remate, no es de aseguradora",
     "cmsCategories": [
@@ -520,7 +374,122 @@
       "ownerType": "2 Dueños"
     },
     "gallery": [
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/07/logo-negro-fondo-transparente-3-scaled.png"
+      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/07/logo-negro-fondo-transparente-3-2048x2048.png"
+    ]
+  },
+  {
+    "id": "ford-edge-2-0-aut-2019",
+    "brand": "FORD",
+    "model": "EDGE",
+    "variant": "2.0 AUT",
+    "year": 2019,
+    "price": "$14.980.000",
+    "priceNumeric": 14980000,
+    "km": "65.000",
+    "fuel": "Bencina",
+    "transmission": "Automático",
+    "bodyType": "SUV",
+    "image": "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/07/1-15.jpeg",
+    "videoUrl": "https://www.youtube.com/embed/RYEf6N_3eIA",
+    "videoUrls": [
+      "https://www.youtube.com/embed/RYEf6N_3eIA"
+    ],
+    "tagline": "SUV",
+    "description": "¡Llegó lo mejor de Ford! Edge SEL 2019, única dueña, con solo 65.000 km reales.\n\nMotor 2.0 EcoBoost Turbo de 245 HP, automático de 8 velocidades con SelectShift, la versión más equilibrada: potencia de V6 con consumo de 4 cilindros. Tracción delantera muy eficiente.\n\nVersión SEL Full:\n- Interior en cuero negro perforado con calefacción en asientos delanteros\n- Pantalla SYNC 3 de 8\" con Apple CarPlay / Android Auto\n- Cámara de retroceso\n- Climatizador bi-zona, velocidad crucero, sistema de audio premium, 7 airbags.\nSin partes, sin multas, sin prenda, no es de remate, no es de aseguradora. Financiamiento Instantáneo con 40% Pie:\nCarnet de identidad.\nComprobante de Domicilio,\nBuen comportamiento Financiamiento.\n\nConvencional: Desde 20%\nCarnet de identidad\nComprobante de Domicilio\n3 Últimas Liquidaciones\n12 Últimas cotizaciones AFP (Certificado)\n\nAceptamos tarjeta de crédito y débito\nRecibimos autos en parte de pago",
+    "cmsCategories": [
+      "SUV",
+      "Única dueña"
+    ],
+    "engine": {
+      "displacement": "2.000 cc"
+    },
+    "documentation": {
+      "color": "Blanco Metal",
+      "ownerType": "Única dueña"
+    },
+    "gallery": [
+      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/07/1-15.jpeg",
+      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/07/2-14.jpeg",
+      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/07/3-14.jpeg",
+      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/07/4-14.jpeg",
+      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/07/5-14.jpeg",
+      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/07/6-14.jpeg",
+      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/07/7-14.jpeg",
+      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/07/8-14.jpeg",
+      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/07/9-14.jpeg",
+      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/07/10-14.jpeg",
+      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/07/11-14.jpeg",
+      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/07/12-14.jpeg",
+      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/07/13-14.jpeg",
+      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/07/14-14.jpeg",
+      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/07/15-14.jpeg",
+      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/07/16-14.jpeg",
+      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/07/17-14.jpeg",
+      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/07/18-13.jpeg",
+      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/07/19-12.jpeg",
+      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/07/20-11.jpeg",
+      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/07/21-6.jpeg",
+      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/07/22-3.jpeg",
+      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/07/23-2.jpeg",
+      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/07/24.jpeg",
+      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/07/25.jpeg"
+    ]
+  },
+  {
+    "id": "ford-edge-sel-awd-2-0-aut-2023",
+    "brand": "FORD",
+    "model": "EDGE SEL",
+    "variant": "AWD 2.0 AUT",
+    "year": 2023,
+    "price": "$23.980.000",
+    "priceNumeric": 23980000,
+    "km": "33.000",
+    "fuel": "Bencina",
+    "transmission": "Automático",
+    "drivetrain": "AWD",
+    "bodyType": "SUV",
+    "image": "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/08/1-7.jpeg",
+    "videoUrl": "https://www.youtube.com/embed/8SxhzuXlydE",
+    "videoUrls": [
+      "https://www.youtube.com/embed/8SxhzuXlydE"
+    ],
+    "tagline": "SUV",
+    "description": "SUV AMERICANA PREMIUM CASI NUEVA\n- Único en su versión: Motor 2.0 Turbo + Tracción Integral AWD. Potencia + seguridad en cualquier terreno\n- 33.000 KM REALES con *todas las mantenciones en concesionario oficial Ford.\n- Full equipo: Techo panorámico, asientos cuero, Sync 4 con pantalla grande, climatizador bi-zona, ADAS. Comodidad nivel premium\n\nSUV grande, segura y súper equipada. Sin detalles, impecable.\nDocumentos al día. ¡Agenda tu prueba y compruébala!\nSin partes, sin multas, sin prenda, no es de remate, no es de aseguradora. Financiamiento Instantáneo con 40% Pie:\nCarnet de identidad.\nComprobante de Domicilio,\nBuen comportamiento Financiamiento.\n\nConvencional: Desde 20%\nCarnet de identidad\nComprobante de Domicilio\n3 Últimas Liquidaciones\n12 Últimas cotizaciones AFP (Certificado)\n\nAceptamos tarjeta de crédito y débito\nRecibimos autos en parte de pago.",
+    "cmsCategories": [
+      "Servicios Concesionario",
+      "Sunroof Panorámico",
+      "SUV",
+      "Única dueña"
+    ],
+    "engine": {
+      "displacement": "2.000 cc"
+    },
+    "documentation": {
+      "color": "Negro",
+      "ownerType": "Única dueña"
+    },
+    "gallery": [
+      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/08/1-7.jpeg",
+      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/08/2-7.jpeg",
+      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/08/3-7.jpeg",
+      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/08/4-7.jpeg",
+      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/08/5-7.jpeg",
+      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/08/6-7.jpeg",
+      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/08/7-7.jpeg",
+      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/08/8-7.jpeg",
+      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/08/9-6.jpeg",
+      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/08/10-6.jpeg",
+      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/08/11-6.jpeg",
+      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/08/12-6.jpeg",
+      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/08/13-6.jpeg",
+      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/08/14-6.jpeg",
+      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/08/15-6.jpeg",
+      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/08/16-6.jpeg",
+      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/08/17-6.jpeg",
+      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/08/18-6.jpeg",
+      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/08/19-5.jpeg",
+      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/08/20-5.jpeg",
+      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/08/21-4.jpeg"
     ]
   },
   {
@@ -537,6 +506,9 @@
     "bodyType": "SUV",
     "image": "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/04/1-3.jpeg",
     "videoUrl": "https://www.youtube.com/embed/EBM_Fto4n3Y",
+    "videoUrls": [
+      "https://www.youtube.com/embed/EBM_Fto4n3Y"
+    ],
     "tagline": "SUV",
     "description": "Este Gran Suv compacto, única dueña, encontraras seguridad, comfort y versatilidad; una transmisión automática, un motor de 1.8 litros y una capacidad para 5 personas. adicionalmente, tiene un equipamiento diferencial, como frenos de disco, control de estabilidad y sistema de servofreno de emergencia. si estás buscando un vehículo cómodo, seguro y con un buen desempeño, este hr-v es una excelente opción. no dudes en contactarnos para obtener más información y programar una prueba de manejo.\nSin partes, sin multas, sin prenda, no es de remate, no es de aseguradora. Financiamiento Instantáneo con 40% Pie:\nCarnet de identidad.\nComprobante de Domicilio,\nBuen comportamiento Financiamiento.\n\nConvencional: Desde 20%\nCarnet de identidad\nComprobante de Domicilio\n3 Últimas Liquidaciones\n12 Últimas cotizaciones AFP (Certificado)\n\nAceptamos tarjeta de crédito y débito\nRecibimos autos en parte de pago",
     "cmsCategories": [
@@ -573,96 +545,6 @@
     ]
   },
   {
-    "id": "hyundai-accent-1-4-hb-rb-mt-2014",
-    "brand": "HYUNDAI",
-    "model": "ACCENT",
-    "variant": "1.4 HB RB MT",
-    "year": 2014,
-    "price": "$5.580.000",
-    "priceNumeric": 5580000,
-    "km": "120.000",
-    "fuel": "Bencina",
-    "transmission": "Manual",
-    "bodyType": "Hatchback",
-    "image": "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/06/1-4.jpeg",
-    "videoUrl": "https://www.youtube.com/embed/5Vz3pxbndnk",
-    "tagline": "Hatchback",
-    "description": "Sin partes, sin multas, sin prenda, no es de remate, no es de aseguradora. Financiamiento Instantáneo con 40% Pie:\nCarnet de identidad.\nComprobante de Domicilio,\nBuen comportamiento Financiamiento.\n\nConvencional: Desde 20%\nCarnet de identidad\nComprobante de Domicilio\n3 Últimas Liquidaciones\n12 Últimas cotizaciones AFP (Certificado)\n\nAceptamos tarjeta de crédito y débito\nRecibimos autos en parte de pago.",
-    "cmsCategories": [
-      "Hatchback"
-    ],
-    "engine": {
-      "displacement": "1.400 cc"
-    },
-    "documentation": {
-      "color": "Rojo"
-    },
-    "gallery": [
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/06/1-4.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/06/2-4.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/06/3-4.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/06/4-4.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/06/5-4.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/06/6-4.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/06/7-4.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/06/8-3.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/06/9-3.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/06/10-3.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/06/11-2.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/06/12-2.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/06/13-2.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/06/14-2.jpeg"
-    ]
-  },
-  {
-    "id": "hyundai-accent-gl-1-4-mt-2015",
-    "brand": "HYUNDAI",
-    "model": "ACCENT GL",
-    "variant": "1.4 MT",
-    "year": 2015,
-    "price": "$6.780.000",
-    "priceNumeric": 6780000,
-    "km": "126.000",
-    "fuel": "Bencina",
-    "transmission": "Manual (6 V)",
-    "bodyType": "Sedan",
-    "image": "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/07/1-9.jpeg",
-    "videoUrl": "https://www.youtube.com/embed/N0ATBlcDIV4",
-    "tagline": "Sedan",
-    "description": "Lindo y muy bien cuidado este gran auto Hyundai Accent versión GL con aire acondicionado.\nLo quieres?\nContáctanos a los siguientes número:\nMarco +569 5906 5441\nDaniel +569 9343 1571\nCONCÓN - VIÑA DEL MAR - VALPARAISO\nSin partes, sin multas, sin prenda, no es de remate, no es de aseguradora.\n\nFinanciamiento tarjeta de crédito y débito\nRecibimos autos en parte de pago.",
-    "cmsCategories": [
-      "Sedan"
-    ],
-    "engine": {
-      "displacement": "1.400 cc"
-    },
-    "documentation": {
-      "color": "Blanco"
-    },
-    "gallery": [
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/07/1-9.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/07/2-8.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/07/3-8.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/07/4-8.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/07/5-8.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/07/6-8.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/07/7-8.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/07/8-8.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/07/9-8.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/07/10-8.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/07/11-8.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/07/12-8.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/07/13-8.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/07/14-8.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/07/15-8.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/07/16-8.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/07/17-8.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/07/18-7.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/07/19-7.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/07/20-6.jpeg"
-    ]
-  },
-  {
     "id": "hyundai-creta-1-5-full-mt-2022",
     "brand": "HYUNDAI",
     "model": "CRETA",
@@ -676,6 +558,9 @@
     "bodyType": "SUV",
     "image": "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/03/1-3.jpeg",
     "videoUrl": "https://www.youtube.com/embed/d5B-wtor_Kk",
+    "videoUrls": [
+      "https://www.youtube.com/embed/d5B-wtor_Kk"
+    ],
     "tagline": "SUV",
     "description": "Descubre el Hyundai Creta 2022, un SUV versátil y eficiente que te espera por solo . Con 82.000 km recorridos, este vehículo viene con un gran equipamiento y mantiene su excelente rendimiento y estilo. Su exterior gris combina perfectamente con el interior negro, ofreciendo una estética moderna y elegante. Equipado con un motor de 1.5 litros y 113 HP, el Creta brinda un equilibrio perfecto entre potencia y economía, alcanzando un consumo mixto de 15.2 km/l. Su transmisión manual de 6 velocidades te da control total sobre la conducción. Con características como ABS, control de estabilidad y tracción delantera, este SUV ofrece seguridad y confiabilidad en cada viaje. Además, su amplio maletero de 431 litros, hacen del Creta una opción práctica y confiable para tu día a día.\nSin partes, sin multas, sin prenda, no es de remate, no es de aseguradora. Financiamiento Instantáneo con 40% Pie:\nCarnet de identidad.\nComprobante de Domicilio,\nBuen comportamiento Financiamiento.\n\nConvencional: Desde 20%\nCarnet de identidad\nComprobante de Domicilio\n3 Últimas Liquidaciones\n12 Últimas cotizaciones AFP (Certificado)\n\nAceptamos tarjeta de crédito y débito\nRecibimos autos en parte de pago",
     "cmsCategories": [
@@ -710,154 +595,122 @@
     ]
   },
   {
-    "id": "hyundai-creta-1-5-aut-2023",
-    "brand": "HYUNDAI",
-    "model": "CRETA",
-    "variant": "1.5 AUT",
-    "year": 2023,
-    "price": "$14.180.000",
-    "priceNumeric": 14180000,
-    "km": "55.000",
-    "fuel": "Bencina",
-    "transmission": "Automático",
-    "bodyType": "SUV",
-    "image": "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/06/1-10.jpeg",
-    "videoUrl": "https://www.youtube.com/embed/5HBoawR22HM",
-    "tagline": "SUV",
-    "description": "Impecable estado general, full equipo, poco uso, transmisión automática, airbag laterales y frontales, climatizador , velocidad crucero, cámara, sensores, etc.\nSin partes, sin multas, sin prenda, no es de remate, no es de aseguradora. Financiamiento Instantáneo con 40% Pie:\nCarnet de identidad.\nComprobante de Domicilio,\nBuen comportamiento Financiamiento.\n\nConvencional: Desde 20%\nCarnet de identidad\nComprobante de Domicilio\n3 Últimas Liquidaciones\n12 Últimas cotizaciones AFP (Certificado)\n\nAceptamos tarjeta de crédito y débito\nRecibimos autos en parte de pago, seguros.",
-    "cmsCategories": [
-      "SUV"
-    ],
-    "engine": {
-      "displacement": "1.500 cc"
-    },
-    "documentation": {
-      "color": "Gris"
-    },
-    "gallery": [
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/06/1-10.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/06/2-10.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/06/3-10.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/06/4-10.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/06/5-10.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/06/6-10.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/06/7-10.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/06/8-9.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/06/9-9.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/06/10-9.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/06/11-8.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/06/12-8.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/06/13-8.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/06/14-8.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/06/15-7.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/06/16-7.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/06/17-6.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/06/18-6.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/06/19-5.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/06/20-3.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/06/21-3.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/06/22-2.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/06/23-2.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/06/24-2.jpeg"
-    ]
-  },
-  {
-    "id": "jeep-all-new-compass-2-4-aut-2020",
-    "brand": "JEEP",
-    "model": "ALL NEW COMPASS",
-    "variant": "2.4 AUT",
-    "year": 2020,
-    "price": "$12.180.000",
-    "priceNumeric": 12180000,
-    "km": "68.000",
-    "fuel": "Bencina",
-    "transmission": "Automático",
-    "bodyType": "SUV",
-    "image": "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/06/1-8.jpeg",
-    "videoUrl": "https://www.youtube.com/embed/G3A-lx-oSdQ",
-    "tagline": "SUV",
-    "description": "Impecable estado, versión automático, Suv amplio, seguro y confortable.\nSin partes, sin multas, sin prenda, no es de remate, no es de aseguradora. Financiamiento Instantáneo con 40% Pie:\nCarnet de identidad.\nComprobante de Domicilio,\nBuen comportamiento Financiamiento.\n\nConvencional: Desde 20%\nCarnet de identidad\nComprobante de Domicilio\n3 Últimas Liquidaciones\n12 Últimas cotizaciones AFP (Certificado)\n\nAceptamos tarjeta de crédito y débito\nRecibimos autos en parte de pago",
-    "cmsCategories": [
-      "Mantenciones Realizadas",
-      "SUV"
-    ],
-    "engine": {
-      "displacement": "2.400 cc"
-    },
-    "documentation": {
-      "color": "Blanco"
-    },
-    "gallery": [
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/06/1-8.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/06/2-8.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/06/3-8.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/06/4-8.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/06/5-8.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/06/6-8.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/06/7-8.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/06/8-7.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/06/9-7.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/06/10-7.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/06/11-6.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/06/12-6.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/06/13-6.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/06/14-6.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/06/15-5.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/06/16-5.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/06/17-4.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/06/18-4.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/06/21-1.jpeg"
-    ]
-  },
-  {
-    "id": "mazda-cx-5-2-5-gt-4x4-aut-2019",
+    "id": "mazda-cx-30-gtx-awd-2-5-aut-2023",
     "brand": "MAZDA",
-    "model": "CX-5",
-    "variant": "2.5 GT 4X4 AUT",
-    "year": 2019,
-    "price": "$17.980.000",
-    "priceNumeric": 17980000,
-    "km": "131.000",
+    "model": "CX-30 GTX",
+    "variant": "AWD 2.5 AUT",
+    "year": 2023,
+    "price": "$19.580.000",
+    "priceNumeric": 19580000,
+    "km": "79.000",
     "fuel": "Bencina",
     "transmission": "Automático",
-    "drivetrain": "4x4",
-    "bodyType": "4x4",
-    "image": "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/07/1-6.jpeg",
-    "videoUrl": "https://www.youtube.com/embed/Ih_shqUwi30",
-    "tagline": "4x4",
-    "description": "Impecable estado general, versión GT 4x4 Top de linea, servicios concesionario oficial hasta los 110.000 Km.\nSin partes, sin multas, sin prenda, no es de remate, no es de aseguradora. Financiamiento Instantáneo con 40% Pie:\nCarnet de identidad.\nComprobante de Domicilio,\nBuen comportamiento Financiamiento.\n\nConvencional: Desde 20%\nCarnet de identidad\nComprobante de Domicilio\n3 Últimas Liquidaciones\n12 Últimas cotizaciones AFP (Certificado)\n\nAceptamos tarjeta de crédito y débito\nRecibimos autos en parte de pago",
+    "drivetrain": "AWD",
+    "bodyType": "SUV",
+    "image": "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/08/1-9.jpeg",
+    "videoUrl": "https://www.youtube.com/embed/6dWHmZKd9DI",
+    "videoUrls": [
+      "https://www.youtube.com/embed/6dWHmZKd9DI"
+    ],
+    "tagline": "SUV",
+    "description": "",
     "cmsCategories": [
-      "4x4",
-      "SUV"
+      "Mantenciones Concesionario",
+      "Sunroof",
+      "SUV",
+      "Único dueño"
     ],
     "engine": {
       "displacement": "2.500 cc"
     },
     "documentation": {
-      "color": "Rojo"
+      "color": "Gris",
+      "ownerType": "Único dueño"
     },
     "gallery": [
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/07/1-6.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/07/2-5.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/07/3-5.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/07/4-5.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/07/5-5.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/07/6-5.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/07/7-5.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/07/8-5.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/07/9-5.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/07/10-5.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/07/11-5.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/07/12-5.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/07/13-5.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/07/14-5.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/07/15-5.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/07/16-5.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/07/17-5.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/07/18-4.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/07/19-4.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/07/20-3.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/07/21-1.jpeg"
+      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/08/1-9.jpeg",
+      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/08/2-9.jpeg",
+      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/08/3-9.jpeg",
+      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/08/4-9.jpeg",
+      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/08/5-9.jpeg",
+      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/08/6-9.jpeg",
+      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/08/7-9.jpeg",
+      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/08/8-9.jpeg",
+      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/08/9-8.jpeg",
+      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/08/10-8.jpeg",
+      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/08/11-8.jpeg",
+      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/08/12-9.jpeg",
+      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/08/13-8.jpeg",
+      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/08/14-8.jpeg",
+      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/08/15-8.jpeg",
+      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/08/16-8.jpeg",
+      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/08/17-8.jpeg",
+      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/08/18-8.jpeg",
+      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/08/19-7.jpeg",
+      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/08/20-6.jpeg",
+      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/08/21-5.jpeg",
+      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/08/22-2.jpeg",
+      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/08/23-2.jpeg",
+      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/08/24-1.jpeg",
+      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/08/25-1.jpeg",
+      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/08/2626.jpeg"
+    ]
+  },
+  {
+    "id": "mazda-cx-5-r-2-0-aut-2020",
+    "brand": "MAZDA",
+    "model": "CX-5 R",
+    "variant": "2.0 AUT",
+    "year": 2020,
+    "price": "$16.580.000",
+    "priceNumeric": 16580000,
+    "km": "90.000",
+    "fuel": "Bencina",
+    "transmission": "Automático",
+    "bodyType": "SUV",
+    "image": "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/08/1-4.jpeg",
+    "videoUrl": "https://www.youtube.com/embed/u50QPDn96Fc",
+    "videoUrls": [
+      "https://www.youtube.com/embed/u50QPDn96Fc"
+    ],
+    "tagline": "SUV",
+    "description": "Mazda Cx5 2020\nSUV premium japonesa en estado impecable.\n- Único dueño con todas las mantenciones en concesionario Mazda\n- Motor 2.0 R Skyactiv + Caja Automática: potencia y economía\n- Full equipo: seguridad, tecnología y comodidad\n- Bajo kilometraje y sin detalles\n\nDocumentos al día, listo para transferir.\nVehículo muy cuidado, no pierde valor. ¡Agenda tu prueba!\nSin partes, sin multas, sin prenda, no es de remate, no es de aseguradora. Financiamiento Instantáneo con 40% Pie:\nCarnet de identidad.\nComprobante de Domicilio,\nBuen comportamiento Financiamiento.\n\nConvencional: Desde 20%\nCarnet de identidad\nComprobante de Domicilio\n3 Últimas Liquidaciones\n12 Últimas cotizaciones AFP (Certificado)\n\nAceptamos tarjeta de crédito y débito\nRecibimos autos en parte de pago.",
+    "cmsCategories": [
+      "Servicios Concesionario Oficial",
+      "SUV",
+      "Único dueño"
+    ],
+    "engine": {
+      "displacement": "2.000 cc"
+    },
+    "documentation": {
+      "color": "Blanco",
+      "ownerType": "Único dueño"
+    },
+    "gallery": [
+      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/08/1-4.jpeg",
+      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/08/2-4.jpeg",
+      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/08/3-4.jpeg",
+      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/08/4-4.jpeg",
+      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/08/5-4.jpeg",
+      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/08/6-4.jpeg",
+      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/08/7-4.jpeg",
+      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/08/8-4.jpeg",
+      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/08/9-4.jpeg",
+      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/08/10-4.jpeg",
+      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/08/11-4.jpeg",
+      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/08/12-4.jpeg",
+      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/08/13-4.jpeg",
+      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/08/14-4.jpeg",
+      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/08/15-4.jpeg",
+      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/08/16-4.jpeg",
+      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/08/17-4.jpeg",
+      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/08/18-4.jpeg",
+      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/08/19-3.jpeg",
+      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/08/20-3.jpeg",
+      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/08/21-3.jpeg",
+      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/08/22-1.jpeg",
+      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/08/23-1.jpeg"
     ]
   },
   {
@@ -875,6 +728,9 @@
     "bodyType": "SUV",
     "image": "https://admin.quirozautomotriz.cl/wp-content/uploads/2025/06/1-1.jpg",
     "videoUrl": "https://www.youtube.com/embed/wMxQXYgwibU",
+    "videoUrls": [
+      "https://www.youtube.com/embed/wMxQXYgwibU"
+    ],
     "tagline": "SUV",
     "description": "Descubre el Mercedes-Benz ML , un SUV de lujo que combina potencia y elegancia. Su motor V6 de 3.5 litros genera 306 HP, brindando un rendimiento excepcional. La tracción 4x4 permanente y la transmisión automática de 7 velocidades con modo manual garantizan una conducción suave y segura. El exterior blanco contrasta perfectamente con el interior negro, creando una estética sofisticada. Equipado con frenos ABS, control de estabilidad y tracción, este ML 350 Sport 4Matic ofrece seguridad y confort. Con capacidad para 5 pasajeros y un amplio maletero de 690 litros, es ideal para viajes familiares. No pierdas la oportunidad de adquirir este Mercedes-Benz de alta gama a un precio competitivo.\nSin partes, sin multas, sin prenda, no es de remate, no es de aseguradora.\n* Formas de pago:\n- Contado.✅\n- Auto en pago.✅\n- Tarjeta de crédito.✅\n* Te lo llevas:\n- Transferido.✅\n- Con tag.✅\n- Asegurado.✅",
     "cmsCategories": [
@@ -909,54 +765,6 @@
     ]
   },
   {
-    "id": "mg-new-mg5-1-5-mt-2026",
-    "brand": "MG",
-    "model": "NEW MG5",
-    "variant": "1.5 COMFORT MT",
-    "year": 2026,
-    "price": "$9.980.000",
-    "priceNumeric": 9980000,
-    "km": "28",
-    "fuel": "Bencina",
-    "transmission": "Manual",
-    "bodyType": "Sedan",
-    "image": "https://admin.quirozautomotriz.cl/wp-content/uploads/2025/10/1-21.jpeg",
-    "videoUrl": "https://www.youtube.com/embed/VFkLQkAgrHY",
-    "tagline": "Sedan",
-    "badge": "Nuevo",
-    "description": "Valor incluye impuesto verde y documentación de tránsito.\nNuevo, sedan disponible en transmisión manual, colores: Plata, Blanco y Negro.\nSin partes, sin multas, sin prenda, no de aseguradora.\nFormas de pago:\n- Contado.\n- Financiamiento.\n- Auto en pago.\n- Tarjeta de crédito.\nTe lo llevas:\n- Transferido.\n- Con tag.\n- Asegurado.",
-    "cmsCategories": [
-      "Garantía de Fábrica",
-      "Nuevo",
-      "Sedan"
-    ],
-    "engine": {
-      "displacement": "1.500 cc"
-    },
-    "documentation": {
-      "color": "Negro"
-    },
-    "gallery": [
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2025/10/1-21.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2025/10/2-21.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2025/10/3-22.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2025/10/4-22.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2025/10/5-21.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2025/10/6-21.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2025/10/7-21.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2025/10/8-21.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2025/10/9-21.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2025/10/10-21.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2025/10/11-21.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2025/10/12-21.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2025/10/13-20.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2025/10/14-20.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2025/10/15-17.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2025/10/16-14.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2025/10/17-12.jpeg"
-    ]
-  },
-  {
     "id": "mg-rx5-1-5-full-mt-2021",
     "brand": "MG",
     "model": "RX5",
@@ -970,6 +778,9 @@
     "bodyType": "Suv Compacto",
     "image": "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/03/1-6.jpeg",
     "videoUrl": "https://www.youtube.com/embed/xkcQ9zTzvQ4",
+    "videoUrls": [
+      "https://www.youtube.com/embed/xkcQ9zTzvQ4"
+    ],
     "tagline": "Suv Compacto",
     "description": "Descubre el MG RX5 2021, un SUV versátil y atractivo con 95.000 Km (Todos lo servicios en concesionario oficial). Este vehículo usado con batería nueva, en excelente estado combina estilo y funcionalidad. Su exterior e interior en tono gris le otorgan una apariencia elegante y sofisticada. Equipado con un potente motor 1.5T de 124 HP, ofrece un rendimiento equilibrado con un consumo mixto de 13,4 km/l. Disfruta de comodidad y espacio con sus 5 puertas y capacidad para 5 pasajeros. Incluye características de seguridad como ABS, control de estabilidad y tracción. ¡No pierdas la oportunidad de adquirir este vehículo confiable y bien equipado!\nSin partes, sin multas, sin prenda, no es de remate, no es de aseguradora.\nFinanciamiento Instantáneo con 40% Pie:\nCarnet de identidad.\nComprobante de Domicilio,\nBuen comportamiento Financiamiento.\n\nConvencional: Desde 20%\nCarnet de identidad\nComprobante de Domicilio\n3 Últimas Liquidaciones\n12 Últimas cotizaciones AFP (Certificado)\n\nAceptamos tarjeta de crédito y débito\nRecibimos autos en parte de pago",
     "cmsCategories": [
@@ -1005,6 +816,51 @@
     ]
   },
   {
+    "id": "mini-john-cooper-works-2010",
+    "brand": "MINI",
+    "model": "JOHN COOPER WORKS",
+    "year": 2010,
+    "price": "EXHIBICIÓN",
+    "priceNumeric": 0,
+    "km": "178.000",
+    "fuel": "Bencina",
+    "transmission": "Manual",
+    "bodyType": "Coupe",
+    "image": "https://admin.quirozautomotriz.cl/wp-content/uploads/2024/05/2-1.jpeg",
+    "videoUrl": "https://www.youtube.com/embed/dDWqCkg-u38",
+    "videoUrls": [
+      "https://www.youtube.com/embed/dDWqCkg-u38"
+    ],
+    "tagline": "Coupe",
+    "description": "Flamante estado general, muy bien cuidado, versión 1.6 turbo.\nCompra con:\n- Tarjeta de crédito.\n- Auto en parte de pago.\n- Contado.",
+    "cmsCategories": [
+      "Coupe",
+      "Garantizado"
+    ],
+    "engine": {
+      "displacement": "1.600 cc"
+    },
+    "documentation": {
+      "color": "Gris"
+    },
+    "gallery": [
+      "https://admin.quirozautomotriz.cl/wp-content/uploads/2024/05/2-1.jpeg",
+      "https://admin.quirozautomotriz.cl/wp-content/uploads/2024/05/3.jpeg",
+      "https://admin.quirozautomotriz.cl/wp-content/uploads/2024/05/4.jpeg",
+      "https://admin.quirozautomotriz.cl/wp-content/uploads/2024/05/5.jpeg",
+      "https://admin.quirozautomotriz.cl/wp-content/uploads/2024/05/6.jpeg",
+      "https://admin.quirozautomotriz.cl/wp-content/uploads/2024/05/7.jpeg",
+      "https://admin.quirozautomotriz.cl/wp-content/uploads/2024/05/8.jpeg",
+      "https://admin.quirozautomotriz.cl/wp-content/uploads/2024/05/9.jpeg",
+      "https://admin.quirozautomotriz.cl/wp-content/uploads/2024/05/10.jpeg",
+      "https://admin.quirozautomotriz.cl/wp-content/uploads/2024/05/11.jpeg",
+      "https://admin.quirozautomotriz.cl/wp-content/uploads/2024/05/12.jpeg",
+      "https://admin.quirozautomotriz.cl/wp-content/uploads/2024/05/13.jpeg",
+      "https://admin.quirozautomotriz.cl/wp-content/uploads/2024/05/14.jpeg",
+      "https://admin.quirozautomotriz.cl/wp-content/uploads/2024/05/15.jpeg"
+    ]
+  },
+  {
     "id": "mitsubishi-outlander-cvt-2-0-aut-2023",
     "brand": "MITSUBISHI",
     "model": "OUTLANDER",
@@ -1018,6 +874,9 @@
     "bodyType": "SUV",
     "image": "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/01/1-7.jpeg",
     "videoUrl": "https://www.youtube.com/embed/jme6rLb8sLU",
+    "videoUrls": [
+      "https://www.youtube.com/embed/jme6rLb8sLU"
+    ],
     "tagline": "SUV",
     "description": "Descubre el Mitsubishi Outlander 2023, un SUV versátil y elegante con solo 46.000 km recorridos. Este modelo GL Auto en color plata con interior negro combina estilo y funcionalidad. Equipado con un potente motor 2.0L y transmisión automática CVT, ofrece un rendimiento excepcional y un consumo eficiente . Con tracción delantera y suspensión McPherson, garantiza una conducción suave y estable. Disfruta de comodidades como asientos para 5 pasajeros, un amplio maletero de 79,7 litros y llantas de aleación. Además, cuenta con tecnologías de seguridad como ABS, control de estabilidad . Este Outlander único dueño está disponible por solo $15.980.000, una excelente oportunidad para adquirir un SUV 100% japonés de calidad.\nSin partes, sin multas, sin prenda, no es de remate, no es de aseguradora.\n* Formas de pago:\n- Contado.✅\n- Financiamiento.✅\n- Auto en pago.✅\n- Tarjeta de crédito.✅\n* Te lo llevas:\n- Transferido.✅\n- Con tag.✅\n- Asegurado.✅",
     "cmsCategories": [
@@ -1054,13 +913,42 @@
     ]
   },
   {
+    "id": "nissan-march-advance-1-6-aut-2012",
+    "brand": "NISSAN",
+    "model": "MARCH ADVANCE",
+    "variant": "1.6 AUT",
+    "year": 2012,
+    "price": "$5.680.000",
+    "priceNumeric": 5680000,
+    "km": "65.000",
+    "fuel": "Bencina",
+    "transmission": "Automático",
+    "bodyType": "Hatchback",
+    "image": "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/08/logo-negro-quiroz-redcar.png",
+    "tagline": "Hatchback",
+    "description": "Sin partes, sin multas, sin prenda, no es de remate, no es de aseguradora. Financiamiento Instantáneo con 40% Pie:\nCarnet de identidad.\nComprobante de Domicilio,\nBuen comportamiento Financiamiento.\n\nConvencional: Desde 20%\nCarnet de identidad\nComprobante de Domicilio\n3 Últimas Liquidaciones\n12 Últimas cotizaciones AFP (Certificado)\n\nAceptamos tarjeta de crédito y débito\nRecibimos autos en parte de pago",
+    "cmsCategories": [
+      "Hatchback"
+    ],
+    "engine": {
+      "displacement": "1.600 cc"
+    },
+    "documentation": {
+      "color": "Plata"
+    },
+    "gallery": [
+      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/08/logo-negro-quiroz-redcar.png",
+      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/08/logo-negro-quiroz-redcar-1.png"
+    ]
+  },
+  {
     "id": "nissan-new-murano-le-4x4-3-5-aut-2011",
     "brand": "NISSAN",
     "model": "NEW MURANO LE",
     "variant": "4X4 3.5 AUT",
     "year": 2011,
-    "price": "$7.180.000",
-    "priceNumeric": 7180000,
+    "price": "$6.980.000",
+    "priceNumeric": 6980000,
     "km": "139.000",
     "fuel": "Bencina",
     "transmission": "Automático",
@@ -1068,6 +956,9 @@
     "bodyType": "SUV",
     "image": "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/07/1-7.jpeg",
     "videoUrl": "https://www.youtube.com/embed/xa60m2ivwDY",
+    "videoUrls": [
+      "https://www.youtube.com/embed/xa60m2ivwDY"
+    ],
     "tagline": "SUV",
     "description": "SUV amplia, rápida y full equipada. Segundo dueño. Mantenciones en concesionario oficial hasta los 110.000 km. Actualmente con 140.000 km. Ideal para familia que busca confort + seguridad + potencia.\n\n### Equipamiento\n- Motor V6 3.5 cc bencinero\n- Transmisión automática\n- Tracción 4x4\n- Doble techo / Sunroof\n- Tapiz de cuero\n- Asientos eléctricos\n- Asientos con memoria\n- Apertura portalón trasero eléctrica\n- Partida con botón / Start\n- Airbags laterales\n- Airbags frontales\n- Frenos de disco en las 4 ruedas\n- Cámara de retroceso\n- Sensores de retroceso\nSin partes, sin multas, sin prenda, no es de remate, no es de aseguradora. Financiamiento Instantáneo con 40% Pie:\nCarnet de identidad.\nComprobante de Domicilio,\nBuen comportamiento Financiamiento.\n\nConvencional: Desde 20%\nCarnet de identidad\nComprobante de Domicilio\n3 Últimas Liquidaciones\n12 Últimas cotizaciones AFP (Certificado)\n\nAceptamos tarjeta de crédito y débito\nRecibimos autos en parte de pago",
     "cmsCategories": [
@@ -1115,14 +1006,17 @@
     "model": "XTRAIL",
     "variant": "2.5 ADVANCE 7 PLAZAS AT",
     "year": 2019,
-    "price": "$14.480.000",
-    "priceNumeric": 14480000,
-    "km": "87.000",
+    "price": "$13.580.000",
+    "priceNumeric": 13580000,
+    "km": "88.000",
     "fuel": "Bencina",
     "transmission": "Automático",
     "bodyType": "SUV",
     "image": "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/06/1-5.jpeg",
     "videoUrl": "https://www.youtube.com/embed/0tYIluw0K0E",
+    "videoUrls": [
+      "https://www.youtube.com/embed/0tYIluw0K0E"
+    ],
     "tagline": "SUV",
     "description": "Espectacular Suv, único dueño, de 7 plazas o pasajeros; versión Advance con techo Panorámico y transmisión Automática.\nSin partes, sin multas, sin prenda, no es de remate, no es de aseguradora. Financiamiento Instantáneo con 40% Pie:\nCarnet de identidad.\nComprobante de Domicilio,\nBuen comportamiento Financiamiento.\n\nConvencional: Desde 20%\nCarnet de identidad\nComprobante de Domicilio\n3 Últimas Liquidaciones\n12 Últimas cotizaciones AFP (Certificado)\n\nAceptamos tarjeta de crédito y débito\nRecibimos autos en parte de pago.",
     "cmsCategories": [
@@ -1157,32 +1051,54 @@
     ]
   },
   {
-    "id": "seat-arona-1-6-aut-2021",
-    "brand": "SEAT",
-    "model": "ARONA",
-    "variant": "1.6 AUT",
+    "id": "peugeot-2008-1-2-puretech-mt-2021",
+    "brand": "Peugeot",
+    "model": "1.2 Puretech Mt",
     "year": 2021,
-    "price": "$11.980.000",
-    "priceNumeric": 11980000,
-    "km": "55.000",
+    "price": "$11.580.000",
+    "priceNumeric": 11580000,
+    "km": "29.000",
     "fuel": "Bencina",
-    "transmission": "Automático",
-    "bodyType": "Hatchback",
-    "image": "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/07/logo-negro-fondo-transparente-2.png",
-    "tagline": "Hatchback",
-    "description": "Espectacular Seat Arona 2021\nDescripción:\n✅ Color Rojo Metálico - Precioso y muy llamativo\n✅ 55.000 kilómetros\n✅ 2 dueños - Mantenciones al día\n✅ Servicios en concesionario y después de forma particular\n✅ Motor 1.6 MPI 110 HP - Súper confiable y económico\n✅ Caja automática 6 velocidades Tiptronic\n✅ Tracción delantera\n\nEQUIPAMIENTO DESTACADO:\n✅ Sensores de estacionamiento delanteros y traseros\n✅ Cámara de retroceso\n✅ Aire acondicionado\n✅ Radio con Bluetooth y Apple CarPlay / Android Auto\n✅ Volante multifunción forrado en cuero\n✅ Computador a bordo\n✅ Alzavidrios y espejos eléctricos\n✅ Llantas de aleación\n✅ 6 Airbags + ABS + Control de Estabilidad + Isofix\n✅ Diseño SUV compacto, alto y cómodo\n\nDiseño europeo, seguro y muy cómodo para ciudad y carretera\nLo quieres?\nContáctanos a los siguientes número:\nMarco +569 5906 5441\nDaniel +569 9343 1571\nCONCÓN - VIÑA DEL MAR - VALPARAISO\nSin partes, sin multas, sin prenda, no es de remate, no es de aseguradora. Financiamiento Instantáneo con 40% Pie:\nCarnet de identidad.\nComprobante de Domicilio,\nBuen comportamiento Financiamiento.\n\nConvencional: Desde 20%\nCarnet de identidad\nComprobante de Domicilio\n3 Últimas Liquidaciones\n12 Últimas cotizaciones AFP (Certificado)\n\nAceptamos tarjeta de crédito y débito\nRecibimos autos en parte de pago.",
+    "transmission": "Manual",
+    "bodyType": "SUV",
+    "image": "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/08/1-3.jpeg",
+    "videoUrl": "https://www.youtube.com/embed/PnkcckMdKOM",
+    "videoUrls": [
+      "https://www.youtube.com/embed/PnkcckMdKOM"
+    ],
+    "tagline": "SUV",
+    "description": "SUV impecable con solo 29.000 km. Motor turbo con excelente rendimiento: aprox. 14-16 km/L en ciudad y 18-20 km/L en carretera. Muy ágil y económico, ideal para el día a día y para viajes largos.\n\nEquipamiento y Confort\n- Diseño interior i-Cockpit con volante pequeño y muy maniobrable, que entrega una conducción más deportiva\n- Pantalla táctil con Apple CarPlay y Android Auto\n- Asientos cómodos y ergonómicos\n- Maletero de 434 L, uno de los más amplios del segmento\n- Neumáticos Continental de fábrica: agarre, seguridad y durabilidad\n\nSeguridad\n- 5 Estrellas Euro NCAP\n- 6 airbags: frontales, laterales y de cortina\n- Frenos ABS con distribución electrónica EBD + Asistente de frenado de emergencia\n- Control de Estabilidad ESP y Control de Tracción\n- Sensores y cámara de retroceso\n- Anclajes ISOFIX para sillas de niños\n\nVehículo moderno, confiable y con muy bajo kilometraje. Perfecto para quien busca tecnología, seguridad y bajo consumo.\nSin partes, sin multas, sin prenda, no es de remate, no es de aseguradora. Financiamiento Instantáneo con 40% Pie:\nCarnet de identidad.\nComprobante de Domicilio,\nBuen comportamiento Financiamiento.\n\nConvencional: Desde 20%\nCarnet de identidad\nComprobante de Domicilio\n3 Últimas Liquidaciones\n12 Últimas cotizaciones AFP (Certificado)\n\nAceptamos tarjeta de crédito y débito\nRecibimos autos en parte de pago",
     "cmsCategories": [
-      "Hatchback",
-      "Servicios Realizados"
+      "SUV"
     ],
     "engine": {
-      "displacement": "1.600 cc"
+      "displacement": "1.200 cc"
     },
     "documentation": {
-      "color": "Rojo Metalizado"
+      "color": "Blanco"
     },
     "gallery": [
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/07/logo-negro-fondo-transparente-2.png"
+      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/08/1-3.jpeg",
+      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/08/2-3.jpeg",
+      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/08/3-3.jpeg",
+      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/08/4-3.jpeg",
+      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/08/5-3.jpeg",
+      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/08/6-3.jpeg",
+      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/08/7-3.jpeg",
+      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/08/8-3.jpeg",
+      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/08/9-3.jpeg",
+      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/08/10-3.jpeg",
+      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/08/11-3.jpeg",
+      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/08/12-3.jpeg",
+      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/08/13-3.jpeg",
+      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/08/14-3.jpeg",
+      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/08/15-3.jpeg",
+      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/08/16-3.jpeg",
+      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/08/17-3.jpeg",
+      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/08/18-3.jpeg",
+      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/08/19-2.jpeg",
+      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/08/20-2.jpeg",
+      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/08/21-2.jpeg"
     ]
   },
   {
@@ -1197,7 +1113,7 @@
     "fuel": "Diesel",
     "transmission": "Manual",
     "bodyType": "Doble Cabina",
-    "image": "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/07/logo-negro-fondo-transparente-3-scaled.png",
+    "image": "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/07/logo-negro-fondo-transparente-3-2048x2048.png",
     "tagline": "Doble Cabina",
     "description": "Sin partes, sin multas, sin prenda, no es de remate, no es de aseguradora. Financiamiento Instantáneo con 40% Pie:\nCarnet de identidad.\nComprobante de Domicilio,\nBuen comportamiento Financiamiento.\n\nConvencional: Desde 20%\nCarnet de identidad\nComprobante de Domicilio\n3 Últimas Liquidaciones\n12 Últimas cotizaciones AFP (Certificado)\n\nAceptamos tarjeta de crédito y débito\nRecibimos autos en parte de pago",
     "cmsCategories": [
@@ -1212,177 +1128,7 @@
       "ownerType": "Único dueño"
     },
     "gallery": [
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/07/logo-negro-fondo-transparente-3-scaled.png"
-    ]
-  },
-  {
-    "id": "subaru-xv-2-0-awd-full-mt-2015",
-    "brand": "SUBARU",
-    "model": "XV",
-    "variant": "2.0 AWD FULL MT",
-    "year": 2015,
-    "price": "$8.780.000",
-    "priceNumeric": 8780000,
-    "km": "170.000",
-    "fuel": "Bencina",
-    "transmission": "Manual",
-    "drivetrain": "AWD",
-    "bodyType": "SUV",
-    "image": "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/05/1-6.jpeg",
-    "videoUrl": "https://www.youtube.com/embed/1OzdPPx_B3s",
-    "tagline": "SUV",
-    "description": "Este hermoso Subaru, único dueño cuenta con un motor de 2.0 litros, 4 cilindros, y una transmisión manual de 6 velocidades. su sistema de tracción es de 4x4; el Subaru xv cuenta con características como control de estabilidad, sistema de servofreno de emergencia, y start/stop parada y arranque automático. si estás buscando un vehículo seguro y confiable, este Subaru xv es una excelente opción.\nSin partes, sin multas, sin prenda, no es de remate, no es de aseguradora. Financiamiento Instantáneo con 40% Pie:\nCarnet de identidad.\nComprobante de Domicilio,\nBuen comportamiento Financiamiento.\n\nConvencional: Desde 20%\nCarnet de identidad\nComprobante de Domicilio\n3 Últimas Liquidaciones\n12 Últimas cotizaciones AFP (Certificado)\n\nAceptamos tarjeta de crédito y débito\nRecibimos autos en parte de pago",
-    "cmsCategories": [
-      "AWD",
-      "SUV",
-      "Único dueño"
-    ],
-    "engine": {
-      "displacement": "2.000 cc"
-    },
-    "documentation": {
-      "color": "Blanco",
-      "ownerType": "Único dueño"
-    },
-    "gallery": [
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/05/1-6.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/05/2-6.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/05/3-6.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/05/4-6.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/05/5-6.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/05/6-6.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/05/7-6.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/05/8-6.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/05/9-6.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/05/10-6.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/05/11-6.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/05/12-5.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/05/13-6.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/05/14-5.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/05/15-5.jpeg"
-    ]
-  },
-  {
-    "id": "suzuki-baleno-gls-1-4-aut-2020",
-    "brand": "SUZUKI",
-    "model": "BALENO GLS",
-    "variant": "1.4 AUT",
-    "year": 2020,
-    "price": "$8.980.000",
-    "priceNumeric": 8980000,
-    "km": "57.500",
-    "fuel": "Bencina",
-    "transmission": "Automático",
-    "bodyType": "Hatchback",
-    "image": "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/08/1.jpeg",
-    "videoUrl": "https://www.youtube.com/embed/SardKv-P4sw",
-    "tagline": "Hatchback",
-    "description": "Espectacular hachback automático con muy poco uso y único dueño.\n✅ Único dueño\n✅ 57.500 kilómetros reales certificados\n✅ Motor 1.4 bencinero 103 HP - Súper económico 17.6 km/l mixto\n✅ Caja automática ideal para ciudad\n✅ Color: [pon el color]\n✅ Aire acondicionado\n✅ Volante multifunción forrado en cuero\n✅ Computador a bordo\n✅ Espejos y alzavidrios eléctricos\n✅ Radio con Bluetooth\n✅ Frenos ABS + 2 Airbags + Isofix\n✅ Mantenciones al día\n\nSin partes, sin multas, sin prenda, no es de remate, no es de aseguradora.\nFinanciamiento Instantáneo con 40% Pie:\nCarnet de identidad.\nComprobante de Domicilio,\nBuen comportamiento Financiamiento.\n\nConvencional: Desde 20%\nCarnet de identidad\nComprobante de Domicilio\n3 Últimas Liquidaciones\n12 Últimas cotizaciones AFP (Certificado)\n\nAceptamos tarjeta de crédito y débito\nRecibimos autos en parte de pago",
-    "cmsCategories": [
-      "Hatchback",
-      "Único dueño"
-    ],
-    "engine": {
-      "displacement": "1.400 cc"
-    },
-    "documentation": {
-      "color": "Blanco",
-      "ownerType": "Único dueño"
-    },
-    "gallery": [
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/08/1.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/08/2.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/08/3.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/08/4.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/08/5.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/08/6.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/08/7.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/08/8.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/08/9.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/08/10.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/08/11.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/08/12.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/08/13.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/08/14.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/08/15.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/08/16.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/08/17.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/08/18.jpeg"
-    ]
-  },
-  {
-    "id": "suzuki-ertiga-glx-1-5-aut-2021",
-    "brand": "SUZUKI",
-    "model": "ERTIGA GLX",
-    "variant": "1.5 AUT",
-    "year": 2021,
-    "price": "$11.580.000",
-    "priceNumeric": 11580000,
-    "km": "28.000",
-    "fuel": "Bencina",
-    "transmission": "Automático",
-    "bodyType": "SUV",
-    "image": "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/02/1-6.jpeg",
-    "videoUrl": "https://www.youtube.com/embed/44mPo6s6Iwo",
-    "tagline": "SUV",
-    "description": "Descubre el Suzuki Ertiga 2021, un monovolumen pequeño ideal para familias. Con solo 28.000 km recorridos, este vehículo usado está en excelentes condiciones. Su exterior blanco y su interior negro le dan un aspecto elegante y fácil de mantener. Equipado con un motor de 1.5 litros y 103 HP, ofrece un equilibrio perfecto entre potencia y eficiencia, con un consumo mixto de 15,9 km/l. La transmisión automática con modo manual brinda comodidad y control. Con capacidad para 7 pasajeros y un maletero de 153 litros, es versátil para viajes largos o cortos. Incluye características de seguridad como ABS, control de estabilidad y frenos de disco ventilados. Este Ertiga GLX es única dueña; No pierdas la oportunidad de llevarte este espacioso y confiable vehículo por solo $11.580.000.",
-    "cmsCategories": [
-      "7 Plazas",
-      "Mantenciones Realizadas",
-      "SUV",
-      "Única dueña"
-    ],
-    "engine": {
-      "displacement": "1.500 cc"
-    },
-    "documentation": {
-      "color": "Blanco",
-      "ownerType": "Única dueña"
-    },
-    "gallery": [
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/02/1-6.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/02/2-5.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/02/3-5.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/02/4-5.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/02/5-5.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/02/6-5.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/02/7-5.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/02/8-6.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/02/9-5.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/02/10-5.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/02/11-6.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/02/12-5.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/02/13-5.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/02/14-5.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/02/15-5.jpeg"
-    ]
-  },
-  {
-    "id": "suzuki-swift-gl-1-5-aut-2010",
-    "brand": "SUZUKI",
-    "model": "SWIFT GL",
-    "variant": "1.5 AUT",
-    "year": 2010,
-    "price": "$4.980.000",
-    "priceNumeric": 4980000,
-    "km": "150.000",
-    "fuel": "Bencina",
-    "transmission": "Automático",
-    "bodyType": "Hatchback",
-    "image": "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/07/logo-negro-fondo-transparente-3-scaled.png",
-    "tagline": "Hatchback",
-    "description": "Hatchback en excelente estado. Equipado con motor 1.5 cc de 100 HP y transmisión automática, ideal para uso urbano y carretera. Destaca por su bajo consumo de combustible, bajo costo de mantenimiento y amplia disponibilidad de repuestos.\nIncluye doble airbag, frenos ABS y un diseño compacto que facilita el estacionamiento. Interior cómodo y maletero de gran capacidad para su segmento.\nLo quieres?\nContáctanos a los siguientes número:\nMarco +569 5906 5441\nDaniel +569 9343 1571\nCONCÓN - VIÑA DEL MAR - VALPARAISO\nSin partes, sin multas, sin prenda, no es de remate, no es de aseguradora.\n\nTarjeta de crédito y débito\nRecibimos autos en parte de pago.",
-    "cmsCategories": [
-      "Hatchback"
-    ],
-    "engine": {
-      "displacement": "1.500 cc"
-    },
-    "documentation": {
-      "color": "Plata"
-    },
-    "gallery": [
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/07/logo-negro-fondo-transparente-3-scaled.png"
+      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/07/logo-negro-fondo-transparente-3-2048x2048.png"
     ]
   },
   {
@@ -1398,7 +1144,11 @@
     "transmission": "Automático",
     "drivetrain": "4WD",
     "bodyType": "SUV",
-    "image": "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/05/1-2.jpeg",
+    "image": "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/05/1-12.jpeg",
+    "videoUrl": "https://www.youtube.com/embed/CrO5G92JMTw",
+    "videoUrls": [
+      "https://www.youtube.com/embed/CrO5G92JMTw"
+    ],
     "tagline": "SUV",
     "description": "Hermoso y espectacular Tesla model 3 vehículo que cuenta con un motor eléctrico de 288 kw de potencia, con un kilometraje de 22.000 km y su interior es de color negro mientras que su exterior es de color gris, también cuenta con tracción en las 4 ruedas; si estás buscando un vehículo eléctrico con un buen desempeño y características avanzadas este podría ser el vehículo ideal para ti.\nSin partes, sin multas, sin prenda, no es de remate, no es de aseguradora. Financiamiento Instantáneo con 40% Pie:\nCarnet de identidad.\nComprobante de Domicilio,\nBuen comportamiento Financiamiento.\n\nConvencional: Desde 20%\nCarnet de identidad\nComprobante de Domicilio\n3 Últimas Liquidaciones\n12 Últimas cotizaciones AFP (Certificado)\n\nAceptamos tarjeta de crédito y débito\nRecibimos autos en parte de pago",
     "cmsCategories": [
@@ -1410,17 +1160,25 @@
       "ownerType": "2 Dueños"
     },
     "gallery": [
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/05/1-2.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/05/2-2.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/05/3-2.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/05/4-2.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/05/5-2.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/05/6-2.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/05/7-2.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/05/8-2.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/05/9-2.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/05/10-2.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/05/11-2.jpeg"
+      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/05/1-12.jpeg",
+      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/05/2-11.jpeg",
+      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/05/3-12.jpeg",
+      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/05/4-11.jpeg",
+      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/05/5-10.jpeg",
+      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/05/6-10.jpeg",
+      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/05/7-10.jpeg",
+      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/05/8-10.jpeg",
+      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/05/9-10.jpeg",
+      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/05/10-10.jpeg",
+      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/05/11-10.jpeg",
+      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/05/12-9.jpeg",
+      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/05/13-10.jpeg",
+      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/05/14-9.jpeg",
+      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/05/15-9.jpeg",
+      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/05/16-6.jpeg",
+      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/05/17-5.jpeg",
+      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/05/20-3.jpeg",
+      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/05/21-2.jpeg"
     ]
   },
   {
@@ -1437,6 +1195,9 @@
     "bodyType": "Moto",
     "image": "https://admin.quirozautomotriz.cl/wp-content/uploads/2025/05/1-2.jpg",
     "videoUrl": "https://www.youtube.com/embed/W_RO2Joqjq4",
+    "videoUrls": [
+      "https://www.youtube.com/embed/W_RO2Joqjq4"
+    ],
     "tagline": "Moto",
     "description": "Sin partes, sin multas, sin prenda.\nCompra:\n- Contado.\n- Financiamiento.\n- Auto en pago.\n- Tarjeta de crédito.\nServicios:\n- Tag.\n- Seguros.\n- Garantía.",
     "cmsCategories": [
@@ -1470,57 +1231,6 @@
     ]
   },
   {
-    "id": "volkswagen-gol-1-6-hb-mt-2022",
-    "brand": "VOLKSWAGEN",
-    "model": "GOL COMFORTLINE1.6 HB",
-    "variant": "MT",
-    "year": 2022,
-    "price": "$8.780.000",
-    "priceNumeric": 8780000,
-    "km": "3.800",
-    "fuel": "Bencina",
-    "transmission": "Manual",
-    "bodyType": "Hatchback",
-    "image": "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/07/1-12.jpeg",
-    "videoUrl": "https://www.youtube.com/embed/-KcD8Q6FUJ0",
-    "tagline": "Hatchback",
-    "description": "Como nuevo seminuevo; Año 2022 con 3.800 km reales | Hatchback\nVersión Comfortline Full | Caja Manual 5ta\nÚnica dueña | Estado: Como nuevo, seminuevo\n\nAuto prácticamente 0km. Economico, confiable y con toda la calidad VW.\nAl día y transferible.\nSin partes, sin multas, sin prenda, no es de remate, no es de aseguradora. Financiamiento Instantáneo con 40% Pie:\nCarnet de identidad.\nComprobante de Domicilio,\nBuen comportamiento Financiamiento.\n\nConvencional: Desde 20%\nCarnet de identidad\nComprobante de Domicilio\n3 Últimas Liquidaciones\n12 Últimas cotizaciones AFP (Certificado)\n\nAceptamos tarjeta de crédito y débito\nRecibimos autos en parte de pago",
-    "cmsCategories": [
-      "Hatchback",
-      "Única dueña"
-    ],
-    "engine": {
-      "displacement": "1.600 cc"
-    },
-    "documentation": {
-      "color": "Plata",
-      "ownerType": "Única dueña"
-    },
-    "gallery": [
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/07/1-12.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/07/2-11.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/07/3-11.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/07/4-11.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/07/5-11.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/07/6-11.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/07/7-11.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/07/8-11.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/07/9-11.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/07/10-11.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/07/11-11.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/07/12-11.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/07/13-11.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/07/14-11.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/07/15-11.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/07/16-11.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/07/17-11.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/07/18-10.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/07/19-10.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/07/20-9.jpeg",
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/07/21-4.jpeg"
-    ]
-  },
-  {
     "id": "volkswagen-gol-highline-1-6-mt-2018",
     "brand": "VOLKSWAGEN",
     "model": "GOL HIGHLINE",
@@ -1532,7 +1242,7 @@
     "fuel": "Bencina",
     "transmission": "Manual",
     "bodyType": "Hatchback",
-    "image": "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/07/logo-negro-fondo-transparente-3-scaled.png",
+    "image": "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/07/logo-negro-fondo-transparente-3-2048x2048.png",
     "tagline": "Hatchback",
     "description": "Sin partes, sin multas, sin prenda, no es de remate, no es de aseguradora. Financiamiento Instantáneo con 40% Pie:\nCarnet de identidad.\nComprobante de Domicilio,\nBuen comportamiento Financiamiento.\n\nConvencional: Desde 20%\nCarnet de identidad\nComprobante de Domicilio\n3 Últimas Liquidaciones\n12 Últimas cotizaciones AFP (Certificado)\n\nAceptamos tarjeta de crédito y débito\nRecibimos autos en parte de pago",
     "cmsCategories": [
@@ -1547,7 +1257,7 @@
       "ownerType": "2 Dueños"
     },
     "gallery": [
-      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/07/logo-negro-fondo-transparente-3-scaled.png"
+      "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/07/logo-negro-fondo-transparente-3-2048x2048.png"
     ]
   },
   {
@@ -1564,6 +1274,9 @@
     "bodyType": "Sedan",
     "image": "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/07/1-11.jpeg",
     "videoUrl": "https://www.youtube.com/embed/DcAdbMfZlJY",
+    "videoUrls": [
+      "https://www.youtube.com/embed/DcAdbMfZlJY"
+    ],
     "tagline": "Sedan",
     "description": "Impecable, versión full, con todo lo que necesitas para el día a día y para viajar tranquilo.\n\nCaracterísticas principales:\n- Año: 2022\n- Kilometraje: 110.000 km\n- Motor: 1.6 cc\n- Transmisión: Manual de 5 velocidades\n- Versión: Highline - la más equipada\n- Conectividad: Apple Carplay\n- Dueño: Única dueña desde nuevo\n\nEstado y mantenciones:\nAuto en impecable estado general, tanto mecánico como estético.\nTodas sus mantenciones realizadas en concesionario oficial Volkswagen hasta los 80.000 km. Cuenta con respaldo.\n\nIdeal para familia o para trabajar. Motor 1.6 muy económico y confiable, repuestos fáciles de encontrar.\n\nSi buscas un auto cuidado, con historial claro y listo para seguir sumando kilómetros, este Voyage es una excelente alternativa .\nLo quieres?\nContáctanos a los siguientes número:\nMarco +569 5906 5441\nDaniel +569 9343 1571\nCONCÓN - VIÑA DEL MAR - VALPARAISO\nSin partes, sin multas, sin prenda, no es de remate, no es de aseguradora.\n\nFinanciamiento tarjeta de crédito y débito\nRecibimos autos en parte de pago.",
     "cmsCategories": [
@@ -1615,6 +1328,9 @@
     "bodyType": "Hatchback",
     "image": "https://admin.quirozautomotriz.cl/wp-content/uploads/2026/07/1-2.jpeg",
     "videoUrl": "https://www.youtube.com/embed/7dppqt6wkZ8",
+    "videoUrls": [
+      "https://www.youtube.com/embed/7dppqt6wkZ8"
+    ],
     "tagline": "Hatchback",
     "description": "Hermoso Volvo V40 R-Design T4 2018 en estado IMPECABLE.\nAuto de único dueño, con todas sus mantenciones al día y documentación 100% al día.\n\nCaracterísticas principales:\n- Motor: T4 Turbo 2.0L\n- Transmisión: Manual de 6 velocidades\n- Versión: R-Design - la más equipada y deportiva\n- Kilometraje: 117.000 km reales\n- Año: 2018\n- Estado: Impecable por dentro y por fuera. Nada que hacerle.\n\nEl R-Design trae butacas deportivas, kit aerodinámico, llantas exclusivas, modos de conducción y toda la seguridad de Volvo.\n\nFormas de pago:\n1. Contado\n2. Financiamiento\n3. Auto en parte de pago\n4. Tarjeta de crédito\n\nAcepto todas las anteriores. Facilidades de compra.\n\nConsulta sin compromiso. Se agenda visita.",
     "cmsCategories": [

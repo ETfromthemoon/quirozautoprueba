@@ -49,6 +49,11 @@ import "server-only";
 import { getCache } from "@vercel/functions";
 import type { Car, EngineSpecs, Documentation } from "./cars";
 import { cars as staticCars } from "./cars";
+import {
+  classifyVehicleAvailability,
+  parseVehiclePrice,
+  type VehicleAvailability,
+} from "./vehicle-availability";
 import cmsSnapshotData from "./cars.snapshot.json";
 
 const cmsSnapshot = cmsSnapshotData as Car[];
@@ -192,7 +197,6 @@ type CategoryInfo = {
   bodyType?: string;
   drivetrain?: string;
   ownerType?: string;
-  isSold: boolean;
 };
 
 function classifyCategories(names: string[]): CategoryInfo {
@@ -205,25 +209,8 @@ function classifyCategories(names: string[]): CategoryInfo {
     DRIVETRAINS.some((d) => lower(d) === lower(n))
   );
   const ownerType = names.find((n) => /due[ñn]/i.test(n));
-  const isSold = names.some((n) => /vendid|inactiv|no disponible/i.test(n));
 
-  return { bodyType, drivetrain, ownerType, isSold };
-}
-
-function isSoldProduct(product: WpProduct, cat: CategoryInfo): boolean {
-  if (cat.isSold) return true;
-
-  // En el CMS, un auto sin precio o con precio $0 deja de estar disponible.
-  const priceDigits = (product.acf?.precio ?? "").replace(/\D/g, "");
-  if (!priceDigits || Number(priceDigits) === 0) return true;
-
-  // En el CMS varios autos vendidos no tienen una categoria especial: el estado
-  // queda escrito al comienzo de la descripcion, a veces dentro de etiquetas HTML.
-  const title = decodeHtml(product.title?.rendered ?? "");
-  const description = decodeHtml(product.acf?.descripcion ?? "").replace(/<[^>]*>/g, " ");
-  const searchable = `${product.slug} ${title} ${description}`.replace(/\s+/g, " ");
-
-  return /\b(vendid[oa]s?|inactiv[oa]s?|no\s+disponible)\b/i.test(searchable);
+  return { bodyType, drivetrain, ownerType };
 }
 
 // ─── Parseo del título (marca · modelo · variante · año) ────────────────────
@@ -366,17 +353,6 @@ function decodeDescription(input: string): string {
     .join("\n")
     .replace(/\n{3,}/g, "\n\n")
     .trim();
-}
-
-function formatPrice(raw: string | undefined): {
-  text: string;
-  numeric: number;
-} {
-  const digits = (raw ?? "").replace(/\D/g, "");
-  const numeric = digits ? Number(digits) : 0;
-  if (!numeric) return { text: "Consultar precio", numeric: 0 };
-  const text = "$" + numeric.toLocaleString("es-CL");
-  return { text, numeric };
 }
 
 /** Convierte cualquier URL de YouTube a formato embed. "" → undefined. */
@@ -574,7 +550,7 @@ function mapProductToCar(product: WpProduct, categoryNames?: string[]): Car {
 
   const categories = categoryNames ?? extractCategoryNames(product);
   const cat = classifyCategories(categories);
-  const price = formatPrice(acf.precio);
+  const price = parseVehiclePrice(acf.precio);
   const cmsCategories = categories.filter(
     (name) => !/^(activo|vendid[oa]s?|inactiv[oa]s?|no disponible)$/i.test(name.trim()),
   );
@@ -726,8 +702,8 @@ let _soldCarsCacheAt = 0;
 let _catMap: Map<number, string> | null = null;
 const _carDetailsCache = new Map<string, Car>();
 
-// v2 invalida fichas v1 que no incluían galerías ni categorías completas.
-const vehicleRuntimeCache = getCache({ namespace: "quiroz-vehicles-v2" });
+// v3 invalida catálogos anteriores que confundían etiquetas de precio con autos vendidos.
+const vehicleRuntimeCache = getCache({ namespace: "quiroz-vehicles-v3" });
 
 function isCar(value: unknown): value is Car {
   if (!value || typeof value !== "object") return false;
@@ -852,6 +828,35 @@ function sortCarsByName(list: Car[]): Car[] {
   });
 }
 
+type ClassifiedProduct = {
+  product: WpProduct;
+  categories: string[];
+  availability: VehicleAvailability;
+};
+
+/** Clasifica una sola vez todos los productos para que ambos catálogos sean complementarios. */
+function classifyProducts(
+  products: WpProduct[],
+  catMap: Map<number, string>,
+): ClassifiedProduct[] {
+  return products.map((product) => {
+    const liveCategories = extractCategoryNames(product, catMap);
+    const fallback = fallbackCars.find((car) => car.id === product.slug);
+    const categories = liveCategories.length > 0
+      ? liveCategories
+      : (fallback?.cmsCategories ?? []);
+    const availability = classifyVehicleAvailability({
+      slug: product.slug,
+      title: product.title?.rendered,
+      description: product.acf?.descripcion,
+      price: product.acf?.precio,
+      categories,
+    });
+
+    return { product, categories, availability };
+  });
+}
+
 async function getCarsFromWP(): Promise<Car[]> {
   const [products, catMap, galleryMap] = await Promise.all([
     fetchAllProducts(),
@@ -861,16 +866,8 @@ async function getCarsFromWP(): Promise<Car[]> {
   if (catMap.size === 0) {
     throw new Error("WP no devolvió categorías; se conserva el último catálogo completo");
   }
-  const cars = products
-    .map((product) => {
-      const liveCategories = extractCategoryNames(product, catMap);
-      const fallback = fallbackCars.find((car) => car.id === product.slug);
-      const categories = liveCategories.length > 0
-        ? liveCategories
-        : (fallback?.cmsCategories ?? []);
-      return { product, categories, cat: classifyCategories(categories) };
-    })
-    .filter(({ cat, product }) => !isSoldProduct(product, cat))
+  const cars = classifyProducts(products, catMap)
+    .filter(({ availability }) => availability.status === "available")
     .map(({ product, categories }) => {
       const car = mapProductToCar(product, categories);
       const fallback = fallbackCars.find((candidate) => candidate.id === product.slug);
@@ -1005,12 +1002,8 @@ export async function fetchSoldCars(): Promise<Car[]> {
         fetchAllProducts(),
         getCategoryMap(),
       ]);
-      const sold = products
-        .map((product) => {
-          const categories = extractCategoryNames(product, catMap);
-          return { product, categories, cat: classifyCategories(categories) };
-        })
-        .filter(({ cat, product }) => isSoldProduct(product, cat))
+      const sold = classifyProducts(products, catMap)
+        .filter(({ availability }) => availability.status === "sold")
         .map(({ product, categories }) => mapProductToCar(product, categories));
       console.log(`[WordPress] Build → ${sold.length} vendidos desde WP`);
       return sold;
@@ -1025,12 +1018,8 @@ export async function fetchSoldCars(): Promise<Car[]> {
       fetchAllProducts(),
       getCategoryMap(),
     ]);
-    const sold = products
-      .map((product) => {
-        const categories = extractCategoryNames(product, catMap);
-        return { product, categories, cat: classifyCategories(categories) };
-      })
-      .filter(({ cat, product }) => isSoldProduct(product, cat))
+    const sold = classifyProducts(products, catMap)
+      .filter(({ availability }) => availability.status === "sold")
       .map(({ product, categories }) => mapProductToCar(product, categories));
     _soldCarsCache = sold;
     _soldCarsCacheAt = Date.now();
