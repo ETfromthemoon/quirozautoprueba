@@ -9,8 +9,8 @@ export type VehicleAvailability = {
   status: "available" | "sold";
   reason:
     | "numeric-price"
-    | "special-price-label"
-    | "explicit-unavailable-status"
+    | "consult-price"
+    | "non-numeric-price"
     | "empty-price"
     | "zero-price";
 };
@@ -23,12 +23,8 @@ type VehicleAvailabilityInput = {
   categories?: string[];
 };
 
-const UNAVAILABLE_PATTERN = /\b(vendid[oa]s?|inactiv[oa]s?|no\s+disponible)\b/i;
 const NUMERIC_PRICE_PATTERN = /^\$?[\d.,\s]+$/;
-
-function normalizeSearchText(value: string): string {
-  return value.replace(/<[^>]*>/g, " ").replace(/\s+/g, " ").trim();
-}
+const CONSULT_PRICE_PATTERN = /\bconsultar\b/i;
 
 /**
  * Interpreta el campo de precio sin confundir etiquetas comerciales con cero.
@@ -60,24 +56,17 @@ export function parseVehiclePrice(rawPrice?: string): VehiclePrice {
 
 /**
  * Fuente única de verdad para decidir en cuál catálogo aparece cada vehículo.
- * Todo producto termina como disponible o vendido, nunca queda sin clasificar.
+ * Un precio numérico distinto de cero, o un precio que indique "consultar",
+ * señala disponibilidad. Un precio vacío, cero u otro texto no numérico indica
+ * que el vehículo está vendido. Los textos y categorías del CMS no intervienen
+ * en esta decisión.
  */
 export function classifyVehicleAvailability(
   input: VehicleAvailabilityInput,
 ): VehicleAvailability {
   const price = parseVehiclePrice(input.price);
-  const searchable = normalizeSearchText(
-    [
-      input.slug,
-      input.title ?? "",
-      input.description ?? "",
-      price.raw,
-      ...(input.categories ?? []),
-    ].join(" "),
-  );
-
-  if (UNAVAILABLE_PATTERN.test(searchable)) {
-    return { status: "sold", reason: "explicit-unavailable-status" };
+  if (CONSULT_PRICE_PATTERN.test(price.raw)) {
+    return { status: "available", reason: "consult-price" };
   }
   if (price.kind === "empty") {
     return { status: "sold", reason: "empty-price" };
@@ -86,8 +75,12 @@ export function classifyVehicleAvailability(
     return { status: "sold", reason: "zero-price" };
   }
 
+  if (price.kind === "label") {
+    return { status: "sold", reason: "non-numeric-price" };
+  }
+
   return {
     status: "available",
-    reason: price.kind === "numeric" ? "numeric-price" : "special-price-label",
+    reason: "numeric-price",
   };
 }

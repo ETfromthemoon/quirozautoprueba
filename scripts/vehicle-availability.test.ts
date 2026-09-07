@@ -16,8 +16,16 @@ assert.deepEqual(classifyVehicleAvailability({ ...baseVehicle, price: "15.980.00
   reason: "numeric-price",
 });
 assert.deepEqual(classifyVehicleAvailability({ ...baseVehicle, price: "EXHIBICIÓN" }), {
+  status: "sold",
+  reason: "non-numeric-price",
+});
+assert.deepEqual(classifyVehicleAvailability({ ...baseVehicle, price: "Consultar" }), {
   status: "available",
-  reason: "special-price-label",
+  reason: "consult-price",
+});
+assert.deepEqual(classifyVehicleAvailability({ ...baseVehicle, price: "Consultar precio" }), {
+  status: "available",
+  reason: "consult-price",
 });
 assert.equal(parseVehiclePrice("EXHIBICIÓN").text, "EXHIBICIÓN");
 
@@ -40,7 +48,7 @@ assert.equal(
     price: "12.500.000",
     description: "Vendido a cliente",
   }).status,
-  "sold",
+  "available",
 );
 assert.equal(
   classifyVehicleAvailability({
@@ -50,9 +58,5 @@ assert.equal(
   }).status,
   "sold",
 );
-assert.equal(
-  classifyVehicleAvailability({ ...baseVehicle, price: "NO DISPONIBLE" }).status,
-  "sold",
-);
 
-console.log("vehicle-availability: 12 casos verificados");
+console.log("vehicle-availability: 14 casos verificados");

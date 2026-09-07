@@ -96,6 +96,14 @@ const MENSAJES_CLIENTE: Record<FormTipo, { title: string; body: string }> = {
   },
 };
 
+const EXCLUSIVITY_CLAUSE = [
+  "CLÁUSULA DE EXCLUSIVIDAD",
+  "",
+  "El presente contrato de consignación es de carácter exclusivo y el propietario faculta únicamente a la automotora para la comercialización, exhibición y publicación del vehículo.",
+  "",
+  "En caso de que el vehículo sea vendido de forma particular por el propietario, se generará un cobro de $20.000 (veinte mil pesos) por concepto de gastos administrativos, de publicación y gestión comercial realizados.",
+].join("\n");
+
 function escapeHtml(value: string) {
   return value
     .replace(/&/g, "&amp;")
@@ -157,6 +165,8 @@ function buildConsignmentContractText(data: FormData) {
     "OCTAVO: El plazo mínimo de consignación en la empresa es de 90 días corridos a partir de la fecha establecida en contrato.",
     "",
     "NOVENO: Las partes fijan su domicilio en Viña del Mar para los efectos legales del caso.",
+    "",
+    EXCLUSIVITY_CLAUSE,
     "",
     `Observación: ${contractValue(data.Observación)}`,
   ].join("\n");
@@ -226,7 +236,7 @@ function buildVehicleCustomerHtml(data: FormData, flow: VehicleFlow) {
   const closing =
     flow === "consignacion"
       ? `<p style="margin:18px 0 0;font-size:14px;line-height:1.6;color:#3f3f46">Al momento de la venta el auto se pagara mediante transferencia electronica segun el valor acordado entre las partes.</p>
-<p style="margin:18px 0 0;font-size:14px;line-height:1.6;color:#3f3f46"><strong>Clausula de exclusividad.</strong><br />El propietario se compromete a vender el vehiculo a traves de Quiroz Automotriz. En caso de incumplimiento, debera pagar un cargo de $25.000 por concepto de gastos generados por la gestion. Los plazos de exclusividad son de 45 dias continuos, renovables automaticamente, salvo aviso de cualquiera de las partes con 7 dias de anticipacion.</p>`
+<p style="margin:18px 0 0;font-size:14px;line-height:1.6;color:#3f3f46;white-space:pre-line">${escapeHtml(EXCLUSIVITY_CLAUSE)}</p>`
       : `<p style="margin:18px 0 0;font-size:14px;line-height:1.6;color:#3f3f46">Llegando a un acuerdo entre las partes, el propietario debera contar con su Cedula de Identidad vigente. Si es empresa, debera presentar Constitucion, Vigencia y RUT del representante legal. El vehiculo se pagara de inmediato mediante transferencia electronica del Banco Santander; inmediatamente despues el propietario debera dejar firmados los contratos de compraventa para realizar posteriormente la transferencia del vehiculo en Notaria Gervasio de Vina del Mar.</p>`;
 
   return wrapEmail(
