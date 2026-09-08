@@ -2,11 +2,12 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import VehicleReport from "@/components/VehicleReport";
 import { getReportById } from "@/lib/brochures";
-import { getFallbackCarBySlug } from "@/lib/wordpress";
+import { cars } from "@/lib/cars";
 
 // Esta es la única ruta de muestra sin clave. Mantiene los informes reales
 // protegidos en /informe/[id]?k=... y usa un vehículo publicado del CMS.
 const DEMO_CAR_ID = "bmw-420-grand-coupe-m-designe-2-0-at-2024";
+const DEMO_CAR_FIXTURE_ID = "bmw-420-coupe-2024";
 
 export const dynamic = "force-dynamic";
 
@@ -19,10 +20,10 @@ export const metadata: Metadata = {
 
 export default async function PublicBrochureDemoPage() {
   const report = getReportById(DEMO_CAR_ID);
-  const car = getFallbackCarBySlug(DEMO_CAR_ID);
+  const car = cars.find((vehicle) => vehicle.id === DEMO_CAR_FIXTURE_ID);
 
-  // Si el auto deja de estar disponible desde el CMS, la demo no revela un
-  // informe asociado a una publicación retirada.
+  // La demostración usa una ficha estable y ficticia para que los cambios del
+  // inventario real del CMS no hagan caducar esta URL pública.
   if (!report || !car || car.priceNumeric <= 0) notFound();
 
   return <VehicleReport car={car} report={report} demo />;
