@@ -1,0 +1,2424 @@
+[
+  {
+    "key": "group_catalogo_privado_venta",
+    "title": "Catálogo privado de venta",
+    "fields": [
+      {
+        "key": "field_catalogo_001",
+        "label": "Configuración",
+        "name": "",
+        "type": "tab",
+        "aria_label": "",
+        "instructions": "",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        },
+        "placement": "top",
+        "endpoint": 0
+      },
+      {
+        "key": "field_catalogo_002",
+        "label": "Habilitar catálogo privado",
+        "name": "catalogo_habilitado",
+        "type": "true_false",
+        "aria_label": "",
+        "instructions": "",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        },
+        "message": "Este producto tiene información de catálogo privado",
+        "default_value": 0,
+        "ui": 1,
+        "ui_on_text": "Habilitado",
+        "ui_off_text": "Deshabilitado"
+      },
+      {
+        "key": "field_catalogo_003",
+        "label": "Token privado",
+        "name": "catalogo_token",
+        "type": "text",
+        "aria_label": "",
+        "instructions": "",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        },
+        "default_value": "",
+        "maxlength": "",
+        "placeholder": "",
+        "prepend": "",
+        "append": ""
+      },
+      {
+        "key": "field_catalogo_004",
+        "label": "Videos",
+        "name": "",
+        "type": "tab",
+        "aria_label": "",
+        "instructions": "",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        },
+        "placement": "top",
+        "endpoint": 0
+      },
+      {
+        "key": "field_catalogo_005",
+        "label": "Video hook de presentación",
+        "name": "catalogo_video_hook",
+        "type": "url",
+        "aria_label": "",
+        "instructions": "",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        },
+        "default_value": "",
+        "placeholder": "https://www.youtube.com/watch?v=..."
+      },
+      {
+        "key": "field_catalogo_006",
+        "label": "Video de prueba en ruta",
+        "name": "catalogo_video_prueba_ruta",
+        "type": "url",
+        "aria_label": "",
+        "instructions": "",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        },
+        "default_value": "",
+        "placeholder": "https://www.youtube.com/watch?v=..."
+      },
+      {
+        "key": "field_catalogo_007",
+        "label": "Video de revisión visual",
+        "name": "catalogo_video_revision_visual",
+        "type": "url",
+        "aria_label": "",
+        "instructions": "",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        },
+        "default_value": "",
+        "placeholder": "https://www.youtube.com/watch?v=..."
+      },
+      {
+        "key": "field_catalogo_008",
+        "label": "Mostrar prueba de ruta escrita",
+        "name": "catalogo_prueba_ruta_escrita",
+        "type": "true_false",
+        "aria_label": "",
+        "instructions": "",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        },
+        "message": "Habilitar el módulo escrito opcional",
+        "default_value": 0,
+        "ui": 1,
+        "ui_on_text": "Sí",
+        "ui_off_text": "No"
+      },
+      {
+        "key": "field_catalogo_009",
+        "label": "Galería profesional",
+        "name": "",
+        "type": "tab",
+        "aria_label": "",
+        "instructions": "",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        },
+        "placement": "top",
+        "endpoint": 0
+      },
+      {
+        "key": "field_catalogo_010",
+        "label": "Foto 1",
+        "name": "catalogo_foto_01",
+        "type": "image",
+        "aria_label": "",
+        "instructions": "",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        },
+        "return_format": "array",
+        "preview_size": "medium",
+        "library": "all",
+        "min_width": "",
+        "min_height": "",
+        "min_size": "",
+        "max_width": "",
+        "max_height": "",
+        "max_size": "",
+        "mime_types": "jpg,jpeg,png,webp"
+      },
+      {
+        "key": "field_catalogo_011",
+        "label": "Foto 2",
+        "name": "catalogo_foto_02",
+        "type": "image",
+        "aria_label": "",
+        "instructions": "",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        },
+        "return_format": "array",
+        "preview_size": "medium",
+        "library": "all",
+        "min_width": "",
+        "min_height": "",
+        "min_size": "",
+        "max_width": "",
+        "max_height": "",
+        "max_size": "",
+        "mime_types": "jpg,jpeg,png,webp"
+      },
+      {
+        "key": "field_catalogo_012",
+        "label": "Foto 3",
+        "name": "catalogo_foto_03",
+        "type": "image",
+        "aria_label": "",
+        "instructions": "",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        },
+        "return_format": "array",
+        "preview_size": "medium",
+        "library": "all",
+        "min_width": "",
+        "min_height": "",
+        "min_size": "",
+        "max_width": "",
+        "max_height": "",
+        "max_size": "",
+        "mime_types": "jpg,jpeg,png,webp"
+      },
+      {
+        "key": "field_catalogo_013",
+        "label": "Foto 4",
+        "name": "catalogo_foto_04",
+        "type": "image",
+        "aria_label": "",
+        "instructions": "",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        },
+        "return_format": "array",
+        "preview_size": "medium",
+        "library": "all",
+        "min_width": "",
+        "min_height": "",
+        "min_size": "",
+        "max_width": "",
+        "max_height": "",
+        "max_size": "",
+        "mime_types": "jpg,jpeg,png,webp"
+      },
+      {
+        "key": "field_catalogo_014",
+        "label": "Foto 5",
+        "name": "catalogo_foto_05",
+        "type": "image",
+        "aria_label": "",
+        "instructions": "",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        },
+        "return_format": "array",
+        "preview_size": "medium",
+        "library": "all",
+        "min_width": "",
+        "min_height": "",
+        "min_size": "",
+        "max_width": "",
+        "max_height": "",
+        "max_size": "",
+        "mime_types": "jpg,jpeg,png,webp"
+      },
+      {
+        "key": "field_catalogo_015",
+        "label": "Foto 6",
+        "name": "catalogo_foto_06",
+        "type": "image",
+        "aria_label": "",
+        "instructions": "",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        },
+        "return_format": "array",
+        "preview_size": "medium",
+        "library": "all",
+        "min_width": "",
+        "min_height": "",
+        "min_size": "",
+        "max_width": "",
+        "max_height": "",
+        "max_size": "",
+        "mime_types": "jpg,jpeg,png,webp"
+      },
+      {
+        "key": "field_catalogo_016",
+        "label": "Foto 7",
+        "name": "catalogo_foto_07",
+        "type": "image",
+        "aria_label": "",
+        "instructions": "",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        },
+        "return_format": "array",
+        "preview_size": "medium",
+        "library": "all",
+        "min_width": "",
+        "min_height": "",
+        "min_size": "",
+        "max_width": "",
+        "max_height": "",
+        "max_size": "",
+        "mime_types": "jpg,jpeg,png,webp"
+      },
+      {
+        "key": "field_catalogo_017",
+        "label": "Foto 8",
+        "name": "catalogo_foto_08",
+        "type": "image",
+        "aria_label": "",
+        "instructions": "",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        },
+        "return_format": "array",
+        "preview_size": "medium",
+        "library": "all",
+        "min_width": "",
+        "min_height": "",
+        "min_size": "",
+        "max_width": "",
+        "max_height": "",
+        "max_size": "",
+        "mime_types": "jpg,jpeg,png,webp"
+      },
+      {
+        "key": "field_catalogo_018",
+        "label": "Foto 9",
+        "name": "catalogo_foto_09",
+        "type": "image",
+        "aria_label": "",
+        "instructions": "",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        },
+        "return_format": "array",
+        "preview_size": "medium",
+        "library": "all",
+        "min_width": "",
+        "min_height": "",
+        "min_size": "",
+        "max_width": "",
+        "max_height": "",
+        "max_size": "",
+        "mime_types": "jpg,jpeg,png,webp"
+      },
+      {
+        "key": "field_catalogo_019",
+        "label": "Foto 10",
+        "name": "catalogo_foto_10",
+        "type": "image",
+        "aria_label": "",
+        "instructions": "",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        },
+        "return_format": "array",
+        "preview_size": "medium",
+        "library": "all",
+        "min_width": "",
+        "min_height": "",
+        "min_size": "",
+        "max_width": "",
+        "max_height": "",
+        "max_size": "",
+        "mime_types": "jpg,jpeg,png,webp"
+      },
+      {
+        "key": "field_catalogo_020",
+        "label": "Foto 11",
+        "name": "catalogo_foto_11",
+        "type": "image",
+        "aria_label": "",
+        "instructions": "",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        },
+        "return_format": "array",
+        "preview_size": "medium",
+        "library": "all",
+        "min_width": "",
+        "min_height": "",
+        "min_size": "",
+        "max_width": "",
+        "max_height": "",
+        "max_size": "",
+        "mime_types": "jpg,jpeg,png,webp"
+      },
+      {
+        "key": "field_catalogo_021",
+        "label": "Foto 12",
+        "name": "catalogo_foto_12",
+        "type": "image",
+        "aria_label": "",
+        "instructions": "",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        },
+        "return_format": "array",
+        "preview_size": "medium",
+        "library": "all",
+        "min_width": "",
+        "min_height": "",
+        "min_size": "",
+        "max_width": "",
+        "max_height": "",
+        "max_size": "",
+        "mime_types": "jpg,jpeg,png,webp"
+      },
+      {
+        "key": "field_catalogo_022",
+        "label": "1. Identificación y situación legal",
+        "name": "",
+        "type": "tab",
+        "aria_label": "",
+        "instructions": "",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        },
+        "placement": "top",
+        "endpoint": 0
+      },
+      {
+        "key": "field_catalogo_023",
+        "label": "Tipo de vehículo",
+        "name": "catalogo_identificacion_tipo_vehiculo",
+        "type": "select",
+        "aria_label": "",
+        "instructions": "",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        },
+        "choices": {
+          "Hatchback": "Hatchback",
+          "Sedan": "Sedan",
+          "Coupe": "Coupe",
+          "Station Wagon": "Station Wagon",
+          "Cabrio": "Cabrio",
+          "SUV": "SUV",
+          "Pick Up": "Pick Up",
+          "Furgón": "Furgón",
+          "Van": "Van",
+          "Camión": "Camión",
+          "Moto": "Moto"
+        },
+        "default_value": "",
+        "return_format": "value",
+        "multiple": 0,
+        "allow_null": 1,
+        "ui": 0,
+        "ajax": 0,
+        "placeholder": ""
+      },
+      {
+        "key": "field_catalogo_024",
+        "label": "Marca",
+        "name": "catalogo_identificacion_marca",
+        "type": "text",
+        "aria_label": "",
+        "instructions": "",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        },
+        "default_value": "",
+        "maxlength": "",
+        "placeholder": "",
+        "prepend": "",
+        "append": ""
+      },
+      {
+        "key": "field_catalogo_025",
+        "label": "Modelo",
+        "name": "catalogo_identificacion_modelo",
+        "type": "text",
+        "aria_label": "",
+        "instructions": "",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        },
+        "default_value": "",
+        "maxlength": "",
+        "placeholder": "",
+        "prepend": "",
+        "append": ""
+      },
+      {
+        "key": "field_catalogo_026",
+        "label": "Año",
+        "name": "catalogo_identificacion_ano",
+        "type": "text",
+        "aria_label": "",
+        "instructions": "",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        },
+        "default_value": "",
+        "maxlength": "",
+        "placeholder": "",
+        "prepend": "",
+        "append": ""
+      },
+      {
+        "key": "field_catalogo_027",
+        "label": "Color",
+        "name": "catalogo_identificacion_color",
+        "type": "text",
+        "aria_label": "",
+        "instructions": "",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        },
+        "default_value": "",
+        "maxlength": "",
+        "placeholder": "",
+        "prepend": "",
+        "append": ""
+      },
+      {
+        "key": "field_catalogo_028",
+        "label": "Versión",
+        "name": "catalogo_identificacion_version",
+        "type": "text",
+        "aria_label": "",
+        "instructions": "",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        },
+        "default_value": "",
+        "maxlength": "",
+        "placeholder": "",
+        "prepend": "",
+        "append": ""
+      },
+      {
+        "key": "field_catalogo_029",
+        "label": "Patente",
+        "name": "catalogo_identificacion_patente",
+        "type": "text",
+        "aria_label": "",
+        "instructions": "",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        },
+        "default_value": "",
+        "maxlength": "",
+        "placeholder": "",
+        "prepend": "",
+        "append": ""
+      },
+      {
+        "key": "field_catalogo_030",
+        "label": "Nº Motor",
+        "name": "catalogo_identificacion_numero_motor",
+        "type": "text",
+        "aria_label": "",
+        "instructions": "",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        },
+        "default_value": "",
+        "maxlength": "",
+        "placeholder": "",
+        "prepend": "",
+        "append": ""
+      },
+      {
+        "key": "field_catalogo_031",
+        "label": "Nº Chasis (VIN)",
+        "name": "catalogo_identificacion_vin",
+        "type": "text",
+        "aria_label": "",
+        "instructions": "",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        },
+        "default_value": "",
+        "maxlength": "",
+        "placeholder": "",
+        "prepend": "",
+        "append": ""
+      },
+      {
+        "key": "field_catalogo_032",
+        "label": "Transmisión",
+        "name": "catalogo_identificacion_transmision",
+        "type": "radio",
+        "aria_label": "",
+        "instructions": "",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        },
+        "choices": {
+          "Manual": "Manual",
+          "Automática": "Automática"
+        },
+        "default_value": "",
+        "return_format": "value",
+        "allow_null": 1,
+        "other_choice": 0,
+        "layout": "horizontal",
+        "save_other_choice": 0
+      },
+      {
+        "key": "field_catalogo_033",
+        "label": "Combustible",
+        "name": "catalogo_identificacion_combustible",
+        "type": "radio",
+        "aria_label": "",
+        "instructions": "",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        },
+        "choices": {
+          "Bencina": "Bencina",
+          "Diesel": "Diesel",
+          "Híbrido": "Híbrido",
+          "Eléctrico": "Eléctrico"
+        },
+        "default_value": "",
+        "return_format": "value",
+        "allow_null": 1,
+        "other_choice": 0,
+        "layout": "horizontal",
+        "save_other_choice": 0
+      },
+      {
+        "key": "field_catalogo_034",
+        "label": "Nº de dueños",
+        "name": "catalogo_identificacion_numero_duenos",
+        "type": "select",
+        "aria_label": "",
+        "instructions": "",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        },
+        "choices": {
+          "1": "1",
+          "2": "2",
+          "3": "3",
+          "4": "4",
+          "5": "5",
+          "6": "6",
+          "7": "7",
+          "8": "8",
+          "9": "9"
+        },
+        "default_value": "",
+        "return_format": "value",
+        "multiple": 0,
+        "allow_null": 1,
+        "ui": 0,
+        "ajax": 0,
+        "placeholder": ""
+      },
+      {
+        "key": "field_catalogo_035",
+        "label": "Copia de llaves",
+        "name": "catalogo_identificacion_copia_llaves",
+        "type": "radio",
+        "aria_label": "",
+        "instructions": "",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        },
+        "choices": {
+          "Sí": "Sí",
+          "No": "No"
+        },
+        "default_value": "",
+        "return_format": "value",
+        "allow_null": 1,
+        "other_choice": 0,
+        "layout": "horizontal",
+        "save_other_choice": 0
+      },
+      {
+        "key": "field_catalogo_036",
+        "label": "Servicios",
+        "name": "catalogo_identificacion_servicios",
+        "type": "radio",
+        "aria_label": "",
+        "instructions": "",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        },
+        "choices": {
+          "Concesionario": "Concesionario",
+          "Particulares": "Particulares",
+          "Mixtos": "Mixtos"
+        },
+        "default_value": "",
+        "return_format": "value",
+        "allow_null": 1,
+        "other_choice": 0,
+        "layout": "horizontal",
+        "save_other_choice": 0
+      },
+      {
+        "key": "field_catalogo_037",
+        "label": "Transporte",
+        "name": "catalogo_identificacion_transporte",
+        "type": "radio",
+        "aria_label": "",
+        "instructions": "",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        },
+        "choices": {
+          "Sí": "Sí",
+          "No": "No"
+        },
+        "default_value": "",
+        "return_format": "value",
+        "allow_null": 1,
+        "other_choice": 0,
+        "layout": "horizontal",
+        "save_other_choice": 0
+      },
+      {
+        "key": "field_catalogo_038",
+        "label": "Aseguradora",
+        "name": "catalogo_identificacion_aseguradora",
+        "type": "radio",
+        "aria_label": "",
+        "instructions": "",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        },
+        "choices": {
+          "Sí": "Sí",
+          "No": "No"
+        },
+        "default_value": "",
+        "return_format": "value",
+        "allow_null": 1,
+        "other_choice": 0,
+        "layout": "horizontal",
+        "save_other_choice": 0
+      },
+      {
+        "key": "field_catalogo_039",
+        "label": "Pérdida total",
+        "name": "catalogo_identificacion_perdida_total",
+        "type": "radio",
+        "aria_label": "",
+        "instructions": "",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        },
+        "choices": {
+          "Sí": "Sí",
+          "No": "No"
+        },
+        "default_value": "",
+        "return_format": "value",
+        "allow_null": 1,
+        "other_choice": 0,
+        "layout": "horizontal",
+        "save_other_choice": 0
+      },
+      {
+        "key": "field_catalogo_040",
+        "label": "Prenda",
+        "name": "catalogo_identificacion_prenda",
+        "type": "radio",
+        "aria_label": "",
+        "instructions": "",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        },
+        "choices": {
+          "Sí": "Sí",
+          "No": "No"
+        },
+        "default_value": "",
+        "return_format": "value",
+        "allow_null": 1,
+        "other_choice": 0,
+        "layout": "horizontal",
+        "save_other_choice": 0
+      },
+      {
+        "key": "field_catalogo_041",
+        "label": "Multas inscritas",
+        "name": "catalogo_identificacion_multas_inscritas",
+        "type": "radio",
+        "aria_label": "",
+        "instructions": "",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        },
+        "choices": {
+          "Sí": "Sí",
+          "No": "No"
+        },
+        "default_value": "",
+        "return_format": "value",
+        "allow_null": 1,
+        "other_choice": 0,
+        "layout": "horizontal",
+        "save_other_choice": 0
+      },
+      {
+        "key": "field_catalogo_042",
+        "label": "Limitaciones al dominio",
+        "name": "catalogo_identificacion_limitaciones_dominio",
+        "type": "radio",
+        "aria_label": "",
+        "instructions": "",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        },
+        "choices": {
+          "Sí": "Sí",
+          "No": "No"
+        },
+        "default_value": "",
+        "return_format": "value",
+        "allow_null": 1,
+        "other_choice": 0,
+        "layout": "horizontal",
+        "save_other_choice": 0
+      },
+      {
+        "key": "field_catalogo_043",
+        "label": "Observaciones",
+        "name": "catalogo_identificacion_observaciones",
+        "type": "textarea",
+        "aria_label": "",
+        "instructions": "",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        },
+        "default_value": "",
+        "maxlength": "",
+        "rows": 3,
+        "placeholder": "",
+        "new_lines": "br"
+      },
+      {
+        "key": "field_catalogo_044",
+        "label": "2. Escáner",
+        "name": "",
+        "type": "tab",
+        "aria_label": "",
+        "instructions": "",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        },
+        "placement": "top",
+        "endpoint": 0
+      },
+      {
+        "key": "field_catalogo_045",
+        "label": "Resultado escáner OBD2",
+        "name": "catalogo_scanner_informe",
+        "type": "image",
+        "aria_label": "",
+        "instructions": "",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        },
+        "return_format": "array",
+        "preview_size": "medium",
+        "library": "all",
+        "min_width": "",
+        "min_height": "",
+        "min_size": "",
+        "max_width": "",
+        "max_height": "",
+        "max_size": "",
+        "mime_types": "jpg,jpeg,png,webp"
+      },
+      {
+        "key": "field_catalogo_046",
+        "label": "Testigos encendidos",
+        "name": "catalogo_scanner_testigos_encendidos",
+        "type": "radio",
+        "aria_label": "",
+        "instructions": "",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        },
+        "choices": {
+          "Sí": "Sí",
+          "No": "No"
+        },
+        "default_value": "",
+        "return_format": "value",
+        "allow_null": 1,
+        "other_choice": 0,
+        "layout": "horizontal",
+        "save_other_choice": 0
+      },
+      {
+        "key": "field_catalogo_047",
+        "label": "Observaciones",
+        "name": "catalogo_scanner_observaciones",
+        "type": "textarea",
+        "aria_label": "",
+        "instructions": "",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        },
+        "default_value": "",
+        "maxlength": "",
+        "rows": 3,
+        "placeholder": "",
+        "new_lines": "br"
+      },
+      {
+        "key": "field_catalogo_048",
+        "label": "3. Motor y mecánica",
+        "name": "",
+        "type": "tab",
+        "aria_label": "",
+        "instructions": "",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        },
+        "placement": "top",
+        "endpoint": 0
+      },
+      {
+        "key": "field_catalogo_049",
+        "label": "Partida en frío",
+        "name": "catalogo_motor_partida_frio",
+        "type": "radio",
+        "aria_label": "",
+        "instructions": "",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        },
+        "choices": {
+          "Bueno": "Bueno",
+          "Regular": "Regular",
+          "Malo": "Malo"
+        },
+        "default_value": "",
+        "return_format": "value",
+        "allow_null": 1,
+        "other_choice": 0,
+        "layout": "horizontal",
+        "save_other_choice": 0
+      },
+      {
+        "key": "field_catalogo_050",
+        "label": "Ruidos",
+        "name": "catalogo_motor_ruidos",
+        "type": "radio",
+        "aria_label": "",
+        "instructions": "",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        },
+        "choices": {
+          "Sí": "Sí",
+          "No": "No"
+        },
+        "default_value": "",
+        "return_format": "value",
+        "allow_null": 1,
+        "other_choice": 0,
+        "layout": "horizontal",
+        "save_other_choice": 0
+      },
+      {
+        "key": "field_catalogo_051",
+        "label": "Humo",
+        "name": "catalogo_motor_humo",
+        "type": "radio",
+        "aria_label": "",
+        "instructions": "",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        },
+        "choices": {
+          "Sí": "Sí",
+          "No": "No"
+        },
+        "default_value": "",
+        "return_format": "value",
+        "allow_null": 1,
+        "other_choice": 0,
+        "layout": "horizontal",
+        "save_other_choice": 0
+      },
+      {
+        "key": "field_catalogo_052",
+        "label": "Fugas de aceite",
+        "name": "catalogo_motor_fugas_aceite",
+        "type": "radio",
+        "aria_label": "",
+        "instructions": "",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        },
+        "choices": {
+          "Sí": "Sí",
+          "No": "No"
+        },
+        "default_value": "",
+        "return_format": "value",
+        "allow_null": 1,
+        "other_choice": 0,
+        "layout": "horizontal",
+        "save_other_choice": 0
+      },
+      {
+        "key": "field_catalogo_053",
+        "label": "Observaciones",
+        "name": "catalogo_motor_observaciones",
+        "type": "textarea",
+        "aria_label": "",
+        "instructions": "",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        },
+        "default_value": "",
+        "maxlength": "",
+        "rows": 3,
+        "placeholder": "",
+        "new_lines": "br"
+      },
+      {
+        "key": "field_catalogo_054",
+        "label": "4. Transmisión",
+        "name": "",
+        "type": "tab",
+        "aria_label": "",
+        "instructions": "",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        },
+        "placement": "top",
+        "endpoint": 0
+      },
+      {
+        "key": "field_catalogo_055",
+        "label": "Manual",
+        "name": "catalogo_transmision_manual",
+        "type": "radio",
+        "aria_label": "",
+        "instructions": "",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        },
+        "choices": {
+          "Sí": "Sí",
+          "No": "No"
+        },
+        "default_value": "",
+        "return_format": "value",
+        "allow_null": 1,
+        "other_choice": 0,
+        "layout": "horizontal",
+        "save_other_choice": 0
+      },
+      {
+        "key": "field_catalogo_056",
+        "label": "Automática",
+        "name": "catalogo_transmision_automatica",
+        "type": "radio",
+        "aria_label": "",
+        "instructions": "",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        },
+        "choices": {
+          "Sí": "Sí",
+          "No": "No"
+        },
+        "default_value": "",
+        "return_format": "value",
+        "allow_null": 1,
+        "other_choice": 0,
+        "layout": "horizontal",
+        "save_other_choice": 0
+      },
+      {
+        "key": "field_catalogo_057",
+        "label": "Observaciones",
+        "name": "catalogo_transmision_observaciones",
+        "type": "textarea",
+        "aria_label": "",
+        "instructions": "",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        },
+        "default_value": "",
+        "maxlength": "",
+        "rows": 3,
+        "placeholder": "",
+        "new_lines": "br"
+      },
+      {
+        "key": "field_catalogo_058",
+        "label": "5. Dirección, suspensión, frenos y neumáticos",
+        "name": "",
+        "type": "tab",
+        "aria_label": "",
+        "instructions": "",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        },
+        "placement": "top",
+        "endpoint": 0
+      },
+      {
+        "key": "field_catalogo_059",
+        "label": "Dirección",
+        "name": "catalogo_direccion_tipo",
+        "type": "radio",
+        "aria_label": "",
+        "instructions": "",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        },
+        "choices": {
+          "Asistida": "Asistida",
+          "Hidráulica": "Hidráulica",
+          "Mecánica": "Mecánica",
+          "Eléctrica": "Eléctrica"
+        },
+        "default_value": "",
+        "return_format": "value",
+        "allow_null": 1,
+        "other_choice": 0,
+        "layout": "horizontal",
+        "save_other_choice": 0
+      },
+      {
+        "key": "field_catalogo_060",
+        "label": "Juego",
+        "name": "catalogo_direccion_juego",
+        "type": "radio",
+        "aria_label": "",
+        "instructions": "",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        },
+        "choices": {
+          "Sí": "Sí",
+          "No": "No"
+        },
+        "default_value": "",
+        "return_format": "value",
+        "allow_null": 1,
+        "other_choice": 0,
+        "layout": "horizontal",
+        "save_other_choice": 0
+      },
+      {
+        "key": "field_catalogo_061",
+        "label": "Ruidos al girar",
+        "name": "catalogo_direccion_ruidos_al_girar",
+        "type": "radio",
+        "aria_label": "",
+        "instructions": "",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        },
+        "choices": {
+          "Sí": "Sí",
+          "No": "No"
+        },
+        "default_value": "",
+        "return_format": "value",
+        "allow_null": 1,
+        "other_choice": 0,
+        "layout": "horizontal",
+        "save_other_choice": 0
+      },
+      {
+        "key": "field_catalogo_062",
+        "label": "Observaciones de dirección",
+        "name": "catalogo_direccion_observaciones",
+        "type": "textarea",
+        "aria_label": "",
+        "instructions": "",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        },
+        "default_value": "",
+        "maxlength": "",
+        "rows": 3,
+        "placeholder": "",
+        "new_lines": "br"
+      },
+      {
+        "key": "field_catalogo_063",
+        "label": "Suspensión",
+        "name": "catalogo_suspension_estado",
+        "type": "radio",
+        "aria_label": "",
+        "instructions": "",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        },
+        "choices": {
+          "Bueno": "Bueno",
+          "Regular": "Regular",
+          "Malo": "Malo"
+        },
+        "default_value": "",
+        "return_format": "value",
+        "allow_null": 1,
+        "other_choice": 0,
+        "layout": "horizontal",
+        "save_other_choice": 0
+      },
+      {
+        "key": "field_catalogo_064",
+        "label": "Observaciones de suspensión",
+        "name": "catalogo_suspension_observaciones",
+        "type": "textarea",
+        "aria_label": "",
+        "instructions": "",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        },
+        "default_value": "",
+        "maxlength": "",
+        "rows": 3,
+        "placeholder": "",
+        "new_lines": "br"
+      },
+      {
+        "key": "field_catalogo_065",
+        "label": "Frenos",
+        "name": "catalogo_frenos_estado",
+        "type": "radio",
+        "aria_label": "",
+        "instructions": "",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        },
+        "choices": {
+          "Bueno": "Bueno",
+          "Regular": "Regular",
+          "Malo": "Malo"
+        },
+        "default_value": "",
+        "return_format": "value",
+        "allow_null": 1,
+        "other_choice": 0,
+        "layout": "horizontal",
+        "save_other_choice": 0
+      },
+      {
+        "key": "field_catalogo_066",
+        "label": "Discos",
+        "name": "catalogo_frenos_discos",
+        "type": "radio",
+        "aria_label": "",
+        "instructions": "",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        },
+        "choices": {
+          "Bueno": "Bueno",
+          "Regular": "Regular",
+          "Malo": "Malo"
+        },
+        "default_value": "",
+        "return_format": "value",
+        "allow_null": 1,
+        "other_choice": 0,
+        "layout": "horizontal",
+        "save_other_choice": 0
+      },
+      {
+        "key": "field_catalogo_067",
+        "label": "Neumáticos (%)",
+        "name": "catalogo_neumaticos_porcentaje",
+        "type": "select",
+        "aria_label": "",
+        "instructions": "",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        },
+        "choices": {
+          "20": "20",
+          "30": "30",
+          "40": "40",
+          "50": "50",
+          "60": "60",
+          "70": "70",
+          "80": "80",
+          "90": "90",
+          "100": "100"
+        },
+        "default_value": "",
+        "return_format": "value",
+        "multiple": 0,
+        "allow_null": 1,
+        "ui": 0,
+        "ajax": 0,
+        "placeholder": ""
+      },
+      {
+        "key": "field_catalogo_068",
+        "label": "Rueda de repuesto (%)",
+        "name": "catalogo_rueda_repuesto_porcentaje",
+        "type": "select",
+        "aria_label": "",
+        "instructions": "",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        },
+        "choices": {
+          "20": "20",
+          "30": "30",
+          "40": "40",
+          "50": "50",
+          "60": "60",
+          "70": "70",
+          "80": "80",
+          "90": "90",
+          "100": "100"
+        },
+        "default_value": "",
+        "return_format": "value",
+        "multiple": 0,
+        "allow_null": 1,
+        "ui": 0,
+        "ajax": 0,
+        "placeholder": ""
+      },
+      {
+        "key": "field_catalogo_069",
+        "label": "Observaciones",
+        "name": "catalogo_neumaticos_observaciones",
+        "type": "textarea",
+        "aria_label": "",
+        "instructions": "",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        },
+        "default_value": "",
+        "maxlength": "",
+        "rows": 3,
+        "placeholder": "",
+        "new_lines": "br"
+      },
+      {
+        "key": "field_catalogo_070",
+        "label": "6. Carrocería y estructura",
+        "name": "",
+        "type": "tab",
+        "aria_label": "",
+        "instructions": "",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        },
+        "placement": "top",
+        "endpoint": 0
+      },
+      {
+        "key": "field_catalogo_071",
+        "label": "Repintado",
+        "name": "catalogo_carroceria_repintado",
+        "type": "radio",
+        "aria_label": "",
+        "instructions": "",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        },
+        "choices": {
+          "Sí": "Sí",
+          "No": "No"
+        },
+        "default_value": "",
+        "return_format": "value",
+        "allow_null": 1,
+        "other_choice": 0,
+        "layout": "horizontal",
+        "save_other_choice": 0
+      },
+      {
+        "key": "field_catalogo_072",
+        "label": "Golpe reparado",
+        "name": "catalogo_carroceria_golpe_reparado",
+        "type": "radio",
+        "aria_label": "",
+        "instructions": "",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        },
+        "choices": {
+          "Sí": "Sí",
+          "No": "No"
+        },
+        "default_value": "",
+        "return_format": "value",
+        "allow_null": 1,
+        "other_choice": 0,
+        "layout": "horizontal",
+        "save_other_choice": 0
+      },
+      {
+        "key": "field_catalogo_073",
+        "label": "Parabrisas delantero",
+        "name": "catalogo_carroceria_parabrisas_delantero",
+        "type": "radio",
+        "aria_label": "",
+        "instructions": "",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        },
+        "choices": {
+          "Bueno": "Bueno",
+          "Regular": "Regular",
+          "Malo": "Malo"
+        },
+        "default_value": "",
+        "return_format": "value",
+        "allow_null": 1,
+        "other_choice": 0,
+        "layout": "horizontal",
+        "save_other_choice": 0
+      },
+      {
+        "key": "field_catalogo_074",
+        "label": "Parabrisas trasero",
+        "name": "catalogo_carroceria_parabrisas_trasero",
+        "type": "radio",
+        "aria_label": "",
+        "instructions": "",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        },
+        "choices": {
+          "Bueno": "Bueno",
+          "Regular": "Regular",
+          "Malo": "Malo"
+        },
+        "default_value": "",
+        "return_format": "value",
+        "allow_null": 1,
+        "other_choice": 0,
+        "layout": "horizontal",
+        "save_other_choice": 0
+      },
+      {
+        "key": "field_catalogo_075",
+        "label": "Focos",
+        "name": "catalogo_carroceria_focos",
+        "type": "radio",
+        "aria_label": "",
+        "instructions": "",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        },
+        "choices": {
+          "Bueno": "Bueno",
+          "Regular": "Regular",
+          "Malo": "Malo"
+        },
+        "default_value": "",
+        "return_format": "value",
+        "allow_null": 1,
+        "other_choice": 0,
+        "layout": "horizontal",
+        "save_other_choice": 0
+      },
+      {
+        "key": "field_catalogo_076",
+        "label": "Llantas",
+        "name": "catalogo_carroceria_llantas",
+        "type": "radio",
+        "aria_label": "",
+        "instructions": "",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        },
+        "choices": {
+          "Bueno": "Bueno",
+          "Regular": "Regular",
+          "Malo": "Malo"
+        },
+        "default_value": "",
+        "return_format": "value",
+        "allow_null": 1,
+        "other_choice": 0,
+        "layout": "horizontal",
+        "save_other_choice": 0
+      },
+      {
+        "key": "field_catalogo_077",
+        "label": "Observaciones",
+        "name": "catalogo_carroceria_observaciones",
+        "type": "textarea",
+        "aria_label": "",
+        "instructions": "",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        },
+        "default_value": "",
+        "maxlength": "",
+        "rows": 3,
+        "placeholder": "",
+        "new_lines": "br"
+      },
+      {
+        "key": "field_catalogo_078",
+        "label": "7. Interior",
+        "name": "",
+        "type": "tab",
+        "aria_label": "",
+        "instructions": "",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        },
+        "placement": "top",
+        "endpoint": 0
+      },
+      {
+        "key": "field_catalogo_079",
+        "label": "Desgaste del volante",
+        "name": "catalogo_interior_desgaste_volante",
+        "type": "radio",
+        "aria_label": "",
+        "instructions": "",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        },
+        "choices": {
+          "Bueno": "Bueno",
+          "Regular": "Regular",
+          "Malo": "Malo"
+        },
+        "default_value": "",
+        "return_format": "value",
+        "allow_null": 1,
+        "other_choice": 0,
+        "layout": "horizontal",
+        "save_other_choice": 0
+      },
+      {
+        "key": "field_catalogo_080",
+        "label": "Asientos",
+        "name": "catalogo_interior_asientos",
+        "type": "radio",
+        "aria_label": "",
+        "instructions": "",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        },
+        "choices": {
+          "Bueno": "Bueno",
+          "Regular": "Regular",
+          "Malo": "Malo"
+        },
+        "default_value": "",
+        "return_format": "value",
+        "allow_null": 1,
+        "other_choice": 0,
+        "layout": "horizontal",
+        "save_other_choice": 0
+      },
+      {
+        "key": "field_catalogo_081",
+        "label": "Pedales coherentes con kilometraje",
+        "name": "catalogo_interior_pedales_coherentes_km",
+        "type": "radio",
+        "aria_label": "",
+        "instructions": "",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        },
+        "choices": {
+          "Bueno": "Bueno",
+          "Regular": "Regular",
+          "Malo": "Malo"
+        },
+        "default_value": "",
+        "return_format": "value",
+        "allow_null": 1,
+        "other_choice": 0,
+        "layout": "horizontal",
+        "save_other_choice": 0
+      },
+      {
+        "key": "field_catalogo_082",
+        "label": "Limpieza",
+        "name": "catalogo_interior_limpieza",
+        "type": "radio",
+        "aria_label": "",
+        "instructions": "",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        },
+        "choices": {
+          "Bueno": "Bueno",
+          "Regular": "Regular",
+          "Malo": "Malo"
+        },
+        "default_value": "",
+        "return_format": "value",
+        "allow_null": 1,
+        "other_choice": 0,
+        "layout": "horizontal",
+        "save_other_choice": 0
+      },
+      {
+        "key": "field_catalogo_083",
+        "label": "Observaciones",
+        "name": "catalogo_interior_observaciones",
+        "type": "textarea",
+        "aria_label": "",
+        "instructions": "",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        },
+        "default_value": "",
+        "maxlength": "",
+        "rows": 3,
+        "placeholder": "",
+        "new_lines": "br"
+      },
+      {
+        "key": "field_catalogo_084",
+        "label": "8. Equipamiento",
+        "name": "",
+        "type": "tab",
+        "aria_label": "",
+        "instructions": "",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        },
+        "placement": "top",
+        "endpoint": 0
+      },
+      {
+        "key": "field_catalogo_085",
+        "label": "A/C",
+        "name": "catalogo_equipamiento_aire_acondicionado",
+        "type": "radio",
+        "aria_label": "",
+        "instructions": "",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        },
+        "choices": {
+          "Bueno": "Bueno",
+          "Regular": "Regular",
+          "Malo": "Malo"
+        },
+        "default_value": "",
+        "return_format": "value",
+        "allow_null": 1,
+        "other_choice": 0,
+        "layout": "horizontal",
+        "save_other_choice": 0
+      },
+      {
+        "key": "field_catalogo_086",
+        "label": "Calefacción",
+        "name": "catalogo_equipamiento_calefaccion",
+        "type": "radio",
+        "aria_label": "",
+        "instructions": "",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        },
+        "choices": {
+          "Bueno": "Bueno",
+          "Regular": "Regular",
+          "Malo": "Malo"
+        },
+        "default_value": "",
+        "return_format": "value",
+        "allow_null": 1,
+        "other_choice": 0,
+        "layout": "horizontal",
+        "save_other_choice": 0
+      },
+      {
+        "key": "field_catalogo_087",
+        "label": "Climatizador",
+        "name": "catalogo_equipamiento_climatizador",
+        "type": "radio",
+        "aria_label": "",
+        "instructions": "",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        },
+        "choices": {
+          "Bueno": "Bueno",
+          "Regular": "Regular",
+          "Malo": "Malo"
+        },
+        "default_value": "",
+        "return_format": "value",
+        "allow_null": 1,
+        "other_choice": 0,
+        "layout": "horizontal",
+        "save_other_choice": 0
+      },
+      {
+        "key": "field_catalogo_088",
+        "label": "Alzavidrios",
+        "name": "catalogo_equipamiento_alzavidrios",
+        "type": "radio",
+        "aria_label": "",
+        "instructions": "",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        },
+        "choices": {
+          "Bueno": "Bueno",
+          "Regular": "Regular",
+          "Malo": "Malo"
+        },
+        "default_value": "",
+        "return_format": "value",
+        "allow_null": 1,
+        "other_choice": 0,
+        "layout": "horizontal",
+        "save_other_choice": 0
+      },
+      {
+        "key": "field_catalogo_089",
+        "label": "Cierre central",
+        "name": "catalogo_equipamiento_cierre_central",
+        "type": "radio",
+        "aria_label": "",
+        "instructions": "",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        },
+        "choices": {
+          "Bueno": "Bueno",
+          "Regular": "Regular",
+          "Malo": "Malo"
+        },
+        "default_value": "",
+        "return_format": "value",
+        "allow_null": 1,
+        "other_choice": 0,
+        "layout": "horizontal",
+        "save_other_choice": 0
+      },
+      {
+        "key": "field_catalogo_090",
+        "label": "Radio",
+        "name": "catalogo_equipamiento_radio",
+        "type": "radio",
+        "aria_label": "",
+        "instructions": "",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        },
+        "choices": {
+          "Bueno": "Bueno",
+          "Regular": "Regular",
+          "Malo": "Malo"
+        },
+        "default_value": "",
+        "return_format": "value",
+        "allow_null": 1,
+        "other_choice": 0,
+        "layout": "horizontal",
+        "save_other_choice": 0
+      },
+      {
+        "key": "field_catalogo_091",
+        "label": "Cinturones",
+        "name": "catalogo_equipamiento_cinturones",
+        "type": "radio",
+        "aria_label": "",
+        "instructions": "",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        },
+        "choices": {
+          "Bueno": "Bueno",
+          "Regular": "Regular",
+          "Malo": "Malo"
+        },
+        "default_value": "",
+        "return_format": "value",
+        "allow_null": 1,
+        "other_choice": 0,
+        "layout": "horizontal",
+        "save_other_choice": 0
+      },
+      {
+        "key": "field_catalogo_092",
+        "label": "Airbags",
+        "name": "catalogo_equipamiento_airbags",
+        "type": "radio",
+        "aria_label": "",
+        "instructions": "",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        },
+        "choices": {
+          "Bueno": "Bueno",
+          "Malo": "Malo"
+        },
+        "default_value": "",
+        "return_format": "value",
+        "allow_null": 1,
+        "other_choice": 0,
+        "layout": "horizontal",
+        "save_other_choice": 0
+      },
+      {
+        "key": "field_catalogo_093",
+        "label": "Gata",
+        "name": "catalogo_equipamiento_gata",
+        "type": "radio",
+        "aria_label": "",
+        "instructions": "",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        },
+        "choices": {
+          "Sí": "Sí",
+          "No": "No"
+        },
+        "default_value": "",
+        "return_format": "value",
+        "allow_null": 1,
+        "other_choice": 0,
+        "layout": "horizontal",
+        "save_other_choice": 0
+      },
+      {
+        "key": "field_catalogo_094",
+        "label": "Llave de rueda",
+        "name": "catalogo_equipamiento_llave_rueda",
+        "type": "radio",
+        "aria_label": "",
+        "instructions": "",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        },
+        "choices": {
+          "Sí": "Sí",
+          "No": "No"
+        },
+        "default_value": "",
+        "return_format": "value",
+        "allow_null": 1,
+        "other_choice": 0,
+        "layout": "horizontal",
+        "save_other_choice": 0
+      },
+      {
+        "key": "field_catalogo_095",
+        "label": "Kit de seguridad",
+        "name": "catalogo_equipamiento_kit_seguridad",
+        "type": "radio",
+        "aria_label": "",
+        "instructions": "",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        },
+        "choices": {
+          "Sí": "Sí",
+          "No": "No"
+        },
+        "default_value": "",
+        "return_format": "value",
+        "allow_null": 1,
+        "other_choice": 0,
+        "layout": "horizontal",
+        "save_other_choice": 0
+      },
+      {
+        "key": "field_catalogo_096",
+        "label": "Observaciones",
+        "name": "catalogo_equipamiento_observaciones",
+        "type": "textarea",
+        "aria_label": "",
+        "instructions": "",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        },
+        "default_value": "",
+        "maxlength": "",
+        "rows": 3,
+        "placeholder": "",
+        "new_lines": "br"
+      },
+      {
+        "key": "field_catalogo_097",
+        "label": "Prueba de ruta escrita (opcional)",
+        "name": "",
+        "type": "tab",
+        "aria_label": "",
+        "instructions": "",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        },
+        "placement": "top",
+        "endpoint": 0
+      },
+      {
+        "key": "field_catalogo_098",
+        "label": "Distancia",
+        "name": "catalogo_prueba_ruta_distancia",
+        "type": "text",
+        "aria_label": "",
+        "instructions": "",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        },
+        "default_value": "",
+        "maxlength": "",
+        "placeholder": "",
+        "prepend": "",
+        "append": ""
+      },
+      {
+        "key": "field_catalogo_099",
+        "label": "Ruidos",
+        "name": "catalogo_prueba_ruta_ruidos",
+        "type": "text",
+        "aria_label": "",
+        "instructions": "",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        },
+        "default_value": "",
+        "maxlength": "",
+        "placeholder": "",
+        "prepend": "",
+        "append": ""
+      },
+      {
+        "key": "field_catalogo_100",
+        "label": "Tironeo",
+        "name": "catalogo_prueba_ruta_tironeo",
+        "type": "text",
+        "aria_label": "",
+        "instructions": "",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        },
+        "default_value": "",
+        "maxlength": "",
+        "placeholder": "",
+        "prepend": "",
+        "append": ""
+      },
+      {
+        "key": "field_catalogo_101",
+        "label": "Frenado",
+        "name": "catalogo_prueba_ruta_frenado",
+        "type": "text",
+        "aria_label": "",
+        "instructions": "",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        },
+        "default_value": "",
+        "maxlength": "",
+        "placeholder": "",
+        "prepend": "",
+        "append": ""
+      },
+      {
+        "key": "field_catalogo_102",
+        "label": "Vibración",
+        "name": "catalogo_prueba_ruta_vibracion",
+        "type": "text",
+        "aria_label": "",
+        "instructions": "",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        },
+        "default_value": "",
+        "maxlength": "",
+        "placeholder": "",
+        "prepend": "",
+        "append": ""
+      },
+      {
+        "key": "field_catalogo_103",
+        "label": "Temperatura",
+        "name": "catalogo_prueba_ruta_temperatura",
+        "type": "text",
+        "aria_label": "",
+        "instructions": "",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        },
+        "default_value": "",
+        "maxlength": "",
+        "placeholder": "",
+        "prepend": "",
+        "append": ""
+      },
+      {
+        "key": "field_catalogo_104",
+        "label": "Observaciones",
+        "name": "catalogo_prueba_ruta_observaciones",
+        "type": "textarea",
+        "aria_label": "",
+        "instructions": "",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        },
+        "default_value": "",
+        "maxlength": "",
+        "rows": 3,
+        "placeholder": "",
+        "new_lines": "br"
+      }
+    ],
+    "location": [
+      [
+        {
+          "param": "post_type",
+          "operator": "==",
+          "value": "product"
+        }
+      ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "Datos opcionales del catálogo privado. No condicionan la publicación del producto.",
+    "show_in_rest": 1
+  }
+]

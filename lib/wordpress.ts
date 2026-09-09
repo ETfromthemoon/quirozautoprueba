@@ -55,6 +55,7 @@ import {
   type VehicleAvailability,
 } from "./vehicle-availability";
 import cmsSnapshotData from "./cars.snapshot.json";
+import { parseVehicleReportFromAcf, type VehicleReport } from "./brochures";
 
 const cmsSnapshot = cmsSnapshotData as Car[];
 const fallbackCars = cmsSnapshot.length > 0 ? cmsSnapshot : staticCars;
@@ -111,6 +112,8 @@ const FALLBACK_IMAGE =
 // ─── Tipos del REST de WordPress ────────────────────────────────────────────
 
 type WpAcf = {
+  /** Campos adicionales del catálogo; ACF puede devolver valores planos o anidados. */
+  [key: string]: unknown;
   precio?: string;
   descripcion?: string;
   kilometraje?: string;
@@ -973,6 +976,26 @@ export async function fetchCarBySlug(slug: string): Promise<Car | undefined> {
     // error permite que la ruta muestre su estado recuperable en vez de
     // convertir una caída temporal de WordPress en un 404 incorrecto.
     throw new Error(`Vehículo temporalmente no disponible: ${slug}`, { cause: err });
+  }
+}
+
+/**
+ * Lee únicamente los campos del brochure del producto. Un ACF vacío devuelve
+ * undefined y nunca altera la publicación ni la importación normal del auto.
+ */
+export async function fetchBrochureBySlug(slug: string): Promise<VehicleReport | undefined> {
+  try {
+    const res = await fetchWordPressPath(
+      (base) => `${base}/product?slug=${encodeURIComponent(slug)}`,
+      {},
+      { attemptsPerBase: 1, timeoutMs: 8_000, safetyMs: 10_000 },
+    );
+    if (!res.ok) return undefined;
+    const products = (await res.json()) as WpProduct[];
+    return products[0] ? parseVehicleReportFromAcf(slug, products[0].acf) : undefined;
+  } catch (error) {
+    console.warn(`[WordPress] brochure no disponible para ${slug}:`, error);
+    return undefined;
   }
 }
 

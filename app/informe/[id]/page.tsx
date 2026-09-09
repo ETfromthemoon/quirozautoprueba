@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { fetchCarBySlug } from "@/lib/wordpress";
+import { fetchBrochureBySlug, fetchCarBySlug } from "@/lib/wordpress";
 import { getReportById, isValidToken } from "@/lib/brochures";
 import VehicleReport from "@/components/VehicleReport";
 import AccessGate from "@/components/brochure/AccessGate";
@@ -25,10 +25,17 @@ export default async function InformePage({
   const { id } = await params;
   const { k } = await searchParams;
 
-  const report = getReportById(id);
+  const cmsReport = await fetchBrochureBySlug(id);
+  const fallbackReport = getReportById(id);
+  const report = cmsReport ?? fallbackReport;
+  const hasValidToken = Boolean(
+    report?.accessToken &&
+    k &&
+    (cmsReport ? report.accessToken === k : isValidToken(id, k)),
+  );
 
   // Sin informe o token inválido → puerta de acceso (no revela datos privados).
-  if (!report || !isValidToken(id, k)) {
+  if (!report || !hasValidToken) {
     const car = await fetchCarBySlug(id).catch(() => undefined);
     const carName = car ? `${car.brand} ${car.model} ${car.year}` : undefined;
     return <AccessGate carName={carName} />;
