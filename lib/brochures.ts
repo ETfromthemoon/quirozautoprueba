@@ -261,6 +261,25 @@ export const reports: Record<string, VehicleReport> = {
   }
 };
 
+// Respaldo temporal de presentación: permite revisar este único catálogo cuando
+// el WAF de WordPress bloquea solicitudes salientes de Vercel. Se elimina junto
+// con los datos DEMO cargados en el producto 13093.
+reports["volvo-xc90-ii-t8-awd-2-0-polestar-2022"] = {
+  ...reports["bmw-420-grand-coupe-m-designe-2-0-at-2024"],
+  carId: "volvo-xc90-ii-t8-awd-2-0-polestar-2022",
+  accessToken: "demo-volvo-xc90-temporal-2026",
+  identificacionLegal: {
+    tipoVehiculo: "SUV", marca: "Volvo", modelo: "XC90 T8 AWD", ano: 2022,
+    color: "Azul metálico", version: "Polestar Engineered · DEMO",
+    transmision: "Automática", combustible: "Híbrido", patente: "DEMO22",
+    numeroMotor: "MOTOR-DEMO-001", vin: "VIN-DEMO-NO-REAL-2026",
+    numeroDuenos: 1, copiaLlaves: "Sí", servicios: "Concesionario",
+    transporte: "No", aseguradora: "Sí", perdidaTotal: "No", prenda: "No",
+    multasInscritas: "No", limitacionesDominio: "No",
+    observaciones: "DATOS FICTICIOS DE DEMOSTRACIÓN. No corresponden al vehículo real.",
+  },
+};
+
 export function getReportById(carId: string) { return reports[carId]; }
 export function isValidAdminKey(key?: string) { const expected = process.env.INFORME_ADMIN_KEY; return Boolean(expected && key && safeEqual(expected, key)); }
 export function isValidToken(carId: string, token?: string) { const report = reports[carId]; return Boolean(report && token && safeEqual(report.accessToken, token)); }
