@@ -987,7 +987,7 @@ export async function fetchBrochureBySlug(slug: string): Promise<VehicleReport |
   try {
     const res = await fetchWordPressPath(
       (base) => `${base}/product?slug=${encodeURIComponent(slug)}`,
-      {},
+      { cache: "no-store" },
       { attemptsPerBase: 1, timeoutMs: 8_000, safetyMs: 10_000 },
     );
     if (!res.ok) return undefined;
