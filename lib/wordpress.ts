@@ -55,7 +55,12 @@ import {
   type VehicleAvailability,
 } from "./vehicle-availability";
 import cmsSnapshotData from "./cars.snapshot.json";
-import { parseVehicleReportFromAcf, type VehicleReport } from "./brochures";
+import {
+  parseVehicleReportFromAcf,
+  validateBrochure,
+  type BrochureValidation,
+  type VehicleReport,
+} from "./brochures";
 
 const cmsSnapshot = cmsSnapshotData as Car[];
 const fallbackCars = cmsSnapshot.length > 0 ? cmsSnapshot : staticCars;
@@ -996,6 +1001,44 @@ export async function fetchBrochureBySlug(slug: string): Promise<VehicleReport |
   } catch (error) {
     console.warn(`[WordPress] brochure no disponible para ${slug}:`, error);
     return undefined;
+  }
+}
+
+export type BrochureAdminItem = {
+  carId: string;
+  name: string;
+  report: VehicleReport;
+  validation: BrochureValidation;
+};
+
+/**
+ * Catálogos habilitados para el panel privado de vendedores. La consulta es
+ * sólo de lectura y reutiliza los mismos productos/ACF del catálogo público.
+ */
+export async function fetchBrochuresForAdmin(): Promise<BrochureAdminItem[]> {
+  try {
+    const products = await fetchAllProducts();
+
+    return products
+      .map((product) => {
+        const report = parseVehicleReportFromAcf(product.slug, product.acf);
+        const enabled = product.acf?.catalogo_habilitado;
+        const isEnabled = enabled === true || enabled === 1 || enabled === "1";
+
+        if (!isEnabled || !report?.accessToken) return undefined;
+
+        return {
+          carId: product.slug,
+          name: decodeHtml(product.title?.rendered ?? product.slug),
+          report,
+          validation: validateBrochure(report),
+        } satisfies BrochureAdminItem;
+      })
+      .filter((item): item is BrochureAdminItem => Boolean(item))
+      .sort((a, b) => a.name.localeCompare(b.name, "es"));
+  } catch (error) {
+    console.warn("[WordPress] no se pudo cargar el panel de brochures:", error);
+    return [];
   }
 }
 

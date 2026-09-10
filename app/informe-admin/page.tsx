@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { reports, buildInformeUrl, countReportModules, isValidAdminKey } from "@/lib/brochures";
 import { cars } from "@/lib/cars";
+import { fetchBrochuresForAdmin } from "@/lib/wordpress";
 import BrochureAdmin, { type AdminRow } from "@/components/brochure/BrochureAdmin";
 import AccessGate from "@/components/brochure/AccessGate";
 
@@ -27,17 +28,44 @@ export default async function InformeAdminPage({
     return <AccessGate />;
   }
 
-  // Las filas (incluidos los links con token) se arman en el servidor:
-  // solo llegan al navegador del vendedor ya autenticado.
-  const rows: AdminRow[] = Object.values(reports).map((r) => {
+  // Los enlaces con token se arman en el servidor y sólo llegan al navegador
+  // después de validar la clave privada del panel.
+  const cmsItems = await fetchBrochuresForAdmin();
+  const rowsById = new Map<string, AdminRow>();
+
+  for (const item of cmsItems) {
+    rowsById.set(item.carId, {
+      carId: item.carId,
+      name: item.name,
+      modulos: countReportModules(item.report),
+      url: `${siteUrl.replace(/\/$/, "")}/informe/${item.carId}?k=${encodeURIComponent(item.report.accessToken)}`,
+      complete: item.validation.complete,
+      missing: item.validation.missing,
+    });
+  }
+
+  // Compatibilidad con las demos estáticas mientras se completa la carga en
+  // WordPress. Un catálogo del CMS siempre tiene prioridad.
+  for (const r of Object.values(reports)) {
     const car = cars.find((c) => c.id === r.carId);
-    return {
+    if (rowsById.has(r.carId)) continue;
+    const legal = r.identificacionLegal;
+    const fallbackName = [legal?.marca, legal?.modelo, legal?.ano]
+      .filter((value): value is string | number => typeof value === "string" || typeof value === "number")
+      .join(" ");
+    rowsById.set(r.carId, {
       carId: r.carId,
-      name: car ? `${car.brand} ${car.model} ${car.year}` : r.carId,
+      name: car ? `${car.brand} ${car.model} ${car.year}` : fallbackName || r.carId,
       modulos: countReportModules(r),
       url: buildInformeUrl(siteUrl, r.carId) ?? "",
-    };
-  });
+      complete: true,
+      missing: [],
+    });
+  }
+
+  const rows = Array.from(rowsById.values()).sort((a, b) =>
+    a.name.localeCompare(b.name, "es"),
+  );
 
   return <BrochureAdmin rows={rows} />;
 }
