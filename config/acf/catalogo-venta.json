@@ -2400,6 +2400,113 @@
         "rows": 3,
         "placeholder": "",
         "new_lines": "br"
+      },
+      {
+        "key": "field_catalogo_105", "label": "Identificación legal — campos agregados", "name": "", "type": "tab",
+        "instructions": "", "required": 0, "conditional_logic": 0, "wrapper": { "width": "", "class": "", "id": "" },
+        "placement": "top", "endpoint": 0, "selected": 0
+      },
+      {
+        "key": "field_catalogo_106", "label": "Tracción", "name": "catalogo_identificacion_traccion", "type": "select",
+        "instructions": "Selecciona 4x2, 4x4 o AWD.", "required": 0, "conditional_logic": 0, "wrapper": { "width": "33", "class": "", "id": "" },
+        "choices": { "4x2": "4x2", "4x4": "4x4", "AWD": "AWD" }, "default_value": false, "return_format": "value", "multiple": 0, "allow_null": 1, "ui": 0, "ajax": 0, "placeholder": ""
+      },
+      {
+        "key": "field_catalogo_107", "label": "Transmisión — campos agregados", "name": "", "type": "tab",
+        "instructions": "", "required": 0, "conditional_logic": 0, "wrapper": { "width": "", "class": "", "id": "" },
+        "placement": "top", "endpoint": 0, "selected": 0
+      },
+      {
+        "key": "field_catalogo_108", "label": "Cantidad de cambios manual", "name": "catalogo_transmision_marchas_manual", "type": "select",
+        "instructions": "Completar solo si corresponde.", "required": 0, "conditional_logic": 0, "wrapper": { "width": "33", "class": "", "id": "" },
+        "choices": { "4": "4", "5": "5", "6": "6", "7": "7" }, "default_value": false, "return_format": "value", "multiple": 0, "allow_null": 1, "ui": 0, "ajax": 0, "placeholder": ""
+      },
+      {
+        "key": "field_catalogo_109", "label": "Cantidad de cambios automática", "name": "catalogo_transmision_marchas_automatica", "type": "select",
+        "instructions": "Completar solo si corresponde.", "required": 0, "conditional_logic": 0, "wrapper": { "width": "33", "class": "", "id": "" },
+        "choices": { "4": "4", "5": "5", "6": "6", "7": "7", "8": "8", "9": "9", "10": "10", "11": "11", "12": "12" }, "default_value": false, "return_format": "value", "multiple": 0, "allow_null": 1, "ui": 0, "ajax": 0, "placeholder": ""
+      },
+      {
+        "key": "field_catalogo_110", "label": "Manual electrónica", "name": "catalogo_transmision_manual_electronica", "type": "select",
+        "instructions": "", "required": 0, "conditional_logic": 0, "wrapper": { "width": "33", "class": "", "id": "" },
+        "choices": { "Sí": "Sí", "No": "No" }, "default_value": false, "return_format": "value", "multiple": 0, "allow_null": 1, "ui": 0, "ajax": 0, "placeholder": ""
+      },
+      {
+        "key": "field_catalogo_111", "label": "Paddle Shift", "name": "catalogo_transmision_paddle_shift", "type": "select",
+        "instructions": "", "required": 0, "conditional_logic": 0, "wrapper": { "width": "33", "class": "", "id": "" },
+        "choices": { "Sí": "Sí", "No": "No" }, "default_value": false, "return_format": "value", "multiple": 0, "allow_null": 1, "ui": 0, "ajax": 0, "placeholder": ""
+      },
+      {
+        "key": "field_catalogo_112", "label": "Tiptronic", "name": "catalogo_transmision_tiptronic", "type": "select",
+        "instructions": "", "required": 0, "conditional_logic": 0, "wrapper": { "width": "33", "class": "", "id": "" },
+        "choices": { "Sí": "Sí", "No": "No" }, "default_value": false, "return_format": "value", "multiple": 0, "allow_null": 1, "ui": 0, "ajax": 0, "placeholder": ""
+      },
+      {
+        "key": "field_catalogo_113", "label": "Carrocería — campo agregado", "name": "", "type": "tab",
+        "instructions": "", "required": 0, "conditional_logic": 0, "wrapper": { "width": "", "class": "", "id": "" },
+        "placement": "top", "endpoint": 0, "selected": 0
+      },
+      {
+        "key": "field_catalogo_114", "label": "Aro", "name": "catalogo_carroceria_aro", "type": "select",
+        "instructions": "Medida del aro.", "required": 0, "conditional_logic": 0, "wrapper": { "width": "33", "class": "", "id": "" },
+        "choices": { "12": "12", "13": "13", "14": "14", "15": "15", "16": "16", "17": "17", "18": "18", "19": "19", "20": "20", "21": "21", "22": "22" }, "default_value": false, "return_format": "value", "multiple": 0, "allow_null": 1, "ui": 0, "ajax": 0, "placeholder": ""
+      },
+      {
+        "key": "field_catalogo_115", "label": "Interior — campo agregado", "name": "", "type": "tab",
+        "instructions": "", "required": 0, "conditional_logic": 0, "wrapper": { "width": "", "class": "", "id": "" },
+        "placement": "top", "endpoint": 0, "selected": 0
+      },
+      {
+        "key": "field_catalogo_116", "label": "Consola central", "name": "catalogo_interior_consola_central", "type": "select",
+        "instructions": "", "required": 0, "conditional_logic": 0, "wrapper": { "width": "33", "class": "", "id": "" },
+        "choices": { "Bueno": "Bueno", "Regular": "Regular", "Malo": "Malo" }, "default_value": false, "return_format": "value", "multiple": 0, "allow_null": 1, "ui": 0, "ajax": 0, "placeholder": ""
+      },
+      {
+        "key": "field_catalogo_117", "label": "Equipamiento — campos agregados", "name": "", "type": "tab",
+        "instructions": "Marca únicamente los datos comprobados.", "required": 0, "conditional_logic": 0, "wrapper": { "width": "", "class": "", "id": "" },
+        "placement": "top", "endpoint": 0, "selected": 0
+      },
+      {
+        "key": "field_catalogo_118", "label": "Velocidad crucero", "name": "catalogo_equipamiento_velocidad_crucero", "type": "select", "instructions": "", "required": 0, "conditional_logic": 0, "wrapper": { "width": "25", "class": "", "id": "" }, "choices": { "Sí": "Sí", "No": "No" }, "default_value": false, "return_format": "value", "multiple": 0, "allow_null": 1, "ui": 0, "ajax": 0, "placeholder": ""
+      },
+      {
+        "key": "field_catalogo_119", "label": "Comandos de audio al volante", "name": "catalogo_equipamiento_comando_audio_volante", "type": "select", "instructions": "", "required": 0, "conditional_logic": 0, "wrapper": { "width": "25", "class": "", "id": "" }, "choices": { "Sí": "Sí", "No": "No" }, "default_value": false, "return_format": "value", "multiple": 0, "allow_null": 1, "ui": 0, "ajax": 0, "placeholder": ""
+      },
+      {
+        "key": "field_catalogo_120", "label": "Bluetooth", "name": "catalogo_equipamiento_bluetooth", "type": "select", "instructions": "", "required": 0, "conditional_logic": 0, "wrapper": { "width": "25", "class": "", "id": "" }, "choices": { "Sí": "Sí", "No": "No" }, "default_value": false, "return_format": "value", "multiple": 0, "allow_null": 1, "ui": 0, "ajax": 0, "placeholder": ""
+      },
+      {
+        "key": "field_catalogo_121", "label": "Pantalla touch", "name": "catalogo_equipamiento_pantalla_touch", "type": "select", "instructions": "", "required": 0, "conditional_logic": 0, "wrapper": { "width": "25", "class": "", "id": "" }, "choices": { "Sí": "Sí", "No": "No" }, "default_value": false, "return_format": "value", "multiple": 0, "allow_null": 1, "ui": 0, "ajax": 0, "placeholder": ""
+      },
+      {
+        "key": "field_catalogo_122", "label": "CarPlay", "name": "catalogo_equipamiento_carplay", "type": "select", "instructions": "", "required": 0, "conditional_logic": 0, "wrapper": { "width": "25", "class": "", "id": "" }, "choices": { "Sí": "Sí", "No": "No" }, "default_value": false, "return_format": "value", "multiple": 0, "allow_null": 1, "ui": 0, "ajax": 0, "placeholder": ""
+      },
+      {
+        "key": "field_catalogo_123", "label": "Cámara", "name": "catalogo_equipamiento_camara", "type": "select", "instructions": "", "required": 0, "conditional_logic": 0, "wrapper": { "width": "25", "class": "", "id": "" }, "choices": { "Retroceso": "Retroceso", "Delantera": "Delantera", "Lateral": "Lateral", "360°": "360°" }, "default_value": false, "return_format": "value", "multiple": 0, "allow_null": 1, "ui": 0, "ajax": 0, "placeholder": ""
+      },
+      {
+        "key": "field_catalogo_124", "label": "Radio disponible", "name": "catalogo_equipamiento_radio_disponible", "type": "select", "instructions": "", "required": 0, "conditional_logic": 0, "wrapper": { "width": "25", "class": "", "id": "" }, "choices": { "Sí": "Sí", "No": "No" }, "default_value": false, "return_format": "value", "multiple": 0, "allow_null": 1, "ui": 0, "ajax": 0, "placeholder": ""
+      },
+      {
+        "key": "field_catalogo_125", "label": "Partida electrónica", "name": "catalogo_equipamiento_partida_electronica", "type": "select", "instructions": "", "required": 0, "conditional_logic": 0, "wrapper": { "width": "25", "class": "", "id": "" }, "choices": { "Sí": "Sí", "No": "No" }, "default_value": false, "return_format": "value", "multiple": 0, "allow_null": 1, "ui": 0, "ajax": 0, "placeholder": ""
+      },
+      {
+        "key": "field_catalogo_126", "label": "Freno electrónico", "name": "catalogo_equipamiento_freno_electronico", "type": "select", "instructions": "", "required": 0, "conditional_logic": 0, "wrapper": { "width": "25", "class": "", "id": "" }, "choices": { "Sí": "Sí", "No": "No" }, "default_value": false, "return_format": "value", "multiple": 0, "allow_null": 1, "ui": 0, "ajax": 0, "placeholder": ""
+      },
+      {
+        "key": "field_catalogo_127", "label": "Cantidad de airbags", "name": "catalogo_equipamiento_cantidad_airbags", "type": "select", "instructions": "", "required": 0, "conditional_logic": 0, "wrapper": { "width": "25", "class": "", "id": "" }, "choices": { "1": "1", "2": "2", "3": "3", "4": "4", "5": "5", "6": "6", "7": "7", "8": "8", "9": "9", "10": "10", "11": "11", "12": "12" }, "default_value": false, "return_format": "value", "multiple": 0, "allow_null": 1, "ui": 0, "ajax": 0, "placeholder": ""
+      },
+      {
+        "key": "field_catalogo_128", "label": "Sensores delanteros", "name": "catalogo_equipamiento_sensores_delanteros", "type": "select", "instructions": "", "required": 0, "conditional_logic": 0, "wrapper": { "width": "25", "class": "", "id": "" }, "choices": { "Sí": "Sí", "No": "No" }, "default_value": false, "return_format": "value", "multiple": 0, "allow_null": 1, "ui": 0, "ajax": 0, "placeholder": ""
+      },
+      {
+        "key": "field_catalogo_129", "label": "Sensores traseros", "name": "catalogo_equipamiento_sensores_traseros", "type": "select", "instructions": "", "required": 0, "conditional_logic": 0, "wrapper": { "width": "25", "class": "", "id": "" }, "choices": { "Sí": "Sí", "No": "No" }, "default_value": false, "return_format": "value", "multiple": 0, "allow_null": 1, "ui": 0, "ajax": 0, "placeholder": ""
+      },
+      {
+        "key": "field_catalogo_130", "label": "Portalón trasero electrónico", "name": "catalogo_equipamiento_portalon_trasero_electronico", "type": "select", "instructions": "", "required": 0, "conditional_logic": 0, "wrapper": { "width": "25", "class": "", "id": "" }, "choices": { "Sí": "Sí", "No": "No" }, "default_value": false, "return_format": "value", "multiple": 0, "allow_null": 1, "ui": 0, "ajax": 0, "placeholder": ""
+      },
+      {
+        "key": "field_catalogo_131", "label": "Barras en el techo", "name": "catalogo_equipamiento_barras_techo", "type": "select", "instructions": "", "required": 0, "conditional_logic": 0, "wrapper": { "width": "25", "class": "", "id": "" }, "choices": { "Sí": "Sí", "No": "No" }, "default_value": false, "return_format": "value", "multiple": 0, "allow_null": 1, "ui": 0, "ajax": 0, "placeholder": ""
       }
     ],
     "location": [
