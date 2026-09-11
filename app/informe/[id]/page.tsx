@@ -27,11 +27,14 @@ export default async function InformePage({
 
   const cmsReport = await fetchBrochureBySlug(id);
   const fallbackReport = getReportById(id);
-  const report = cmsReport ?? fallbackReport;
+  // El token temporal de la maqueta debe mostrar el conjunto completo de
+  // datos ficticios aunque el mismo vehículo ya tenga un informe parcial en CMS.
+  const usesDemoFixture = Boolean(fallbackReport && k && isValidToken(id, k));
+  const report = usesDemoFixture ? fallbackReport : (cmsReport ?? fallbackReport);
   const hasValidToken = Boolean(
     report?.accessToken &&
     k &&
-    (cmsReport ? report.accessToken === k : isValidToken(id, k)),
+    (usesDemoFixture || (cmsReport ? report.accessToken === k : isValidToken(id, k))),
   );
 
   // Sin informe o token inválido → puerta de acceso (no revela datos privados).
