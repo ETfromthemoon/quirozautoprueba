@@ -38,7 +38,10 @@ El campo **Token privado** se compara con el parámetro `k` de la URL:
 `/informe/slug-del-vehiculo?k=token-configurado`
 
 Si falta el token o no coincide, la ruta muestra la puerta de acceso y no
-revela los datos del catálogo.
+revela los datos. En la edición del vehículo el token se crea automáticamente
+con 128 bits aleatorios al habilitar el catálogo. El vendedor no debe escribirlo.
+El botón **Regenerar acceso** prepara una llave nueva; el enlace anterior queda
+revocado únicamente después de pulsar **Actualizar**.
 
 ## Datos globales
 
