@@ -34,6 +34,7 @@
       '<div style="display:flex;flex-wrap:wrap;gap:8px">',
       '<a class="button button-primary quiroz-brochure-open" target="_blank" rel="noopener noreferrer">Ver brochure</a>',
       '<button type="button" class="button quiroz-brochure-copy">Copiar enlace</button>',
+      '<button type="button" class="button quiroz-brochure-share">Compartir</button>',
       '<span class="quiroz-brochure-status" style="align-self:center;color:#646970"></span>',
       '</div>'
     ].join("");
@@ -44,6 +45,7 @@
     var urlInput = panel.querySelector(".quiroz-brochure-url");
     var openButton = panel.querySelector(".quiroz-brochure-open");
     var copyButton = panel.querySelector(".quiroz-brochure-copy");
+    var shareButton = panel.querySelector(".quiroz-brochure-share");
     var status = panel.querySelector(".quiroz-brochure-status");
 
     function update() {
@@ -58,6 +60,7 @@
       openButton.style.pointerEvents = url && enabled ? "auto" : "none";
       openButton.style.opacity = url && enabled ? "1" : ".5";
       copyButton.disabled = !(url && enabled);
+      shareButton.disabled = !(url && enabled);
       status.textContent = !enabled
         ? "Catálogo deshabilitado"
         : !token
@@ -83,6 +86,37 @@
         copyButton.textContent = "Enlace copiado";
         window.setTimeout(function () {
           copyButton.textContent = "Copiar enlace";
+        }, 1800);
+      });
+    });
+
+    shareButton.addEventListener("click", function () {
+      var url = urlInput.value;
+      if (!url) return;
+
+      if (navigator.share) {
+        navigator.share({
+          title: "Brochure privado del vehículo",
+          text: "Revisa el brochure privado de este vehículo",
+          url: url
+        }).catch(function (error) {
+          if (!error || error.name !== "AbortError") status.textContent = "No se pudo compartir";
+        });
+        return;
+      }
+
+      var copied = navigator.clipboard && window.isSecureContext
+        ? navigator.clipboard.writeText(url)
+        : Promise.reject();
+
+      copied.catch(function () {
+        urlInput.focus();
+        urlInput.select();
+        document.execCommand("copy");
+      }).finally(function () {
+        shareButton.textContent = "Enlace copiado";
+        window.setTimeout(function () {
+          shareButton.textContent = "Compartir";
         }, 1800);
       });
     });

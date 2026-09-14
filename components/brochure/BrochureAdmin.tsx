@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Logo from "../Logo";
 import CopyLinkButton from "./CopyLinkButton";
+import ShareLinkButton from "./ShareLinkButton";
 import { EyeIcon, LockIcon, ArrowLeftIcon } from "../icons";
 
 export type AdminRow = {
@@ -91,6 +92,7 @@ export default function BrochureAdmin({ rows }: Props) {
                   <span>Ver</span>
                 </a>
                 <CopyLinkButton url={row.url} />
+                <ShareLinkButton url={row.url} title={row.name} />
               </div>
             </div>
           ))}
