@@ -62,11 +62,13 @@ export default function VehicleReport({ car, report, demo = false }: Props) {
 
   return <main className="min-h-dvh bg-ink-950 text-ink-50">
     <ChapterNav chapters={chapters} />
-    <header className="fixed inset-x-0 top-0 z-50 py-3"><div className="mx-auto max-w-6xl px-4"><div className="glass-dark flex items-center justify-between gap-3 rounded-full px-4 py-1.5 sm:px-5">
-      <Link href={`/vehiculo/${car.id}`} className="btn-ghost min-h-11"><ArrowLeftIcon className="h-4 w-4" /><span className="hidden sm:inline">Ficha</span></Link>
-      <Logo variant="horizontal" className="h-12 w-auto shrink-0 sm:h-14 md:h-16" />
-      <span className="hidden items-center gap-2 text-overline text-ink-200 lg:flex">{demo ? <ScanIcon className="h-4 w-4 text-accent-500" /> : <LockIcon className="h-4 w-4 text-accent-500" />}{demo ? "Demo · datos de prueba" : "Informe privado"}</span>
-      <Link href={booking} className="btn-base btn-primary !min-h-11 !px-4 !py-2">Reservar</Link>
+    <header className="fixed inset-x-0 top-0 z-50 py-3"><div className="mx-auto max-w-6xl px-4"><div className="glass-dark grid grid-cols-[1fr_auto_1fr] items-center gap-2 rounded-full px-3 py-1.5 sm:gap-3 sm:px-5">
+      <div className="flex min-w-0 items-center gap-1 sm:gap-2">
+        <Link href={`/vehiculo/${car.id}`} aria-label="Volver a la ficha del vehículo" className="btn-ghost min-h-11 shrink-0 !px-2.5"><ArrowLeftIcon className="h-4 w-4" /></Link>
+        <Logo variant="horizontal" className="h-[4.5rem] w-auto shrink-0 sm:h-[5.25rem] md:h-24" />
+      </div>
+      <span className="flex items-center justify-center gap-1 whitespace-nowrap text-[9px] font-bold uppercase tracking-[0.12em] text-ink-200 sm:gap-2 sm:text-[11px] sm:tracking-[0.18em]">{demo ? <ScanIcon className="hidden h-4 w-4 text-accent-500 sm:block" /> : <LockIcon className="hidden h-4 w-4 text-accent-500 sm:block" />}Informes privados</span>
+      <Link href={booking} className="btn-base btn-primary justify-self-end !min-h-11 !px-3 !py-2 sm:!px-4">Reservar</Link>
     </div></div></header>
     <section className="cinematic-vignette relative h-[86dvh] min-h-[580px] overflow-hidden">
       <Image src={car.image} alt={name} fill preload sizes="100vw" className="object-cover" />
