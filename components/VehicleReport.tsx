@@ -55,10 +55,10 @@ export default function VehicleReport({ car, report, demo = false }: Props) {
 
   return <main className="min-h-dvh bg-ink-950 text-ink-50">
     <ChapterNav chapters={chapters} />
-    <header className="fixed inset-x-0 top-0 z-50 py-3"><div className="mx-auto max-w-6xl px-4"><div className="glass-dark flex items-center justify-between rounded-full px-5 py-2">
+    <header className="fixed inset-x-0 top-0 z-50 py-3"><div className="mx-auto max-w-6xl px-4"><div className="glass-dark flex items-center justify-between gap-3 rounded-full px-4 py-1.5 sm:px-5">
       <Link href={`/vehiculo/${car.id}`} className="btn-ghost min-h-11"><ArrowLeftIcon className="h-4 w-4" /><span className="hidden sm:inline">Ficha</span></Link>
-      <Logo variant="horizontal" className="hidden h-7 w-auto sm:block" />
-      <span className="flex items-center gap-2 text-overline text-ink-200">{demo ? <ScanIcon className="h-4 w-4 text-accent-500" /> : <LockIcon className="h-4 w-4 text-accent-500" />}{demo ? "Demo · datos de prueba" : "Informe privado"}</span>
+      <Logo variant="horizontal" className="h-12 w-auto shrink-0 sm:h-14 md:h-16" />
+      <span className="hidden items-center gap-2 text-overline text-ink-200 lg:flex">{demo ? <ScanIcon className="h-4 w-4 text-accent-500" /> : <LockIcon className="h-4 w-4 text-accent-500" />}{demo ? "Demo · datos de prueba" : "Informe privado"}</span>
       <Link href={booking} className="btn-base btn-primary !min-h-11 !px-4 !py-2">Reservar</Link>
     </div></div></header>
     <section className="cinematic-vignette relative h-[86dvh] min-h-[580px] overflow-hidden">
@@ -81,6 +81,10 @@ export default function VehicleReport({ car, report, demo = false }: Props) {
       {report.signature && <Reveal><div className="glass-light flex flex-col justify-between gap-5 rounded-3xl p-7 sm:flex-row sm:items-center"><div><p className="text-overline text-accent-500">Responsable del informe</p><p className="mt-2 font-display text-lg font-bold">{report.signature.perito}</p><p className="text-sm text-ink-300">{report.signature.taller}</p><p className="mt-2 text-xs text-ink-500">Emitido el {report.signature.fecha}</p></div><Logo className="h-12 w-auto" /></div></Reveal>}
       <Reveal as="section" id="reserva" className="scroll-mt-28"><div className="overflow-hidden rounded-3xl border border-white/10 bg-gradient-to-br from-ink-800 to-ink-950 p-7 md:p-12"><div className="grid gap-10 lg:grid-cols-[1.15fr_.85fr] lg:items-end"><div><p className="text-overline text-accent-500">Valor y alternativas de pago</p><h2 className="mt-4 font-display text-4xl font-extrabold tracking-tight text-white md:text-6xl">{car.price}</h2><p className="mt-5 max-w-xl text-base font-light leading-relaxed text-ink-300">Compra al contado, financiamiento o recibe asesoría para elegir la alternativa de pago disponible.</p><div className="mt-6 flex flex-wrap gap-2"><span className="rounded-full border border-white/10 px-4 py-2 text-sm text-ink-200">Contado</span><span className="rounded-full border border-white/10 px-4 py-2 text-sm text-ink-200">Financiamiento</span><span className="rounded-full border border-white/10 px-4 py-2 text-sm text-ink-200">Reserva online</span></div></div><div className="glass-light rounded-2xl p-6"><p className="text-overline text-ink-400">Reserva del vehículo</p><p className="mt-3 font-display text-2xl font-bold text-white">$200.000</p><p className="mt-2 text-sm leading-relaxed text-ink-300">El monto se descuenta del precio final de compra.</p><div className="mt-6 grid gap-3"><Link href={booking} className="btn-base btn-primary w-full">Solicitar reserva <ArrowRightIcon className="h-4 w-4" /></Link><ReservationPaymentButton className="btn-base btn-silver w-full" label="Pagar con Webpay" /></div></div></div></div></Reveal>
     </div>
+    <footer className="border-t border-white/10 bg-black/20 px-6 py-12 text-center md:py-16">
+      <Logo variant="horizontal" className="mx-auto h-24 w-auto md:h-32" />
+      <p className="mt-4 text-overline text-ink-400">Quiroz Redcar Group</p>
+    </footer>
   </main>;
 }
 
