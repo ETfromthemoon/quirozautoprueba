@@ -43,6 +43,14 @@ export const BROCHURE_ACF_FIELDS = {
 
 const MODULE_FIELDS = {
   identificacionLegal: {
+    padron: "identificacion_padron",
+    revisionTecnica: "identificacion_revision_tecnica",
+    revisionTecnicaVencimiento: "identificacion_revision_tecnica_vencimiento",
+    seguroObligatorio: "identificacion_seguro_obligatorio",
+    seguroObligatorioVencimiento: "identificacion_seguro_obligatorio_vencimiento",
+    permisoCirculacion: "identificacion_permiso_circulacion",
+    permisoCirculacionVencimiento: "identificacion_permiso_circulacion_vencimiento",
+    documentacionTransitoObservaciones: "identificacion_documentacion_transito_observaciones",
     tipoVehiculo: "identificacion_tipo_vehiculo", marca: "identificacion_marca",
     modelo: "identificacion_modelo", ano: "identificacion_ano", color: "identificacion_color",
     version: "identificacion_version", transmision: "identificacion_transmision",
@@ -243,6 +251,10 @@ export const reports: Record<string, VehicleReport> = {
     pruebaRutaHabilitada: true,
     signature: { perito: "Marco Quiroz · Perito automotriz", taller: "Quiroz Automotriz · Unidad de Peritaje", fecha: "10 de julio de 2026", folio: "QR-2026-0428" },
     identificacionLegal: {
+      padron: "Sí", revisionTecnica: "Sí", revisionTecnicaVencimiento: "30/11/2026",
+      seguroObligatorio: "Sí", seguroObligatorioVencimiento: "31/03/2027",
+      permisoCirculacion: "Sí", permisoCirculacionVencimiento: "31/03/2027",
+      documentacionTransitoObservaciones: "Documentación de tránsito ficticia y vigente para esta demostración.",
       tipoVehiculo: "Automóvil", marca: "BMW", modelo: "420 Grand Coupé", ano: 2024,
       color: "Negro Carbono Metálico", version: "M Design 2.0 AT", transmision: "Automática",
       combustible: "Bencina", patente: "RXKF·42", numeroMotor: "B48B20A-4821973",
@@ -287,6 +299,10 @@ reports["volvo-xc90-ii-t8-awd-2-0-polestar-2022"] = {
   carId: "volvo-xc90-ii-t8-awd-2-0-polestar-2022",
   accessToken: "demo-volvo-xc90-temporal-2026",
   identificacionLegal: {
+    padron: "Sí", revisionTecnica: "Sí", revisionTecnicaVencimiento: "30/11/2026",
+    seguroObligatorio: "Sí", seguroObligatorioVencimiento: "31/03/2027",
+    permisoCirculacion: "Sí", permisoCirculacionVencimiento: "31/03/2027",
+    documentacionTransitoObservaciones: "Documentación de tránsito ficticia y vigente para esta demostración.",
     tipoVehiculo: "SUV", marca: "Volvo", modelo: "XC90 T8 AWD", ano: 2022,
     color: "Azul metálico", version: "Polestar Engineered · DEMO",
     transmision: "Automática", traccion: "AWD", combustible: "Híbrido", patente: "DEMO22",

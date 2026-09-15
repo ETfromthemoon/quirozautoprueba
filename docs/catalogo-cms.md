@@ -13,12 +13,15 @@ publicar un vehículo ni participa en la importación del catálogo público.
 4. Confirmar que su ubicación sea **Tipo de entrada es igual a Producto**.
 
 El archivo usa solamente campos disponibles en ACF gratuito: pestañas,
-`true_false`, URL, imagen, texto, textarea, radio y select. No usa Group,
-Repeater ni Gallery.
+acordeones, `true_false`, URL, imagen, texto, textarea, fecha, radio y select.
+No usa Group, Repeater ni Gallery.
 
 ## Comportamiento
 
 - **Habilitar catálogo privado** determina si el producto tiene un catálogo.
+- **Documentación de tránsito** agrupa padrón, revisión técnica, seguro
+  obligatorio, permiso de circulación, sus vencimientos y una observación
+  independiente. El bloque sólo aparece en el brochure si contiene datos.
 - Los tres videos reciben enlaces de YouTube.
 - La galería dispone de 12 campos individuales. El frontend sólo muestra la
   galería cuando hay entre 8 y 12 imágenes válidas.

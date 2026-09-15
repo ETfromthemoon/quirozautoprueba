@@ -18,9 +18,16 @@ const EMPTY = /^(?:-|—|n\/?a|s\/?i|sin informaci[oó]n|no informado)$/i;
 
 export default function VehicleReport({ car, report, demo = false }: Props) {
   const all: Definition[] = [
-    { id: "identificacion", index: "01", title: "Identificación legal", overline: "Datos de CAV", module: report.identificacionLegal, groups: [{ observationKey: "observaciones", rows: [
-      ["Tipo de vehículo", "tipoVehiculo"], ["Marca", "marca"], ["Modelo", "modelo"], ["Año", "ano"], ["Color", "color"], ["Versión", "version"], ["Transmisión", "transmision"], ["Tracción", "traccion"], ["Combustible", "combustible"], ["Patente", "patente"], ["Nº motor", "numeroMotor"], ["Nº chasis (VIN)", "vin"], ["Nº de dueños", "numeroDuenos"], ["Copia de llaves", "copiaLlaves"], ["Transporte", "transporte"], ["Aseguradora", "aseguradora"], ["Pérdida total", "perdidaTotal"], ["Prenda", "prenda"], ["Multas inscritas", "multasInscritas"], ["Limitaciones al dominio", "limitacionesDominio"]
-    ] }] },
+    { id: "identificacion", index: "01", title: "Identificación legal", overline: "Datos de CAV", module: report.identificacionLegal, groups: [
+      { title: "Documentación de tránsito", observationKey: "documentacionTransitoObservaciones", rows: [
+        ["Padrón", "padron"], ["Revisión técnica", "revisionTecnica"], ["Vencimiento revisión técnica", "revisionTecnicaVencimiento"],
+        ["Seguro obligatorio", "seguroObligatorio"], ["Vencimiento seguro obligatorio", "seguroObligatorioVencimiento"],
+        ["Permiso de circulación", "permisoCirculacion"], ["Vencimiento permiso de circulación", "permisoCirculacionVencimiento"]
+      ] },
+      { title: "Datos y situación legal", observationKey: "observaciones", rows: [
+        ["Tipo de vehículo", "tipoVehiculo"], ["Marca", "marca"], ["Modelo", "modelo"], ["Año", "ano"], ["Color", "color"], ["Versión", "version"], ["Transmisión", "transmision"], ["Tracción", "traccion"], ["Combustible", "combustible"], ["Patente", "patente"], ["Nº motor", "numeroMotor"], ["Nº chasis (VIN)", "vin"], ["Nº de dueños", "numeroDuenos"], ["Copia de llaves", "copiaLlaves"], ["Transporte", "transporte"], ["Aseguradora", "aseguradora"], ["Pérdida total", "perdidaTotal"], ["Prenda", "prenda"], ["Multas inscritas", "multasInscritas"], ["Limitaciones al dominio", "limitacionesDominio"]
+      ] }
+    ] },
     { id: "scanner", index: "02", title: "Escáner electrónico", overline: "Diagnóstico OBD2", module: report.scannerElectronico, groups: [{ observationKey: "observaciones", rows: [["Resultado escáner OBD2", "resultadoObd2"], ["Testigos encendidos", "testigosEncendidos"]] }] },
     { id: "motor", index: "03", title: "Motor y mecánica", overline: "Inspección mecánica", module: report.motorMecanica, groups: [{ observationKey: "observaciones", rows: [["Partida en frío", "partidaFrio"], ["Ruidos", "ruidos"], ["Humo", "humo"], ["Fugas de aceite", "fugasAceite"], ["Mantenciones", "mantenciones"]] }] },
     { id: "transmision", index: "04", title: "Transmisión", overline: "Comportamiento", module: report.transmision, groups: [{ observationKey: "observaciones", rows: [["Manual", "manual"], ["Marchas manual", "marchasManual"], ["Automática", "automatica"], ["Marchas automática", "marchasAutomatica"], ["Manual electrónica", "manualElectronica"], ["Paddle Shift", "paddleShift"], ["Tiptronic", "tiptronic"], ["Tipo", "tipo"], ["Embrague", "embrague"], ["Paso de cambios", "pasoCambios"], ["Golpe", "golpe"], ["Patina", "patina"], ["Tirones", "tirones"]] }] },
