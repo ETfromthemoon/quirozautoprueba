@@ -6,7 +6,7 @@
 | --- | --- | --- |
 | 1 | Asegurar respaldo y posibilidad de reversión | Hecho: ocho respaldos semanales en JetBackup; copia adicional de base de datos en WPvivid y copias privadas de `.htaccess` y `wp-config.php`. |
 | 2 | Elevar límites de la cuenta que habían llegado al máximo | Hecho: CloudLinux `qrzadm` pasó de CPU 100 % a 150 %, memoria 1 GB a 2 GB e I/O 4 MB/s a 8 MB/s. EP 20, NPROC 100 e IOPS 1024 siguen iguales. |
-| 3 | Reducir datos y trabajo del catálogo | Hecho en el repositorio: catálogo sin medios incrustados cuando WooCommerce Store API entrega imágenes; se conserva la consulta anterior si faltan imágenes. La compilación deja de consultar en ráfaga todas las fichas para imágenes sociales. |
+| 3 | Reducir datos y trabajo del catálogo | Hecho y desplegado: catálogo sin medios incrustados cuando WooCommerce Store API entrega imágenes; se conserva la consulta anterior si faltan imágenes. La compilación deja de consultar en ráfaga todas las fichas para imágenes sociales. |
 | 4 | Mejorar entrega de imágenes | Hecho: caché de navegador LiteSpeed activada por 30 días. Se comprobó que un navegador que acepta WebP recibe una imagen de 112 KB en vez del PNG de 3,18 MB. |
 | 5 | Cerrar depuración de producción | Hecho: `WP_DEBUG` y `WP_DEBUG_LOG` quedaron desactivados en `wp-config.php`; el sitio y la API respondieron 200 después del cambio. |
 | 6 | Activar caché de objetos persistente | Pendiente del proveedor: las extensiones PHP Redis y Memcached existen, pero las pruebas de conexión a `localhost:6379` y `localhost:11211` fallaron. La caché permanece apagada. |
@@ -18,7 +18,7 @@
 - La consulta pública de 100 productos con medios incrustados transfirió alrededor de 1,13 MB y tardó alrededor de 6 segundos en la medición previa. Una consulta con campos reducidos, sin medios incrustados, transfirió alrededor de 326 KB y tardó alrededor de 3 segundos. Son mediciones puntuales, no una garantía de latencia.
 - El nuevo lector del catálogo cargó 35 vehículos disponibles, todos con imagen, en una prueba local. `npm run typecheck` y `npm run build` finalizaron correctamente.
 - La API REST pública aún responde con instrucciones de no almacenar en caché del servidor. No se forzó la caché de respuestas que podrían incluir campos ACF; la reducción de carga se hizo en el consumidor público del catálogo.
-- La mejora de código sólo llega al sitio público cuando se despliegue el commit correspondiente en Vercel. El aumento de límites, la caché de navegador y la desactivación de depuración ya están aplicados en el servidor.
+- El commit `a4dfe9a` se publicó en `main`; ambos estados de Vercel terminaron correctamente. Después, la portada y una ficha de vehículo respondieron 200. La primera visita medida a esa ficha tardó 4,65 segundos y la siguiente 0,65 segundos, coherente con la generación bajo demanda y la caché de ISR.
 
 ## Seguimiento
 
