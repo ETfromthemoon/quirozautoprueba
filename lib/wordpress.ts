@@ -652,7 +652,6 @@ async function fetchWordPressPath(
           ...options,
           headers: {
             Accept: "application/json",
-            "Cache-Control": "no-cache",
             "User-Agent": "Mozilla/5.0 (compatible; QuirozNext/1.0)",
             ...(options.headers ?? {}),
           },
@@ -671,10 +670,11 @@ async function fetchWordPressPath(
   throw lastError instanceof Error ? lastError : new Error("WordPress no respondió");
 }
 
-async function fetchProductsPage(page: number): Promise<WpProduct[]> {
-  // Solo embed=wp:featuredmedia (imagenes). Categorias se obtienen por separado.
-  // Sin orderby porque relentiza con _embed.
-  const res = await fetchWordPressPath((base) => `${base}/product?per_page=${PER_PAGE}&page=${page}&_embed=wp:featuredmedia`);
+async function fetchProductsPage(page: number, embedMedia = false): Promise<WpProduct[]> {
+  // La Store API ya entrega las fotos. Pedir _embed para todo el catálogo
+  // duplica el trabajo de WordPress; se reserva como respaldo.
+  const media = embedMedia ? "&_embed=wp:featuredmedia&_fields=id,slug,title,acf,product_cat,featured_media,_links.wp:featuredmedia,_embedded.wp:featuredmedia" : "&_fields=id,slug,title,acf,product_cat,featured_media";
+  const res = await fetchWordPressPath((base) => `${base}/product?per_page=${PER_PAGE}&page=${page}${media}`);
 
   // WordPress devuelve 400 cuando se pide una página fuera de rango: fin.
   if (res.status === 400) return [];
@@ -685,12 +685,12 @@ async function fetchProductsPage(page: number): Promise<WpProduct[]> {
   return (await res.json()) as WpProduct[];
 }
 
-async function fetchAllProducts(): Promise<WpProduct[]> {
+async function fetchAllProducts(embedMedia = false): Promise<WpProduct[]> {
   const maxPages = isBuild ? BUILD_MAX_PAGES : RUNTIME_MAX_PAGES;
   const all: WpProduct[] = [];
   for (let page = 1; page <= maxPages; page++) {
     try {
-      const batch = await fetchProductsPage(page);
+      const batch = await fetchProductsPage(page, embedMedia);
       all.push(...batch);
       if (batch.length < PER_PAGE) break;
     } catch (err) {
@@ -866,11 +866,14 @@ function classifyProducts(
 }
 
 async function getCarsFromWP(): Promise<Car[]> {
-  const [products, catMap, galleryMap] = await Promise.all([
+  const [lightProducts, catMap, galleryMap] = await Promise.all([
     fetchAllProducts(),
     getCategoryMap(),
     fetchStoreGalleryMap(),
   ]);
+  const products = lightProducts.some((product) => !galleryMap.get(product.slug)?.length)
+    ? await fetchAllProducts(true)
+    : lightProducts;
   if (catMap.size === 0) {
     throw new Error("WP no devolvió categorías; se conserva el último catálogo completo");
   }
@@ -883,10 +886,12 @@ async function getCarsFromWP(): Promise<Car[]> {
       const gallery = liveGallery.length > 0
         ? liveGallery
         : (fallback?.gallery ?? []);
+      const image = liveGallery[0] ?? car.image;
       return {
         ...car,
+        image,
         gallery: Array.from(
-          new Set([car.image, ...gallery]),
+          new Set([image, ...gallery]),
         ),
       };
     });

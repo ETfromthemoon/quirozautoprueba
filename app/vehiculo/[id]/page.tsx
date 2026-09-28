@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { cache } from "react";
-import { fetchCarBySlug, fetchCarSlugs } from "@/lib/wordpress";
+import { fetchCarBySlug } from "@/lib/wordpress";
 import VehicleDetail from "@/components/VehicleDetail";
 import VehicleLoadSuccess from "@/components/VehicleLoadSuccess";
 
@@ -15,13 +15,9 @@ type RouteParams = { id: string };
 const getVehicle = cache(fetchCarBySlug);
 
 export async function generateStaticParams(): Promise<RouteParams[]> {
-  try {
-    const slugs = await fetchCarSlugs();
-    // Pre-generar solo primeros 8 en build; el resto se genera on-demand (ISR)
-    return slugs.slice(0, 8).map((id) => ({ id }));
-  } catch {
-    return [];
-  }
+  // Las fichas se generan al primer acceso y luego usan ISR. Evita una ráfaga
+  // de consultas al CMS durante el build que puede activar su bloqueo 403.
+  return [];
 }
 
 export async function generateMetadata({

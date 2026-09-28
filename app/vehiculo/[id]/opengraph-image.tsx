@@ -1,15 +1,12 @@
 import { ImageResponse } from "next/og";
-import { fetchCarBySlug, fetchCarSlugs } from "@/lib/wordpress";
+import { fetchCarBySlug } from "@/lib/wordpress";
 
 export const alt = "Vehículo · Quiroz Automotriz";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
-
-// Pre-genera la OG de cada vehículo en build (estática, sin coste en runtime).
-export async function generateStaticParams() {
-  const slugs = await fetchCarSlugs();
-  return slugs.map((id) => ({ id }));
-}
+// Evita consultar todas las fichas a la vez durante el build, lo que dispara
+// el límite de peticiones del CMS. Cada imagen se genera al solicitarla.
+export const dynamic = "force-dynamic";
 
 export default async function Image({
   params,
@@ -17,7 +14,7 @@ export default async function Image({
   params: Promise<{ id: string }>;
 }) {
   const { id } = await params;
-  const car = await fetchCarBySlug(id);
+  const car = await fetchCarBySlug(id).catch(() => undefined);
 
   if (!car) {
     return new ImageResponse(
