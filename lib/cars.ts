@@ -31,9 +31,13 @@ export type Car = {
   power?: string;
   bodyType: string;
   image: string;
+  /** Tamaños alternativos ya generados por WordPress para la foto principal. */
+  imageSrcSet?: string;
   /** Foto opcional compuesta para móvil (idealmente vertical 4:5 o 3:4). */
   mobileImage?: string;
   gallery?: string[];        // imágenes adicionales
+  /** Tamaños alternativos de cada foto de la galería, indexados por URL. */
+  gallerySrcSets?: Record<string, string>;
   videoUrl?: string;         // YouTube watch/embed URL
   /** Videos opcionales para la ficha. Conserva videoUrl por compatibilidad. */
   videoUrls?: string[];

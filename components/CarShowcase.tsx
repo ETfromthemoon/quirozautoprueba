@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import ResponsiveCmsImage from "./ResponsiveCmsImage";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import type { Car } from "@/lib/cars";
@@ -107,12 +108,14 @@ export default function CarShowcase({ car, index, total }: Props) {
     >
       {/* Fullscreen image */}
       <div className="absolute inset-0">
-        <Image
+        <ResponsiveCmsImage
           src={car.image}
+          responsiveSrcSet={car.imageSrcSet}
           alt={`${car.brand} ${car.model} ${car.variant ?? ""} ${car.year}`}
           fill
-          priority={index === 0}
-          loading={index === 0 ? undefined : "lazy"}
+          priority={index === 0 && !car.imageSrcSet}
+          fetchPriority={index === 0 ? "high" : undefined}
+          loading={index === 0 ? "eager" : "lazy"}
           className={`object-cover transition-transform duration-[3s] ease-out ${
             isVisible ? "scale-105" : "scale-100"
           }`}
@@ -129,8 +132,9 @@ export default function CarShowcase({ car, index, total }: Props) {
           reemplaza la principal cuando el cliente la cargue en WordPress. */}
       <div className="mobile-image-stage" aria-hidden="true">
         <div className="mobile-image-frame">
-          <Image
+          <ResponsiveCmsImage
             src={car.mobileImage ?? car.image}
+            responsiveSrcSet={car.mobileImage ? undefined : car.imageSrcSet}
             alt=""
             fill
             sizes="calc(100vw - 2rem)"

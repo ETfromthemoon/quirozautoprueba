@@ -162,6 +162,8 @@ type StoreImage = {
   srcset?: string;
 };
 
+type StoreGalleryImage = { src: string; srcSet?: string };
+
 type StoreProduct = {
   slug?: string;
   images?: StoreImage[];
@@ -476,6 +478,32 @@ function selectStoreImage(image: StoreImage): string | undefined {
   return selectBestImageCandidate(parseWordPressSrcSet(image.srcset)) ?? image.src?.trim();
 }
 
+/** Usa sólo sub-tallas de hasta 1600 px; el navegador no necesita originales 2K/4K. */
+function formatCmsSrcSet(candidates: Array<{ src: string; width: number }>): string | undefined {
+  const sizes = candidates
+    .filter(({ src, width }) => src && width > 0 && width <= CMS_IMAGE_TARGET_WIDTH)
+    .sort((a, b) => a.width - b.width)
+    .map(({ src, width }) => `${normalizeMediaOrigin(src)} ${width}w`);
+  return sizes.length > 1 ? sizes.join(", ") : undefined;
+}
+
+function selectStoreGalleryImage(image: StoreImage): StoreGalleryImage | undefined {
+  const src = selectStoreImage(image);
+  if (!src) return undefined;
+  return {
+    src: normalizeMediaOrigin(src),
+    srcSet: formatCmsSrcSet(parseWordPressSrcSet(image.srcset)),
+  };
+}
+
+function extractMediaSrcSet(product: WpProduct): string | undefined {
+  const sizes = product._embedded?.["wp:featuredmedia"]?.[0]?.media_details?.sizes;
+  return formatCmsSrcSet(
+    Object.values(sizes ?? [])
+      .map((size) => ({ src: size.source_url?.trim() ?? "", width: size.width ?? 0 })),
+  );
+}
+
 /** Normaliza imágenes alojadas en el dominio antiguo del CMS. */
 function normalizeMediaOrigin(source: string): string {
 
@@ -494,7 +522,7 @@ function normalizeMediaOrigin(source: string): string {
 }
 
 /** Recupera todas las imágenes que WooCommerce tiene asociadas al producto. */
-async function fetchStoreGallery(slug: string): Promise<string[]> {
+async function fetchStoreGallery(slug: string): Promise<StoreGalleryImage[]> {
   try {
     const res = await fetchWordPressPath(
       (base) => `${base.replace(/\/wp\/v2\/?$/, "")}/wc/store/v1/products?slug=${encodeURIComponent(slug)}&per_page=1`,
@@ -504,9 +532,8 @@ async function fetchStoreGallery(slug: string): Promise<string[]> {
     if (!res.ok) return [];
     const products = (await res.json()) as StoreProduct[];
     return (products[0]?.images ?? [])
-      .map(selectStoreImage)
-      .filter((src): src is string => Boolean(src))
-      .map(normalizeMediaOrigin);
+      .map(selectStoreGalleryImage)
+      .filter((image): image is StoreGalleryImage => Boolean(image));
   } catch (err) {
     console.warn(`[WordPress] galería no disponible para ${slug}:`, err);
     return [];
@@ -514,8 +541,8 @@ async function fetchStoreGallery(slug: string): Promise<string[]> {
 }
 
 /** Carga las galerías en bloque para que catálogo, snapshot y ficha compartan datos. */
-async function fetchStoreGalleryMap(): Promise<Map<string, string[]>> {
-  const galleries = new Map<string, string[]>();
+async function fetchStoreGalleryMap(): Promise<Map<string, StoreGalleryImage[]>> {
+  const galleries = new Map<string, StoreGalleryImage[]>();
 
   try {
     const maxPages = isBuild ? BUILD_MAX_PAGES : RUNTIME_MAX_PAGES;
@@ -534,9 +561,8 @@ async function fetchStoreGalleryMap(): Promise<Map<string, string[]>> {
         galleries.set(
           product.slug,
           (product.images ?? [])
-            .map(selectStoreImage)
-            .filter((src): src is string => Boolean(src))
-            .map(normalizeMediaOrigin),
+            .map(selectStoreGalleryImage)
+            .filter((image): image is StoreGalleryImage => Boolean(image)),
         );
       }
       if (products.length < PER_PAGE) break;
@@ -592,6 +618,7 @@ function mapProductToCar(product: WpProduct, categoryNames?: string[]): Car {
       cat.drivetrain ?? detectDrivetrain(`${model} ${variant ?? ""}`),
     bodyType: cat.bodyType ?? "Vehículo",
     image: extractImage(product),
+    imageSrcSet: extractMediaSrcSet(product),
     mobileImage: acf.imagen_mobile?.trim()
       ? normalizeMediaOrigin(acf.imagen_mobile.trim())
       : undefined,
@@ -884,12 +911,13 @@ async function getCarsFromWP(): Promise<Car[]> {
       const fallback = fallbackCars.find((candidate) => candidate.id === product.slug);
       const liveGallery = galleryMap.get(product.slug) ?? [];
       const gallery = liveGallery.length > 0
-        ? liveGallery
+        ? liveGallery.map((item) => item.src)
         : (fallback?.gallery ?? []);
-      const image = liveGallery[0] ?? car.image;
+      const image = liveGallery[0]?.src ?? car.image;
       return {
         ...car,
         image,
+        imageSrcSet: liveGallery[0]?.srcSet ?? car.imageSrcSet,
         gallery: Array.from(
           new Set([image, ...gallery]),
         ),
@@ -965,11 +993,17 @@ export async function fetchCarBySlug(slug: string): Promise<Car | undefined> {
       product,
       categories.length > 0 ? categories : fallback?.cmsCategories,
     );
-    const gallery = await fetchStoreGallery(slug);
+    const liveGallery = await fetchStoreGallery(slug);
+    const image = liveGallery[0]?.src ?? car.image;
     const completeCar = {
       ...car,
+      image,
+      imageSrcSet: liveGallery[0]?.srcSet ?? car.imageSrcSet,
+      gallerySrcSets: Object.fromEntries(
+        liveGallery.filter((item) => item.srcSet).map((item) => [item.src, item.srcSet!]),
+      ),
       gallery: Array.from(
-        new Set([car.image, ...(gallery.length > 0 ? gallery : (fallback?.gallery ?? []))]),
+        new Set([image, ...(liveGallery.length > 0 ? liveGallery.map((item) => item.src) : (fallback?.gallery ?? []))]),
       ),
     };
     await rememberVehicle(completeCar);

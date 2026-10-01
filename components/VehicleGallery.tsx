@@ -1,14 +1,15 @@
 "use client";
 
-import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
+import ResponsiveCmsImage from "./ResponsiveCmsImage";
 
 type Props = {
   images: string[];
   alt: string;
+  srcSets?: Record<string, string>;
 };
 
-export default function VehicleGallery({ images, alt }: Props) {
+export default function VehicleGallery({ images, alt, srcSets }: Props) {
   const [active, setActive] = useState(0);
   const [availableImages, setAvailableImages] = useState(images);
   const [isLightboxOpen, setIsLightboxOpen] = useState(false);
@@ -74,7 +75,7 @@ export default function VehicleGallery({ images, alt }: Props) {
           : "ring-1 ring-white/10 opacity-60 hover:opacity-100"
       }`}
     >
-      <Image src={src} alt="" fill className="object-cover" sizes={compact ? "40px" : "96px"} onError={() => removeBrokenImage(src)} />
+      <ResponsiveCmsImage src={src} responsiveSrcSet={srcSets?.[src]} alt="" fill className="object-cover" sizes={compact ? "40px" : "96px"} onError={() => removeBrokenImage(src)} />
     </button>
   );
 
@@ -91,9 +92,10 @@ export default function VehicleGallery({ images, alt }: Props) {
           className="absolute inset-0 z-10 cursor-zoom-in focus:outline-none"
           aria-label="Abrir galería a pantalla completa"
         />
-        <Image
+        <ResponsiveCmsImage
           key={availableImages[active]}
           src={availableImages[active]}
+          responsiveSrcSet={srcSets?.[availableImages[active]]}
           alt={`${alt} — imagen ${active + 1}`}
           fill
           className="object-cover animate-fade-in"
@@ -133,7 +135,7 @@ export default function VehicleGallery({ images, alt }: Props) {
             <button type="button" onClick={() => setIsLightboxOpen(false)} className="rounded-full glass-light px-4 py-2 text-sm text-white" aria-label="Cerrar galería">Cerrar ×</button>
           </div>
           <div className="relative flex min-h-0 flex-1 items-center justify-center" onTouchStart={(event) => { touchStartX.current = event.touches[0].clientX; }} onTouchEnd={handleTouchEnd}>
-            <Image src={availableImages[active]} alt={`${alt} — imagen ${active + 1}`} fill className="object-contain" sizes="100vw" onError={() => removeBrokenImage(availableImages[active])} />
+            <ResponsiveCmsImage src={availableImages[active]} responsiveSrcSet={srcSets?.[availableImages[active]]} alt={`${alt} — imagen ${active + 1}`} fill className="object-contain" sizes="100vw" onError={() => removeBrokenImage(availableImages[active])} />
             {availableImages.length > 1 && <><button type="button" onClick={() => move(-1)} className="absolute left-0 top-1/2 -translate-y-1/2 rounded-full glass-dark px-3 py-2 text-2xl text-white" aria-label="Imagen anterior">‹</button><button type="button" onClick={() => move(1)} className="absolute right-0 top-1/2 -translate-y-1/2 rounded-full glass-dark px-3 py-2 text-2xl text-white" aria-label="Imagen siguiente">›</button></>}
           </div>
           <div className="mt-4 flex gap-2 overflow-x-auto pb-2" role="tablist" aria-label="Miniaturas de pantalla completa">

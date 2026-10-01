@@ -143,6 +143,7 @@ export default function VehicleDetail({ car }: Props) {
               <VehicleGallery
                 images={galleryImages}
                 alt={`${car.brand} ${car.model} ${car.year}`}
+                srcSets={{ ...car.gallerySrcSets, ...(car.imageSrcSet ? { [car.image]: car.imageSrcSet } : {}) }}
               />
             </Section>
 
