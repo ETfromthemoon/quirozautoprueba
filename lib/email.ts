@@ -101,7 +101,7 @@ const EXCLUSIVITY_CLAUSE = [
   "",
   "El presente contrato de consignación es de carácter exclusivo y el propietario faculta únicamente a la automotora para la comercialización, exhibición y publicación del vehículo.",
   "",
-  "En caso de que el vehículo sea vendido de forma particular por el propietario, se generará un cobro de $20.000 (veinte mil pesos) por concepto de gastos administrativos, de publicación y gestión comercial realizados.",
+  "En caso de que el vehículo sea vendido de forma particular por el propietario, se generará un cobro de $30.000 (treinta mil pesos) por concepto de gastos administrativos, de publicación y gestión comercial realizados.",
 ].join("\n");
 
 function escapeHtml(value: string) {
