@@ -4,8 +4,8 @@ Landing inmersiva para Quiroz Automotriz Spa (Valparaíso, Chile). Catálogo din
 
 **Stack**: Next.js 16 · React 19 · TypeScript 5 · Tailwind CSS 4 · Syne + Inter · nodemailer
 
-**Live (Vercel)**: https://quirozrepo-audio.vercel.app
-**Dominio**: quirozautomotriz.cl (apunta a WordPress legacy)
+**Live (Vercel)**: https://quirozautoprueba.vercel.app
+**Dominio público**: https://www.quirozautomotriz.cl
 
 ---
 
