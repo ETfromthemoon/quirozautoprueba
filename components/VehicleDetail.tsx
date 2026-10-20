@@ -150,6 +150,8 @@ export default function VehicleDetail({ car }: Props) {
             {/* Identification */}
             <Section title="Identificación">
               <SpecGrid>
+                <SpecItem label="Segmento" value={car.bodyType} />
+                <SpecItem label="Cantidad de dueños" value={car.ownerCount === undefined ? "—" : String(car.ownerCount)} />
                 <SpecItem label="Marca" value={car.brand} />
                 <SpecItem label="Modelo" value={car.model} />
                 {car.variant && <SpecItem label="Versión" value={car.variant} />}

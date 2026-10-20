@@ -5,6 +5,7 @@ import Link from "next/link";
 import InnerNavbar from "@/components/InnerNavbar";
 import InnerFooter from "@/components/InnerFooter";
 import { CheckIcon } from "@/components/icons";
+import { useFormSpam } from "@/components/useFormSpam";
 
 const BENEFITS = [
   {
@@ -62,6 +63,7 @@ const INITIAL_FORM: FormData = {
 };
 
 export default function FinanciamientoPage() {
+  const { spam, field } = useFormSpam();
   const [form, setForm] = useState<FormData>(INITIAL_FORM);
   const [sent, setSent] = useState(false);
     const [sending, setSending] = useState(false);
@@ -80,6 +82,7 @@ export default function FinanciamientoPage() {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
+          spam,
           tipo: "financiamiento",
           datos: {
             Nombre: form.nombre,
@@ -93,10 +96,13 @@ export default function FinanciamientoPage() {
           },
         }),
       });
-      if (!response.ok) throw new Error("No se pudo enviar la solicitud");
+      if (!response.ok) {
+        const result = await response.json();
+        throw new Error(result.error || "No se pudo enviar la solicitud");
+      }
       setSent(true);
-    } catch {
-      setError("Error al enviar. Intenta nuevamente o escríbenos por WhatsApp.");
+    } catch (error) {
+      setError(error instanceof Error ? error.message : "Error al enviar. Intenta nuevamente.");
     } finally {
       setSending(false);
     }
@@ -234,6 +240,7 @@ export default function FinanciamientoPage() {
                   </div>
                 ) : (
                   <form onSubmit={handleSubmit} className="flex flex-col gap-5">
+                    {field}
                     <p className="text-[10px] font-semibold tracking-[0.15em] uppercase text-[var(--color-ink-500)]">
                       Tus datos
                     </p>

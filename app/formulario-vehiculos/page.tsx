@@ -5,6 +5,7 @@ import Link from "next/link";
 import InnerNavbar from "@/components/InnerNavbar";
 import InnerFooter from "@/components/InnerFooter";
 import { CheckIcon } from "@/components/icons";
+import { useFormSpam } from "@/components/useFormSpam";
 
 // ── Tipos ──────────────────────────────────────────────
 const SEGMENTOS_VEHICULO = [
@@ -38,6 +39,7 @@ type FormData = {
   // Paso 3
   patente: string;
   segmento: string;
+  cantidadDuenos: string;
   marca: string;
   modelo: string;
   version: string;
@@ -70,6 +72,7 @@ const INITIAL: FormData = {
   nombrePropietario: "",
   patente: "",
   segmento: "",
+  cantidadDuenos: "",
   marca: "",
   modelo: "",
   version: "",
@@ -92,6 +95,7 @@ const labelCls = "text-xs text-[var(--color-ink-400)]";
 
 // ── Componente ─────────────────────────────────────────
 export default function FormularioVehiculosPage() {
+  const { spam, field } = useFormSpam();
   const [form, setForm] = useState<FormData>(INITIAL);
   const [paso, setPaso] = useState(0);
   const [sent, setSent] = useState(false);
@@ -151,6 +155,7 @@ export default function FormularioVehiculosPage() {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
+          spam,
           tipo:
             form.tipoOperacion === "Consignación"
               ? "formulario-consignacion"
@@ -172,6 +177,7 @@ export default function FormularioVehiculosPage() {
             "Nombre propietario": form.nombrePropietario,
             Patente: form.patente,
             Segmento: form.segmento,
+            "Cantidad de dueños": form.cantidadDuenos,
             Marca: form.marca,
             Modelo: form.modelo,
             Versión: form.version,
@@ -188,10 +194,13 @@ export default function FormularioVehiculosPage() {
           },
         }),
       });
-      if (!response.ok) throw new Error("No se pudo enviar la ficha");
+      if (!response.ok) {
+        const result = await response.json();
+        throw new Error(result.error || "No se pudo enviar la ficha");
+      }
       setSent(true);
-    } catch {
-      setError("Error al enviar. Intenta nuevamente o escríbenos por WhatsApp.");
+    } catch (error) {
+      setError(error instanceof Error ? error.message : "Error al enviar. Intenta nuevamente.");
     } finally {
       setSending(false);
     }
@@ -258,6 +267,7 @@ export default function FormularioVehiculosPage() {
                 </div>
               ) : (
                 <form onSubmit={handleSubmit}>
+                  {field}
                   {/* ── Progress bar ── */}
                   <div className="flex items-center gap-2 mb-8">
                     {PASOS.map((s, i) => (
@@ -445,6 +455,10 @@ export default function FormularioVehiculosPage() {
                         <div className="flex flex-col gap-1.5">
                           <label htmlFor="fv-s" className={labelCls}>Segmento *</label>
                           <input id="fv-s" type="text" required value={form.segmento} onChange={(e) => update("segmento", e.target.value)} placeholder="Ej: SUV" className={inputCls} />
+                        </div>
+                        <div className="flex flex-col gap-1.5">
+                          <label htmlFor="fv-duenos" className={labelCls}>Cantidad de dueños</label>
+                          <input id="fv-duenos" type="number" min="1" step="1" inputMode="numeric" value={form.cantidadDuenos} onChange={(e) => update("cantidadDuenos", e.target.value)} placeholder="Si se conoce" className={inputCls} />
                         </div>
                         <div className="flex flex-col gap-1.5">
                           <label htmlFor="fv-marca" className={labelCls}>Marca *</label>

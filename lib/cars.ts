@@ -30,6 +30,8 @@ export type Car = {
   drivetrain?: string;
   power?: string;
   bodyType: string;
+  /** Cantidad de dueños, informada opcionalmente en WordPress. */
+  ownerCount?: number;
   image: string;
   /** Tamaños alternativos ya generados por WordPress para la foto principal. */
   imageSrcSet?: string;

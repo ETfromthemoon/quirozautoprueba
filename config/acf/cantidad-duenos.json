@@ -1,0 +1,31 @@
+{
+  "key": "group_cantidad_duenos_vehiculo",
+  "title": "Cantidad de dueños del vehículo",
+  "fields": [
+    {
+      "key": "field_cantidad_duenos_vehiculo",
+      "label": "Cantidad de dueños",
+      "name": "cantidad_duenos",
+      "type": "number",
+      "instructions": "Completar solo si el dato está confirmado. Dejar vacío si no se conoce.",
+      "required": 0,
+      "conditional_logic": 0,
+      "wrapper": { "width": "25", "class": "", "id": "" },
+      "default_value": "",
+      "min": 1,
+      "max": "",
+      "step": 1,
+      "placeholder": ""
+    }
+  ],
+  "location": [[{ "param": "post_type", "operator": "==", "value": "product" }]],
+  "menu_order": 0,
+  "position": "normal",
+  "style": "default",
+  "label_placement": "top",
+  "instruction_placement": "label",
+  "hide_on_screen": "",
+  "active": true,
+  "description": "Dato opcional para la ficha pública de cada vehículo.",
+  "show_in_rest": 1
+}

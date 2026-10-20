@@ -7,6 +7,7 @@ import InnerFooter from "@/components/InnerFooter";
 import ReservationPaymentButton from "@/components/ReservationPaymentButton";
 import { CheckIcon, ArrowRightIcon, WhatsAppIcon, PhoneIcon } from "@/components/icons";
 import { getWhatsAppUrl } from "@/lib/whatsapp";
+import { useFormSpam } from "@/components/useFormSpam";
 
 type FormData = {
   nombre: string;
@@ -27,6 +28,7 @@ const INITIAL_FORM: FormData = {
 };
 
 export default function ReservaPage() {
+  const { spam, field } = useFormSpam();
   const [form, setForm] = useState<FormData>(INITIAL_FORM);
   const [sent, setSent] = useState(false);
     const [sending, setSending] = useState(false);
@@ -45,6 +47,7 @@ export default function ReservaPage() {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
+          spam,
           tipo: "reserva",
           datos: {
             "Vehículo de interés": form.vehiculo || "No especificado",
@@ -56,10 +59,13 @@ export default function ReservaPage() {
           },
         }),
       });
-      if (!response.ok) throw new Error("No se pudo enviar la reserva");
+      if (!response.ok) {
+        const result = await response.json();
+        throw new Error(result.error || "No se pudo enviar la reserva");
+      }
       setSent(true);
-    } catch {
-      setError("Error al enviar. Intenta nuevamente o escríbenos por WhatsApp.");
+    } catch (error) {
+      setError(error instanceof Error ? error.message : "Error al enviar. Intenta nuevamente.");
     } finally {
       setSending(false);
     }
@@ -166,6 +172,7 @@ export default function ReservaPage() {
                   </div>
                 ) : (
                   <form onSubmit={handleSubmit} className="flex flex-col gap-5">
+                    {field}
                     <p className="text-[10px] font-semibold tracking-[0.15em] uppercase text-[var(--color-ink-500)]">
                       Tus datos
                     </p>

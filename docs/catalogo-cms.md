@@ -51,3 +51,24 @@ revocado únicamente después de pulsar **Actualizar**.
 El precio, las alternativas de pago, el valor de reserva y el enlace de pago
 no se duplican en ACF. Se reutilizan desde la configuración y componentes
 existentes del sitio.
+
+## Cantidad de dueños en la ficha pública
+
+La ficha pública lee el campo ACF opcional `cantidad_duenos` del producto
+WooCommerce. El grupo **Cantidad de dueños del vehículo** quedó instalado en
+WordPress y su respaldo importable está en `config/acf/cantidad-duenos.json`.
+En **Productos > Editar**, completar el campo sólo cuando se conozca el dato.
+Es un número entero positivo y no obligatorio; los productos existentes
+permanecen vacíos y no se les asignan valores inferidos de las categorías
+editoriales. La ficha pública muestra el campo entre Segmento y Marca, con
+«—» cuando está vacío.
+
+El grupo ACF existente **Ficha Vehículo** también incluye este campo entre
+Segmento y Marca para los formularios internos donde se utiliza. El formulario
+público `/formulario-vehiculos` lo presenta en la misma posición y lo incorpora
+a la ficha enviada por correo si se completa.
+
+WordPress administra y persiste el valor; este proyecto sólo consume la API
+REST pública existente. El endpoint `/wp-json/wp/v2/product` ya expone ACF;
+en un producto existente sin dato, `cantidad_duenos` puede estar ausente del
+objeto `acf`. El lector del catálogo interpreta esa ausencia como valor vacío.

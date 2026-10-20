@@ -126,6 +126,7 @@ type WpAcf = {
   cilindrada?: string;
   transmision?: string;
   color?: string;
+  cantidad_duenos?: string | number;
   video?: string;
   video_2?: string;
   /** Foto editorial opcional para usar como portada de los videos. */
@@ -599,6 +600,12 @@ function mapProductToCar(product: WpProduct, categoryNames?: string[]): Car {
     color || cat.ownerType
       ? { color, ownerType: cat.ownerType }
       : undefined;
+  const ownerCountValue = acf.cantidad_duenos;
+  const ownerCountNumber = typeof ownerCountValue === "number"
+    ? ownerCountValue
+    : typeof ownerCountValue === "string" && /^\d+$/.test(ownerCountValue.trim())
+      ? Number(ownerCountValue.trim())
+      : undefined;
   const videoUrls = [acf.video, acf.video_2]
     .map(normalizeVideoUrl)
     .filter((url): url is string => Boolean(url));
@@ -617,6 +624,9 @@ function mapProductToCar(product: WpProduct, categoryNames?: string[]): Car {
     drivetrain:
       cat.drivetrain ?? detectDrivetrain(`${model} ${variant ?? ""}`),
     bodyType: cat.bodyType ?? "Vehículo",
+    ownerCount: ownerCountNumber !== undefined && Number.isSafeInteger(ownerCountNumber) && ownerCountNumber >= 1
+      ? ownerCountNumber
+      : undefined,
     image: extractImage(product),
     imageSrcSet: extractMediaSrcSet(product),
     mobileImage: acf.imagen_mobile?.trim()

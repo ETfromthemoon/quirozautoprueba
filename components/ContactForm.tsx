@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { CheckIcon } from "./icons";
+import { useFormSpam } from "./useFormSpam";
 
 type FormData = {
   nombre: string;
@@ -13,6 +14,7 @@ type FormData = {
 const INITIAL: FormData = { nombre: "", email: "", telefono: "", mensaje: "" };
 
 export default function ContactForm() {
+  const { spam, field } = useFormSpam();
   const [form, setForm] = useState<FormData>(INITIAL);
   const [sent, setSent] = useState(false);
     const [sending, setSending] = useState(false);
@@ -31,6 +33,7 @@ export default function ContactForm() {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
+          spam,
           tipo: "contacto",
           datos: {
             Nombre: form.nombre,
@@ -40,10 +43,13 @@ export default function ContactForm() {
           },
         }),
       });
-      if (!response.ok) throw new Error("No se pudo enviar el mensaje");
+      if (!response.ok) {
+        const result = await response.json();
+        throw new Error(result.error || "No se pudo enviar el mensaje");
+      }
       setSent(true);
-    } catch {
-      setError("Error al enviar. Intenta nuevamente o escríbenos por WhatsApp.");
+    } catch (error) {
+      setError(error instanceof Error ? error.message : "Error al enviar. Intenta nuevamente.");
     } finally {
       setSending(false);
     }
@@ -63,6 +69,7 @@ export default function ContactForm() {
 
   return (
     <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+      {field}
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div className="flex flex-col gap-1.5">
           <label htmlFor="c-nombre" className="text-xs text-ink-400">Nombre *</label>

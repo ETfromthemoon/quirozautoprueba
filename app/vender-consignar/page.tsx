@@ -5,6 +5,7 @@ import Link from "next/link";
 import InnerNavbar from "@/components/InnerNavbar";
 import InnerFooter from "@/components/InnerFooter";
 import { CheckIcon } from "@/components/icons";
+import { useFormSpam } from "@/components/useFormSpam";
 
 type FormData = {
   patente: string;
@@ -29,6 +30,7 @@ const INITIAL_FORM: FormData = {
 type Tab = "compra" | "consignacion";
 
 export default function VenderConsignarPage() {
+  const { spam, field } = useFormSpam();
   const [tab, setTab] = useState<Tab>("compra");
   const [form, setForm] = useState<FormData>(INITIAL_FORM);
   const [sent, setSent] = useState(false);
@@ -48,6 +50,7 @@ export default function VenderConsignarPage() {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
+          spam,
           tipo: tab === "compra" ? "compra" : "consignacion",
           datos: {
             Patente: form.patente,
@@ -60,10 +63,13 @@ export default function VenderConsignarPage() {
           },
         }),
       });
-      if (!response.ok) throw new Error("No se pudo enviar la solicitud");
+      if (!response.ok) {
+        const result = await response.json();
+        throw new Error(result.error || "No se pudo enviar la solicitud");
+      }
       setSent(true);
-    } catch {
-      setError("Error al enviar. Intenta nuevamente o escríbenos por WhatsApp.");
+    } catch (error) {
+      setError(error instanceof Error ? error.message : "Error al enviar. Intenta nuevamente.");
     } finally {
       setSending(false);
     }
@@ -147,6 +153,7 @@ export default function VenderConsignarPage() {
                 </div>
               ) : (
                 <form onSubmit={handleSubmit} className="flex flex-col gap-5">
+                  {field}
                   <p className="text-[10px] font-semibold tracking-[0.15em] uppercase text-[var(--color-ink-500)]">
                     Datos del vehículo
                   </p>
