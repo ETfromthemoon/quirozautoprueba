@@ -4,7 +4,7 @@ Landing inmersiva para Quiroz Automotriz Spa (Valparaíso, Chile). Catálogo din
 
 **Stack**: Next.js 16 · React 19 · TypeScript 5 · Tailwind CSS 4 · Syne + Inter · nodemailer
 
-**Live (Vercel)**: https://quirozautoprueba.vercel.app  
+**Live (Vercel)**: https://quirozrepo-audio.vercel.app
 **Dominio**: quirozautomotriz.cl (apunta a WordPress legacy)
 
 ---
@@ -30,6 +30,7 @@ Abre [http://localhost:3000](http://localhost:3000).
 | `npm run build` | Build de producción |
 | `npm start` | Sirve el build de producción |
 | `npm run lint` / `npm run typecheck` | `tsc --noEmit` |
+| `npm run test:forms` | Prueba local de formularios con SMTP simulado, sin enviar correos reales |
 
 ---
 
@@ -38,6 +39,7 @@ Abre [http://localhost:3000](http://localhost:3000).
 - **Headless WordPress**: Catálogo desde `quirozautomotriz.cl/wp-json/wp/v2/product` (WooCommerce + ACF). Fallback a datos estáticos en `lib/cars.ts` si WP no responde.
 - **ISR**: Homepage y vendidos revalidan cada 60s. Detalle de vehículo usa `generateStaticParams` + ISR (60s). Páginas de formularios son estáticas.
 - **Email**: Formularios envían vía SMTP (nodemailer) a través de `POST /api/send-email`. Sin base de datos.
+- **Protección de formularios**: validación en servidor, límite de tamaño, campo trampa, tiempo mínimo, control de duplicados y límites locales por IP, correo e instancia.
 
 ---
 
@@ -51,7 +53,6 @@ Abre [http://localhost:3000](http://localhost:3000).
 4. En **Settings → Environment Variables** agrega:
    - `NEXT_PUBLIC_SITE_URL` = `https://quirozautomotriz.cl`
    - `SMTP_HOST`, `SMTP_PORT`, `SMTP_USER`, `SMTP_PASS`
-   - `TURNSTILE_SECRET_KEY` (opcional)
 5. Click **Deploy**.
 
 ### Opción B — Vía Vercel CLI

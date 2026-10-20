@@ -9,7 +9,7 @@ Next.js 16 has breaking changes — APIs, conventions, and file structure may al
 - `npm run dev` — Turbopack dev server (http://localhost:3000)
 - `npm run typecheck` (or `npm run lint`) — `tsc --noEmit` only
 - `npm run build` — production build
-- No test runner is configured.
+- `npm run test:forms` — integración local de formularios y SMTP simulado.
 
 ## Architecture
 - **Headless WordPress**: Vehicle catalog reads from `https://quirozautomotriz.cl/wp-json/wp/v2/product` (WooCommerce). Falls back to static data in `lib/cars.ts` if WP is unreachable.
@@ -23,6 +23,7 @@ Next.js 16 has breaking changes — APIs, conventions, and file structure may al
 
 ## Forms & Email
 - All forms (`/financiamiento`, `/seguros`, `/reserva`, `/vender-consignar`, `/formulario-vehiculos`) submit via `POST /api/send-email` using SMTP (nodemailer).
+- The endpoint checks required fields, request size, a honeypot, fill time and per-instance rate limits. No external captcha service is used.
 - Email destinations by form type in `lib/email.ts`: `DESTINOS` object.
 - WhatsApp auto-implementation is explicitly excluded per client instruction.
 
@@ -49,7 +50,6 @@ Next.js 16 has breaking changes — APIs, conventions, and file structure may al
 - `WORDPRESS_API_URL` — default: `https://www.quirozautomotriz.cl/wp-json/wp/v2`
 - `NEXT_PUBLIC_SITE_URL` — default: `http://localhost:3000`
 - `SMTP_HOST`, `SMTP_PORT`, `SMTP_USER`, `SMTP_PASS` — SMTP credentials for form email sending (nodemailer)
-- `TURNSTILE_SECRET_KEY` — optional, Cloudflare Turnstile for form spam protection
 - `INFORME_ADMIN_KEY` — required for `/informe-admin?k=<key>` (seller panel for private inspection reports). Without it the panel is closed (fail-closed). Generate with `openssl rand -hex 16` and set it in Vercel.
 - `.env*` files are gitignored. Configure in Vercel dashboard.
 
