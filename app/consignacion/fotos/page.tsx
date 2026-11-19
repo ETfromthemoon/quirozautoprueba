@@ -36,7 +36,7 @@ export default async function Fotos({ searchParams }: { searchParams: Promise<{ 
         <button id="reintentar" className="btn-base btn-silver mt-3" hidden>Reintentar</button><button id="enviar" className="btn-base btn-primary mt-3" hidden>Finalizar consignación</button>
         <GuardarEnlace key={ficha} ficha={ficha} />
       </div>
-      <Script src={assets + "captura.js?v=1.2.0"} strategy="afterInteractive" />
+      <Script src={assets + "captura.js?v=1.4.1"} strategy="afterInteractive" />
     </main>
   );
 }

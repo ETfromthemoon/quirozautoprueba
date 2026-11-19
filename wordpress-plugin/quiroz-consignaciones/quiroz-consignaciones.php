@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Quiroz Automotriz — Consignaciones
  * Description: Registro interno de consignaciones con acceso limitado al autor y visibilidad completa para administradores.
- * Version: 1.4.0
+ * Version: 1.4.1
  * Requires at least: 6.0
  * Requires PHP: 7.4
  * Author: Quiroz Automotriz

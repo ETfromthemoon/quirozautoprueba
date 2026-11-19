@@ -19,4 +19,4 @@
 <button type="button" id="reintentar" hidden>Reintentar</button>
 <button type="button" id="enviar" hidden>Enviar las 20 fotos</button>
 <noscript>Activa JavaScript para guardar tus fotos.</noscript>
-</main><script src="<?php echo esc_url(plugins_url('captura.js', __FILE__)); ?>" defer></script></body></html>
+</main><script src="<?php echo esc_url(add_query_arg('v', '1.4.1', plugins_url('captura.js', __FILE__))); ?>" defer></script></body></html>

@@ -87,7 +87,7 @@ async function dibujar() {
   for (const op of el('indice').options) op.text = op.value + ' de 20' + (estado.guardadas.includes(Number(op.value)) ? ' · guardada' : '');
   el('titulo').textContent = tomas[paso-1][0];
   el('guia').textContent = tomas[paso-1][1];
-  el('ejemplo').src = ref + paso + '.jpg';
+  el('ejemplo').src = ref + paso + '.jpg?v=1.4.1';
   el('ejemplo').alt = 'Ejemplo de ' + tomas[paso-1][0].toLowerCase();
   el('camara').textContent = guardada || pendiente ? 'Volver a tomar' : 'Tomar foto';
   mostrar('siguiente',guardada && paso < 20 && !pendiente);
