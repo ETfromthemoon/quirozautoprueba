@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Quiroz Automotriz — Consignaciones
  * Description: Registro interno de consignaciones con acceso limitado al autor y visibilidad completa para administradores.
- * Version: 1.2.0
+ * Version: 1.3.0
  * Requires at least: 6.0
  * Requires PHP: 7.4
  * Author: Quiroz Automotriz
@@ -197,10 +197,11 @@ add_action('add_meta_boxes_' . QZ_CONSIGNACIONES_POST_TYPE, 'qz_consignaciones_a
 function qz_consignaciones_render_meta_box($post) {
 	wp_nonce_field('qz_save_consignacion', 'qz_consignacion_nonce');
 	$author = get_userdata((int) $post->post_author);
-	$author_label = $author ? $author->display_name . ' (' . $author->user_email . ')' : (get_post_meta($post->ID, '_qz_origen', true) === 'web' ? 'Formulario web' : 'Usuario desconocido');
+	$author_label = $author ? $author->display_name . ' (' . $author->user_email . ')' : 'Sin asignar';
 	$created_at = get_post_time('d/m/Y H:i', false, $post);
 	?>
-	<p><strong>Consignado por:</strong> <?php echo esc_html($author_label); ?>
+	<p><strong>Responsable actual:</strong> <?php echo esc_html($author_label); ?>
+		<?php if (get_post_meta($post->ID, '_qz_origen', true) === 'web') : ?><span> · Formulario web</span><?php endif; ?>
 		<span style="margin-left:12px"><strong>Fecha de registro:</strong> <?php echo esc_html($created_at); ?></span>
 	</p>
 	<?php foreach (qz_consignaciones_fields() as $section) : ?>
@@ -302,6 +303,7 @@ add_action('manage_' . QZ_CONSIGNACIONES_POST_TYPE . '_posts_custom_column', 'qz
 
 require_once __DIR__ . '/fotografias.php';
 require_once __DIR__ . '/solicitudes.php';
+require_once __DIR__ . '/inventario.php';
 
 register_deactivation_hook(__FILE__, function () {
 	wp_clear_scheduled_hook('qz_fotos_limpiar');

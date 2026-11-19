@@ -742,6 +742,7 @@ async function fetchAllProducts(embedMedia = false): Promise<WpProduct[]> {
 // ─── Cache global ────────────────────────────────────────────────────────────
 
 let _carsCache: Car[] | null = null;
+let catalogFreshUntil = 0;
 let _soldCarsCache: Car[] | null = null;
 let _soldCarsCacheAt = 0;
 let _catMap: Map<number, string> | null = null;
@@ -944,7 +945,7 @@ export async function fetchCarsForSnapshot(): Promise<Car[]> {
 
 export async function fetchCars(): Promise<Car[]> {
   // Solo devuelve cache si tiene datos reales (no fallback)
-  if (_carsCache) return _carsCache;
+  if (_carsCache && Date.now() < catalogFreshUntil) return _carsCache;
 
   // Build: intenta WP con timeout corto, fallback si no responde a tiempo
   if (isBuild) {
@@ -952,6 +953,7 @@ export async function fetchCars(): Promise<Car[]> {
     try {
       const cars = await getCarsFromWP();
       _carsCache = cars;
+      catalogFreshUntil = Date.now() + 60_000;
       await rememberCatalog(cars);
       console.log(`[WordPress] Build → ${cars.length} autos desde WP`);
       return cars;
@@ -969,6 +971,7 @@ export async function fetchCars(): Promise<Car[]> {
     const cars = await getCarsFromWP();
     // Solo cachear éxitos
     _carsCache = cars;
+    catalogFreshUntil = Date.now() + 60_000;
     await rememberCatalog(cars);
     console.log(`[WordPress] fetchCars → ${cars.length} autos disponibles`);
     return cars;
