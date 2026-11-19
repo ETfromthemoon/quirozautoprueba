@@ -1,6 +1,7 @@
 import assert from "node:assert/strict";
 import { spawn } from "node:child_process";
 import net from "node:net";
+import http from "node:http";
 
 function listen(server) {
   return new Promise((resolve, reject) => {
@@ -43,15 +44,32 @@ const smtp = net.createServer((socket) => {
   });
 });
 
+const fichas = new Map();
+const cms = http.createServer(async (req, res) => {
+  if (req.method !== "POST" || req.url !== "/wp-json/quiroz/v1/consignaciones") {
+    res.writeHead(404).end();
+    return;
+  }
+  let raw = "";
+  for await (const chunk of req) raw += chunk;
+  const { solicitud, datos } = JSON.parse(raw);
+  const nueva = !fichas.has(solicitud);
+  fichas.set(solicitud, datos);
+  res.writeHead(nueva ? 201 : 200, { "Content-Type": "application/json" });
+  res.end(JSON.stringify({ id: 73, vence: 1900000000, firma: "b".repeat(64), nueva }));
+});
+const cmsPort = await listen(cms);
 const smtpPort = await listen(smtp);
 const probe = net.createServer();
 const appPort = await listen(probe);
 await new Promise((resolve) => probe.close(resolve));
 
 const app = spawn(process.execPath, ["node_modules/next/dist/bin/next", "dev", "--hostname", "127.0.0.1", "-p", String(appPort)], {
+  windowsHide: true,
   cwd: process.cwd(),
   env: {
     ...process.env,
+    CONSIGNACIONES_WP_ORIGIN: `http://127.0.0.1:${cmsPort}`,
     SMTP_HOST: "127.0.0.1",
     SMTP_PORT: String(smtpPort),
     SMTP_USER: "test-user",
@@ -141,10 +159,22 @@ try {
   }
   assert.equal(messages, 2 + forms.length * 2, "dos correos por cada tipo de formulario");
 
+  const intake = { ...valid, tipo: "formulario-consignacion", solicitud: "12345678-abcd-4abc-8abc-123456789abc", datos: vehicle };
+  const initial = await post(intake);
+  assert.equal(initial.status, 200);
+  const { ruta } = await initial.json();
+  assert.match(ruta, /^\/consignacion\/fotos\?ficha=73#1900000000\.[a-f0-9]{64}$/);
+  const retry = await post(intake);
+  assert.equal((await retry.json()).ruta, ruta);
+  assert.equal(fichas.size, 1);
+  assert.equal([...fichas.values()][0].Patente, vehicle.Patente);
+  assert.equal(messages, 4 + forms.length * 2, "el reintento recupera la ficha sin duplicar correos");
+
   for (let i = 0; i < 5; i++) assert.equal((await post("{invalid", "192.0.2.200")).status, 400);
   assert.equal((await post("{invalid", "192.0.2.200")).status, 429, "límite por IP");
-  console.log(`Formularios: ${forms.length + 9} comprobaciones correctas; SMTP local recibió ${messages} correos.`);
+  console.log(`Formularios: flujo web y formularios verificados; SMTP local recibió ${messages} correos.`);
 } finally {
   app.kill();
+  await new Promise((resolve) => cms.close(resolve));
   await new Promise((resolve) => smtp.close(resolve));
 }

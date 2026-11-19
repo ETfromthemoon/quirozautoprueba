@@ -27,14 +27,12 @@ const INITIAL_FORM: FormData = {
   correo: "",
 };
 
-type Tab = "compra" | "consignacion";
-
 export default function VenderConsignarPage() {
   const { spam, field } = useFormSpam();
-  const [tab, setTab] = useState<Tab>("compra");
+
   const [form, setForm] = useState<FormData>(INITIAL_FORM);
   const [sent, setSent] = useState(false);
-    const [sending, setSending] = useState(false);
+  const [sending, setSending] = useState(false);
   const [error, setError] = useState("");
 
   function update(field: keyof FormData, value: string) {
@@ -51,7 +49,7 @@ export default function VenderConsignarPage() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           spam,
-          tipo: tab === "compra" ? "compra" : "consignacion",
+          tipo: "compra",
           datos: {
             Patente: form.patente,
             Kilometraje: form.kilometraje,
@@ -118,17 +116,14 @@ export default function VenderConsignarPage() {
             {/* Switch compra / consignación */}
             <div className="grid grid-cols-2 items-stretch gap-3 mb-6">
               <button
-                onClick={() => { setTab("compra"); setSent(false); setForm(INITIAL_FORM); }}
-                className={`btn-base w-full min-w-0 !px-2 text-center sm:!px-5 ${tab === "compra" ? "btn-primary" : "btn-ghost border border-white/15"}`}
+                onClick={() => { setSent(false); setForm(INITIAL_FORM); }}
+                className="btn-base btn-primary w-full min-w-0 !px-2 text-center sm:!px-5"
               >
                 Compramos tu auto
               </button>
-              <button
-                onClick={() => { setTab("consignacion"); setSent(false); setForm(INITIAL_FORM); }}
-                className={`btn-base w-full min-w-0 !px-2 text-center sm:!px-5 ${tab === "consignacion" ? "btn-primary" : "btn-ghost border border-white/15"}`}
-              >
-                Consignaciones
-              </button>
+              <Link href="/formulario-vehiculos" className="btn-base btn-ghost border border-white/15 w-full min-w-0 !px-2 text-center sm:!px-5">
+                Consignar mi auto
+              </Link>
             </div>
 
             <div className="glass-panel rounded-3xl p-7 md:p-9">
@@ -138,14 +133,10 @@ export default function VenderConsignarPage() {
                     <CheckIcon className="w-6 h-6 text-[var(--color-accent-500)]" />
                   </div>
                   <p className="text-white text-lg font-medium" style={{ fontFamily: "var(--font-syne)" }}>
-                    {tab === "compra"
-                      ? "Ya recibimos tu información"
-                      : "¡Vehículo registrado!"}
+                    Ya recibimos tu información
                   </p>
                   <p className="text-[var(--color-ink-400)] text-sm max-w-sm">
-                    {tab === "compra"
-                      ? "A la brevedad nos comunicaremos para coordinar la evaluación de tu vehículo."
-                      : "A la brevedad nos comunicaremos. Su vehículo será gestionado a través de nuestros canales de publicación."}
+                    A la brevedad nos comunicaremos para coordinar la evaluación de tu vehículo.
                   </p>
                   <Link href="/" className="btn-base btn-primary !py-2.5 !px-5 mt-2">
                     Volver al catálogo

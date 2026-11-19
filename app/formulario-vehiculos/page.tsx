@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef } from "react";
 import Link from "next/link";
 import InnerNavbar from "@/components/InnerNavbar";
 import InnerFooter from "@/components/InnerFooter";
@@ -102,6 +102,8 @@ export default function FormularioVehiculosPage() {
   const [sending, setSending] = useState(false);
   const [error, setError] = useState("");
 
+  const solicitud = useRef("");
+
   function update(field: keyof FormData, value: string) {
     setForm((prev) => ({ ...prev, [field]: value }));
     setError("");
@@ -114,7 +116,7 @@ export default function FormularioVehiculosPage() {
       if (!f.tipoOperacion || !f.segmentoVehiculo) { setError("Completa todos los campos requeridos."); return false; }
     }
     if (p === 1) {
-      if (!f.nombre || !f.apellido || !f.rut || !f.direccion || !f.comuna || !f.ciudad || !f.telefono || !f.correo || !f.esPropietario) {
+      if (!f.fechaIngreso || !f.nombre || !f.apellido || !f.rut || !f.direccion || !f.comuna || !f.ciudad || !f.telefono || !f.correo || !f.esPropietario) {
         setError("Completa todos los campos requeridos.");
         return false;
       }
@@ -147,15 +149,21 @@ export default function FormularioVehiculosPage() {
   // ── Envío ────────────────────────────────────────────
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    if (!validarPaso(2)) return;
+    if (sending || ![0, 1, 2].every(validarPaso)) return;
     setSending(true);
     setError("");
     try {
+      if (form.tipoOperacion === "Consignación" && !solicitud.current) {
+        const sessionKey = "quiroz-solicitud-web";
+        solicitud.current = sessionStorage.getItem(sessionKey) || crypto.randomUUID();
+        sessionStorage.setItem(sessionKey, solicitud.current);
+      }
       const response = await fetch("/api/send-email", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           spam,
+          solicitud: form.tipoOperacion === "Consignación" ? solicitud.current : undefined,
           tipo:
             form.tipoOperacion === "Consignación"
               ? "formulario-consignacion"
@@ -198,6 +206,15 @@ export default function FormularioVehiculosPage() {
         const result = await response.json();
         throw new Error(result.error || "No se pudo enviar la ficha");
       }
+      if (form.tipoOperacion === "Consignación") {
+        const { ruta } = await response.json();
+        if (typeof ruta !== "string" || !/^\/consignacion\/fotos\?ficha=\d+#\d+\.[a-f0-9]{64}$/.test(ruta)) {
+          throw new Error("No pudimos abrir las fotos. Vuelve a intentar.");
+        }
+        sessionStorage.removeItem("quiroz-solicitud-web");
+        window.location.assign(ruta);
+        return;
+      }
       setSent(true);
     } catch (error) {
       setError(error instanceof Error ? error.message : "Error al enviar. Intenta nuevamente.");
@@ -230,7 +247,7 @@ export default function FormularioVehiculosPage() {
               Ficha de vehículo
             </h1>
             <p className="text-lg md:text-xl text-[var(--color-ink-300)] leading-relaxed max-w-xl mx-auto">
-              Completa los datos y te contactaremos para coordinar la visita, fotos y publicación.
+              {form.tipoOperacion === "Consignación" ? "Completa los datos de tu vehículo y continúa con las 20 fotos guiadas." : "Completa los datos y te contactaremos para coordinar la visita."}
             </p>
           </div>
         </section>
@@ -577,7 +594,7 @@ export default function FormularioVehiculosPage() {
                         disabled={sending}
                         className="btn-base btn-primary w-full !py-3 disabled:opacity-50"
                       >
-                        {sending ? "Enviando..." : "Enviar ficha"}
+                        {sending ? "Guardando…" : form.tipoOperacion === "Consignación" ? "Guardar y continuar con las fotos" : "Enviar ficha"}
                       </button>
                     )}
                   </div>

@@ -248,11 +248,12 @@ ${vehicleTable}${closing}
   );
 }
 
-function buildCustomerHtml(tipo: FormTipo, data: FormData) {
+function buildCustomerHtml(tipo: FormTipo, data: FormData, fotosUrl?: string) {
   if (tipo === "formulario-consignacion") {
     return wrapEmail(
       "Contrato de consignación recibido",
       `<p style="margin:0 0 18px;font-size:14px;line-height:1.6;color:#3f3f46">Estimado(a) ${escapeHtml([data.Nombre, data.Apellido].filter(Boolean).join(" "))}, hemos recibido tu ficha de consignación. A continuación encontrarás el contrato generado con la información ingresada:</p>
+${fotosUrl ? `<p><a href="${escapeHtml(fotosUrl)}">Continuar con las fotos de mi vehículo</a></p>` : ""}
 ${buildConsignmentContractHtml(data)}
 <p style="margin:0;font-size:13px;line-height:1.6;color:#71717a">Este documento corresponde a la información enviada a través del formulario web. Nuestro equipo se comunicará contigo para coordinar los siguientes pasos.</p>`
     );
@@ -294,7 +295,7 @@ function createTransport() {
   throw new Error("SMTP no configurado. Define SMTP_HOST, SMTP_USER y SMTP_PASS.");
 }
 
-export async function sendEmail(tipo: FormTipo, data: FormData) {
+export async function sendEmail(tipo: FormTipo, data: FormData, fotosUrl?: string) {
   const transport = createTransport();
   const destination = DESTINOS[tipo];
   const customerEmail = data.Correo?.trim();
@@ -316,6 +317,6 @@ export async function sendEmail(tipo: FormTipo, data: FormData) {
     to: customerEmail,
     replyTo: destination,
     subject: `[Quiroz Automotriz] ${MENSAJES_CLIENTE[tipo].title}`,
-    html: buildCustomerHtml(tipo, data),
+    html: buildCustomerHtml(tipo, data, fotosUrl),
   });
 }

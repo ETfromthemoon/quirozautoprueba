@@ -1,6 +1,7 @@
 import { createHash } from "node:crypto";
 import { NextResponse } from "next/server";
 import { sendEmail, type FormTipo, type FormData } from "@/lib/email";
+import { crearConsignacion } from "@/lib/consignaciones";
 import { saveLead } from "@/lib/airtable";
 
 const RATE_WINDOW = 60_000;
@@ -157,11 +158,30 @@ export async function POST(req: Request) {
     if (recentSubmissions.size >= 5_000 && !recentSubmissions.has(fingerprint)) {
       return NextResponse.json({ error: "Demasiadas solicitudes. Intenta más tarde." }, { status: 429 });
     }
-    if (recentSubmissions.has(fingerprint)) {
+    const web = tipo === "formulario-consignacion" && isObject(body) && body.solicitud !== undefined;
+    if (!web && recentSubmissions.has(fingerprint)) {
       return NextResponse.json({ error: "Esta solicitud ya fue enviada. Espera unos minutos antes de repetirla." }, { status: 429 });
     }
     if (!sendLimit()) {
       return NextResponse.json({ error: "Demasiadas solicitudes. Intenta de nuevo en un minuto." }, { status: 429 });
+    }
+    if (web && isObject(body)) {
+      if (typeof body.solicitud !== "string" || !/^[a-f0-9-]{36}$/.test(body.solicitud)) {
+        return NextResponse.json({ error: "Solicitud inválida." }, { status: 400 });
+      }
+      const key = createHash("sha256").update(body.solicitud + fingerprint).digest("hex");
+      try {
+        const ficha = await crearConsignacion(key, datos, body.spam);
+        if (ficha.nueva) {
+          const registro = { ...datos, Consignación: String(ficha.id) };
+          const resume = new URL(ficha.ruta, process.env.NEXT_PUBLIC_SITE_URL || "https://www.quirozautomotriz.cl").href;
+          const results = await Promise.allSettled([saveLead(tipo, registro), sendEmail(tipo, registro, resume)]);
+          if (results.some(result => result.status === "rejected")) console.error("[consignacion] Notificación pendiente", ficha.id);
+        }
+        return NextResponse.json({ ok: true, ruta: ficha.ruta }, { headers: { "Cache-Control": "no-store" } });
+      } catch {
+        return NextResponse.json({ error: "No pudimos guardar la ficha. Vuelve a intentar con los mismos datos." }, { status: 503 });
+      }
     }
     recentSubmissions.set(fingerprint, now + DUPLICATE_WINDOW);
     try {
