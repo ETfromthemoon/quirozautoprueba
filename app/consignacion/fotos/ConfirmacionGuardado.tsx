@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import Link from "next/link";
 import GuardarEnlace from "./GuardarEnlace";
 
 export default function ConfirmacionGuardado({ ficha }: { ficha: string }) {
@@ -30,11 +31,18 @@ export default function ConfirmacionGuardado({ ficha }: { ficha: string }) {
             <a href={ruta} className="btn-base btn-primary mt-5">Agregar fotos</a>
           </>
         ) : <p role="status">{vigente === false ? "El enlace está incompleto o vencido. Pide a Quiroz un enlace vigente para tu ficha." : "Abriendo tu ficha…"}</p>}
+        <Link href="/" className="mt-3 flex min-h-11 w-fit items-center text-sm underline">Volver al inicio de Quiroz</Link>
       </section>
       <dialog ref={dialogo} aria-labelledby="guardada-titulo" aria-describedby="guardada-opciones"
         onClose={() => titulo.current?.focus()}
         className="fixed inset-0 m-auto max-h-[90dvh] w-[calc(100%-2rem)] max-w-lg overflow-y-auto rounded-3xl border border-white/20 bg-zinc-900 p-5 text-left text-white shadow-2xl backdrop:bg-black/75 sm:p-8">
-        <p className="mb-2 text-sm text-zinc-300">Ficha #{ficha}</p>
+        <div className="mb-2 flex items-center justify-between gap-3">
+          <p className="text-sm text-zinc-300">Ficha #{ficha}</p>
+          <button type="button" onClick={() => dialogo.current?.close()}
+            className="inline-flex min-h-11 items-center gap-2 rounded-lg px-3 text-sm hover:bg-white/10">
+            Cerrar <span aria-hidden="true" className="text-xl">×</span>
+          </button>
+        </div>
         <h2 id="guardada-titulo" className="text-2xl font-semibold">Los datos de tu consignación ya están guardados</h2>
         <p id="guardada-opciones" className="my-4 text-zinc-200">¿Quieres tomar las fotos ahora o continuar después? Guarda el enlace si vas a volver más tarde o a enviárselo al cliente.</p>
         <div className="grid gap-2 sm:grid-cols-2">
@@ -42,6 +50,7 @@ export default function ConfirmacionGuardado({ ficha }: { ficha: string }) {
           <button type="button" className="btn-base btn-silver !whitespace-normal" onClick={() => dialogo.current?.close()}>Omitir fotos por ahora</button>
         </div>
         <GuardarEnlace ficha={ficha} />
+        <Link href="/" className="mt-2 flex min-h-11 w-fit items-center text-sm underline">Volver al inicio de Quiroz</Link>
       </dialog>
     </main>
   );
