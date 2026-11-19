@@ -20,6 +20,7 @@ add_action('manage_' . QZ_CONSIGNACIONES_POST_TYPE . '_posts_custom_column', fun
 	if ($column !== 'qz_revision') return;
 	if (get_post_meta($id, '_qz_visible', true)) $estado = 'Publicación confirmada';
 	elseif (get_post_meta($id, '_qz_aprobacion', true)) $estado = 'En inventario';
+	elseif ($dictamen = qz_dictamen_actual($id)) $estado = ucfirst($dictamen['estado']);
 	elseif (get_post_meta($id, '_qz_revision', true)) $estado = 'Pendiente de aprobación';
 	elseif (get_post_field('post_author', $id)) $estado = 'Pendiente de revisión';
 	else $estado = 'Por asignar';
@@ -59,7 +60,7 @@ function qz_revision_campos($id) {
 }
 
 function qz_revision_form($id, $operacion) {
-	echo '<form method="post" action="' . esc_url(admin_url('admin-post.php')) . '">';
+	echo '<form method="post"' . ($operacion === 'corregir_foto' ? ' enctype="multipart/form-data"' : '') . ' action="' . esc_url(admin_url('admin-post.php')) . '">';
 	wp_nonce_field('qz_inventario_' . $id);
 	foreach (array('action'=>'qz_inventario','id'=>$id,'operacion'=>$operacion) as $name=>$value) {
 		echo '<input type="hidden" name="' . esc_attr($name) . '" value="' . esc_attr($value) . '">';
@@ -72,10 +73,20 @@ function qz_revision_pantalla() {
 	$asignado = (int)get_post_field('post_author', $id);
 	$responsable = get_userdata($asignado);
 	$revision = get_post_meta($id, '_qz_revision', true);
+	$dictamen = qz_dictamen_actual($id);
 	$producto = (int)get_post_meta($id, '_qz_producto', true);
 	$aprobada = (bool)get_post_meta($id, '_qz_aprobacion', true);
 	echo '<div class="wrap"><h1>Revisión comercial · Ficha #' . $id . '</h1><p>' . esc_html(get_the_title($id)) . '</p>';
 	echo '<p>Responsable: ' . esc_html($responsable ? $responsable->display_name : 'Sin asignar') . '</p>';
+	if ($dictamen) {
+		echo '<div class="notice notice-warning inline"><p><strong>' . esc_html(ucfirst($dictamen['estado'])) . '</strong> · ' . esc_html(wp_date('d/m/Y H:i', $dictamen['fecha'])) . '</p><p>' . nl2br(esc_html($dictamen['motivo'])) . '</p></div>';
+	}
+	$historial = get_post_meta($id, '_qz_historial_dictamen');
+	if ($historial) {
+		echo '<details><summary>Decisiones anteriores</summary><ul>';
+		foreach ($historial as $evento) echo '<li>' . esc_html(wp_date('d/m/Y H:i', $evento['fecha']) . ' · ' . ucfirst($evento['estado']) . ' · ' . $evento['motivo']) . '</li>';
+		echo '</ul></details>';
+	}
 	if ($aprobada) {
 		$aprobacion = get_post_meta($id, '_qz_aprobacion', true);
 		$admin = get_userdata($aprobacion['usuario']);
@@ -110,17 +121,30 @@ function qz_revision_pantalla() {
 			echo '<p>' . count($fotos['guardadas']) . ' de 20 fotos cargadas. La revisión se habilita al finalizar el envío.</p>';
 		}
 		if ($fotos['enviadas'] && $asignado === get_current_user_id() && in_array('consignador', wp_get_current_user()->roles, true)) {
+			if ($dictamen) {
+				echo '<p><a href="' . esc_url(get_edit_post_link($id, 'raw')) . '">Corregir datos de la ficha</a></p>';
+				qz_revision_form($id, 'corregir_foto');
+				echo '<input type="hidden" name="anterior" value="' . esc_attr($dictamen['token']) . '">';
+				echo '<p><label>Toma a reemplazar <input required name="toma" type="number" min="1" max="20"></label> <label>Foto corregida (JPEG) <input required type="file" name="foto" accept="image/jpeg"></label></p>';
+				submit_button('Guardar foto corregida', 'secondary'); echo '</form>';
+			}
 			qz_revision_form($id, 'revisar');
+			echo '<input type="hidden" name="anterior" value="' . esc_attr($dictamen['token'] ?? ($revision['token'] ?? '')) . '">';
 			echo '<p><label>Precio público (CLP) <input required type="number" name="precio" min="1" max="999999999999" value="' . esc_attr($revision['precio'] ?? '') . '"></label></p>';
 			echo '<p><label>Foto de portada <input required type="number" name="portada" min="1" max="20" value="' . intval($revision['portada'] ?? 1) . '"></label></p>';
-			submit_button('Confirmar revisión y proponer precio'); echo '</form>';
+			submit_button($dictamen ? 'Reenviar para aprobación' : 'Confirmar revisión y proponer precio'); echo '</form>';
 		}
 		if ($revision) {
 			echo '<p>Revisión registrada · Precio público $' . esc_html(number_format_i18n($revision['precio'], 0)) . ' CLP · Portada: foto ' . intval($revision['portada']) . '</p>';
-			if (qz_revision_admin()) {
+			if (qz_revision_admin() && !$dictamen) {
 				qz_revision_form($id, 'aprobar');
 				echo '<input type="hidden" name="revision" value="' . esc_attr($revision['token']) . '">';
 				submit_button('Aprobar y publicar en inventario'); echo '</form>';
+				echo '<form method="post" action="' . esc_url(admin_url('admin-post.php')) . '">';
+				wp_nonce_field('qz_inventario_' . $id);
+				echo '<input type="hidden" name="action" value="qz_inventario"><input type="hidden" name="id" value="' . $id . '"><input type="hidden" name="revision" value="' . esc_attr($revision['token']) . '">';
+				echo '<p><label>Motivo para el consignador<br><textarea class="large-text" required maxlength="1500" name="motivo" rows="3"></textarea></label></p>';
+				echo '<button class="button" name="operacion" value="devolver">Devolver para corrección</button> <button class="button" name="operacion" value="rechazar">Rechazar ficha</button></form>';
 			}
 		}
 	}
@@ -135,13 +159,15 @@ function qz_revision_accion() {
 	check_admin_referer('qz_inventario_' . $id);
 	$op = sanitize_key($_POST['operacion'] ?? '');
 	$admin = qz_revision_admin();
-	if ($op !== 'revisar' && !$admin) wp_die('Solo administración puede realizar esta acción.', '', array('response'=>403));
+	if (!in_array($op, array('revisar','corregir_foto'), true) && !$admin) wp_die('Solo administración puede realizar esta acción.', '', array('response'=>403));
 	$key = 'qz_rev_' . md5(DB_NAME . '/' . $wpdb->prefix . '/' . $id);
 	if ((string)$wpdb->get_var($wpdb->prepare('SELECT GET_LOCK(%s,0)', $key)) !== '1') wp_die('La ficha se está procesando. Reintenta en un momento.', '', array('response'=>409));
 	$error = null;
 	try {
 		clean_post_cache($id);
 		$responsable = (int)get_post_field('post_author', $id);
+		$dictamen = qz_dictamen_actual($id);
+		$anterior = get_post_meta($id, '_qz_revision', true);
 		if (get_post_meta($id, '_qz_aprobacion', true)) {
 			if ($op === 'comprobar') qz_inventario_comprobar($id);
 			elseif ($op !== 'aprobar') throw new RuntimeException('Esta ficha ya fue aprobada.');
@@ -149,20 +175,34 @@ function qz_revision_accion() {
 			$user = get_userdata(absint($_POST['responsable'] ?? 0));
 			if (!$user || !in_array('consignador', $user->roles, true)) throw new RuntimeException('Selecciona un consignador activo.');
 			if ($responsable !== $user->ID) {
+				if ($dictamen) {
+					$dictamen['token'] = wp_generate_uuid4();
+					if (!update_post_meta($id, '_qz_' . $dictamen['estado'], wp_slash($dictamen))) throw new RuntimeException('No se pudo renovar la corrección.');
+				}
 				add_post_meta($id, '_qz_consignador_user_id', $responsable, true);
 				$saved = wp_update_post(array('ID'=>$id,'post_author'=>$user->ID,'post_status'=>'pending'), true);
 				if (is_wp_error($saved)) throw new RuntimeException('No se pudo asignar la ficha.');
 				delete_post_meta($id, '_qz_revision');
 			}
-		} elseif ($op === 'revisar') {
+		} elseif (in_array($op, array('devolver','rechazar'), true)) {
+			qz_registrar_dictamen($id, $op, $anterior, $dictamen);
+		} elseif (in_array($op, array('revisar','corregir_foto'), true)) {
 			if (!$responsable || $responsable !== get_current_user_id() || !in_array('consignador', wp_get_current_user()->roles, true)) throw new RuntimeException('Solo el consignador asignado puede confirmar la revisión.');
-			$precio = (string)($_POST['precio'] ?? '');
-			$portada = filter_var($_POST['portada'] ?? 0, FILTER_VALIDATE_INT);
-			if (!preg_match('/^[1-9][0-9]{0,11}$/D', $precio) || !$portada || $portada < 1 || $portada > 20) throw new RuntimeException('Revisa el precio en pesos y el número de portada.');
-			if (!qz_fotos_estado($id)['enviadas']) throw new RuntimeException('Falta el envío final de las 20 fotos.');
-			$revision = array('token'=>wp_generate_uuid4(),'usuario'=>$responsable,'fecha'=>time(),'precio'=>$precio,'portada'=>$portada,'datos'=>qz_revision_campos($id));
-			if (!update_post_meta($id, '_qz_revision', wp_slash($revision))) throw new RuntimeException('No se pudo registrar la revisión.');
+			$esperado = $dictamen['token'] ?? ($anterior['token'] ?? '');
+			if (!hash_equals($esperado, sanitize_text_field($_POST['anterior'] ?? ''))) throw new RuntimeException('La ficha cambió. Recárgala para continuar.');
+			if ($op === 'corregir_foto') {
+				if (!$dictamen) throw new RuntimeException('Las fotos solo se corrigen en fichas devueltas o rechazadas.');
+				qz_corregir_foto($id, $dictamen);
+			} else {
+				$precio = (string)($_POST['precio'] ?? '');
+				$portada = filter_var($_POST['portada'] ?? 0, FILTER_VALIDATE_INT);
+				if (!preg_match('/^[1-9][0-9]{0,11}$/D', $precio) || !$portada || $portada < 1 || $portada > 20) throw new RuntimeException('Revisa el precio en pesos y el número de portada.');
+				if (!qz_fotos_estado($id)['enviadas']) throw new RuntimeException('Falta el envío final de las 20 fotos.');
+				$revision = array('token'=>wp_generate_uuid4(),'usuario'=>$responsable,'fecha'=>time(),'precio'=>$precio,'portada'=>$portada,'datos'=>qz_revision_campos($id));
+				qz_guardar_reenvio($id, $revision, $dictamen);
+			}
 		} elseif ($op === 'aprobar') {
+			if ($dictamen) throw new RuntimeException('El consignador debe corregir y reenviar la ficha antes de aprobarla.');
 			qz_inventario_publicar($id, $responsable, sanitize_text_field($_POST['revision'] ?? ''));
 		} else {
 			throw new RuntimeException('Operación desconocida.');
@@ -189,11 +229,13 @@ function qz_inventario_url($producto) {
 function qz_inventario_imagen($id, $producto, $toma) {
 	global $wpdb;
 	$nombre = 'vehiculo-' . $producto . '-foto-' . $toma;
-	$existente = get_posts(array('post_parent'=>$producto,'post_type'=>'attachment','post_status'=>'inherit','name'=>$nombre,'fields'=>'ids','numberposts'=>1));
-	if ($existente) return (int)$existente[0];
 	$jpeg = $wpdb->get_var($wpdb->prepare('SELECT jpeg FROM ' . qz_fotos_tabla() . ' WHERE ficha=%d AND toma=%d AND enviada=1', $id, $toma));
 	$bytes = $jpeg ? base64_decode($jpeg, true) : false;
 	if (!$bytes) throw new RuntimeException('No se pudo recuperar la foto ' . $toma . '.');
+	// A failed publication may have staged the previous version of this angle.
+	$nombre .= '-' . substr(hash('sha256', $bytes), 0, 16);
+	$existente = get_posts(array('post_parent'=>$producto,'post_type'=>'attachment','post_status'=>'inherit','name'=>$nombre,'fields'=>'ids','numberposts'=>1));
+	if ($existente) return (int)$existente[0];
 	$archivo = wp_upload_bits($nombre . '.jpg', null, $bytes);
 	if ($archivo['error']) throw new RuntimeException('No se pudo guardar la foto ' . $toma . ' en Medios.');
 	$adjunto = wp_insert_attachment(array('post_title'=>$nombre,'post_name'=>$nombre,'post_mime_type'=>'image/jpeg','post_status'=>'inherit'), $archivo['file'], $producto, true);
@@ -230,6 +272,14 @@ function qz_inventario_publicar($id, $responsable, $token) {
 	$wc = new WC_Product_Simple($producto);
 	$imagenes = array();
 	foreach (range(1,20) as $n) $imagenes[$n] = qz_inventario_imagen($id, $producto, $n);
+	// Discard superseded imports from this workflow before making the draft public.
+	if (get_post_status($producto) === 'draft') {
+		$adjuntos = get_posts(array('post_parent'=>$producto,'post_type'=>'attachment','post_status'=>'inherit','posts_per_page'=>-1));
+		foreach ($adjuntos as $adjunto) {
+			if (!in_array($adjunto->ID, $imagenes, true) && preg_match('/^vehiculo-' . $producto . '-foto-(?:[1-9]|1[0-9]|20)(?:-[a-f0-9]{16})?$/D', $adjunto->post_name)
+				&& !wp_delete_attachment($adjunto->ID, true)) throw new RuntimeException('No se pudo retirar una toma anterior del borrador.');
+		}
+	}
 	$wc->set_image_id($imagenes[$r['portada']]);
 	unset($imagenes[$r['portada']]);
 	$wc->set_gallery_image_ids(array_values($imagenes));

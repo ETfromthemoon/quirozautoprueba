@@ -46,3 +46,9 @@ Las lecturas y subidas de fotos pasan por el endpoint del frontend `/api/consign
 3. El administrador comprueba el precio y la portada y pulsa **Aprobar y publicar en inventario**. Si cambia la revisión, tendrá que volver a abrirla. La misma aprobación se puede reintentar tras una interrupción.
 4. WooCommerce recibe un producto con precio público, portada, 19 fotos de galería y los campos comerciales del vehículo. El valor piso y los datos personales quedan en la ficha privada. Los cambios comerciales posteriores a la publicación se gestionan en el producto.
 5. La ficha conserva el responsable, la revisión, la aprobación y el vínculo al producto. WP-Cron comprueba la aparición en el catálogo y la página del vehículo después de la renovación de la caché. El administrador también puede pulsar **Comprobar publicación**. En pruebas aisladas, la constante de WordPress `QZ_INVENTARIO_WEB` permite apuntar esta comprobación al frontend local.
+
+## Bandeja y correcciones (1.4.0)
+
+En **Consignaciones**, selecciona **Estado comercial** y pulsa **Filtrar**. **Pendientes** incluye las fichas por revisar y las que esperan decisión. **Aprobadas** incluye las aprobaciones anteriores y los vehículos que esperan confirmación de visibilidad. **Devueltas** y **Rechazadas** muestran la última decisión vigente. Cada consignador ve únicamente sus fichas.
+
+Al revisar una propuesta, el administrador puede **Devolver para corrección** o **Rechazar ficha** indicando el motivo. El consignador asignado abre la revisión comercial, lee el motivo y puede corregir datos del vehículo, reemplazar una toma JPEG, cambiar la portada o ajustar el precio. **Reenviar para aprobación** devuelve la ficha a pendientes y conserva el motivo en **Decisiones anteriores**. Se requiere una nueva aprobación para publicarla.
