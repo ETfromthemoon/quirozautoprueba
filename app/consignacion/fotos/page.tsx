@@ -1,18 +1,20 @@
 import type { Metadata } from "next";
 import Script from "next/script";
 import { cms } from "@/lib/consignaciones";
+import ConfirmacionGuardado from "./ConfirmacionGuardado";
 import GuardarEnlace from "./GuardarEnlace";
 import Logo from "@/components/Logo";
 import styles from "./captura.module.css";
 
 export const metadata: Metadata = { title: "Fotos de tu vehículo", robots: { index: false, follow: false }, referrer: "no-referrer" };
 
-export default async function Fotos({ searchParams }: { searchParams: Promise<{ ficha?: string }> }) {
-  const { ficha } = await searchParams;
+export default async function Fotos({ searchParams }: { searchParams: Promise<{ ficha?: string; guardada?: string }> }) {
+  const { ficha, guardada } = await searchParams;
   const assets = new URL("/wp-content/plugins/quiroz-consignaciones/", cms).href;
   if (!ficha || !/^\d{1,12}$/.test(ficha)) {
     return <main className="p-8"><h1>Fotos de tu vehículo</h1><p>Abre el enlace de tu ficha para retomar las fotos.</p><a href="/formulario-vehiculos">Iniciar una consignación</a></main>;
   }
+  if (guardada === "1") return <ConfirmacionGuardado ficha={ficha} />;
   return (
     <main id="captura" data-api="/api/consignacion/fotos" data-ficha={ficha} data-ref={assets + "referencias/"}
       className={styles.screen}>

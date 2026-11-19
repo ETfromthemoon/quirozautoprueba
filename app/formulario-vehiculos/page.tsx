@@ -212,7 +212,7 @@ export default function FormularioVehiculosPage() {
           throw new Error("No pudimos abrir las fotos. Vuelve a intentar.");
         }
         sessionStorage.removeItem("quiroz-solicitud-web");
-        window.location.assign(ruta);
+        window.location.assign(ruta.replace("#", "&guardada=1#"));
         return;
       }
       setSent(true);
@@ -247,7 +247,7 @@ export default function FormularioVehiculosPage() {
               Ficha de vehículo
             </h1>
             <p className="text-lg md:text-xl text-[var(--color-ink-300)] leading-relaxed max-w-xl mx-auto">
-              {form.tipoOperacion === "Consignación" ? "Completa los datos de tu vehículo y continúa con las 20 fotos guiadas." : "Completa los datos y te contactaremos para coordinar la visita."}
+              {form.tipoOperacion === "Consignación" ? "Guarda los datos de tu vehículo. Puedes agregar las 20 fotos ahora o más adelante." : "Completa los datos y te contactaremos para coordinar la visita."}
             </p>
           </div>
         </section>
@@ -594,7 +594,7 @@ export default function FormularioVehiculosPage() {
                         disabled={sending}
                         className="btn-base btn-primary w-full !py-3 disabled:opacity-50"
                       >
-                        {sending ? "Guardando…" : form.tipoOperacion === "Consignación" ? "Guardar y continuar con las fotos" : "Enviar ficha"}
+                        {sending ? "Guardando…" : form.tipoOperacion === "Consignación" ? "Guardar consignación" : "Enviar ficha"}
                       </button>
                     )}
                   </div>
