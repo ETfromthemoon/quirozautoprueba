@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import Script from "next/script";
 import { cms } from "@/lib/consignaciones";
 import GuardarEnlace from "./GuardarEnlace";
+import Logo from "@/components/Logo";
+import styles from "./captura.module.css";
 
 export const metadata: Metadata = { title: "Fotos de tu vehículo", robots: { index: false, follow: false }, referrer: "no-referrer" };
 
@@ -13,22 +15,27 @@ export default async function Fotos({ searchParams }: { searchParams: Promise<{ 
   }
   return (
     <main id="captura" data-api="/api/consignacion/fotos" data-ficha={ficha} data-ref={assets + "referencias/"}
-      className="mx-auto min-h-screen max-w-2xl px-5 py-8 text-white [&_button]:min-h-12 [&_button]:cursor-pointer [&_button]:rounded-lg [&_button]:border [&_button]:border-white/30 [&_button]:px-4 [&_button]:py-2 [&_button:disabled]:opacity-50 [&_figure]:my-5 [&_figcaption]:mt-1 [&_img]:max-h-[42vh] [&_img]:w-full [&_img]:rounded-lg [&_img]:object-contain">
-      <header className="border-b border-white/20 pb-3">Quiroz Automotriz · Ficha #{ficha}</header>
-      <h1 className="mt-6 text-3xl font-semibold">Fotos de tu vehículo</h1>
-      <p id="estado" role="status" aria-live="polite" className="my-4 rounded-lg bg-white/10 p-3">Cargando tu consignación…</p>
-      <GuardarEnlace key={ficha} ficha={ficha} />
-      <section id="paso" hidden>
-        <label htmlFor="indice">Toma </label><select id="indice" className="rounded-md bg-zinc-800 p-2" />
-        <h2 id="titulo" className="mt-5 text-2xl font-semibold" /><p id="guia" className="mt-2" />
-        <figure><img id="ejemplo" alt="" /><figcaption>Foto de referencia</figcaption></figure>
-        <figure id="vista" hidden><img id="preview" alt="Tu fotografía" /><figcaption>Tu fotografía</figcaption></figure>
-        <div className="flex flex-wrap gap-2"><button id="camara" className="bg-red-800">Tomar foto</button><button id="galeria">Elegir de la galería</button></div>
-        <input hidden id="archivoCamara" type="file" accept="image/*" capture="environment" />
-        <input hidden id="archivoGaleria" type="file" accept="image/*" />
-        <button id="siguiente" hidden>Siguiente toma</button>
-      </section>
-      <button id="reintentar" hidden>Reintentar</button><button id="enviar" className="mt-3 bg-red-800" hidden>Finalizar consignación</button>
+      className={styles.screen}>
+      <div className="mx-auto max-w-2xl">
+        <header className="flex flex-wrap items-center justify-between gap-3 border-b border-white/15 pb-3">
+          <Logo variant="horizontal" className="h-12 w-auto max-w-full" />
+          <span className="text-sm tabular-nums text-zinc-300">Ficha #{ficha}</span>
+        </header>
+        <h1 className={styles.title}>Fotos de tu vehículo</h1>
+        <p id="estado" role="status" aria-live="polite" className={styles.status}>Cargando tu consignación…</p>
+        <section id="paso" className={styles.panel} hidden>
+          <label htmlFor="indice" className="mr-2 font-semibold">Toma</label><select id="indice" className="min-h-11 max-w-full rounded-lg border border-white/20 bg-zinc-900 px-3" />
+          <h2 id="titulo" className="mt-4 text-2xl font-semibold" /><p id="guia" className="mt-1 text-zinc-300" />
+          <figure><img id="ejemplo" alt="" /><figcaption>Foto de referencia</figcaption></figure>
+          <figure id="vista" hidden><img id="preview" alt="Tu fotografía" /><figcaption>Tu fotografía</figcaption></figure>
+          <div className="flex flex-wrap gap-2"><button id="camara" className="btn-base btn-primary">Tomar foto</button><button id="galeria" className="btn-base btn-silver">Elegir de la galería</button></div>
+          <input hidden id="archivoCamara" type="file" accept="image/*" capture="environment" />
+          <input hidden id="archivoGaleria" type="file" accept="image/*" />
+          <button id="siguiente" className="btn-base btn-silver mt-3" hidden>Siguiente toma</button>
+        </section>
+        <button id="reintentar" className="btn-base btn-silver mt-3" hidden>Reintentar</button><button id="enviar" className="btn-base btn-primary mt-3" hidden>Finalizar consignación</button>
+        <GuardarEnlace key={ficha} ficha={ficha} />
+      </div>
       <Script src={assets + "captura.js?v=1.2.0"} strategy="afterInteractive" />
     </main>
   );

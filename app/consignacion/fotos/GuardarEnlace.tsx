@@ -29,9 +29,9 @@ export default function GuardarEnlace({ ficha }: { ficha: string }) {
 
   const contenido = `Quiroz Automotriz · Fotos de la ficha #${ficha}\n\n${enlace}\n\nVigente hasta el ${vigencia}.\n`;
   return (
-    <aside aria-label="Guardar enlace" className="mb-6 text-left">
+    <aside aria-label="Guardar enlace" className="mt-5 rounded-xl border border-white/15 bg-white/5 p-4 text-left">
       <div className="flex flex-wrap items-center gap-x-4 gap-y-1">
-        <button type="button" onClick={copiar}>Copiar enlace para continuar después</button>
+        <button type="button" className="btn-base btn-silver" onClick={copiar}>Copiar enlace para continuar después</button>
         <a className="inline-flex min-h-12 items-center underline" download={`quiroz-fotos-${ficha}.txt`}
           href={`data:text/plain;charset=utf-8,${encodeURIComponent(contenido)}`}>Descargar enlace</a>
       </div>
