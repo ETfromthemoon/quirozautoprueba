@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 
-export default function GuardarEnlace({ ficha }: { ficha: string }) {
+export default function GuardarEnlace({ ficha, compacto = false }: { ficha: string; compacto?: boolean }) {
   const [enlace, setEnlace] = useState("");
   const [vigencia, setVigencia] = useState("");
   const [mensaje, setMensaje] = useState("");
@@ -37,14 +37,15 @@ export default function GuardarEnlace({ ficha }: { ficha: string }) {
   }
 
   const contenido = `Quiroz Automotriz · Fotos de la ficha #${ficha}\n\n${enlace}\n\nVigente hasta el ${vigencia}.\n`;
+  const boton = compacto ? "min-h-11 text-sm font-medium underline underline-offset-4" : "btn-base btn-silver !whitespace-normal";
   return (
-    <aside aria-label="Guardar enlace" className="mt-5 rounded-xl border border-white/15 bg-white/5 p-4 text-left">
+    <aside aria-label="Guardar enlace" className={compacto ? "pb-4 text-left" : "mt-5 rounded-xl border border-white/15 bg-white/5 p-4 text-left"}>
       <div className="flex flex-wrap items-center gap-x-4 gap-y-1">
-        <button type="button" className="btn-base btn-silver !whitespace-normal" onClick={copiar}>Copiar enlace para continuar después</button>
+        <button type="button" className={boton} onClick={copiar}>{compacto ? "Copiar enlace" : "Copiar enlace para continuar después"}</button>
         {typeof navigator.share === "function" && (
-          <button type="button" className="btn-base btn-silver" onClick={compartir}>Compartir enlace</button>
+          <button type="button" className={boton} onClick={compartir}>Compartir enlace</button>
         )}
-        <a className="inline-flex min-h-12 items-center underline" download={`quiroz-fotos-${ficha}.txt`}
+        <a className={compacto ? boton + " inline-flex items-center" : "inline-flex min-h-12 items-center underline"} download={`quiroz-fotos-${ficha}.txt`}
           href={`data:text/plain;charset=utf-8,${encodeURIComponent(contenido)}`}>Descargar enlace</a>
       </div>
       <p className="mt-1 text-sm text-zinc-300">Tu enlace privado vence el {vigencia}.</p>
